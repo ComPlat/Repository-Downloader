@@ -15,5 +15,7 @@ AllCops:
 
 Rails:
   Enabled: true
+  Exclude:
+    - bin/bundle
 RSpec:
   Enabled: true

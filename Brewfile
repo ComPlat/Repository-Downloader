@@ -1,2 +1,2 @@
-brew 'asdf'
-cask 'docker'
+brew "asdf"
+cask "docker"
