@@ -198,19 +198,19 @@ PLATFORMS
   x86_64-darwin-21
 
 DEPENDENCIES
-  bootsnap
-  capybara
-  cssbundling-rails
-  debug
-  jsbundling-rails
-  pg (~> 1.1)
-  puma (~> 5.0)
-  rails (~> 7.0.4)
-  selenium-webdriver
-  sprockets-rails
-  tzinfo-data
-  web-console
-  webdrivers
+  bootsnap (= 1.13.0)
+  capybara (= 3.37.1)
+  cssbundling-rails (= 1.1.1)
+  debug (= 1.6.2)
+  jsbundling-rails (= 1.0.3)
+  pg (= 1.4.4)
+  puma (= 5.6.5)
+  rails (= 7.0.4)
+  selenium-webdriver (= 4.5.0)
+  sprockets-rails (= 3.4.2)
+  tzinfo-data (= 1.2022.5)
+  web-console (= 4.2.0)
+  webdrivers (= 5.2.0)
 
 RUBY VERSION
    ruby 3.1.2p20
