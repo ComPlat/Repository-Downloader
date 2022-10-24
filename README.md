@@ -13,9 +13,10 @@
 5. `asdf reshim`
 6. `gem update --system`
 7. `asdf reshim`
-
-### Testing
+###### Testing
 1. `bin/rake`
-
-### Starting
+###### Starting
 1. `bin/dev`
+##### Containerized
+###### Testing
+1. `./run_ci_tests.sh`
