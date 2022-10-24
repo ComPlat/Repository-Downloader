@@ -8,8 +8,4 @@ RUN apk upgrade
 RUN apk add tzdata icu-data-full nodejs yarn build-base postgresql13-dev
 WORKDIR /repository-downloader
 COPY . /repository-downloader
-RUN gem update --system  # update gem, bundle, bundler, etc. to newest version available
-RUN bundle install
-RUN yarn install
-# RUN bin/rake
 # CMD ["rails", "server", "-b", "0.0.0.0"]
