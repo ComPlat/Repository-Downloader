@@ -13,3 +13,9 @@
 5. `asdf reshim`
 6. `gem update --system`
 7. `asdf reshim`
+
+### Testing
+1. `bin/rake`
+
+### Starting
+1. `bin/dev`
