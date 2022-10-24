@@ -11,3 +11,5 @@
 3. `asdf plugin add yarn`
 4. `asdf install`
 5. `asdf reshim`
+6. `gem update --system`
+7. `asdf reshim`
