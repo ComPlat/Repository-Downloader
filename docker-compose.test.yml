@@ -1,0 +1,18 @@
+version: "1"
+services:
+  db:
+    image: postgres:13.8-alpine3.16
+    environment:
+      - POSTGRES_PASSWORD=postgres
+  web:
+    environment:
+      - RAILS_ENV=test
+      - RAILS_DB_HOST=db
+      - RAILS_DB_USERNAME=postgres
+      - RAILS_DB_PASSWORD=postgres
+    build: .
+    command: sh -c "gem update --system && bundle install && ./bin/rails db:reset && ./bin/rake"
+    depends_on:
+      - db
+    links:
+      - db

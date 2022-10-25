@@ -51,6 +51,7 @@
     <orderEntry type="library" scope="PROVIDED" name="crass (v1.0.6, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="cssbundling-rails (v1.1.1, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="debug (v1.6.2, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="diff-lcs (v1.5.0, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="erubi (v1.11.0, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="globalid (v1.0.0, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="i18n (v1.12.0, asdf: 3.1.2) [gem]" level="application" />
@@ -89,6 +90,11 @@
     <orderEntry type="library" scope="PROVIDED" name="regexp_parser (v2.6.0, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="reline (v0.3.1, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rexml (v3.2.5, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec-core (v3.11.0, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec-expectations (v3.11.1, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec-mocks (v3.11.1, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec-rails (v6.0.1, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec-support (v3.11.1, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop (v1.35.1, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop-ast (v1.23.0, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop-performance (v1.14.3, asdf: 3.1.2) [gem]" level="application" />
@@ -120,6 +126,8 @@
     <option name="generators">
       <list>
         <option value="active_record:application_record" />
+        <option value="active_record:migration" />
+        <option value="active_record:model" />
         <option value="active_record:multi_db" />
         <option value="application_record" />
         <option value="benchmark" />
@@ -134,20 +142,32 @@
         <option value="migration" />
         <option value="model" />
         <option value="resource" />
+        <option value="rspec:channel" />
+        <option value="rspec:controller" />
+        <option value="rspec:feature" />
+        <option value="rspec:generator" />
+        <option value="rspec:helper" />
+        <option value="rspec:install" />
+        <option value="rspec:integration" />
+        <option value="rspec:job" />
+        <option value="rspec:mailbox" />
+        <option value="rspec:mailer" />
+        <option value="rspec:model" />
+        <option value="rspec:request" />
+        <option value="rspec:scaffold" />
+        <option value="rspec:system" />
+        <option value="rspec:view" />
         <option value="scaffold" />
         <option value="scaffold_controller" />
         <option value="system_test" />
         <option value="task" />
-        <option value="test_unit:channel" />
-        <option value="test_unit:generator" />
-        <option value="test_unit:install" />
-        <option value="test_unit:mailbox" />
-        <option value="test_unit:plugin" />
       </list>
     </option>
     <option name="myGenerators">
       <list>
         <option value="active_record:application_record" />
+        <option value="active_record:migration" />
+        <option value="active_record:model" />
         <option value="active_record:multi_db" />
         <option value="application_record" />
         <option value="benchmark" />
@@ -162,15 +182,25 @@
         <option value="migration" />
         <option value="model" />
         <option value="resource" />
+        <option value="rspec:channel" />
+        <option value="rspec:controller" />
+        <option value="rspec:feature" />
+        <option value="rspec:generator" />
+        <option value="rspec:helper" />
+        <option value="rspec:install" />
+        <option value="rspec:integration" />
+        <option value="rspec:job" />
+        <option value="rspec:mailbox" />
+        <option value="rspec:mailer" />
+        <option value="rspec:model" />
+        <option value="rspec:request" />
+        <option value="rspec:scaffold" />
+        <option value="rspec:system" />
+        <option value="rspec:view" />
         <option value="scaffold" />
         <option value="scaffold_controller" />
         <option value="system_test" />
         <option value="task" />
-        <option value="test_unit:channel" />
-        <option value="test_unit:generator" />
-        <option value="test_unit:install" />
-        <option value="test_unit:mailbox" />
-        <option value="test_unit:plugin" />
       </list>
     </option>
   </component>
@@ -350,6 +380,7 @@
           <RakeTaskImpl description="Prints out your Rack middleware stack" fullCommand="middleware" id="middleware" />
           <RakeTaskImpl description="Restart app by touching tmp/restart.txt" fullCommand="restart" id="restart" />
           <RakeTaskImpl description="Generate a cryptographically secure secret key (this is typically used to generate a secret for cookie sessions)" fullCommand="secret" id="secret" />
+          <RakeTaskImpl description="Run all specs in spec directory (excluding plugin specs)" fullCommand="spec" id="spec" />
           <RakeTaskImpl description="Report code statistics (KLOCs, etc) from the application or engine" fullCommand="stats" id="stats" />
           <RakeTaskImpl description="Runs all tests in test folder except system ones" fullCommand="test" id="test" />
           <RakeTaskImpl id="test">
@@ -435,6 +466,12 @@
                   <RakeTaskImpl description="" fullCommand="railties:install:migrations" id="migrations" />
                 </subtasks>
               </RakeTaskImpl>
+            </subtasks>
+          </RakeTaskImpl>
+          <RakeTaskImpl id="spec">
+            <subtasks>
+              <RakeTaskImpl description="" fullCommand="spec:prepare" id="prepare" />
+              <RakeTaskImpl description="" fullCommand="spec:statsetup" id="statsetup" />
             </subtasks>
           </RakeTaskImpl>
           <RakeTaskImpl description="" fullCommand="tmp" id="tmp" />
