@@ -5,6 +5,7 @@ RUN apk upgrade
 # icu-data-full is for non-English locales and legacy charset support
 # build-base includes C compiler for native gem extions
 # postgresql12-dev includes C header files that are needed to build pg gem
+# gcompat includes GNU C library compatibility layer needed for Nokogiri
 RUN apk add tzdata icu-data-full nodejs yarn build-base postgresql12-dev gcompat
 WORKDIR /repository-downloader
 COPY . /repository-downloader
