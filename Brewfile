@@ -1,3 +1,5 @@
 brew "asdf"
+brew "gnu-tar"
+brew "gnupg"
 cask "docker"
 cask "postgres-unofficial"
