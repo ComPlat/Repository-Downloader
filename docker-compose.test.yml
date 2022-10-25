@@ -1,4 +1,3 @@
-version: "1"
 services:
   db:
     image: postgres:12.12-alpine3.16
