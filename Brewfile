@@ -1,5 +1,6 @@
 brew "asdf"
 brew "gnu-tar"
 brew "gnupg"
+brew "google-chrome"
 cask "docker"
 cask "postgres-unofficial"
