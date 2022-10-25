@@ -166,6 +166,7 @@
     </option>
     <option name="myGenerators">
       <list>
+        <option value="active_record:application_record" />
         <option value="active_record:migration" />
         <option value="active_record:model" />
         <option value="active_record:multi_db" />
