@@ -10,6 +10,8 @@ services:
       - RAILS_DB_HOST=db
       - RAILS_DB_USERNAME=postgres
       - RAILS_DB_PASSWORD=postgres
+    volumes:
+      - ./:/repository-downloader
     build: .
     command: sh -c "gem update --system && bundle install && ./bin/rails db:reset && ./bin/rake"
     depends_on:
