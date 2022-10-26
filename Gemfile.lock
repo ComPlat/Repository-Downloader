@@ -255,8 +255,8 @@ GEM
     zeitwerk (2.6.1)
 
 PLATFORMS
-  arm64-darwin-21
   aarch64-linux-musl
+  arm64-darwin-21
   arm64-darwin-21
   ruby
   x86_64-darwin-21
