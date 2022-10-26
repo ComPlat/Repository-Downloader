@@ -2,7 +2,8 @@ HUB_URL = ENV["HUB_URL"].freeze
 
 return unless HUB_URL
 
-OPTS = {"goog:chromeOptions": {args: %w[headless disable-gpu disable-dev-shm-usage window-size=1400x1400]}}.freeze
+OPTS = {"goog:chromeOptions":
+           {args: %w[headless disable-gpu disable-dev-shm-usage no-sandbox window-size=1400x1400]}}.freeze
 
 Capybara.register_driver :headless_selenium_chrome_in_container do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome OPTS
