@@ -489,6 +489,7 @@
           <RakeTaskImpl description="" fullCommand="tmp/sockets" id="tmp/sockets" />
         </subtasks>
       </RakeTaskImpl>
+      <RakeTaskImpl id="rake" />
     </option>
   </component>
 </module>
