@@ -128,7 +128,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-## Auto-generated files
+## Auto-generated files to avoid conflicts triggered by using Macs with different architectures
 Brewfile.lock.json
 
 # Linux
