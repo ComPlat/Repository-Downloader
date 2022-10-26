@@ -1,6 +1,8 @@
 services:
+  chrome:
+    image: selenium/standalone-chrome:4.5.0-20221017 # this version should match that of the selenium-webdriver gem (see Gemfile)
   db:
-    image: postgres:12.12-alpine3.16
+    image: postgres:13.8-alpine3.16
     environment:
       - POSTGRES_PASSWORD=postgres
   web:
@@ -9,11 +11,11 @@ services:
       - RAILS_DB_HOST=db
       - RAILS_DB_USERNAME=postgres
       - RAILS_DB_PASSWORD=postgres
+      - HUB_URL=http://chrome:4444/wd/hub
     volumes:
       - ./:/repository-downloader
     build: .
     command: sh -c "gem update --system && bundle install && ./bin/rails db:reset && ./bin/rake"
-    depends_on:
-      - db
     links:
       - db
+      - chrome
