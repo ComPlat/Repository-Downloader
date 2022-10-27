@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
   create_table "toap_attachments", id: false, force: :cascade do |t|
     t.integer "ana_id"
     t.integer "ds_id"
+    # noinspection RubyResolve
     t.hstore "extended_metadata"
     t.integer "att_id"
     t.string "filename"
@@ -32,6 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
 
   create_table "toap_publications", id: false, force: :cascade do |t|
     t.integer "id"
+    # noinspection RubyResolve
     t.jsonb "taggable_data"
     t.string "element_type"
     t.integer "element_id"
@@ -39,8 +41,10 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.text "metadata_xml"
     t.datetime "published_at", precision: nil
     t.string "doi_suffix"
+    # noinspection RubyResolve
     t.hstore "extended_metadata"
     t.string "reaction_svg_file"
+    # noinspection RubyResolve
     t.jsonb "reaction_temperature"
     t.text "reaction_description"
     t.text "reaction_observation"
@@ -57,7 +61,9 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.string "sample_svg_file"
     t.binary "molfile"
     t.text "sample_desc"
+    # noinspection RubyResolve
     t.numrange "sample_melting_point"
+    # noinspection RubyResolve
     t.numrange "sample_boiling_point"
     t.float "target_amount_value"
     t.string "target_amount_unit"
@@ -69,6 +75,5 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.string "inchikey"
     t.string "inchistring"
     t.float "molecular_weight"
-  end
-
-end
+  end # create_table "toap_publications"
+end # ActiveRecord::Schema
