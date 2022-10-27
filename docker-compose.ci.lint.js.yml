@@ -1,0 +1,6 @@
+services:
+  lint_js:
+    environment:
+      - RAILS_ENV=test
+    build: .
+    command: sh -c "yarn install && yarn run lint"
