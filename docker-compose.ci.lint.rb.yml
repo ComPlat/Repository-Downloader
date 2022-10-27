@@ -1,6 +1,0 @@
-services:
-  lint_rb:
-    environment:
-      - RAILS_ENV=test
-    build: .
-    command: sh -c "gem update --system && bundle install && bundle exec rubocop"
