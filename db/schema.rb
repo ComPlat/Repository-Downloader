@@ -12,5 +12,63 @@
 
 ActiveRecord::Schema[7.0].define(version: 0) do
   # These are extensions that must be enabled in order to support this database
-  # enable_extension "plpgsql"
+  enable_extension "hstore"
+  enable_extension "pg_trgm"
+  enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
+
+  create_table "toap_attachments", id: false, force: :cascade do |t|
+    t.integer "ana_id"
+    t.integer "ds_id"
+    t.hstore "extended_metadata"
+    t.integer "att_id"
+    t.string "filename"
+    t.uuid "identifier"
+    t.string "storage", limit: 20
+    t.string "content_type"
+    t.string "bucket"
+    t.string "akey", limit: 500
+  end
+
+  create_table "toap_publications", id: false, force: :cascade do |t|
+    t.integer "id"
+    t.jsonb "taggable_data"
+    t.string "element_type"
+    t.integer "element_id"
+    t.string "ancestry"
+    t.text "metadata_xml"
+    t.datetime "published_at", precision: nil
+    t.string "doi_suffix"
+    t.hstore "extended_metadata"
+    t.string "reaction_svg_file"
+    t.jsonb "reaction_temperature"
+    t.text "reaction_description"
+    t.text "reaction_observation"
+    t.string "reaction_duration"
+    t.string "reaction_purification", array: true
+    t.string "tlc_solvents"
+    t.text "tlc_description"
+    t.string "reaction_status"
+    t.text "rinchi_string"
+    t.text "rinchi_long_key"
+    t.string "rinchi_short_key"
+    t.string "rinchi_web_key"
+    t.string "rxno"
+    t.string "sample_svg_file"
+    t.binary "molfile"
+    t.text "sample_desc"
+    t.numrange "sample_melting_point"
+    t.numrange "sample_boiling_point"
+    t.float "target_amount_value"
+    t.string "target_amount_unit"
+    t.string "rs_type"
+    t.float "yield"
+    t.string "iupac_name"
+    t.string "cano_smiles"
+    t.string "sum_formular"
+    t.string "inchikey"
+    t.string "inchistring"
+    t.float "molecular_weight"
+  end
+
 end
