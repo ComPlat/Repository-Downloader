@@ -1,3 +1,3 @@
 class ToapPublication < ApplicationRecord
-  attr_readonly :id
+  attr_readonly(*attribute_names)
 end
