@@ -34,8 +34,8 @@
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
     "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify",
-    "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
-    "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx,json}'",
-    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "lint": "eslint '**/*.{js,jsx,ts,tsx,json}'",
+    "lint:fix": "eslint --fix '**/*.{js,jsx,ts,tsx,json}'",
+    "format": "prettier --write 'app/javascript/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   }
 }
