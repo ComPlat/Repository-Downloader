@@ -1,7 +1,9 @@
-// eslint-disable-next-line no-undef
+// eslint-disable-next-line no-undef, unicorn/prefer-module
 module.exports = {
   extends: [
     'canonical',
+    'canonical/browser',
+    'canonical/module',
   ],
   ignorePatterns: [
     'app/assets/*',
