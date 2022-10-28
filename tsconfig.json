@@ -1,21 +1,6 @@
 {
-  "extends": "@tsconfig/recommended/tsconfig.json",
   "compilerOptions": {
-    "jsx": "react",
-    "noImplicitAny": false,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "*"
-      ]
-    },
-    "resolveJsonModule": true
+    "jsx": "react"
   },
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    ".",
-    "./**/*.json"
-  ]
+  "extends": "@tsconfig/strictest/tsconfig.json"
 }
