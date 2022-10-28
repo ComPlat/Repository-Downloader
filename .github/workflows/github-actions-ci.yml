@@ -1,6 +1,6 @@
 name: CI
 run-name: ${{ github.actor }} is running specs
-on: [ push ]
+on: [push]
 jobs:
   Run-Specs:
     runs-on: ubuntu-latest
