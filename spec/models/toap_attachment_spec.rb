@@ -5,10 +5,10 @@ describe ToapAttachment do
     it { is_expected.to have_db_column(:extended_metadata).of_type(:hstore) }
     it { is_expected.to have_db_column(:filename).of_type(:string) }
     it { is_expected.to have_db_column(:identifier).of_type(:uuid) }
-    it { is_expected.to have_db_column(:storage).of_type(:string) }
+    it { is_expected.to have_db_column(:storage).of_type(:string).with_options(limit: 20) }
     it { is_expected.to have_db_column(:content_type).of_type(:string) }
     it { is_expected.to have_db_column(:bucket).of_type(:string) }
-    it { is_expected.to have_db_column(:akey).of_type(:string) }
+    it { is_expected.to have_db_column(:akey).of_type(:string).with_options(limit: 500) }
   end
 
   describe "#new" do
