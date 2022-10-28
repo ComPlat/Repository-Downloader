@@ -6,7 +6,7 @@ describe ToapPublication do
     it { is_expected.to have_db_column(:element_id).of_type(:integer) }
     it { is_expected.to have_db_column(:ancestry).of_type(:string) }
     it { is_expected.to have_db_column(:metadata_xml).of_type(:text) }
-    it { is_expected.to have_db_column(:published_at).of_type(:datetime) }
+    it { is_expected.to have_db_column(:published_at).of_type(:datetime).with_options(precision: nil) }
     it { is_expected.to have_db_column(:doi_suffix).of_type(:string) }
     it { is_expected.to have_db_column(:extended_metadata).of_type(:hstore) }
     it { is_expected.to have_db_column(:reaction_svg_file).of_type(:string) }
@@ -14,10 +14,9 @@ describe ToapPublication do
     it { is_expected.to have_db_column(:reaction_description).of_type(:text) }
     it { is_expected.to have_db_column(:reaction_observation).of_type(:text) }
     it { is_expected.to have_db_column(:reaction_duration).of_type(:string) }
-    it { is_expected.to have_db_column(:reaction_purification).of_type(:string) } # array!
+    it { is_expected.to have_db_column(:reaction_purification).of_type(:string).with_options(array: true) }
     it { is_expected.to have_db_column(:tlc_solvents).of_type(:string) }
     it { is_expected.to have_db_column(:tlc_description).of_type(:text) }
-    it { is_expected.to have_db_column(:reaction_status).of_type(:string) }
     it { is_expected.to have_db_column(:reaction_status).of_type(:string) }
     it { is_expected.to have_db_column(:rinchi_string).of_type(:text) }
     it { is_expected.to have_db_column(:rinchi_long_key).of_type(:text) }
