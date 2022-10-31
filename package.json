@@ -1,6 +1,4 @@
 {
-  "name": "app",
-  "private": "true",
   "dependencies": {
     "autoprefixer": "10.4.12",
     "esbuild": "0.15.12",
@@ -10,32 +8,20 @@
     "tailwindcss": "3.2.1"
   },
   "devDependencies": {
-    "@tsconfig/recommended": "1.0.1",
+    "@tsconfig/strictest": "1.0.2",
     "@types/node": "18.11.5",
     "@types/react": "18.0.22",
     "@types/react-dom": "18.0.7",
-    "@typescript-eslint/eslint-plugin": "5.41.0",
-    "@typescript-eslint/parser": "5.41.0",
-    "eslint": "8.22.0",
-    "eslint-config-prettier": "8.5.0",
-    "eslint-config-standard": "17.0.0",
-    "eslint-config-standard-with-typescript": "23.0.0",
-    "eslint-import-resolver-typescript": "3.5.2",
-    "eslint-plugin-import": "2.26.0",
-    "eslint-plugin-n": "15.3.0",
-    "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-prettier": "4.2.1",
-    "eslint-plugin-promise": "6.1.1",
-    "eslint-plugin-react": "7.31.10",
-    "eslint-plugin-react-hooks": "4.6.0",
-    "prettier": "2.7.1",
+    "eslint": "8.26.0",
+    "eslint-config-canonical": "37.0.3",
     "typescript": "4.8.4"
   },
+  "name": "app",
+  "private": "true",
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
     "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify",
-    "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
-    "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx,json}'",
-    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "lint": "eslint --ext .jsx,.js,.tsx,.tsx,.json,.yml,.yaml .",
+    "lint:fix": "eslint --ext .jsx,.js,.tsx,.tsx,.json,.yml,.yaml --fix ."
   }
 }
