@@ -18,10 +18,18 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+require "shale"
+require "shale/adapter/nokogiri"
+require "shale/adapter/csv"
+Shale.xml_adapter = Shale::Adapter::Nokogiri
+Shale.csv_adapter = Shale::Adapter::CSV
+
 module RepositoryDownloader
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
+
+    config.autoload_paths << "#{root}/custom"
 
     # Configuration for the application, engines, and railties goes here.
     #

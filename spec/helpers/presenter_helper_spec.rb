@@ -6,7 +6,7 @@ describe PresenterHelper do
 
     before do
       stub_const("DummyClass", Class.new)
-      DummyClass.extend(PresenterHelper)
+      DummyClass.extend(described_class)
     end
 
     it do

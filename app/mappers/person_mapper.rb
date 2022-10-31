@@ -1,9 +1,3 @@
-require "shale"
-require "shale/adapter/nokogiri"
-require "shale/adapter/csv"
-Shale.xml_adapter = Shale::Adapter::Nokogiri
-Shale.csv_adapter = Shale::Adapter::CSV
-
 class PersonMapper < Shale::Mapper
   attribute :first_name, Shale::Type::String
   attribute :last_name, Shale::Type::String
