@@ -1,10 +1,3 @@
-GIT
-  remote: https://github.com/kgiszczak/shale
-  revision: a7cf9e14698bac859b54955bab7e4ae870e58a18
-  branch: master
-  specs:
-    shale (0.8.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -229,6 +222,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    shale (0.9.0)
     sprockets (4.1.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -281,7 +275,7 @@ DEPENDENCIES
   rubocop-rails (= 2.16.1)
   rubocop-rspec (= 2.13.2)
   selenium-webdriver (= 4.5.0)
-  shale!
+  shale (= 0.9.0)
   sprockets-rails (= 3.4.2)
   standard (= 1.16.1)
   tzinfo-data (= 1.2022.5)
