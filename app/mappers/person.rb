@@ -4,7 +4,7 @@ require "shale/adapter/csv"
 Shale.xml_adapter = Shale::Adapter::Nokogiri
 Shale.csv_adapter = Shale::Adapter::CSV
 
-class Person < Shale::Mapper
+class PersonMapper < Shale::Mapper
   attribute :first_name, Shale::Type::String
   attribute :last_name, Shale::Type::String
   attribute :age, Shale::Type::Integer
