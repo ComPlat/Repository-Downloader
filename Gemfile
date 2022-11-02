@@ -39,6 +39,7 @@ gem "bootsnap", "1.13.0", require: false
 # Use Sass to process CSS
 # gem "sassc-rails"
 
+# Ruby Object mapper and serialization library for JSON, YAML, TOML, CSV and XML.
 gem "shale", "0.9.0"
 
 group :development, :test do
