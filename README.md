@@ -1,12 +1,18 @@
 # Repository Downloader
+
 ## Development
+
 ### Setup
+
 #### macOS
+
 ##### General
+
 1. `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 2. `brew bundle`
 3. `open -a Postgres`
 4. Initialize database with version 12 in GUI
+
 ##### Native
 
 1. `asdf plugin add ruby`
