@@ -1,4 +1,4 @@
-class PersonMapper < Shale::Mapper
+class PersonMapper < ShaleCustom::Mapper
   attribute :first_name, Shale::Type::String
   attribute :last_name, Shale::Type::String
   attribute :age, Shale::Type::Integer
