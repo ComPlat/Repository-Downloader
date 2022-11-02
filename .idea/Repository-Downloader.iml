@@ -60,6 +60,9 @@
     <orderEntry type="library" scope="PROVIDED" name="erubi (v1.11.0, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="globalid (v1.0.0, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="grape (v1.6.2, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="grape-entity (v0.10.2, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="grape-swagger (v1.5.0, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="grape-swagger-rails (v0.3.1, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="i18n (v1.12.0, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="io-console (v0.5.11, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="irb (v1.4.2, asdf: 3.1.2) [gem]" level="application" />
@@ -73,6 +76,7 @@
     <orderEntry type="library" scope="PROVIDED" name="mini_mime (v1.1.2, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="minitest (v5.16.3, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="msgpack (v1.6.0, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="multi_json (v1.15.0, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mustermann (v3.0.0, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mustermann-grape (v1.0.2, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="net-imap (v0.3.1, asdf: 3.1.2) [gem]" level="application" />
