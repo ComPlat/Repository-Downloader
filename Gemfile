@@ -52,6 +52,7 @@ group :development, :test do
   gem "rspec-rails", "6.0.1"
   gem "rails-controller-testing", "1.0.5"
   gem "shoulda-matchers", "5.2.0"
+  gem "factory_bot_rails", "6.2.0"
 end
 
 group :development do
