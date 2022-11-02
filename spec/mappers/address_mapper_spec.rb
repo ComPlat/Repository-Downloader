@@ -1,10 +1,6 @@
 describe AddressMapper do
-  let(:city) { "city" }
-  let(:street) { "street" }
-  let(:zip) { "zip" }
-
   context "when called without any arguments" do
-    let(:address_mapper) { described_class.new }
+    let(:address_mapper) { build :address_mapper }
 
     it { expect(address_mapper).to be_a described_class }
     it { expect(address_mapper.city).to be_nil }
@@ -16,26 +12,28 @@ describe AddressMapper do
   end
 
   context "when called with all arguments" do
-    let(:address_mapper) { described_class.new city:, street:, zip: }
+    let(:args) { attributes_for :address_mapper, :with_all_args }
+    let(:address_mapper) { described_class.new(**args) }
 
     it { expect(address_mapper).to be_a described_class }
-    it { expect(address_mapper.city).to eq city }
-    it { expect(address_mapper.street).to eq street }
-    it { expect(address_mapper.zip).to eq zip }
-    it { expect(address_mapper.to_json).to eq "{\"city\":\"city\",\"street\":\"street\",\"zip\":\"zip\"}" }
-    it { expect(address_mapper.to_xml).to eq "<address><city>city</city><street>street</street><zip>zip</zip></address>" }
-    it { expect(address_mapper.to_csv).to eq "city,street,zip\n" }
+    it { expect(address_mapper.city).to eq args[:city] }
+    it { expect(address_mapper.street).to eq args[:street] }
+    it { expect(address_mapper.zip).to eq args[:zip] }
+    it { expect(address_mapper.to_json).to eq "{\"city\":\"#{args[:city]}\",\"street\":\"#{args[:street]}\",\"zip\":\"#{args[:zip]}\"}" }
+    it { expect(address_mapper.to_xml).to eq "<address><city>#{args[:city]}</city><street>#{args[:street]}</street><zip>#{args[:zip]}</zip></address>" }
+    it { expect(address_mapper.to_csv).to eq "#{args[:city]},#{args[:street]},#{args[:zip]}\n" }
   end
 
   context "when called some arguments" do
-    let(:address_mapper) { described_class.new city:, street: nil, zip: }
+    let(:args) { attributes_for :address_mapper, :with_all_args, street: nil }
+    let(:address_mapper) { described_class.new(**args) }
 
     it { expect(address_mapper).to be_a described_class }
-    it { expect(address_mapper.city).to eq city }
-    it { expect(address_mapper.street).to be_nil }
-    it { expect(address_mapper.zip).to eq zip }
-    it { expect(address_mapper.to_json).to eq "{\"city\":\"city\",\"street\":null,\"zip\":\"zip\"}" }
-    it { expect(address_mapper.to_xml).to eq "<address><city>city</city><street/><zip>zip</zip></address>" }
-    it { expect(address_mapper.to_csv).to eq "city,,zip\n" }
+    it { expect(address_mapper.city).to eq args[:city] }
+    it { expect(address_mapper.street).to eq args[:street] }
+    it { expect(address_mapper.zip).to eq args[:zip] }
+    it { expect(address_mapper.to_json).to eq "{\"city\":\"#{args[:city]}\",\"street\":null,\"zip\":\"#{args[:zip]}\"}" }
+    it { expect(address_mapper.to_xml).to eq "<address><city>#{args[:city]}</city><street/><zip>#{args[:zip]}</zip></address>" }
+    it { expect(address_mapper.to_csv).to eq "#{args[:city]},,#{args[:zip]}\n" }
   end
 end
