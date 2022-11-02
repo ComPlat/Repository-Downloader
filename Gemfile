@@ -48,8 +48,10 @@ group :development, :test do
   gem "standard", "1.16.1", require: false
   gem "rubocop-rails", "2.16.1", require: false
   gem "rubocop-rspec", "2.13.2", require: false
+
   gem "rspec-rails", "6.0.1"
   gem "rails-controller-testing", "1.0.5"
+  gem "shoulda-matchers", "5.2.0"
 end
 
 group :development do
