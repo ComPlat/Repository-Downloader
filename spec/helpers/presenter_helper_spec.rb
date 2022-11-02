@@ -1,5 +1,3 @@
-require "rails_helper"
-
 describe PresenterHelper do
   describe "present" do
     context "initializes a presenter class for an object"
