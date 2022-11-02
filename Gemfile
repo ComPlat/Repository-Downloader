@@ -42,6 +42,8 @@ gem "grape-entity", "0.10.2"
 
 gem "grape-swagger", "1.5.0", require: false
 
+gem "grape-swagger-rails", "0.3.1"
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
