@@ -18,7 +18,6 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-require "shale"
 require "shale/adapter/nokogiri"
 require "shale/adapter/csv"
 Shale.xml_adapter = Shale::Adapter::Nokogiri
