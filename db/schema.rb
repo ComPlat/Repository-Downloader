@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_02_132659) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_27_152849) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_trgm"
@@ -76,11 +76,4 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_02_132659) do
     t.string "inchistring"
     t.float "molecular_weight"
   end # create_table "toap_publications"
-
-  create_table "messages", force: :cascade do |t|
-    t.string "title"
-    t.string "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-end
+end # ActiveRecord::Schema

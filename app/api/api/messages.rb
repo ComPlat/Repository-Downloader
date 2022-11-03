@@ -1,9 +1,9 @@
 module API
   class Messages < Grape::API
-    resource :messages do
+    namespace :messages do
       desc "Return list of messages"
       get do
-        messages = Message.all
+        messages = API::Messages.test_message
         present messages
       end
 
@@ -13,9 +13,12 @@ module API
       end
       route_param :id, type: Integer do
         get do
-          Message.find(params[:id])
-        rescue ActiveRecord::RecordNotFound
-          error!("Message not found", 404)
+          messages = API::Messages.test_message
+          present messages[params[:id]]
+        end
+
+        def test_message
+          [{"title" => "hello", "body" => "how are you"}, {"title" => "goodbye", "body" => "see you soon"}]
         end
       end
     end
