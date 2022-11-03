@@ -51,7 +51,7 @@ describe PersonMapper do
         CSV
       end
 
-      it { expect(person_mapper.to_csv.strip).to eq_without_whitespace expected_csv }
+      it { expect(person_mapper.to_csv).to eq_without_whitespace expected_csv }
     end
   end
 
@@ -124,7 +124,7 @@ describe PersonMapper do
         CSV
       end
 
-      it { expect(person_mapper.to_csv.strip).to eq_without_whitespace expected_csv }
+      it { expect(person_mapper.to_csv).to eq_without_whitespace expected_csv }
     end
   end
 
@@ -194,7 +194,7 @@ describe PersonMapper do
         CSV
       end
 
-      it { expect(person_mapper.to_csv.strip).to eq_without_whitespace expected_csv }
+      it { expect(person_mapper.to_csv).to eq_without_whitespace expected_csv }
     end
   end
 end
