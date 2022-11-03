@@ -71,22 +71,22 @@ describe PersonMapper do
     describe "#to_json" do
       let(:expected_json) do
         <<~JSON.strip
-          {\
-          "first_name":"#{args[:first_name]}",\
-          "last_name":"#{args[:last_name]}",\
-          "age":#{args[:age]},\
-          "married":#{args[:married]},\
-          "hobbies":["Guitar","Music","Reading"],\
-          "address":{\
-          "city":"#{args[:address].city}",\
-          "street":"#{args[:address].street}",\
-          "zip":"#{args[:address].zip}"\
-          }\
+          {
+            "first_name":" #{args[:first_name]}",
+            "last_name":" #{args[:last_name]}",
+            "age": #{args[:age]},
+            "married": #{args[:married]},
+            "hobbies": ["Guitar", "Music", "Reading"],
+            "address": {
+              "city":" #{args[:address].city}",
+              "street":" #{args[:address].street}",
+              "zip":" #{args[:address].zip}"
+            }
           }
         JSON
       end
 
-      it { expect(person_mapper.to_json).to eq expected_json }
+      it { expect(person_mapper.to_json).to eq_without_whitespace expected_json }
     end
 
     describe "#to_xml" do
