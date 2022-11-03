@@ -15,12 +15,18 @@ module API
         get do
           messages = API::Messages.test_message
           present messages[params[:id]]
+        rescue
+          error!("Invalid message: #{params[:id]}", 404)
         end
 
         def test_message
           [{"title" => "hello", "body" => "how are you"}, {"title" => "goodbye", "body" => "see you soon"}]
         end
       end
+    end
+
+    route :any, "*path" do
+      error!("Not found", 404)
     end
   end
 end
