@@ -13,44 +13,45 @@ describe PersonMapper do
 
     describe "#to_json" do
       let(:expected_json) do
-        <<~JSON.strip
-          {\
-          "first_name\":#{expected_nil_return_value},\
-          "last_name\":#{expected_nil_return_value},\
-          "age\":#{expected_nil_return_value},\
-          "married\":false,\
-          "hobbies\":[],\
-          "address\":#{expected_nil_return_value}}
+        <<~JSON
+          {
+            "first_name": #{expected_nil_return_value},
+            "last_name": #{expected_nil_return_value},
+            "age": #{expected_nil_return_value},
+            "married": false,
+            "hobbies": [],
+            "address": #{expected_nil_return_value}
+          }
         JSON
       end
 
-      it { expect(person_mapper.to_json).to eq expected_json }
+      it { expect(person_mapper.to_json).to eq_without_whitespace expected_json }
     end
 
     describe "#to_xml" do
       let(:expected_xml) do
-        <<~XML.strip
-          <person>\
-          <first_name/>\
-          <last_name/>\
-          <age/>\
-          <married>false</married>\
-          <address/>\
+        <<~XML
+          <person>
+            <first_name/>
+            <last_name/>
+            <age/>
+            <married>false</married>
+            <address/>
           </person>
         XML
       end
 
-      it { expect(person_mapper.to_xml).to eq expected_xml }
+      it { expect(person_mapper.to_xml).to eq_without_whitespace expected_xml }
     end
 
     describe "#to_csv" do
       let(:expected_csv) do
-        <<~CSV.strip
-          ,,,false,[],\n
+        <<~CSV
+          ,,,false,[],
         CSV
       end
 
-      it { expect(person_mapper.to_csv.strip).to eq expected_csv }
+      it { expect(person_mapper.to_csv.strip).to eq_without_whitespace expected_csv }
     end
   end
 
@@ -70,17 +71,17 @@ describe PersonMapper do
 
     describe "#to_json" do
       let(:expected_json) do
-        <<~JSON.strip
+        <<~JSON
           {
-            "first_name":" #{args[:first_name]}",
-            "last_name":" #{args[:last_name]}",
+            "first_name": "#{args[:first_name]}",
+            "last_name": "#{args[:last_name]}",
             "age": #{args[:age]},
             "married": #{args[:married]},
             "hobbies": ["Guitar", "Music", "Reading"],
             "address": {
-              "city":" #{args[:address].city}",
-              "street":" #{args[:address].street}",
-              "zip":" #{args[:address].zip}"
+              "city": "#{args[:address].city}",
+              "street": "#{args[:address].street}",
+              "zip": "#{args[:address].zip}"
             }
           }
         JSON
@@ -101,9 +102,9 @@ describe PersonMapper do
             <hobbies>Music</hobbies>
             <hobbies>Reading</hobbies>
             <address>
-            <city>#{args[:address].city}</city>
-            <street>#{args[:address].street}</street>
-            <zip>#{args[:address].zip}</zip>
+              <city>#{args[:address].city}</city>
+              <street>#{args[:address].street}</street>
+              <zip>#{args[:address].zip}</zip>
             </address>
           </person>
         XML
@@ -114,16 +115,16 @@ describe PersonMapper do
 
     describe "#to_csv" do
       let(:expected_csv) do
-        <<~CSV.strip
-          #{args[:first_name]},#{args[:last_name]},#{args[:age]},#{args[:married]},\
-          \"[\"\"Guitar\"\", \"\"Music\"\", \"\"Reading\"\"]\",\
-          \"{\"\"city\"\"=>\"\"#{args[:address].city}"\",\
-           \"\"street\"\"=>\"\"#{args[:address].street}"\",\
-           \"\"zip\"\"=>\"\"#{args[:address].zip}"\"}\"
+        <<~CSV
+          #{args[:first_name]},#{args[:last_name]},#{args[:age]},#{args[:married]},
+          "[""Guitar"", ""Music"", ""Reading""]",
+          "{""city""=>""#{args[:address].city}"",
+           ""street""=>""#{args[:address].street}"",
+           ""zip""=>""#{args[:address].zip}""}"
         CSV
       end
 
-      it { expect(person_mapper.to_csv.strip).to eq expected_csv }
+      it { expect(person_mapper.to_csv.strip).to eq_without_whitespace expected_csv }
     end
   end
 
@@ -140,61 +141,60 @@ describe PersonMapper do
 
     describe "#to_json" do
       let(:expected_json) do
-        <<~JSON.strip
-          {\
-          "first_name\":\"#{args[:first_name]}",\
-          "last_name\":#{expected_nil_return_value},\
-          "age\":#{args[:age]},\
-          "married\":#{args[:married]},\
-          "hobbies\":[\
-          "Guitar\",\
-          "Music\",\
-          "Reading\"],\
-          "address\":{\
-          "city\":\"#{args[:address].city}",\
-          "street\":\"#{args[:address].street}",\
-          "zip\":\"#{args[:address].zip}"}}
+        <<~JSON
+          {
+            "first_name": "#{args[:first_name]}",
+            "last_name": #{expected_nil_return_value},
+            "age": #{args[:age]},
+            "married": #{args[:married]},
+            "hobbies": ["Guitar", "Music", "Reading"],
+            "address": {
+                "city": "#{args[:address].city}",
+                "street": "#{args[:address].street}",
+                "zip": "#{args[:address].zip}"
+            }
+          }
         JSON
       end
 
-      it { expect(person_mapper.to_json).to eq expected_json }
+      it { expect(person_mapper.to_json).to eq_without_whitespace expected_json }
     end
 
     describe "#to_xml" do
       let(:expected_xml) do
-        <<~XML.strip
-          <person>\
-          <first_name>#{args[:first_name]}</first_name>\
-          <last_name/>\
-          <age>#{args[:age]}</age>\
-          <married>#{args[:married]}</married>\
-          <hobbies>Guitar</hobbies>\
-          <hobbies>Music</hobbies>\
-          <hobbies>Reading</hobbies>\
-          <address>\
-          <city>#{args[:address].city}</city>\
-          <street>#{args[:address].street}</street>\
-          <zip>#{args[:address].zip}</zip>\
-          </address>\
+        <<~XML
+          <person>
+            <first_name>#{args[:first_name]}</first_name>
+            <last_name/>
+            <age>#{args[:age]}</age>
+            <married>#{args[:married]}</married>
+            <hobbies>Guitar</hobbies>
+            <hobbies>Music</hobbies>
+            <hobbies>Reading</hobbies>
+            <address>
+              <city>#{args[:address].city}</city>
+              <street>#{args[:address].street}</street>
+              <zip>#{args[:address].zip}</zip>
+            </address>
           </person>
         XML
       end
 
-      it { expect(person_mapper.to_xml).to eq expected_xml }
+      it { expect(person_mapper.to_xml).to eq_without_whitespace expected_xml }
     end
 
     describe "#to_csv" do
       let(:expected_csv) do
-        <<~CSV.strip
-          #{args[:first_name]},#{args[:last_name]},#{args[:age]},#{args[:married]},\
-          \"[\"\"Guitar\"\", \"\"Music\"\", \"\"Reading\"\"]\",\
-          \"{\"\"city\"\"=>\"\"#{args[:address].city}"\",\
-           \"\"street\"\"=>\"\"#{args[:address].street}"\",\
-           \"\"zip\"\"=>\"\"#{args[:address].zip}"\"}\"\n
+        <<~CSV
+          #{args[:first_name]},#{args[:last_name]},#{args[:age]},#{args[:married]},
+          "[""Guitar"", ""Music"", ""Reading""]",
+          "{""city""=>""#{args[:address].city}"",
+           ""street""=>""#{args[:address].street}"",
+           ""zip""=>""#{args[:address].zip}""}"
         CSV
       end
 
-      it { expect(person_mapper.to_csv.strip).to eq expected_csv }
+      it { expect(person_mapper.to_csv.strip).to eq_without_whitespace expected_csv }
     end
   end
 end
