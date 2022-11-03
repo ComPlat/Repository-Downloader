@@ -1,6 +1,6 @@
 describe "API::Messages" do
-  context "when condition" do
-    it "succeeds" do
+  describe "GET /api/messages" do
+    it do
       get "/api/messages"
       expect(response).to have_http_status(:ok)
     end
