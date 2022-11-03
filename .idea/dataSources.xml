@@ -28,5 +28,12 @@
       <jdbc-url>jdbc:postgresql://127.0.0.1:5432/Repository_Downloader_development</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="repodb@193.196.36.167" uuid="765c21c7-4519-4f23-98fb-7cfda26e1952">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://193.196.36.167:5432/repodb</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
