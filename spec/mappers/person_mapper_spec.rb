@@ -91,25 +91,25 @@ describe PersonMapper do
 
     describe "#to_xml" do
       let(:expected_xml) do
-        <<~XML.strip
-          <person>\
-          <first_name>#{args[:first_name]}</first_name>\
-          <last_name>#{args[:last_name]}</last_name>\
-          <age>#{args[:age]}</age>\
-          <married>#{args[:married]}</married>\
-          <hobbies>Guitar</hobbies>\
-          <hobbies>Music</hobbies>\
-          <hobbies>Reading</hobbies>\
-          <address>\
-          <city>#{args[:address].city}</city>\
-          <street>#{args[:address].street}</street>\
-          <zip>#{args[:address].zip}</zip>\
-          </address>\
+        <<~XML
+          <person>
+            <first_name>#{args[:first_name]}</first_name>
+            <last_name>#{args[:last_name]}</last_name>
+            <age>#{args[:age]}</age>
+            <married>#{args[:married]}</married>
+            <hobbies>Guitar</hobbies>
+            <hobbies>Music</hobbies>
+            <hobbies>Reading</hobbies>
+            <address>
+            <city>#{args[:address].city}</city>
+            <street>#{args[:address].street}</street>
+            <zip>#{args[:address].zip}</zip>
+            </address>
           </person>
         XML
       end
 
-      it { expect(person_mapper.to_xml).to eq expected_xml }
+      it { expect(person_mapper.to_xml).to eq_without_whitespace expected_xml }
     end
 
     describe "#to_csv" do
