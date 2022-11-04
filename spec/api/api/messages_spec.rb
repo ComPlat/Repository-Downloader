@@ -12,12 +12,12 @@ describe "API::Messages" do
     let(:valid_id) { 0 }
     let(:invalid_id) { 10000000 }
 
-    it "to get all messages successfully" do
+    it "gets all messages successfully" do
       get api_path
       expect(response).to have_http_status(:ok)
     end
 
-    it "to get one message successful" do
+    it "gets one message successful" do
       get "#{api_path}/#{valid_id}"
       expect(response).to have_http_status(:ok)
     end
@@ -28,19 +28,24 @@ describe "API::Messages" do
     #   expect(response).to have_http_status(:not_found)
     # end
 
-    it "to send a bad request" do
+    it "sends a bad request" do
       get "#{api_path}/#{not_valid_path}"
       expect(response).to have_http_status(:bad_request)
     end
 
-    it "to get json header" do
+    it "gets json header" do
       get api_path, headers: {"HTTP_ACCEPT" => "application/json"}
       expect(response.header["Content-Type"]).to eq "application/json"
     end
 
-    it "to get xml header" do
+    it "gets xml header" do
       get api_path, headers: {"HTTP_ACCEPT" => "application/xml"}
       expect(response.header["Content-Type"]).to eq "application/xml"
+    end
+
+    it "gets json header even http accept is not valid" do
+      get api_path, headers: {"HTTP_ACCEPT" => "application/not_valid_header"}
+      expect(response.header["Content-Type"]).to eq "application/json"
     end
   end
 end
