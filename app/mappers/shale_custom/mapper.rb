@@ -9,8 +9,9 @@ module ShaleCustom
       self.class.instance_variable_get(:@xml_mapping).root self.class.name.gsub("Mapper", "").downcase
     end
 
-    def to_csv(headers: true)
-      super
+    def to_csv(**args)
+      args = {headers: true}.merge(args)
+      super(**args)
     end
   end
 end
