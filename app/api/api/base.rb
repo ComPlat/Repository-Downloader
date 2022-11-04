@@ -1,8 +1,6 @@
 module API
   class Base < Grape::API
-    content_type :json, "application/json"
-    content_type :xml, "application/xml"
-
+    default_format :json
     # HINT: Needed to avoid CORS (Cross-Origin Resource Sharing) error.
     #       Swagger UI returns response code 0 if these lines aren't here.
     before do
