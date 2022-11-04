@@ -8,7 +8,7 @@ describe AddressMapper do
     it { expect(address_mapper.zip).to be_nil }
     it { expect(address_mapper.to_json).to eq "{\"city\":null,\"street\":null,\"zip\":null}" }
     it { expect(address_mapper.to_xml).to eq "<address><city/><street/><zip/></address>" }
-    it { expect(address_mapper.to_csv).to eq ",,\n" }
+    it { expect(address_mapper.to_csv).to eq "city,street,zip\n,,\n" }
   end
 
   context "when called with all arguments" do
@@ -21,7 +21,7 @@ describe AddressMapper do
     it { expect(address_mapper.zip).to eq args[:zip] }
     it { expect(address_mapper.to_json).to eq "{\"city\":\"#{args[:city]}\",\"street\":\"#{args[:street]}\",\"zip\":\"#{args[:zip]}\"}" }
     it { expect(address_mapper.to_xml).to eq "<address><city>#{args[:city]}</city><street>#{args[:street]}</street><zip>#{args[:zip]}</zip></address>" }
-    it { expect(address_mapper.to_csv).to eq "#{args[:city]},#{args[:street]},#{args[:zip]}\n" }
+    it { expect(address_mapper.to_csv).to eq "city,street,zip\n#{args[:city]},#{args[:street]},#{args[:zip]}\n" }
   end
 
   context "when called some arguments" do
@@ -34,6 +34,6 @@ describe AddressMapper do
     it { expect(address_mapper.zip).to eq args[:zip] }
     it { expect(address_mapper.to_json).to eq "{\"city\":\"#{args[:city]}\",\"street\":null,\"zip\":\"#{args[:zip]}\"}" }
     it { expect(address_mapper.to_xml).to eq "<address><city>#{args[:city]}</city><street/><zip>#{args[:zip]}</zip></address>" }
-    it { expect(address_mapper.to_csv).to eq "#{args[:city]},,#{args[:zip]}\n" }
+    it { expect(address_mapper.to_csv).to eq "city,street,zip\n#{args[:city]},,#{args[:zip]}\n" }
   end
 end
