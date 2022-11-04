@@ -1,5 +1,5 @@
 describe PersonMapper do
-  let(:expected_json_nil_return_value) { "null" }
+  let(:expected_json_nil_render_value) { "null" }
 
   context "when called without any arguments" do
     let(:person_mapper) { build :person_mapper }
@@ -16,12 +16,12 @@ describe PersonMapper do
       let(:expected_json) do
         <<~JSON
           {
-            "first_name": #{expected_json_nil_return_value},
-            "last_name": #{expected_json_nil_return_value},
-            "age": #{expected_json_nil_return_value},
+            "first_name": #{expected_json_nil_render_value},
+            "last_name": #{expected_json_nil_render_value},
+            "age": #{expected_json_nil_render_value},
             "married": false,
             "hobbies": [],
-            "address": #{expected_json_nil_return_value}
+            "address": #{expected_json_nil_render_value}
           }
         JSON
       end
@@ -142,7 +142,7 @@ describe PersonMapper do
         <<~JSON
           {
             "first_name": "#{args[:first_name]}",
-            "last_name": #{expected_json_nil_return_value},
+            "last_name": #{expected_json_nil_render_value},
             "age": #{args[:age]},
             "married": #{args[:married]},
             "hobbies": ["Guitar", "Music", "Reading"],
