@@ -1,10 +1,11 @@
 describe PersonMapper do
+  let(:expected_json_nil_return_value) { "null" }
+
   context "when called without any arguments" do
     let(:person_mapper) { build :person_mapper }
 
-    let(:expected_nil_return_value) { "null" }
-
     it { expect(person_mapper).to be_a described_class }
+    it { expect(person_mapper).to be_a ShaleCustom::Mapper }
     it { expect(person_mapper.first_name).to be_nil }
     it { expect(person_mapper.last_name).to be_nil }
     it { expect(person_mapper.age).to be_nil }
@@ -15,12 +16,12 @@ describe PersonMapper do
       let(:expected_json) do
         <<~JSON
           {
-            "first_name": #{expected_nil_return_value},
-            "last_name": #{expected_nil_return_value},
-            "age": #{expected_nil_return_value},
+            "first_name": #{expected_json_nil_return_value},
+            "last_name": #{expected_json_nil_return_value},
+            "age": #{expected_json_nil_return_value},
             "married": false,
             "hobbies": [],
-            "address": #{expected_nil_return_value}
+            "address": #{expected_json_nil_return_value}
           }
         JSON
       end
@@ -116,11 +117,7 @@ describe PersonMapper do
     describe "#to_csv" do
       let(:expected_csv) do
         <<~CSV
-          #{args[:first_name]},#{args[:last_name]},#{args[:age]},#{args[:married]},
-          "[""Guitar"", ""Music"", ""Reading""]",
-          "{""city""=>""#{args[:address].city}"",
-           ""street""=>""#{args[:address].street}"",
-           ""zip""=>""#{args[:address].zip}""}"
+          #{args[:first_name]},#{args[:last_name]},#{args[:age]},#{args[:married]},"[""Guitar"", ""Music"", ""Reading""]","{""city""=>""#{args[:address].city}"",""street""=>""#{args[:address].street}"",""zip""=>""#{args[:address].zip}""}"
         CSV
       end
 
@@ -131,7 +128,6 @@ describe PersonMapper do
   context "when called some arguments" do
     let(:args) { attributes_for :person_mapper, :with_all_args, last_name: nil, married: false }
     let(:person_mapper) { described_class.new(**args) }
-    let(:expected_nil_return_value) { "null" }
 
     it { expect(person_mapper).to be_a described_class }
     it { expect(person_mapper.first_name).to eq args[:first_name] }
@@ -144,7 +140,7 @@ describe PersonMapper do
         <<~JSON
           {
             "first_name": "#{args[:first_name]}",
-            "last_name": #{expected_nil_return_value},
+            "last_name": #{expected_json_nil_return_value},
             "age": #{args[:age]},
             "married": #{args[:married]},
             "hobbies": ["Guitar", "Music", "Reading"],
@@ -186,11 +182,7 @@ describe PersonMapper do
     describe "#to_csv" do
       let(:expected_csv) do
         <<~CSV
-          #{args[:first_name]},#{args[:last_name]},#{args[:age]},#{args[:married]},
-          "[""Guitar"", ""Music"", ""Reading""]",
-          "{""city""=>""#{args[:address].city}"",
-           ""street""=>""#{args[:address].street}"",
-           ""zip""=>""#{args[:address].zip}""}"
+          #{args[:first_name]},#{args[:last_name]},#{args[:age]},#{args[:married]},"[""Guitar"", ""Music"", ""Reading""]","{""city""=>""#{args[:address].city}"",""street""=>""#{args[:address].street}"",""zip""=>""#{args[:address].zip}""}"
         CSV
       end
 
