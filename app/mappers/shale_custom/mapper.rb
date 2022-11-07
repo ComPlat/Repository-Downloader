@@ -10,7 +10,7 @@ module ShaleCustom
     end
 
     def to_csv(**args)
-      super(**{ headers: true }.merge(args))
+      super(**{headers: true}.merge(args))
     end
   end
 end
