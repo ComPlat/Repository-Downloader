@@ -10,6 +10,9 @@ describe ShaleCustom::Mapper do
   describe ".to_csv" do
     let(:address_mapper) { build :address_mapper }
 
+    it { expect(address_mapper).to be_a described_class }
+    it { expect(address_mapper.class.instance_variable_get(:@csv_mapping)).to be_a Shale::Mapping::Dict }
+
     context "with default parameters headers are enabled" do
       let(:expected_csv) do
         <<~CSV
