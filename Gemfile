@@ -47,6 +47,9 @@ gem "grape-swagger-rails", "0.3.1"
 # Ruby Object mapper and serialization library for JSON, YAML, TOML, CSV and XML.
 gem "shale", "0.9.0"
 
+# Autoload dotenv in Rails.
+gem "dotenv-rails", "2.8.1"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", "1.6.2", platforms: %i[mri mingw x64_mingw]

@@ -91,6 +91,10 @@ GEM
       irb (>= 1.3.6)
       reline (>= 0.3.1)
     diff-lcs (1.5.0)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     dry-container (0.11.0)
       concurrent-ruby (~> 1.0)
     dry-core (0.9.1)
@@ -295,7 +299,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.2)
+    zeitwerk (2.6.5)
 
 PLATFORMS
   aarch64-linux-musl
@@ -308,6 +312,7 @@ DEPENDENCIES
   capybara (= 3.37.1)
   cssbundling-rails (= 1.1.1)
   debug (= 1.6.2)
+  dotenv-rails (= 2.8.1)
   factory_bot_rails (= 6.2.0)
   grape (= 1.6.2)
   grape-swagger (= 1.5.0)
