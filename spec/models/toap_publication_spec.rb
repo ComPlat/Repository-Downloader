@@ -40,7 +40,7 @@ describe ToapPublication do
     it { is_expected.to have_db_column(:molecular_weight).of_type(:float) }
   end
 
-  describe "#new" do
+  describe ".new" do
     subject(:new) { described_class.new }
 
     it { is_expected.to be_a described_class }
@@ -49,7 +49,7 @@ describe ToapPublication do
     it { is_expected.not_to be_persisted }
   end
 
-  describe "#attr_readonly" do
+  describe ".attr_readonly" do
     subject(:new) { described_class.new }
 
     let(:attribute_names) { described_class.attribute_names }
@@ -57,7 +57,7 @@ describe ToapPublication do
     it { attribute_names.each { |attribute_name| expect(new).to have_readonly_attribute attribute_name } }
   end
 
-  describe "#create" do
+  describe ".create" do
     subject(:create) { described_class.create }
 
     it { is_expected.to be_a described_class }
