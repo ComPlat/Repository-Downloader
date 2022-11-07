@@ -22,11 +22,10 @@ describe "API::Messages" do
       expect(response).to have_http_status(:ok)
     end
 
-    # TODO: Somehow it returns a 200 although it is an invalid id
-    # it "to get one message unsuccessful" do
-    #   get "#{api_path}/#{invalid_id}"
-    #   expect(response).to have_http_status(:not_found)
-    # end
+    it "to get one message unsuccessful" do
+      get "#{api_path}/#{invalid_id}"
+      expect(response).to have_http_status(:not_found)
+    end
 
     it "sends a bad request" do
       get "#{api_path}/#{not_valid_path}"
