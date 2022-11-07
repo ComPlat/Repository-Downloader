@@ -1,6 +1,12 @@
 module API
   class Base < Grape::API
-    default_format :json
+    content_type :xml, "application/xml"
+    formatter :xml, ->(object, _env) { object.to_xml }
+
+    content_type :json, "application/json"
+    formatter :json, ->(object, _env) { object.to_json }
+
+    format :json
     # HINT: Needed to avoid CORS (Cross-Origin Resource Sharing) error.
     #       Swagger UI returns response code 0 if these lines aren't here.
     before do
