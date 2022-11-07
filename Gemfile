@@ -38,10 +38,8 @@ gem "bootsnap", "1.13.0", require: false
 
 # Use Grape to create a REST API and generate a Swagger UI to interact with the endpoints
 gem "grape", "1.6.2"
-gem "grape-entity", "0.10.2"
 gem "grape-swagger", "1.5.0"
 gem "grape-swagger-rails", "0.3.1"
-gem "grape_on_rails_routes", "0.3.2"
 
 # Use Sass to process CSS
 # gem "sassc-rails"
