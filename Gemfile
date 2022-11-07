@@ -39,6 +39,9 @@ gem "bootsnap", "1.13.0", require: false
 # Use Sass to process CSS
 # gem "sassc-rails"
 
+# Ruby Object mapper and serialization library for JSON, YAML, TOML, CSV and XML.
+gem "shale", "0.9.0"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", "1.6.2", platforms: %i[mri mingw x64_mingw]
@@ -49,6 +52,7 @@ group :development, :test do
   gem "rspec-rails", "6.0.1"
   gem "rails-controller-testing", "1.0.5"
   gem "shoulda-matchers", "5.2.0"
+  gem "factory_bot_rails", "6.2.0"
 end
 
 group :development do
