@@ -14,14 +14,12 @@ module API
       route_param :id, type: Integer do
         get do
           messages = API::Messages.test_message
-          present messages[params[:id]]
-        rescue
-          error!("Invalid message: #{params[:id]}", 404)
+          error!("Invalid message: #{params[:id]}", 404) unless present messages[params[:id]]
         end
+      end
 
-        def test_message
-          [{"title" => "hello", "body" => "how are you"}, {"title" => "goodbye", "body" => "see you soon"}]
-        end
+      def test_message
+        [{"title" => "hello", "body" => "how are you"}, {"title" => "goodbye", "body" => "see you soon"}]
       end
     end
 
