@@ -1,6 +1,6 @@
 describe "API::Messages" do
   describe "GET /api" do
-    it "on not existing path" do
+    it do
       get "/api/not_existing_path"
       expect(response).to have_http_status(:not_found)
     end
