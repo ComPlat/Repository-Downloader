@@ -1,6 +1,8 @@
 describe "API::V1::Messages" do
-  let(:address_mapper) { AddressMapper.new(city: "Town", street: "Elm Street 1", zip: "12345") }
+  let(:args) { {city: "Town", street: "Elm Street 1", zip: "12345"} }
+  let(:address_mapper) { AddressMapper.new(**args) }
 
+  # TODO: This does not belong here. Move to test for V1 Module.
   describe "GET /api/v1/:path" do
     before { get "/api/v1/not_existing_path" }
 
@@ -9,8 +11,6 @@ describe "API::V1::Messages" do
   end
 
   describe "GET /api/v1/messages" do
-    let(:args) { {city: "Town", street: "Elm Street 1", zip: "12345"} }
-
     before { get "/api/v1/messages" }
 
     it { expect(response).to have_http_status(:ok) }
@@ -35,6 +35,7 @@ describe "API::V1::Messages" do
       it { expect(response.content_type).to eq("application/xml") }
     end
 
+    # TODO: Add this for json context, too.
     context "when get request is not successful and message with :id is missing" do
       before { get "/api/v1/messages/100000000000.xml" }
 
