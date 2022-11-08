@@ -2,14 +2,6 @@ describe "API::V1::Messages" do
   let(:args) { {city: "Town", street: "Elm Street 1", zip: "12345"} }
   let(:address_mapper) { AddressMapper.new(**args) }
 
-  # TODO: This does not belong here. Move to test for V1 Module.
-  describe "GET /api/v1/:path" do
-    before { get "/api/v1/not_existing_path" }
-
-    it { expect(response).to have_http_status(:not_found) }
-    it { expect(response.body).to eq "{\"error\":\"Not found\"}" }
-  end
-
   describe "GET /api/v1/messages" do
     before { get "/api/v1/messages" }
 
@@ -35,13 +27,20 @@ describe "API::V1::Messages" do
       it { expect(response.content_type).to eq("application/xml") }
     end
 
-    # TODO: Add this for json context, too.
-    context "when get request is not successful and message with :id is missing" do
+    context "when get request with xml is not successful and message with :id is missing" do
       before { get "/api/v1/messages/100000000000.xml" }
 
       it { expect(response).to have_http_status(:not_found) }
       it { expect(response.body).to eq "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<error>\n  <message>Invalid message: 100000000000</message>\n</error>\n" }
       it { expect(response.content_type).to eq("application/xml") }
+    end
+
+    context "when get request with json is not successful and message with :id is missing" do
+      before { get "/api/v1/messages/100000000000.json" }
+
+      it { expect(response).to have_http_status(:not_found) }
+      it { expect(response.body).to eq "{\"error\":\"Invalid message: 100000000000\"}" }
+      it { expect(response.content_type).to eq("application/json") }
     end
   end
 
