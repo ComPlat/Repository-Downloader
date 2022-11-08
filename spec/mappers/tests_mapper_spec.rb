@@ -38,7 +38,7 @@ describe "TestsMapper" do
         tests_mapper_class_from_array_xml_mapper_builder.new(test: [test_mapper.new(**test_mapper_args)])
       }
 
-      it { expect(subject).to eq "<tests><test><string>string_value</string></test></tests>" }
+      it { is_expected.to eq "<tests><test><string>string_value</string></test></tests>" }
     end
 
     context "with multiple args" do
