@@ -18,6 +18,9 @@ describe ArrayXmlMapperBuilder do
     let(:array_xml_mapper_builder) { described_class.new(test_mapper, [test_mapper_args, test_mapper_args]) }
 
     it { is_expected.to be_a tests_mapper_class }
+    it { is_expected.to be_a ShaleCustom::Mapper }
+    it { is_expected.to respond_to :to_xml }
+    it { is_expected.to respond_to :to_json }
 
     context "when build was already called on same instance" do
       before { array_xml_mapper_builder.build }
