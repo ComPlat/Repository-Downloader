@@ -18,7 +18,6 @@ describe "TestsMapper" do
   end
 
   describe "#to_xml" do
-    # test_mapper, test_mapper
     subject(:to_xml) { tests_mapper_from_array_xml_mapper_builder.to_xml }
 
     context "with no_args" do
