@@ -3,8 +3,8 @@ module API
     namespace :messages do
       desc "Return list of messages"
       get do
-        address = AddressMapper.new city: "Town", street: "Elm Street 1", zip: "12345"
-        present AddressesPresenter.new [address, address]
+        args = {city: "Town", street: "Elm Street 1", zip: "12345"}
+        present MappersPresenter.new AddressMapper, [args, args]
       end
 
       desc "Return a message"
@@ -13,10 +13,10 @@ module API
       end
       route_param :id, type: Integer do
         get do
-          if true
-            present AddressMapper.new city: "Town", street: "Elm Street 1", zip: "12345"
+          if params[:id] == 1
+            AddressMapper.new city: "Town", street: "Elm Street 1", zip: "12345"
           else
-            error!("Invalid message: #{params[:id]}", 404)
+            error!("Invalid message: #{params[:id]}", 404) unless present
           end
         end
       end
