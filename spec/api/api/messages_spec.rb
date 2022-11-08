@@ -1,7 +1,7 @@
 describe "API::V1::Messages" do
   let(:address_mapper) { AddressMapper.new(city: "Town", street: "Elm Street 1", zip: "12345") }
 
-  describe "GET /api/v1/not_existing_path" do
+  describe "GET /api/v1/:path" do
     before { get "/api/v1/not_existing_path" }
 
     it { expect(response).to have_http_status(:not_found) }
