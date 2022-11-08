@@ -69,6 +69,7 @@ GEM
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
+    awesome_print (1.9.2)
     bindex (0.8.1)
     bootsnap (1.13.0)
       msgpack (~> 1.2)
@@ -308,6 +309,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  awesome_print (= 1.9.2)
   bootsnap (= 1.13.0)
   capybara (= 3.37.1)
   cssbundling-rails (= 1.1.1)
