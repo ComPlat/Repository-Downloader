@@ -27,7 +27,7 @@ config/master.key
 # config/secrets.yml
 
 ## dotenv, dotenv-rails
-.env
+# .env HINT: Used as highest general environment
 .env*.local
 
 ## Environment normalization:
@@ -88,6 +88,7 @@ yarn-debug.log*
 ## Sensitive or high-churn files
 .idea/**/dataSources/
 .idea/**/dataSources.ids
+.idea/**/dataSources.xml
 .idea/**/dataSources.local.xml
 .idea/**/sqlDataSources.xml
 .idea/**/dynamic.xml

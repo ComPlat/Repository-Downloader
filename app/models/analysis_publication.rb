@@ -1,0 +1,2 @@
+class AnalysisPublication < Publication
+end

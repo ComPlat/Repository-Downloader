@@ -1,4 +1,7 @@
-describe ToapPublication do
+RSpec.shared_examples "Publication" do |_parameter|
+  it { expect(described_class.table_name).to eq "toap_publications" }
+  it { expect(described_class.inheritance_column).to eq "element_type" }
+
   describe "columns" do
     it { is_expected.to have_db_column(:id).of_type(:integer) }
     it { is_expected.to have_db_column(:taggable_data).of_type(:jsonb) }
@@ -44,6 +47,7 @@ describe ToapPublication do
     subject(:new) { described_class.new }
 
     it { is_expected.to be_a described_class }
+    it { is_expected.to be_a Publication }
     it { expect { new }.not_to change(described_class, :count) }
     it { is_expected.to be_valid }
     it { is_expected.not_to be_persisted }
