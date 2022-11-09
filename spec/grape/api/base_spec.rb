@@ -38,13 +38,55 @@ describe API::Base do
   end
 
   describe "inheritable_setting.namespace_stackable[:formatters]" do
-    subject { described_class.inheritable_setting.namespace_stackable[:formatters] }
+    subject(:formatters) { described_class.inheritable_setting.namespace_stackable[:formatters] }
+
+    let(:test_mapper) {
+      stub_const("TestMapper",
+        Class.new(ShaleCustom::Mapper) { attribute :string, Shale::Type::String })
+        .new(string: "string_value")
+    }
 
     it { is_expected.to match([{xml: be_a(Proc)}, {json: be_a(Proc)}]) }
 
-    # TODO: Check if proc do execute .to_json and to .to_xml in each case
-    #  subject.first[:xml].call(SOME_SPY_OBJECT_THAT_CAN_BE_CALLED_THAT_WAY, nil)
+    it {
+      allow(test_mapper).to receive(:to_xml)
+
+      formatters.first[:xml].call(test_mapper, nil)
+
+      expect(test_mapper).to have_received(:to_xml).with(no_args).once
+    }
+
+    it {
+      allow(test_mapper).to receive(:to_json)
+
+      formatters.second[:json].call(test_mapper, nil)
+
+      expect(test_mapper).to have_received(:to_json).with(no_args).once
+    }
   end
 
-  # TODO: Test Headers
+  describe "response.headers" do
+    let(:test_api) { Class.new(described_class) }
+
+    before { test_api.get "test" }
+
+    describe "GET /api/v1/test" do
+      before { get "/api/v1/test" }
+
+      it { expect(response.headers.length).to eq 7 }
+      it { expect(response.headers["Content-Type"]).to eq "application/json" }
+      it { expect(response.headers["Access-Control-Allow-Origin"]).to eq "*" }
+      it { expect(response.headers["Access-Control-Request-Method"]).to eq "*" }
+      it { expect(response.headers["Cache-Control"]).to eq "no-cache" }
+      it { expect(response.headers["X-Request-Id"]).to be_a String }
+      it { expect(response.headers["X-Runtime"]).to be_a String }
+      it { expect(response.headers["Content-Length"]).to be_a String }
+    end
+
+    describe "GET /api/v1/test.xml" do
+      before { get "/api/v1/test.xml" }
+
+      it { expect(response.headers["Content-Type"]).to eq "application/xml" }
+    end
+  end
 end
