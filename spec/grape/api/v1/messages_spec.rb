@@ -36,10 +36,10 @@ describe "API::V1::Messages" do
     end
 
     context "when get request with json is not successful and message with :id is missing" do
-      before { get "/api/v1/messages/100000000000.json" }
+      before { get "/api/v1/messages/0.json" }
 
       it { expect(response).to have_http_status(:not_found) }
-      it { expect(response.body).to eq "{\"error\":\"Invalid message: 100000000000\"}" }
+      it { expect(response.body).to eq "{\"error\":\"Invalid message: 0\"}" }
       it { expect(response.content_type).to eq("application/json") }
     end
   end
