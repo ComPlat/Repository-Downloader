@@ -53,7 +53,6 @@ gem "dotenv-rails", "2.8.1"
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", "1.6.2", platforms: %i[mri mingw x64_mingw]
-  gem "awesome_print", "1.9.2"
 
   gem "standard", "1.16.1", require: false
   gem "rubocop-rails", "2.16.1", require: false
