@@ -4,12 +4,12 @@ describe "TestsMapper" do
   let(:test_mapper_class) do
     stub_const("TestMapper",
       Class.new(ShaleCustom::Mapper) { attribute :string, Shale::Type::String })
-    end
+  end
   let(:tests_mapper_class_via_const_get) { Object.const_get(:TestsMapper) }
 
   let(:tests_mapper_class_from_array_xml_mapper_builder) do
     ArrayXmlMapperBuilder.new(test_mapper_class, []).send(:klass_with_attribute)
-    end
+  end
 
   describe ".new" do
     subject { tests_mapper_class_from_array_xml_mapper_builder.new }
@@ -35,7 +35,7 @@ describe "TestsMapper" do
     context "with one arg" do
       let(:tests_mapper_from_array_xml_mapper_builder) do
         tests_mapper_class_from_array_xml_mapper_builder.new(test: [test_mapper_class.new(**test_mapper_args)])
-        end
+      end
 
       it { is_expected.to eq "<tests><test><string>string_value</string></test></tests>" }
     end
@@ -43,7 +43,7 @@ describe "TestsMapper" do
     context "with multiple args" do
       let(:tests_mapper_from_array_xml_mapper_builder) do
         tests_mapper_class_from_array_xml_mapper_builder
-          .new(test: [test_mapper.new(**test_mapper_args), test_mapper.new(**test_mapper_args)])
+          .new(test: [test_mapper_class.new(**test_mapper_args), test_mapper_class.new(**test_mapper_args)])
       end
 
       it { is_expected.to eq "<tests><test><string>string_value</string></test><test><string>string_value</string></test></tests>" }
@@ -68,7 +68,7 @@ describe "TestsMapper" do
     context "with one arg" do
       let(:tests_mapper_from_array_xml_mapper_builder) do
         tests_mapper_class_from_array_xml_mapper_builder.new(test: [test_mapper_class.new(**test_mapper_args)])
-        end
+      end
 
       it { is_expected.to eq "{\"test\":[{\"string\":\"string_value\"}]}" }
     end
@@ -77,7 +77,7 @@ describe "TestsMapper" do
       let(:tests_mapper_from_array_xml_mapper_builder) do
         tests_mapper_class_from_array_xml_mapper_builder
           .new(test: [test_mapper_class.new(**test_mapper_args), test_mapper_class.new(**test_mapper_args)])
-        end
+      end
 
       it { is_expected.to eq "{\"test\":[{\"string\":\"string_value\"},{\"string\":\"string_value\"}]}" }
     end
