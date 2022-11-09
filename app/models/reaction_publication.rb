@@ -1,0 +1,2 @@
+class ReactionPublication < Publication
+end
