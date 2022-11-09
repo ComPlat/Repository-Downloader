@@ -47,7 +47,7 @@ describe API::Base do
     let(:expected_formatter_procs) { [{xml: be_a(Proc)}, {json: be_a(Proc)}] }
 
     it { is_expected.to match(expected_formatter_procs) }
-    it { expect(expected_formatter_procs.length).to eq 2 }
+    it { expect(formatters.length).to eq 2 }
 
     it do
       allow(test_mapper).to receive(:to_xml)
