@@ -28,10 +28,10 @@ describe "API::V1::Messages" do
     end
 
     context "when get request with xml is not successful and message with :id is missing" do
-      before { get "/api/v1/messages/100000000000.xml" }
+      before { get "/api/v1/messages/0.xml" }
 
       it { expect(response).to have_http_status(:not_found) }
-      it { expect(response.body).to eq "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<error>\n  <message>Invalid message: 100000000000</message>\n</error>\n" }
+      it { expect(response.body).to eq "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<error>\n  <message>Invalid message: 0</message>\n</error>\n" }
       it { expect(response.content_type).to eq("application/xml") }
     end
 
