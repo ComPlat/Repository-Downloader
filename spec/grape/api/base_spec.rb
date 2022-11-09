@@ -25,12 +25,10 @@ describe API::Base do
 
     describe "messages routes" do
       let(:expected_routes) {
-        {
-          "messages" => [
-            be_a(Grape::Router::Route).and(have_attributes(path: "/:version/messages/:id(.:format)", version: "v1")),
-            be_a(Grape::Router::Route).and(have_attributes(path: "/:version/messages(.:format)", version: "v1"))
-          ]
-        }
+        {"messages" => [
+          be_a(Grape::Router::Route).and(have_attributes(path: "/:version/messages/:id(.:format)", version: "v1")),
+          be_a(Grape::Router::Route).and(have_attributes(path: "/:version/messages(.:format)", version: "v1"))
+        ]}
       }
 
       it { expect(combined_routes).to include expected_routes }
