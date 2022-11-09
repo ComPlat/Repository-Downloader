@@ -1,34 +1,56 @@
 describe MappersPresenter do
-  let(:mapper_class) do
-    Class.new(ShaleCustom::Mapper) {
-      def self.name = "TestMapper"
-
-      attribute :string, Shale::Type::String
-    }
-  end
-  let(:mapper_args) { {string: "string_value"} }
+  let(:test_mapper_args) { {string: "string_value"} }
+  let(:test_mapper_class) {
+    stub_const("TestMapper",
+      Class.new(ShaleCustom::Mapper) { attribute :string, Shale::Type::String })
+  }
 
   describe ".new" do
-    it { expect(described_class.new(mapper_class, [mapper_args])).to be_a described_class }
+    it { expect(described_class.new(test_mapper_class, [test_mapper_args])).to be_a described_class }
   end
 
   describe "#to_json" do
     subject(:to_json) { mappers_presenter.to_json }
 
-    let(:mappers_presenter) { described_class.new(mapper_class, [mapper_args]) }
+    context "with empty array" do
+      let(:mappers_presenter) { described_class.new(test_mapper_class, []) }
 
-    it { is_expected.to eq "[{\"string\":\"string_value\"}]" }
-    it { is_expected.to eq mapper_class.to_json([mapper_class.new(**mapper_args)]) }
+      it { is_expected.to eq "[]" }
+    end
+
+    context "with one arg" do
+      let(:mappers_presenter) { described_class.new(test_mapper_class, [test_mapper_args]) }
+
+      it { is_expected.to eq "[{\"string\":\"string_value\"}]" }
+      it { is_expected.to eq test_mapper_class.to_json([test_mapper_class.new(**test_mapper_args)]) }
+    end
+
+    context "with multiple args" do
+      let(:mappers_presenter) { described_class.new(test_mapper_class, [test_mapper_args, test_mapper_args]) }
+
+      it { is_expected.to eq "[{\"string\":\"string_value\"},{\"string\":\"string_value\"}]" }
+    end
   end
 
   describe "#to_xml" do
     subject(:to_xml) { mappers_presenter.to_xml }
 
-    let(:args) { attributes_for :address_mapper, :with_all_args, street: nil }
-    # TODO: Does not work with mapper_class. What is it missing?
-    let(:mappers_presenter) { described_class.new(AddressMapper, [args, args]) }
+    context "with empty array" do
+      let(:mappers_presenter) { described_class.new(test_mapper_class, []) }
 
-    it { is_expected.to eq "<addresses><address><city>city</city><street/><zip>zip</zip></address><address><city>city</city><street/><zip>zip</zip></address></addresses>" }
-    # it { is_expected.to eq mapper_class.to_xml([mapper_class.new(**mapper_args)]) }
+      it { is_expected.to eq "<tests/>" }
+    end
+
+    context "with one arg" do
+      let(:mappers_presenter) { described_class.new(test_mapper_class, [test_mapper_args]) }
+
+      it { is_expected.to eq "<tests><test><string>string_value</string></test></tests>" }
+    end
+
+    context "with multiple args" do
+      let(:mappers_presenter) { described_class.new(test_mapper_class, [test_mapper_args, test_mapper_args]) }
+
+      it { is_expected.to eq "<tests><test><string>string_value</string></test><test><string>string_value</string></test></tests>" }
+    end
   end
 end
