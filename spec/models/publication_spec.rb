@@ -1,4 +1,4 @@
-describe ToapPublication do
+describe Publication do
   describe "columns" do
     it { is_expected.to have_db_column(:id).of_type(:integer) }
     it { is_expected.to have_db_column(:taggable_data).of_type(:jsonb) }
