@@ -1,0 +1,2 @@
+class SamplePublication < Publication
+end
