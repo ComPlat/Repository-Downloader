@@ -119,7 +119,8 @@ describe PersonMapper do
       let(:expected_csv) do
         <<~CSV
           first_name,last_name,age,married,hobbies,address
-          #{args[:first_name]},#{args[:last_name]},#{args[:age]},#{args[:married]},"[""Guitar"", ""Music"", ""Reading""]","{""city""=>""#{args[:address].city}"",""street""=>""#{args[:address].street}"",""zip""=>""#{args[:address].zip}""}"
+          #{args[:first_name]},#{args[:last_name]},#{args[:age]},#{args[:married]},"[""Guitar"", ""Music"", ""Reading""]",
+           "{""city""=>""#{args[:address].city}"",""street""=>""#{args[:address].street}"",""zip""=>""#{args[:address].zip}""}"
         CSV
       end
 
@@ -185,7 +186,8 @@ describe PersonMapper do
       let(:expected_csv) do
         <<~CSV
           first_name,last_name,age,married,hobbies,address
-          #{args[:first_name]},#{args[:last_name]},#{args[:age]},#{args[:married]},"[""Guitar"", ""Music"", ""Reading""]","{""city""=>""#{args[:address].city}"",""street""=>""#{args[:address].street}"",""zip""=>""#{args[:address].zip}""}"
+          #{args[:first_name]},#{args[:last_name]},#{args[:age]},#{args[:married]}, "[""Guitar"", ""Music"", ""Reading""]",
+          "{""city""=>""#{args[:address].city}"",""street""=>""#{args[:address].street}"",""zip""=>""#{args[:address].zip}""}"
         CSV
       end
 

@@ -24,12 +24,12 @@ describe API::Base do
     it { expect(combined_routes).to include({"swagger_doc" => []}) }
 
     describe "messages routes" do
-      let(:expected_routes) {
+      let(:expected_routes) do
         {"messages" => [
           be_a(Grape::Router::Route).and(have_attributes(path: "/:version/messages/:id(.:format)", version: "v1")),
           be_a(Grape::Router::Route).and(have_attributes(path: "/:version/messages(.:format)", version: "v1"))
         ]}
-      }
+      end
 
       it { expect(combined_routes).to include expected_routes }
     end
@@ -38,29 +38,29 @@ describe API::Base do
   describe "inheritable_setting.namespace_stackable[:formatters]" do
     subject(:formatters) { described_class.inheritable_setting.namespace_stackable[:formatters] }
 
-    let(:test_mapper) {
+    let(:test_mapper) do
       stub_const("TestMapper",
         Class.new(ShaleCustom::Mapper) { attribute :string, Shale::Type::String })
         .new(string: "string_value")
-    }
+    end
 
     it { is_expected.to match([{xml: be_a(Proc)}, {json: be_a(Proc)}]) }
 
-    it {
+    it do
       allow(test_mapper).to receive(:to_xml)
 
       formatters.first[:xml].call(test_mapper, nil)
 
       expect(test_mapper).to have_received(:to_xml).with(no_args).once
-    }
+    end
 
-    it {
+    it do
       allow(test_mapper).to receive(:to_json)
 
       formatters.second[:json].call(test_mapper, nil)
 
       expect(test_mapper).to have_received(:to_json).with(no_args).once
-    }
+    end
   end
 
   describe "response.headers" do

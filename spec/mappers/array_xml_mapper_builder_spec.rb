@@ -1,9 +1,9 @@
 describe ArrayXmlMapperBuilder do
   let(:test_mapper_args) { {string: "string_value"} }
-  let(:test_mapper) {
+  let(:test_mapper) do
     stub_const("TestMapper",
       Class.new(ShaleCustom::Mapper) { attribute :string, Shale::Type::String })
-  }
+  end
   let(:tests_mapper_class) { Object.const_get(:TestsMapper) }
 
   describe ".new" do
