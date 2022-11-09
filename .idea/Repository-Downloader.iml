@@ -52,10 +52,20 @@
     <orderEntry type="library" scope="PROVIDED" name="cssbundling-rails (v1.1.1, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="debug (v1.6.2, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="diff-lcs (v1.5.0, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="dotenv (v2.8.1, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="dotenv-rails (v2.8.1, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="dry-container (v0.11.0, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="dry-core (v0.9.1, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="dry-inflector (v0.3.0, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="dry-logic (v1.3.0, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="dry-types (v1.6.1, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="erubi (v1.11.0, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="factory_bot (v6.2.1, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="factory_bot_rails (v6.2.0, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="globalid (v1.0.0, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="grape (v1.6.2, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="grape-swagger (v1.5.0, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="grape-swagger-rails (v0.3.1, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="i18n (v1.12.0, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="io-console (v0.5.11, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="irb (v1.4.2, asdf: 3.1.2) [gem]" level="application" />
@@ -69,6 +79,8 @@
     <orderEntry type="library" scope="PROVIDED" name="mini_mime (v1.1.2, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="minitest (v5.16.3, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="msgpack (v1.6.0, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="mustermann (v3.0.0, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="mustermann-grape (v1.0.2, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="net-imap (v0.3.1, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="net-pop (v0.1.2, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="net-protocol (v0.1.3, asdf: 3.1.2) [gem]" level="application" />
@@ -82,6 +94,7 @@
     <orderEntry type="library" scope="PROVIDED" name="puma (v5.6.5, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="racc (v1.6.0, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack (v2.2.4, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rack-accept (v0.4.5, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-test (v2.0.2, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails (v7.0.4, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails-controller-testing (v1.0.5, asdf: 3.1.2) [gem]" level="application" />
@@ -121,7 +134,7 @@
     <orderEntry type="library" scope="PROVIDED" name="websocket-driver (v0.7.5, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="websocket-extensions (v0.1.5, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="xpath (v3.2.0, asdf: 3.1.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="zeitwerk (v2.6.2, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="zeitwerk (v2.6.5, asdf: 3.1.2) [gem]" level="application" />
   </component>
   <component name="RModuleSettingsStorage">
     <LOAD_PATH number="0" />
@@ -417,7 +430,7 @@
           <RakeTaskImpl id="spec">
             <subtasks>
               <RakeTaskImpl description="Run the code examples in spec/controllers" fullCommand="spec:controllers" id="controllers" />
-              <RakeTaskImpl description="Run the code examples in spec/helpers" fullCommand="spec:helpers" id="helpers" />
+              <RakeTaskImpl description="Run the code examples in spec/grape" fullCommand="spec:grape" id="grape" />
               <RakeTaskImpl description="Run the code examples in spec/mappers" fullCommand="spec:mappers" id="mappers" />
               <RakeTaskImpl description="Run the code examples in spec/models" fullCommand="spec:models" id="models" />
               <RakeTaskImpl description="Run the code examples in spec/requests" fullCommand="spec:requests" id="requests" />

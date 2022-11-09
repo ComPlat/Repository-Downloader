@@ -36,6 +36,11 @@ gem "tzinfo-data", "1.2022.5", platforms: %i[mingw mswin x64_mingw jruby]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", "1.13.0", require: false
 
+# Use Grape to create a REST API and generate a Swagger UI to interact with the endpoints
+gem "grape", "1.6.2"
+gem "grape-swagger", "1.5.0"
+gem "grape-swagger-rails", "0.3.1"
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
@@ -48,6 +53,7 @@ gem "dotenv-rails", "2.8.1"
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", "1.6.2", platforms: %i[mri mingw x64_mingw]
+
   gem "standard", "1.16.1", require: false
   gem "rubocop-rails", "2.16.1", require: false
   gem "rubocop-rspec", "2.13.2", require: false
