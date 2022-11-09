@@ -44,9 +44,7 @@ describe API::Base do
         .new(string: "string_value")
     end
 
-    let(:expected_formatter_procs) { [{xml: be_a(Proc)}, {json: be_a(Proc)}] }
-
-    it { is_expected.to match(expected_formatter_procs) }
+    it { is_expected.to match([{xml: be_a(Proc)}, {json: be_a(Proc)}]) }
     it { expect(formatters.length).to eq 2 }
 
     it do
