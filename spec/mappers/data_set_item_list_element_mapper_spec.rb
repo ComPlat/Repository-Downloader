@@ -8,8 +8,6 @@ describe DataSetItemListElementMapper do
     it { expect(data_set_item_list_element_mapper).to be_a ShaleCustom::Mapper }
     it { expect(data_set_item_list_element_mapper.type).to be_nil }
     it { expect(data_set_item_list_element_mapper.identifier).to be_nil }
-    it { expect(data_set_item_list_element_mapper.filename).to be_nil }
-    it { expect(data_set_item_list_element_mapper.filepath).to be_nil }
     it { expect(data_set_item_list_element_mapper.name).to be_nil }
     it { expect(data_set_item_list_element_mapper.Instrument).to be_nil }
     it { expect(data_set_item_list_element_mapper.descriptions).to be_nil }
@@ -21,8 +19,6 @@ describe DataSetItemListElementMapper do
           {
             "type": #{expected_json_nil_render_value},
             "identifier": #{expected_json_nil_render_value},
-            "filename": #{expected_json_nil_render_value},
-            "filepath": #{expected_json_nil_render_value},
             "name": #{expected_json_nil_render_value},
             "Instrument": #{expected_json_nil_render_value},
             "descriptions": #{expected_json_nil_render_value}
@@ -42,8 +38,6 @@ describe DataSetItemListElementMapper do
     it { expect(data_set_item_list_element_mapper).to be_a ShaleCustom::Mapper }
     it { expect(data_set_item_list_element_mapper.type).to eq args[:type] }
     it { expect(data_set_item_list_element_mapper.identifier).to eq args[:identifier] }
-    it { expect(data_set_item_list_element_mapper.filename).to eq args[:filename] }
-    it { expect(data_set_item_list_element_mapper.filepath).to eq args[:filepath] }
     it { expect(data_set_item_list_element_mapper.name).to eq args[:name] }
     it { expect(data_set_item_list_element_mapper.Instrument).to eq args[:Instrument] }
     it { expect(data_set_item_list_element_mapper.descriptions).to eq args[:descriptions] }
@@ -55,8 +49,6 @@ describe DataSetItemListElementMapper do
           {
             "type": "#{args[:type]}",
             "identifier": "#{args[:identifier]}",
-            "filename": "#{args[:filename]}",
-            "filepath": "#{args[:filepath]}",
             "name": "#{args[:name]}",
             "Instrument": "#{args[:Instrument]}",
             "descriptions": "#{args[:descriptions]}"
@@ -69,15 +61,13 @@ describe DataSetItemListElementMapper do
   end
 
   context "when called some arguments" do
-    let(:args) { attributes_for :data_set_item_list_element_mapper, :with_all_args, identifier: nil, filepath: nil, Instrument: nil }
+    let(:args) { attributes_for :data_set_item_list_element_mapper, :with_all_args, identifier: nil, Instrument: nil }
     let(:data_set_item_list_element_mapper) { described_class.new(**args) }
 
     it { expect(data_set_item_list_element_mapper).to be_a described_class }
     it { expect(data_set_item_list_element_mapper).to be_a ShaleCustom::Mapper }
     it { expect(data_set_item_list_element_mapper.type).to eq args[:type] }
     it { expect(data_set_item_list_element_mapper.identifier).to be_nil }
-    it { expect(data_set_item_list_element_mapper.filename).to eq args[:filename] }
-    it { expect(data_set_item_list_element_mapper.filepath).to be_nil }
     it { expect(data_set_item_list_element_mapper.name).to eq args[:name] }
     it { expect(data_set_item_list_element_mapper.Instrument).to be_nil }
     it { expect(data_set_item_list_element_mapper.descriptions).to eq args[:descriptions] }
@@ -89,8 +79,6 @@ describe DataSetItemListElementMapper do
           {
             "type": "#{args[:type]}",
             "identifier": #{expected_json_nil_render_value},
-            "filename": "#{args[:filename]}",
-            "filepath": #{expected_json_nil_render_value},
             "name": "#{args[:name]}",
             "Instrument": #{expected_json_nil_render_value},
             "descriptions": "#{args[:descriptions]}"
