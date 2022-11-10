@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :analysis_publication_mapper do
     trait :with_all_args do
-      add_attribute(:context) { "https://schema.org/" }
+      add_attribute(:@context) { "https://schema.org/" }
       add_attribute(:type) { "AnalysisEntity" }
       add_attribute(:id) { "https://dx.doi.org/10.14272/MWJHDSAAGSURCA-UHFFFAOYSA-N/CHMO0000595" }
       ontologies { "13C nuclear magnetic resonance spectroscopy (13C NMR)" }

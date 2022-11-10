@@ -104,3 +104,5 @@ describe AnalysisPublicationMapper do
     end
   end
 end
+
+analysis_publication_to_analysis_publication_mapper_adapter
