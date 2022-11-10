@@ -35,10 +35,10 @@ describe DataSetListMapper do
       let(:expected_json) do
         <<~JSON
           {
-            "numberOfItems":2,
+            "numberOfItems":#{args[:numberOfItems]},
             "itemListElement":[
               {
-                "type":"DatasetEntity",
+                "@type":"DatasetEntity",
                 "identifier":"12345",
                 "name":"BJ68_1H",
                 "Instrument":"Bruker 400 MHz",
@@ -47,7 +47,7 @@ describe DataSetListMapper do
                   "numberOfItems":2,
                   "itemListElement":[
                     {
-                      "type":"AttachmentEntity",
+                      "@type":"AttachmentEntity",
                       "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
                       "filename":"BJ68_1H.zip",
                       "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"

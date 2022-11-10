@@ -15,7 +15,7 @@ describe AttachmentListItemListElementMapper do
       let(:expected_json) do
         <<~JSON
           {
-            "type": #{expected_json_nil_render_value},
+            "@type": #{expected_json_nil_render_value},
             "identifier": #{expected_json_nil_render_value},
             "filename": #{expected_json_nil_render_value},
             "filepath": #{expected_json_nil_render_value}
@@ -42,7 +42,7 @@ describe AttachmentListItemListElementMapper do
       let(:expected_json) do
         <<~JSON
           {
-            "type": "#{args[:type]}",
+            "@type": "#{args[:type]}",
             "identifier": "#{args[:identifier]}",
             "filename": "#{args[:filename]}",
             "filepath": "#{args[:filepath]}"
@@ -69,7 +69,7 @@ describe AttachmentListItemListElementMapper do
       let(:expected_json) do
         <<~JSON
           {
-            "type": "#{args[:type]}",
+            "@type": "#{args[:type]}",
             "identifier": #{expected_json_nil_render_value},
             "filename": "#{args[:filename]}",
             "filepath": #{expected_json_nil_render_value}

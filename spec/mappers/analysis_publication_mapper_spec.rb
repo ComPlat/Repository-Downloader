@@ -20,9 +20,9 @@ describe AnalysisPublicationMapper do
       let(:expected_json) do
         <<~JSON
           {
-            "context": #{expected_json_nil_render_value},
-            "type": #{expected_json_nil_render_value},
-            "id": #{expected_json_nil_render_value},
+            "@context": #{expected_json_nil_render_value},
+            "@type": #{expected_json_nil_render_value},
+            "@id": #{expected_json_nil_render_value},
             "ontologies": #{expected_json_nil_render_value},
             "title": #{expected_json_nil_render_value},
             "descriptions": #{expected_json_nil_render_value},
@@ -56,9 +56,9 @@ describe AnalysisPublicationMapper do
       let(:expected_json) do
         <<~JSON
           {
-            "context":"#{args[:context]}",
-            "type":"#{args[:type]}",
-            "id":"#{args[:id]}",
+            "@context":"#{args[:context]}",
+            "@type":"#{args[:type]}",
+            "@id":"#{args[:id]}",
             "ontologies":"#{args[:ontologies]}",
             "title":"#{args[:title]}",
             "descriptions":"#{args[:descriptions]}",
@@ -68,7 +68,7 @@ describe AnalysisPublicationMapper do
               "numberOfItems":2,
               "itemListElement":[
                 {
-                  "type":"DatasetEntity",
+                  "@type":"DatasetEntity",
                   "identifier":"12345",
                   "name":"BJ68_1H",
                   "Instrument":"Bruker 400 MHz",
@@ -77,7 +77,7 @@ describe AnalysisPublicationMapper do
                     "numberOfItems":2,
                     "itemListElement":[
                       { 
-                        "type":"AttachmentEntity",
+                        "@type":"AttachmentEntity",
                         "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
                         "filename":"BJ68_1H.zip",
                         "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
@@ -114,9 +114,9 @@ describe AnalysisPublicationMapper do
       let(:expected_json) do
         <<~JSON
           {
-            "context":"#{args[:context]}",
-            "type":"#{args[:type]}",
-            "id":"#{args[:id]}",
+            "@context":"#{args[:context]}",
+            "@type":"#{args[:type]}",
+            "@id":"#{args[:id]}",
             "ontologies":#{expected_json_nil_render_value},
             "title":"#{args[:title]}",
             "descriptions":#{expected_json_nil_render_value},
@@ -126,7 +126,7 @@ describe AnalysisPublicationMapper do
               "numberOfItems":2,
               "itemListElement":[
                 {
-                  "type":"DatasetEntity",
+                  "@type":"DatasetEntity",
                   "identifier":"12345",
                   "name":"BJ68_1H",
                   "Instrument":"Bruker 400 MHz",
@@ -135,7 +135,7 @@ describe AnalysisPublicationMapper do
                     "numberOfItems":2,
                     "itemListElement":[
                       { 
-                        "type":"AttachmentEntity",
+                        "@type":"AttachmentEntity",
                         "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
                         "filename":"BJ68_1H.zip",
                         "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
@@ -153,5 +153,3 @@ describe AnalysisPublicationMapper do
     end
   end
 end
-
-analysis_publication_to_analysis_publication_mapper_adapter

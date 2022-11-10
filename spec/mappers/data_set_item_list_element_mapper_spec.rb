@@ -17,7 +17,7 @@ describe DataSetItemListElementMapper do
       let(:expected_json) do
         <<~JSON
           {
-            "type": #{expected_json_nil_render_value},
+            "@type": #{expected_json_nil_render_value},
             "identifier": #{expected_json_nil_render_value},
             "name": #{expected_json_nil_render_value},
             "Instrument": #{expected_json_nil_render_value},
@@ -48,7 +48,7 @@ describe DataSetItemListElementMapper do
       let(:expected_json) do
         <<~JSON
           {
-            "type":"#{args[:type]}",
+            "@type":"#{args[:type]}",
             "identifier":"#{args[:identifier]}",
             "name":"#{args[:name]}",
             "Instrument":"#{args[:Instrument]}",
@@ -57,7 +57,7 @@ describe DataSetItemListElementMapper do
               "numberOfItems":2,
               "itemListElement":[
                 {
-                  "type":"AttachmentEntity",
+                  "@type":"AttachmentEntity",
                   "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
                   "filename":"BJ68_1H.zip",
                   "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
@@ -89,7 +89,7 @@ describe DataSetItemListElementMapper do
       let(:expected_json) do
         <<~JSON
           {
-            "type":"#{args[:type]}",
+            "@type":"#{args[:type]}",
             "identifier":#{expected_json_nil_render_value},
             "name":"#{args[:name]}",
             "Instrument":#{expected_json_nil_render_value},
@@ -98,7 +98,7 @@ describe DataSetItemListElementMapper do
               "numberOfItems":2,
               "itemListElement":[
                 {
-                  "type":"AttachmentEntity",
+                  "@type":"AttachmentEntity",
                   "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
                   "filename":"BJ68_1H.zip",
                   "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"

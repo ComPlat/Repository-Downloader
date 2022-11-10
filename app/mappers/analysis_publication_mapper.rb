@@ -13,5 +13,11 @@ class AnalysisPublicationMapper < ShaleCustom::Mapper
     map "@context", to: :context
     map "@type", to: :type
     map "@id", to: :id
+    map "ontologies", to: :ontologies
+    map "title", to: :title
+    map "descriptions", to: :descriptions
+    map "url", to: :url
+    map "identifier", to: :identifier
+    map "datasetList", to: :datasetList
   end
 end
