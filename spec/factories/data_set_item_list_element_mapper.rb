@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :item_list_element_mapper do
+  factory :data_set_item_list_element_mapper do
     trait :with_all_args do
       add_attribute(:type) { "DatasetEntity" }
       identifier { "12345" }
