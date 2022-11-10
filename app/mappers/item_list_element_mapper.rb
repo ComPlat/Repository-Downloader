@@ -6,5 +6,5 @@ class ItemListElementMapper < ShaleCustom::Mapper
   attribute :name, Shale::Type::String
   attribute :Instrument, Shale::Type::String
   attribute :descriptions, Shale::Type::String
-  attribute :attachmentList, AttachmentListMapper, collection: true
+  # attribute :attachmentList, AttachmentListMapper, collection: true
 end
