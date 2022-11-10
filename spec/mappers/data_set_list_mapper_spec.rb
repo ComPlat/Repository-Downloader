@@ -44,7 +44,7 @@ describe DataSetListMapper do
                 "Instrument":"Bruker 400 MHz",
                 "descriptions":"Bruker 400 MHz",
                 "attachmentList": {
-                  "numberOfItems":2,
+                  "numberOfItems":1,
                   "itemListElement":[
                     {
                       "@type":"AttachmentEntity",

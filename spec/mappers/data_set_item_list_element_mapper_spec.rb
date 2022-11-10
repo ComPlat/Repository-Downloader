@@ -54,7 +54,7 @@ describe DataSetItemListElementMapper do
             "Instrument":"#{args[:Instrument]}",
             "descriptions":"#{args[:descriptions]}",
             "attachmentList":{
-              "numberOfItems":2,
+              "numberOfItems":1,
               "itemListElement":[
                 {
                   "@type":"AttachmentEntity",
@@ -95,7 +95,7 @@ describe DataSetItemListElementMapper do
             "Instrument":#{expected_json_nil_render_value},
             "descriptions":"#{args[:descriptions]}",
             "attachmentList":{
-              "numberOfItems":2,
+              "numberOfItems":1,
               "itemListElement":[
                 {
                   "@type":"AttachmentEntity",
