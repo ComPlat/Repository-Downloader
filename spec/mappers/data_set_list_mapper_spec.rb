@@ -22,23 +22,23 @@ describe DataSetListMapper do
         expect(data_set_list_mapper.to_json).to eq_without_whitespace expected_json
       }
     end
+  end
 
-    context "when called with all arguments" do
-      let(:args) { attributes_for :data_set_list_mapper, :with_all_args }
-      let(:data_set_list_mapper) { described_class.new(**args) }
+  context "when called with all arguments" do
+    let(:args) { attributes_for :data_set_list_mapper, :with_all_args }
+    let(:data_set_list_mapper) { described_class.new(**args) }
 
-      it { expect(data_set_list_mapper).to be_a described_class }
-      it { expect(data_set_list_mapper.numberOfItems).to eq args[:numberOfItems] }
+    it { expect(data_set_list_mapper).to be_a described_class }
+    it { expect(data_set_list_mapper.numberOfItems).to eq args[:numberOfItems] }
 
-      describe "#to_json" do
-        let(:expected_json) do
-          <<~JSON
-            { "numberOfItems": #{args[:numberOfItems]} }
-          JSON
-        end
-
-        it { expect(data_set_list_mapper.to_json).to eq_without_whitespace expected_json }
+    describe "#to_json" do
+      let(:expected_json) do
+        <<~JSON
+          { "numberOfItems": #{args[:numberOfItems]} }
+        JSON
       end
+
+      it { expect(data_set_list_mapper.to_json).to eq_without_whitespace expected_json }
     end
   end
 end

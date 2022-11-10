@@ -22,23 +22,23 @@ describe AttachmentListMapper do
         expect(attachment_list_mapper.to_json).to eq_without_whitespace expected_json
       }
     end
+  end
 
-    context "when called with all arguments" do
-      let(:args) { attributes_for :attachment_list_mapper, :with_all_args }
-      let(:attachment_list_mapper) { described_class.new(**args) }
+  context "when called with all arguments" do
+    let(:args) { attributes_for :attachment_list_mapper, :with_all_args }
+    let(:attachment_list_mapper) { described_class.new(**args) }
 
-      it { expect(attachment_list_mapper).to be_a described_class }
-      it { expect(attachment_list_mapper.numberOfItems).to eq args[:numberOfItems] }
+    it { expect(attachment_list_mapper).to be_a described_class }
+    it { expect(attachment_list_mapper.numberOfItems).to eq args[:numberOfItems] }
 
-      describe "#to_json" do
-        let(:expected_json) do
-          <<~JSON
-            { "numberOfItems": #{args[:numberOfItems]} }
-          JSON
-        end
-
-        it { expect(attachment_list_mapper.to_json).to eq_without_whitespace expected_json }
+    describe "#to_json" do
+      let(:expected_json) do
+        <<~JSON
+          { "numberOfItems": #{args[:numberOfItems]} }
+        JSON
       end
+
+      it { expect(attachment_list_mapper.to_json).to eq_without_whitespace expected_json }
     end
   end
 end
