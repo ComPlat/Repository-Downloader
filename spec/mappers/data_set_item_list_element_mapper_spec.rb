@@ -54,12 +54,18 @@ describe DataSetItemListElementMapper do
             "Instrument":"#{args[:Instrument]}",
             "descriptions":"#{args[:descriptions]}",
             "attachmentList":{
-              "numberOfItems":1,
+              "numberOfItems":2,
               "itemListElement":[
                 {
                   "@type":"AttachmentEntity",
                   "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
                   "filename":"BJ68_1H.zip",
+                  "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
+                },
+                {
+                  "@type":"AttachmentEntity",
+                  "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
+                  "filename":"HRMS.jpg",
                   "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
                 }
               ]
@@ -95,12 +101,18 @@ describe DataSetItemListElementMapper do
             "Instrument":#{expected_json_nil_render_value},
             "descriptions":"#{args[:descriptions]}",
             "attachmentList":{
-              "numberOfItems":1,
+              "numberOfItems":2,
               "itemListElement":[
                 {
                   "@type":"AttachmentEntity",
                   "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
                   "filename":"BJ68_1H.zip",
+                  "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
+                },
+                {
+                  "@type":"AttachmentEntity",
+                  "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
+                  "filename":"HRMS.jpg",
                   "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
                 }
               ]

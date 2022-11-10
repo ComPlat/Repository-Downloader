@@ -65,7 +65,7 @@ describe AnalysisPublicationMapper do
             "url":"#{args[:url]}",
             "identifier":"#{args[:identifier]}",
             "datasetList":{
-              "numberOfItems":2,
+              "numberOfItems":1,
               "itemListElement":[
                 {
                   "@type":"DatasetEntity",
@@ -74,12 +74,18 @@ describe AnalysisPublicationMapper do
                   "Instrument":"Bruker 400 MHz",
                   "descriptions":"Bruker 400 MHz",
                   "attachmentList":{
-                    "numberOfItems":1,
+                    "numberOfItems":2,
                     "itemListElement":[
                       { 
                         "@type":"AttachmentEntity",
                         "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
                         "filename":"BJ68_1H.zip",
+                        "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
+                      },
+                      { 
+                        "@type":"AttachmentEntity",
+                        "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
+                        "filename":"HRMS.jpg",
                         "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
                       }
                     ]
@@ -123,7 +129,7 @@ describe AnalysisPublicationMapper do
             "url":"#{args[:url]}",
             "identifier":"#{args[:identifier]}",
             "datasetList":{
-              "numberOfItems":2,
+              "numberOfItems":1,
               "itemListElement":[
                 {
                   "@type":"DatasetEntity",
@@ -132,12 +138,18 @@ describe AnalysisPublicationMapper do
                   "Instrument":"Bruker 400 MHz",
                   "descriptions":"Bruker 400 MHz",
                   "attachmentList":{
-                    "numberOfItems":1,
+                    "numberOfItems":2,
                     "itemListElement":[
                       { 
                         "@type":"AttachmentEntity",
                         "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
                         "filename":"BJ68_1H.zip",
+                        "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
+                      },
+                      { 
+                        "@type":"AttachmentEntity",
+                        "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
+                        "filename":"HRMS.jpg",
                         "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
                       }
                     ]
