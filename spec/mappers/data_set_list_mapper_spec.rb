@@ -4,10 +4,10 @@ describe DataSetListMapper do
   context "when called without any arguments" do
     let(:data_set_list_mapper) { build :data_set_list_mapper }
 
-    it { expect(analysis_publication_mapper).to be_a described_class }
-    it { expect(analysis_publication_mapper).to be_a ShaleCustom::Mapper }
-    it { expect(analysis_publication_mapper.numberOfItems).to be_nil }
-    # it { expect(analysis_publication_mapper.datasetList).to be_nil }
+    it { expect(data_set_list_mapper).to be_a described_class }
+    it { expect(data_set_list_mapper).to be_a ShaleCustom::Mapper }
+    it { expect(data_set_list_mapper.numberOfItems).to be_nil }
+    # it { expect(data_set_list_mapper.datasetList).to be_nil }
 
     describe "#to_json" do
       let(:expected_json) do
