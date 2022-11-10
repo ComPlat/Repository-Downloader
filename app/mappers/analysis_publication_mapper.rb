@@ -10,8 +10,8 @@ class AnalysisPublicationMapper < ShaleCustom::Mapper
   attribute :datasetList, DataSetListMapper
 
   json do
-    map '@context', to: :context
-    map '@type', to: :type
-    map '@id', to: :id
+    map "@context", to: :context
+    map "@type", to: :type
+    map "@id", to: :id
   end
 end
