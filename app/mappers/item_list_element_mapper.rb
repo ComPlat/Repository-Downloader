@@ -1,5 +1,5 @@
 class ItemListElementMapper < ShaleCustom::Mapper
-  attribute :@type, Shale::Type::String
+  attribute :type, Shale::Type::String
   attribute :identifier, Shale::Type::String
   attribute :filename, Shale::Type::String
   attribute :filepath, Shale::Type::String
