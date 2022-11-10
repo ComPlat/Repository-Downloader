@@ -9,7 +9,7 @@ FactoryBot.define do
       descriptions { "13C NMR (100 MHz, DMSO-d6, ppm) δ = 194.2 (s, Cq), 194.1 (s, Cq), 166.3 (s, Cq), 135.7 (s, 2 x Cq), 135.1 (s, Cq), 132.0 (s, CarH), 130.1 (s, 2 x CarH), 129.9 (s, 2 x CarH), 129.8 (s, 2 x CarH), 129.5 (s, 2 x CarH)." }
       url { "https://dx.doi.org/10.14272/MWJHDSAAGSURCA-UHFFFAOYSA-N/CHMO0000595" }
       identifier { "CRD-27923" }
-      datasetList { build :data_set_list_mapper, :with_all_args }
+      # datasetList { build :data_set_list_mapper, :with_all_args }
     end
   end
 end

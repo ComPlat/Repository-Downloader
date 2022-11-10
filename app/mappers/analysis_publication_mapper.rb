@@ -1,6 +1,4 @@
 class AnalysisPublicationMapper < ShaleCustom::Mapper
-  model Publication
-
   attribute :context, Shale::Type::String
   attribute :type, Shale::Type::String
   attribute :id, Shale::Type::String
@@ -9,5 +7,5 @@ class AnalysisPublicationMapper < ShaleCustom::Mapper
   attribute :descriptions, Shale::Type::String
   attribute :url, Shale::Type::String
   attribute :identifier, Shale::Type::String
-  attribute :datasetList, DataSetListMapper
+  # attribute :datasetList, DataSetListMapper
 end
