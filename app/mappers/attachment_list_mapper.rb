@@ -1,4 +1,4 @@
 class AttachmentListMapper < ShaleCustom::Mapper
   attribute :numberOfItems, Shale::Type::Integer
-  # attribute :itemListElement, ItemListElementMapper, collection: true
+  attribute :itemListElement, AttachmentListItemListElementMapper, collection: true
 end

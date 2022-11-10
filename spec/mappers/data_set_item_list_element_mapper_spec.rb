@@ -11,7 +11,7 @@ describe DataSetItemListElementMapper do
     it { expect(data_set_item_list_element_mapper.name).to be_nil }
     it { expect(data_set_item_list_element_mapper.Instrument).to be_nil }
     it { expect(data_set_item_list_element_mapper.descriptions).to be_nil }
-    # it { expect(data_set_item_list_element_mapper.attachmentList).to be_nil }
+    it { expect(data_set_item_list_element_mapper.attachmentList).to be_nil }
 
     describe "#to_json" do
       let(:expected_json) do
@@ -21,7 +21,8 @@ describe DataSetItemListElementMapper do
             "identifier": #{expected_json_nil_render_value},
             "name": #{expected_json_nil_render_value},
             "Instrument": #{expected_json_nil_render_value},
-            "descriptions": #{expected_json_nil_render_value}
+            "descriptions": #{expected_json_nil_render_value},
+            "attachmentList": #{expected_json_nil_render_value}
           }
         JSON
       end
@@ -41,17 +42,28 @@ describe DataSetItemListElementMapper do
     it { expect(data_set_item_list_element_mapper.name).to eq args[:name] }
     it { expect(data_set_item_list_element_mapper.Instrument).to eq args[:Instrument] }
     it { expect(data_set_item_list_element_mapper.descriptions).to eq args[:descriptions] }
-    # it { expect(data_set_item_list_element_mapper.attachmentList).to eq args[:numberOfItems] }
+    it { expect(data_set_item_list_element_mapper.attachmentList).to eq args[:attachmentList] }
 
     describe "#to_json" do
       let(:expected_json) do
         <<~JSON
           {
-            "type": "#{args[:type]}",
-            "identifier": "#{args[:identifier]}",
-            "name": "#{args[:name]}",
-            "Instrument": "#{args[:Instrument]}",
-            "descriptions": "#{args[:descriptions]}"
+            "type":"#{args[:type]}",
+            "identifier":"#{args[:identifier]}",
+            "name":"#{args[:name]}",
+            "Instrument":"#{args[:Instrument]}",
+            "descriptions":"#{args[:descriptions]}",
+            "attachmentList":{
+              "numberOfItems":2,
+              "itemListElement":[
+                {
+                  "type":"AttachmentEntity",
+                  "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
+                  "filename":"BJ68_1H.zip",
+                  "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
+                }
+              ]
+            }
           }
         JSON
       end
@@ -71,17 +83,28 @@ describe DataSetItemListElementMapper do
     it { expect(data_set_item_list_element_mapper.name).to eq args[:name] }
     it { expect(data_set_item_list_element_mapper.Instrument).to be_nil }
     it { expect(data_set_item_list_element_mapper.descriptions).to eq args[:descriptions] }
-    # it { expect(data_set_item_list_element_mapper.attachmentList).to eq args[:numberOfItems] }
+    it { expect(data_set_item_list_element_mapper.attachmentList).to eq args[:attachmentList] }
 
     describe "#to_json" do
       let(:expected_json) do
         <<~JSON
           {
-            "type": "#{args[:type]}",
-            "identifier": #{expected_json_nil_render_value},
-            "name": "#{args[:name]}",
-            "Instrument": #{expected_json_nil_render_value},
-            "descriptions": "#{args[:descriptions]}"
+            "type":"#{args[:type]}",
+            "identifier":#{expected_json_nil_render_value},
+            "name":"#{args[:name]}",
+            "Instrument":#{expected_json_nil_render_value},
+            "descriptions":"#{args[:descriptions]}",
+            "attachmentList":{
+              "numberOfItems":2,
+              "itemListElement":[
+                {
+                  "type":"AttachmentEntity",
+                  "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
+                  "filename":"BJ68_1H.zip",
+                  "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
+                }
+              ]
+            }
           }
         JSON
       end

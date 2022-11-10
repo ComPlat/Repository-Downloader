@@ -7,5 +7,5 @@ class AnalysisPublicationMapper < ShaleCustom::Mapper
   attribute :descriptions, Shale::Type::String
   attribute :url, Shale::Type::String
   attribute :identifier, Shale::Type::String
-  # attribute :datasetList, DataSetListMapper
+  attribute :datasetList, DataSetListMapper
 end

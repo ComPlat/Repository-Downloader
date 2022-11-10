@@ -10,7 +10,6 @@ describe AttachmentListItemListElementMapper do
     it { expect(attachment_list_item_list_element_mapper.identifier).to be_nil }
     it { expect(attachment_list_item_list_element_mapper.filename).to be_nil }
     it { expect(attachment_list_item_list_element_mapper.filepath).to be_nil }
-    # it { expect(attachment_list_item_list_element_mapper.attachmentList).to be_nil }
 
     describe "#to_json" do
       let(:expected_json) do
@@ -38,7 +37,6 @@ describe AttachmentListItemListElementMapper do
     it { expect(attachment_list_item_list_element_mapper.identifier).to eq args[:identifier] }
     it { expect(attachment_list_item_list_element_mapper.filename).to eq args[:filename] }
     it { expect(attachment_list_item_list_element_mapper.filepath).to eq args[:filepath] }
-    # it { expect(attachment_list_item_list_element_mapper.attachmentList).to eq args[:numberOfItems] }
 
     describe "#to_json" do
       let(:expected_json) do
@@ -66,7 +64,6 @@ describe AttachmentListItemListElementMapper do
     it { expect(attachment_list_item_list_element_mapper.identifier).to be_nil }
     it { expect(attachment_list_item_list_element_mapper.filename).to eq args[:filename] }
     it { expect(attachment_list_item_list_element_mapper.filepath).to be_nil }
-    # it { expect(attachment_list_item_list_element_mapper.attachmentList).to eq args[:numberOfItems] }
 
     describe "#to_json" do
       let(:expected_json) do

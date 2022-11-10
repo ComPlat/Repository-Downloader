@@ -14,7 +14,7 @@ describe AnalysisPublicationMapper do
     it { expect(analysis_publication_mapper.descriptions).to be_nil }
     it { expect(analysis_publication_mapper.url).to be_nil }
     it { expect(analysis_publication_mapper.identifier).to be_nil }
-    # it { expect(analysis_publication_mapper.datasetList).to be_nil }
+    it { expect(analysis_publication_mapper.datasetList).to be_nil }
 
     describe "#to_json" do
       let(:expected_json) do
@@ -27,7 +27,8 @@ describe AnalysisPublicationMapper do
             "title": #{expected_json_nil_render_value},
             "descriptions": #{expected_json_nil_render_value},
             "url": #{expected_json_nil_render_value},
-            "identifier": #{expected_json_nil_render_value}
+            "identifier": #{expected_json_nil_render_value},
+            "datasetList": #{expected_json_nil_render_value}
           }
         JSON
       end
@@ -49,19 +50,43 @@ describe AnalysisPublicationMapper do
     it { expect(analysis_publication_mapper.descriptions).to eq args[:descriptions] }
     it { expect(analysis_publication_mapper.url).to eq args[:url] }
     it { expect(analysis_publication_mapper.identifier).to eq args[:identifier] }
+    it { expect(analysis_publication_mapper.datasetList).to eq args[:datasetList] }
 
     describe "#to_json" do
       let(:expected_json) do
         <<~JSON
           {
-            "context": "#{args[:context]}",
-            "type": "#{args[:type]}",
-            "id": "#{args[:id]}",
-            "ontologies": "#{args[:ontologies]}",
-            "title": "#{args[:title]}",
-            "descriptions": "#{args[:descriptions]}",
-            "url": "#{args[:url]}",
-            "identifier": "#{args[:identifier]}"
+            "context":"#{args[:context]}",
+            "type":"#{args[:type]}",
+            "id":"#{args[:id]}",
+            "ontologies":"#{args[:ontologies]}",
+            "title":"#{args[:title]}",
+            "descriptions":"#{args[:descriptions]}",
+            "url":"#{args[:url]}",
+            "identifier":"#{args[:identifier]}",
+            "datasetList":{
+              "numberOfItems":2,
+              "itemListElement":[
+                {
+                  "type":"DatasetEntity",
+                  "identifier":"12345",
+                  "name":"BJ68_1H",
+                  "Instrument":"Bruker 400 MHz",
+                  "descriptions":"Bruker 400 MHz",
+                  "attachmentList":{
+                    "numberOfItems":2,
+                    "itemListElement":[
+                      { 
+                        "type":"AttachmentEntity",
+                        "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
+                        "filename":"BJ68_1H.zip",
+                        "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
           }
         JSON
       end
@@ -83,19 +108,43 @@ describe AnalysisPublicationMapper do
     it { expect(analysis_publication_mapper.descriptions).to be_nil }
     it { expect(analysis_publication_mapper.url).to eq args[:url] }
     it { expect(analysis_publication_mapper.identifier).to eq args[:identifier] }
+    it { expect(analysis_publication_mapper.datasetList).to eq args[:datasetList] }
 
     describe "#to_json" do
       let(:expected_json) do
         <<~JSON
           {
-            "context": "#{args[:context]}",
-            "type": "#{args[:type]}",
-            "id": "#{args[:id]}",
-            "ontologies": #{expected_json_nil_render_value},
-            "title": "#{args[:title]}",
-            "descriptions": #{expected_json_nil_render_value},
-            "url": "#{args[:url]}",
-            "identifier": "#{args[:identifier]}"
+            "context":"#{args[:context]}",
+            "type":"#{args[:type]}",
+            "id":"#{args[:id]}",
+            "ontologies":#{expected_json_nil_render_value},
+            "title":"#{args[:title]}",
+            "descriptions":#{expected_json_nil_render_value},
+            "url":"#{args[:url]}",
+            "identifier":"#{args[:identifier]}",
+            "datasetList":{
+              "numberOfItems":2,
+              "itemListElement":[
+                {
+                  "type":"DatasetEntity",
+                  "identifier":"12345",
+                  "name":"BJ68_1H",
+                  "Instrument":"Bruker 400 MHz",
+                  "descriptions":"Bruker 400 MHz",
+                  "attachmentList":{
+                    "numberOfItems":2,
+                    "itemListElement":[
+                      { 
+                        "type":"AttachmentEntity",
+                        "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
+                        "filename":"BJ68_1H.zip",
+                        "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
           }
         JSON
       end
