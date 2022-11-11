@@ -24,7 +24,14 @@ describe AttachmentListMapper do
   end
 
   context "when called with all arguments" do
-    let(:args) { attributes_for :attachment_list_mapper, :with_all_args }
+    let(:item_list_element_args) {
+      [attributes_for(:attachment_list_item_list_element_mapper, :with_all_args),
+        attributes_for(:attachment_list_item_list_element_mapper, :with_all_args, filename: "HRMS.jpg")]
+    }
+    let(:args) {
+      attributes_for :attachment_list_mapper, :with_all_args,
+        itemListElement: item_list_element_args.map { |args| AttachmentListItemListElementMapper.new(**args) }
+    }
     let(:attachment_list_mapper) { described_class.new(**args) }
 
     it { expect(attachment_list_mapper).to be_a described_class }
@@ -34,23 +41,8 @@ describe AttachmentListMapper do
     describe "#to_json" do
       let(:expected_json) do
         <<~JSON
-          {
-            "numberOfItems":#{args[:numberOfItems]},
-            "itemListElement":[
-              {
-                "@type":"AttachmentEntity",
-                "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
-                "filename":"BJ68_1H.zip",
-                "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
-              },
-              {
-                "@type":"AttachmentEntity",
-                "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
-                "filename":"HRMS.jpg",
-                "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
-              }
-            ]
-          }
+          { "numberOfItems":#{args[:numberOfItems]},
+            "itemListElement": #{MappersPresenter.new(AttachmentListItemListElementMapper, item_list_element_args).to_json} }
         JSON
       end
 

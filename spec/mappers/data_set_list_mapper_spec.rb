@@ -26,42 +26,19 @@ describe DataSetListMapper do
   context "when called with all arguments" do
     let(:args) { attributes_for :data_set_list_mapper, :with_all_args }
     let(:data_set_list_mapper) { described_class.new(**args) }
+    let(:data_set_item_list_element_mapper) { build :data_set_item_list_element_mapper, :with_all_args }
 
     it { expect(data_set_list_mapper).to be_a described_class }
     it { expect(data_set_list_mapper.numberOfItems).to eq args[:numberOfItems] }
     it { expect(data_set_list_mapper.itemListElement).to eq args[:itemListElement] }
+    it { expect(data_set_list_mapper.itemListElement.to_json).to eq_without_whitespace data_set_item_list_element_mapper.to_json }
 
     describe "#to_json" do
       let(:expected_json) do
         <<~JSON
           {
             "numberOfItems":#{args[:numberOfItems]},
-            "itemListElement":[
-              {
-                "@type":"DatasetEntity",
-                "identifier":"12345",
-                "name":"BJ68_1H",
-                "Instrument":"Bruker 400 MHz",
-                "descriptions":"Bruker 400 MHz",
-                "attachmentList": {
-                  "numberOfItems":2,
-                  "itemListElement":[
-                    {
-                      "@type":"AttachmentEntity",
-                      "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
-                      "filename":"BJ68_1H.zip",
-                      "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
-                    },
-                    {
-                      "@type":"AttachmentEntity",
-                      "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
-                      "filename":"HRMS.jpg",
-                      "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
-                    }
-                  ]
-                }
-              }
-            ]
+            "itemListElement":[#{data_set_item_list_element_mapper.to_json}]
           }
         JSON
       end

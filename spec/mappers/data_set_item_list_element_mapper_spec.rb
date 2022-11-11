@@ -1,5 +1,6 @@
 describe DataSetItemListElementMapper do
   let(:expected_json_nil_render_value) { "null" }
+  let(:attachment_list_mapper) { build :attachment_list_mapper, :with_all_args }
 
   context "when called without any arguments" do
     let(:data_set_item_list_element_mapper) { build :data_set_item_list_element_mapper }
@@ -43,6 +44,7 @@ describe DataSetItemListElementMapper do
     it { expect(data_set_item_list_element_mapper.Instrument).to eq args[:Instrument] }
     it { expect(data_set_item_list_element_mapper.descriptions).to eq args[:descriptions] }
     it { expect(data_set_item_list_element_mapper.attachmentList).to eq args[:attachmentList] }
+    it { expect(data_set_item_list_element_mapper.attachmentList.to_json).to eq_without_whitespace attachment_list_mapper.to_json }
 
     describe "#to_json" do
       let(:expected_json) do
@@ -53,23 +55,7 @@ describe DataSetItemListElementMapper do
             "name":"#{args[:name]}",
             "Instrument":"#{args[:Instrument]}",
             "descriptions":"#{args[:descriptions]}",
-            "attachmentList":{
-              "numberOfItems":2,
-              "itemListElement":[
-                {
-                  "@type":"AttachmentEntity",
-                  "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
-                  "filename":"BJ68_1H.zip",
-                  "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
-                },
-                {
-                  "@type":"AttachmentEntity",
-                  "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
-                  "filename":"HRMS.jpg",
-                  "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
-                }
-              ]
-            }
+            "attachmentList":#{attachment_list_mapper.to_json}
           }
         JSON
       end
@@ -90,6 +76,7 @@ describe DataSetItemListElementMapper do
     it { expect(data_set_item_list_element_mapper.Instrument).to be_nil }
     it { expect(data_set_item_list_element_mapper.descriptions).to eq args[:descriptions] }
     it { expect(data_set_item_list_element_mapper.attachmentList).to eq args[:attachmentList] }
+    it { expect(data_set_item_list_element_mapper.attachmentList.to_json).to eq_without_whitespace attachment_list_mapper.to_json }
 
     describe "#to_json" do
       let(:expected_json) do
@@ -100,28 +87,14 @@ describe DataSetItemListElementMapper do
             "name":"#{args[:name]}",
             "Instrument":#{expected_json_nil_render_value},
             "descriptions":"#{args[:descriptions]}",
-            "attachmentList":{
-              "numberOfItems":2,
-              "itemListElement":[
-                {
-                  "@type":"AttachmentEntity",
-                  "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
-                  "filename":"BJ68_1H.zip",
-                  "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
-                },
-                {
-                  "@type":"AttachmentEntity",
-                  "identifier":"a63e278b-22f2-4da3-955f-e80e197bc853",
-                  "filename":"HRMS.jpg",
-                  "filepath":"data/a63e278b-22f2-4da3-955f-e80e197bc853"
-                }
-              ]
-            }
+            "attachmentList":#{attachment_list_mapper.to_json}
           }
         JSON
       end
 
-      it { expect(data_set_item_list_element_mapper.to_json).to eq_without_whitespace expected_json }
+      it {
+        expect(data_set_item_list_element_mapper.to_json).to eq_without_whitespace expected_json
+      }
     end
   end
 end
