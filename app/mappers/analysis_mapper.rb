@@ -1,4 +1,4 @@
-class AnalysisPublicationMapper < ShaleCustom::Mapper
+class AnalysisMapper < ShaleCustom::Mapper
   attribute :context, Shale::Type::String
   attribute :type, Shale::Type::String
   attribute :id, Shale::Type::String
