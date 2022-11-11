@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :analysis_publication_mapper do
+  factory :analysis_mapper do
     trait :with_all_args do
       add_attribute(:context) { "https://schema.org/" } # HINT: Otherwise Rubocop is confused.
       type { "AnalysisEntity" }
