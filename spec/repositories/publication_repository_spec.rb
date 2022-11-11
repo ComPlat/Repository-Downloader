@@ -1,4 +1,4 @@
-describe AnalysisRepository do
+describe PublicationRepository do
   let(:analysis) { create :analysis, :with_realistic_attributes }
 
   describe ".find_by_doi" do
