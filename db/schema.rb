@@ -17,7 +17,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_152849) do
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
-  create_table "toap_attachments", id: false, force: :cascade do |t|
+  create_table "toap_attachments", id: false, primary_key: "att_id", force: :cascade do |t|
     t.integer "ana_id"
     t.integer "ds_id"
     # noinspection RubyResolve
@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_152849) do
     t.string "akey", limit: 500
   end
 
-  create_table "toap_publications", id: false, force: :cascade do |t|
+  create_table "toap_publications", id: false, primary_key: "id", force: :cascade do |t|
     t.integer "id"
     # noinspection RubyResolve
     t.jsonb "taggable_data"
