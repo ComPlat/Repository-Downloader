@@ -16,7 +16,7 @@ module API
     end
 
     mount API::V1::Messages
-    mount API::V1::Publication::Base
+    mount API::V1::Publications::Base
 
     add_swagger_documentation
   end

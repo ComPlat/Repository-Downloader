@@ -1,8 +1,8 @@
 module API
   module V1
-    module Publication
+    module Publications
       class Base < Grape::API
-        mount API::V1::Publication::ChemotionId
+        mount API::V1::Publications::ChemotionId
       end
     end
   end

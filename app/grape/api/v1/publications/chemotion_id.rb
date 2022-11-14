@@ -1,10 +1,10 @@
 module API
   module V1
-    module Publication
+    module Publications
       class ChemotionId < Grape::API
         version "v1", using: :path
 
-        namespace "/publication/:chemotion_id" do
+        namespace "/publications/:chemotion_id" do
           desc "Return list of records"
           get do
             args = {city: "Town", street: "Chemotion Street 1", zip: "12345"}
