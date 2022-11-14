@@ -1,6 +1,6 @@
 module API
   module V1
-    module Publication
+    module Publications
       class Doi < Grape::API
         version "v1", using: :path
 

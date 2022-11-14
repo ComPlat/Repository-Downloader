@@ -1,8 +1,8 @@
 module API
   module V1
-    module Publication
+    module Publications
       class Base < Grape::API
-        mount API::V1::Publication::Doi
+        mount API::V1::Publications::Doi
       end
     end
   end
