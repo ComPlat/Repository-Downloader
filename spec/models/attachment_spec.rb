@@ -11,6 +11,10 @@ describe Attachment do
     it { is_expected.to have_db_column(:akey).of_type(:string).with_options(limit: 500) }
   end
 
+  describe "associations" do
+    it { is_expected.to belong_to(:analysis).with_primary_key(:element_id).with_foreign_key(:ana_id).inverse_of(:attachments) }
+  end
+
   describe ".new" do
     subject(:new) { described_class.new }
 

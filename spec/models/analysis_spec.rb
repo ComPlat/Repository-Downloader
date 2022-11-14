@@ -6,6 +6,10 @@ describe Analysis do
   it { expect(create(:analysis)).to be_valid }
   it { expect(create(:analysis)).to be_persisted }
 
+  describe "associations" do
+    it { is_expected.to have_many(:attachments).with_primary_key(:element_id).with_foreign_key(:ana_id).inverse_of(:analysis).dependent(:restrict_with_exception) }
+  end
+
   describe "#chemotion_id" do
     subject(:chemotion_id) { analysis.chemotion_id }
 
