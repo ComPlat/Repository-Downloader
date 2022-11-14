@@ -1,4 +1,4 @@
-describe ToapAttachment do
+describe Attachment do
   describe "columns" do
     it { is_expected.to have_db_column(:ana_id).of_type(:integer) }
     it { is_expected.to have_db_column(:ds_id).of_type(:integer) }
