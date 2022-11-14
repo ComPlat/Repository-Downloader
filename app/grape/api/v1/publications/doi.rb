@@ -4,7 +4,7 @@ module API
       class Doi < Grape::API
         version "v1", using: :path
 
-        namespace "/publication/:doi" do
+        namespace "/publications/:doi" do
           desc "Return list of DOIs"
           get do
             args = {city: "Town", street: "Doi Street 1", zip: "12345"}
