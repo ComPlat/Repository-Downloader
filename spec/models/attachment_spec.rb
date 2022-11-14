@@ -3,6 +3,7 @@ describe Attachment do
     it { is_expected.to have_db_column(:ana_id).of_type(:integer) }
     it { is_expected.to have_db_column(:ds_id).of_type(:integer) }
     it { is_expected.to have_db_column(:extended_metadata).of_type(:hstore) }
+    it { is_expected.to have_db_column(:att_id).of_type(:integer) }
     it { is_expected.to have_db_column(:filename).of_type(:string) }
     it { is_expected.to have_db_column(:identifier).of_type(:uuid) }
     it { is_expected.to have_db_column(:storage).of_type(:string).with_options(limit: 20) }
