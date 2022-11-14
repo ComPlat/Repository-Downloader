@@ -1,9 +1,13 @@
 describe Attachment do
+  let(:analysis) { create :analysis, element_id: 1 }
+
+  it { expect(described_class.primary_key).to eq "att_id" }
+
   describe "columns" do
+    it { is_expected.to have_db_column(:att_id).of_type(:integer) }
     it { is_expected.to have_db_column(:ana_id).of_type(:integer) }
     it { is_expected.to have_db_column(:ds_id).of_type(:integer) }
     it { is_expected.to have_db_column(:extended_metadata).of_type(:hstore) }
-    it { is_expected.to have_db_column(:att_id).of_type(:integer) }
     it { is_expected.to have_db_column(:filename).of_type(:string) }
     it { is_expected.to have_db_column(:identifier).of_type(:uuid) }
     it { is_expected.to have_db_column(:storage).of_type(:string).with_options(limit: 20) }
@@ -17,7 +21,7 @@ describe Attachment do
   end
 
   describe ".new" do
-    subject(:new) { described_class.new }
+    subject(:new) { described_class.new ana_id: analysis.element_id }
 
     it { is_expected.to be_a described_class }
     it { expect { new }.not_to change(described_class, :count) }
@@ -34,10 +38,10 @@ describe Attachment do
   end
 
   describe ".create" do
-    subject(:create) { described_class.create }
+    subject(:create_method) { described_class.create ana_id: analysis.element_id }
 
     it { is_expected.to be_a described_class }
-    it { expect { create }.to change(described_class, :count).from(0).to(1) }
+    it { expect { create_method }.to change(described_class, :count).from(0).to(1) }
     it { is_expected.to be_valid }
     it { is_expected.to be_persisted }
   end
