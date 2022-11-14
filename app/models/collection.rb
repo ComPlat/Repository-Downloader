@@ -1,0 +1,2 @@
+class Collection < Publication
+end
