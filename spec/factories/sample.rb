@@ -95,7 +95,7 @@ FactoryBot.define do
       target_amount_value { 0.0 }
       target_amount_unit { "g" }
       rs_type { nil }
-      yield nil
+      add_attribute(:yield) { nil }
       iupac_name { "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine" }
       cano_smiles { "c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1" }
       sum_formular { "C20H14N8" }
