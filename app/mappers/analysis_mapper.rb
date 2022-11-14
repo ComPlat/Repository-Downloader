@@ -1,6 +1,4 @@
 class AnalysisMapper < ShaleCustom::Mapper
-  model AnalysisToAnalysisMapperAdapter
-
   attribute :context, Shale::Type::String
   attribute :type, Shale::Type::String
   attribute :id, Shale::Type::String
