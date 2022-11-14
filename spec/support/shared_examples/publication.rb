@@ -1,5 +1,6 @@
 RSpec.shared_examples "Publication" do |_parameter|
   it { expect(described_class.table_name).to eq "toap_publications" }
+  it { expect(described_class.primary_key).to eq "id" }
   it { expect(described_class.inheritance_column).to eq "element_type" }
 
   describe "columns" do
