@@ -15,6 +15,8 @@ module API
       header["Access-Control-Request-Method"] = "*"
     end
 
+    mount API::V1::Publications::Base
+
     add_swagger_documentation
   end
 end

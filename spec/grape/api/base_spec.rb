@@ -20,8 +20,20 @@ describe API::Base do
   describe ".combined_routes" do
     subject(:combined_routes) { described_class.combined_routes }
 
-    it { expect(combined_routes.length).to eq 1 }
+    it { expect(combined_routes.length).to eq 2 }
     it { expect(combined_routes).to include({"swagger_doc" => []}) }
+
+    describe "publications routes" do
+      let(:expected_routes) do
+        # HINT: combined_routes["publications"].map { |route|  [route.path, route.version] }
+        {"publications" => [
+          be_a(Grape::Router::Route).and(have_attributes(path: "/:version/publications/chemotion_id/:id(.:format)", version: "v1")),
+          be_a(Grape::Router::Route).and(have_attributes(path: "/:version/publications/chemotion_id(.:format)", version: "v1"))
+        ]}
+      end
+
+      it { expect(combined_routes).to include expected_routes }
+    end
   end
 
   describe "inheritable_setting.namespace_stackable[:formatters]" do
@@ -58,7 +70,7 @@ describe API::Base do
 
     before { test_api.get "test" }
 
-    xdescribe "GET /api/v1/test" do
+    describe "GET /api/v1/test" do
       before { get "/api/v1/test" }
 
       it { expect(response.headers.length).to eq 7 }
@@ -71,7 +83,7 @@ describe API::Base do
       it { expect(response.headers["Content-Length"]).to be_a String }
     end
 
-    xdescribe "GET /api/v1/test.xml" do
+    describe "GET /api/v1/test.xml" do
       before { get "/api/v1/test.xml" }
 
       it { expect(response.headers["Content-Type"]).to eq "application/xml" }
@@ -84,7 +96,24 @@ describe API::Base do
        swagger: "2.0",
        produces: %w[application/json application/xml],
        host: ENV["HOST_URI"], # HINT: Default value for host URI
-       basePath: "/api"}
+       basePath: "/api",
+       tags: [{name: "publications", description: "Operations about publications"}],
+       paths: {"/v1/publications/chemotion_id": {get: {description: "Return list of publications",
+                                                       produces: ["application/json"],
+                                                       responses: {"200": {description: "Return list of publications"}},
+                                                       tags: ["publications"],
+                                                       operationId: "getV1PublicationsChemotionId"}},
+               "/v1/publications/chemotion_id/{id}": {get: {description: "Get one publication via ChemotionID",
+                                                            produces: ["application/json"],
+                                                            parameters: [{in: "path",
+                                                                          name: "id",
+                                                                          description: "ChemotionID",
+                                                                          type: "integer",
+                                                                          format: "int32",
+                                                                          required: true}],
+                                                            responses: {"200": {description: "Get one publication via ChemotionID"}},
+                                                            tags: ["publications"],
+                                                            operationId: "getV1PublicationsChemotionIdId"}}}}
     end
 
     before { get "/api/swagger_doc.json" }
