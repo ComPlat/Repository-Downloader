@@ -20,14 +20,15 @@ describe API::Base do
   describe ".combined_routes" do
     subject(:combined_routes) { described_class.combined_routes }
 
-    xit { expect(combined_routes.length).to eq 2 }
+    it { expect(combined_routes.length).to eq 2 }
     it { expect(combined_routes).to include({"swagger_doc" => []}) }
 
-    describe "messages routes" do
+    describe "publications routes" do
       let(:expected_routes) do
-        {"messages" => [
-          be_a(Grape::Router::Route).and(have_attributes(path: "/:version/messages/:id(.:format)", version: "v1")),
-          be_a(Grape::Router::Route).and(have_attributes(path: "/:version/messages(.:format)", version: "v1"))
+        # HINT: combined_routes["publications"].map { |route|  [route.path, route.version] }
+        {"publications" => [
+          be_a(Grape::Router::Route).and(have_attributes(path: "/:version/publications/chemotion_id/:id(.:format)", version: "v1")),
+          be_a(Grape::Router::Route).and(have_attributes(path: "/:version/publications/chemotion_id(.:format)", version: "v1"))
         ]}
       end
 
