@@ -36,7 +36,7 @@ describe AnalysisToAnalysisMapperAdapter do
     subject(:ontologies) { analysis_to_analysis_mapper_adapter.ontologies }
 
     it {
-      expect(subject).to eq "13C nuclear magnetic resonance spectroscopy (13C NMR)"
+      expect(ontologies).to eq "13C nuclear magnetic resonance spectroscopy (13C NMR)"
     }
 
     it { expect(analysis.extended_metadata.to_s).to include ontologies }
