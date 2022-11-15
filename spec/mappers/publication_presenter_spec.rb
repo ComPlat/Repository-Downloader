@@ -1,11 +1,11 @@
-describe AnalysisPresenter do
-  context "when doi is given" do
-    subject(:present) { described_class.present }
+describe PublicationPresenter do
+  describe ".present_by_doi" do
+    context "when an existing doi is given" do
+      subject(:present) { described_class.present_by_doi analysis.taggable_data["doi"] }
 
-    let(:analysis) { create :analysis, :with_realistic_attributes }
-    let(:analysis_record) { AnalysisRepository.find_by_doi! doi }
-    let(:arg) { analysis.taggable_data["doi"] }
+      let(:analysis) { create :analysis, :with_realistic_attributes }
 
-    xit { is_expected.to eq "" }
+      it { is_expected.to eq "" }
+    end
   end
 end
