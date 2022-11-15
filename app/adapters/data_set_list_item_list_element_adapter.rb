@@ -1,9 +1,9 @@
-class DataSetListAdapter
+class DataSetListItemListElementAdapter
   def initialize(analysis)
     @analysis = analysis
   end
 
-  def item_list_element = # noinspection RubyResolve
+  def itemListElement = # noinspection RubyResolve
     attachments_grouped_by_datastore.map do |ds_id, attachments|
       {type: "DatasetEntity",
        identifier: ds_id, # TODO: Find out where this comes from database.
