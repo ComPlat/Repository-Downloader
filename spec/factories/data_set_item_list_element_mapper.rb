@@ -6,6 +6,7 @@ FactoryBot.define do
       name { "BJ68_1H" }
       add_attribute(:Instrument) { "Bruker 400 MHz" }
       descriptions { "Bruker 400 MHz" }
+      # noinspection RubyResolve
       attachmentList { build :attachment_list_mapper, :with_all_args }
     end
   end
