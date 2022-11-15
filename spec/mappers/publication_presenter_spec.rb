@@ -5,7 +5,9 @@ describe PublicationPresenter do
 
       let(:analysis) { create :analysis, :with_realistic_attributes }
 
-      it { is_expected.to eq "" }
+      it { expect(present.to_json).to eq analysis.present_to_api.to_json }
+      it { expect(present.to_xml).to eq analysis.present_to_api.to_xml }
+      it { expect(present.to_csv).to eq analysis.present_to_api.to_csv }
     end
   end
 end

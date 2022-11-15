@@ -31,7 +31,12 @@ describe Analysis do
     subject(:present_to_api) { analysis.present_to_api }
 
     let(:analysis) { create :analysis, :with_realistic_attributes }
+    let(:analysis_to_analysis_mapper_adapter) { AnalysisToAnalysisMapperAdapter.new analysis }
+    let(:analysis_to_analysis_mapper_adapter_hash) { analysis_to_analysis_mapper_adapter.to_h }
+    let(:analysis_mapper) { AnalysisMapper.new(**analysis_to_analysis_mapper_adapter_hash) }
 
-    it { is_expected.to eq "" }
+    it { expect(present_to_api.to_json).to eq analysis_mapper.to_json }
+    it { expect(present_to_api.to_xml).to eq analysis_mapper.to_xml }
+    it { expect(present_to_api.to_csv).to eq analysis_mapper.to_csv }
   end
 end
