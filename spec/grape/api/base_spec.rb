@@ -89,4 +89,19 @@ describe API::Base do
       it { expect(response.headers["Content-Type"]).to eq "application/xml" }
     end
   end
+
+  describe "/api/swagger_doc.json" do
+    let(:expected_body) do
+      {info: {title: "API title", version: "0.0.1"},
+       swagger: "2.0",
+       produces: %w[application/json application/xml],
+       host: ENV["HOST_URI"], # HINT: Default value for host URI
+       basePath: "/api"}
+    end
+
+    before { get "/api/swagger_doc.json" }
+
+    it { expect(response).to have_http_status(:ok) }
+    it { expect(JSON.parse(response.body).deep_symbolize_keys).to eq expected_body }
+  end
 end
