@@ -15,17 +15,19 @@ class AnalysisToAnalysisMapperAdapter
 
   def ontologies = @analysis.extended_metadata["kind"].split("|").last.strip
 
-  def title = Nokogiri::XML(@analysis.metadata_xml).search("title").map { |title| title.text }.join(";")
+  def title = @analysis.extended_metadata["kind"].split("|").last.strip
 
-  def descriptions = "" # HINT:
+  def descriptions = @analysis.extended_metadata["content"] # TODO: check if this is right
 
   def url = "https://dx.doi.org/#{@analysis.taggable_data["analysis_doi"]}"
 
   def identifier = @analysis.chemotion_id
 
-  def dataset_list = {numberOfItems:, itemListElement: DataSetListAdapter.new(@analysis).item_list_element}
+  def datasetList = {numberOfItems:, itemListElement:}
 
   private
 
   def numberOfItems = @analysis.attachments.count
+
+  def itemListElement = DataSetListAdapter.new(@analysis).item_list_element
 end
