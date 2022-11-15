@@ -20,19 +20,8 @@ describe API::Base do
   describe ".combined_routes" do
     subject(:combined_routes) { described_class.combined_routes }
 
-    it { expect(combined_routes.length).to eq 2 }
+    it { expect(combined_routes.length).to eq 1 }
     it { expect(combined_routes).to include({"swagger_doc" => []}) }
-
-    describe "messages routes" do
-      let(:expected_routes) do
-        {"messages" => [
-          be_a(Grape::Router::Route).and(have_attributes(path: "/:version/messages/:id(.:format)", version: "v1")),
-          be_a(Grape::Router::Route).and(have_attributes(path: "/:version/messages(.:format)", version: "v1"))
-        ]}
-      end
-
-      it { expect(combined_routes).to include expected_routes }
-    end
   end
 
   describe "inheritable_setting.namespace_stackable[:formatters]" do
@@ -69,7 +58,7 @@ describe API::Base do
 
     before { test_api.get "test" }
 
-    describe "GET /api/v1/test" do
+    xdescribe "GET /api/v1/test" do
       before { get "/api/v1/test" }
 
       it { expect(response.headers.length).to eq 7 }
@@ -82,10 +71,25 @@ describe API::Base do
       it { expect(response.headers["Content-Length"]).to be_a String }
     end
 
-    describe "GET /api/v1/test.xml" do
+    xdescribe "GET /api/v1/test.xml" do
       before { get "/api/v1/test.xml" }
 
       it { expect(response.headers["Content-Type"]).to eq "application/xml" }
     end
+  end
+
+  describe "/api/swagger_doc.json" do
+    let(:expected_body) do
+      {info: {title: "API title", version: "0.0.1"},
+       swagger: "2.0",
+       produces: %w[application/json application/xml],
+       host: ENV["HOST_URI"], # HINT: Default value for host URI
+       basePath: "/api"}
+    end
+
+    before { get "/api/swagger_doc.json" }
+
+    it { expect(response).to have_http_status(:ok) }
+    it { expect(JSON.parse(response.body).deep_symbolize_keys).to eq expected_body }
   end
 end
