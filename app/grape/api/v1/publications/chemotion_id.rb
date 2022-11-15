@@ -4,14 +4,14 @@ module API
       class ChemotionId < Grape::API
         version "v1", using: :path
 
-        namespace "/publications/:chemotion_id" do
+        namespace "/publications/chemotion_id" do
           desc "Return list of publications"
           get do
             args = {city: "Town", street: "Chemotion Street 1", zip: "12345"}
             present MappersPresenter.new AddressMapper, [args, args]
           end
 
-          desc "Get one record via ChemotionID"
+          desc "Get one publication via ChemotionID"
           params do
             requires :id, type: Integer, desc: "ChemotionID"
           end
