@@ -3,7 +3,6 @@ describe PublicationRepository do
 
   describe ".find_by_doi" do
     # HINT: Rubocop thinks this is the slow dynamic method, but we implement it ourselves!
-    # rubocop:disable Rails/DynamicFindBy
     subject(:find_by_doi) { described_class.find_by_doi! arg }
 
     context "when an Analysis can be found" do
