@@ -89,6 +89,7 @@ FactoryBot.define do
     acid and refluxed for 4 h. After cooling to room temperature, 700 mL of water
     were added. The precipitate was filtered off and washed with water. The crude
     product was recrystallized from ethanol to give 106 g of a colorless solid.
+
 '
 "
       }
