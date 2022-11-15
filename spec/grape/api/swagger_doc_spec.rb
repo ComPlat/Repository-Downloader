@@ -5,27 +5,27 @@ describe "SWAGGER" do
      produces: %w[application/json application/xml],
      host: ENV["HOST_URI"], # HINT: Default value for host URI
      basePath: "/api",
-     tags: [{name: "messages", description: "Operations about messages"}],
-     paths: {"/v1/messages": {get: {description: "Return list of messages",
-                                    produces: ["application/json"],
-                                    responses: {"200": {description: "Return list of messages"}},
-                                    tags: ["messages"],
-                                    operationId: "getV1Messages"}},
-             "/v1/messages/{id}": {get: {description: "Return a message",
-                                         produces: ["application/json"],
-                                         parameters: [{in: "path",
-                                                       name: "id",
-                                                       description: "Message ID",
-                                                       type: "integer",
-                                                       format: "int32",
-                                                       required: true}],
-                                         responses: {"200": {description: "Return a message"}},
-                                         tags: ["messages"],
-                                         operationId: "getV1MessagesId"}}}}
+     tags: [{name: "publications", description: "Operations about publications"}],
+     paths: {"/v1/publications/chemotion_id": {get: {description: "Return list of publications",
+                                                     produces: ["application/json"],
+                                                     responses: {"200": {description: "Return list of publications"}},
+                                                     tags: ["publications"],
+                                                     operationId: "getV1PublicationsChemotionId"}},
+             "/v1/publications/chemotion_id/{id}": {get: {description: "Get one publication via ChemotionID",
+                                                          produces: ["application/json"],
+                                                          parameters: [{in: "path",
+                                                                        name: "id",
+                                                                        description: "ChemotionID",
+                                                                        type: "integer",
+                                                                        format: "int32",
+                                                                        required: true}],
+                                                          responses: {"200": {description: "Get one publication via ChemotionID"}},
+                                                          tags: ["publications"],
+                                                          operationId: "getV1PublicationsChemotionIdId"}}}}
   end
 
   before { get "/api/swagger_doc.json" }
 
   it { expect(response).to have_http_status(:ok) }
-  xit { expect(JSON.parse(response.body).deep_symbolize_keys).to eq expected_body }
+  it { expect(JSON.parse(response.body).deep_symbolize_keys).to eq expected_body }
 end
