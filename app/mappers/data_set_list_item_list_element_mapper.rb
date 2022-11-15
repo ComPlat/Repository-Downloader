@@ -1,4 +1,4 @@
-class DataSetItemListElementMapper < ShaleCustom::Mapper
+class DataSetListItemListElementMapper < ShaleCustom::Mapper
   attribute :type, Shale::Type::String
   attribute :identifier, Shale::Type::String
   attribute :name, Shale::Type::String

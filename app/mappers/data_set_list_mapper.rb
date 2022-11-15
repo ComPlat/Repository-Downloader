@@ -1,4 +1,4 @@
 class DataSetListMapper < ShaleCustom::Mapper
   attribute :numberOfItems, Shale::Type::Integer
-  attribute :itemListElement, DataSetItemListElementMapper, collection: true
+  attribute :itemListElement, DataSetListItemListElementMapper, collection: true
 end
