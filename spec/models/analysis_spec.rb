@@ -33,7 +33,7 @@ describe Analysis do
     let(:analysis) { create :analysis, :with_realistic_attributes }
     let(:analysis_to_analysis_mapper_adapter) { AnalysisToAnalysisMapperAdapter.new analysis }
     let(:analysis_to_analysis_mapper_adapter_hash) { analysis_to_analysis_mapper_adapter.to_h }
-    let(:analysis_mapper) { AnalysisMapper.new(**analysis_to_analysis_mapper_adapter_hash) }
+    let(:analysis_mapper) { AnalysisMapper.from_hash analysis_to_analysis_mapper_adapter_hash }
 
     it { expect(present_to_api.to_json).to eq analysis_mapper.to_json }
     it { expect(present_to_api.to_xml).to eq analysis_mapper.to_xml }
