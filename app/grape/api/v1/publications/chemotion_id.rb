@@ -5,7 +5,7 @@ module API
         version "v1", using: :path
 
         namespace "/publications/:chemotion_id" do
-          desc "Return list of records"
+          desc "Return list of publications"
           get do
             args = {city: "Town", street: "Chemotion Street 1", zip: "12345"}
             present MappersPresenter.new AddressMapper, [args, args]
