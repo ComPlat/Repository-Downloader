@@ -5,7 +5,7 @@ module API
         version "v1", using: :path
 
         namespace "/publications/chemotion_id" do
-          desc "Get one publication via ChemotionID"
+          desc "Get one publication via ChemotionID", {produces: %w[application/json application/xml text/csv]}
           params do
             requires :id, type: Integer, desc: "ChemotionID"
           end

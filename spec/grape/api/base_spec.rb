@@ -118,7 +118,7 @@ describe API::Base do
        basePath: "/api",
        tags: [{name: "publications", description: "Operations about publications"}],
        paths: {"/v1/publications/chemotion_id/{id}": {get: {description: "Get one publication via ChemotionID",
-                                                            produces: ["application/json"],
+                                                            produces: %w[application/json application/xml text/csv],
                                                             parameters: [{in: "path",
                                                                           name: "id",
                                                                           description: "ChemotionID",
