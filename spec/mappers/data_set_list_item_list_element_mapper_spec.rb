@@ -149,7 +149,7 @@ describe DataSetListItemListElementMapper do
         JSON
       end
 
-      it { expect(JSON.parse data_set_list_item_list_element_mapper.to_json).to eq JSON.parse expected_json }
+      it { expect(JSON.parse(data_set_list_item_list_element_mapper.to_json)).to eq JSON.parse expected_json }
     end
   end
 end
