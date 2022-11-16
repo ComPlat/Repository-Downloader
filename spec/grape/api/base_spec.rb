@@ -44,7 +44,7 @@ describe API::Base do
         .new(string: "string_value")
     end
 
-    it { is_expected.to match([{xml: be_a(Proc)}, {json: be_a(Proc)}]) }
+    it { is_expected.to match [{xml: be_a(Proc)}, {json: be_a(Proc)}] }
     it { expect(formatters.length).to eq 2 }
 
     it do
@@ -62,6 +62,20 @@ describe API::Base do
 
       expect(test_mapper).to have_received(:to_json).with(no_args).once
     end
+  end
+
+  describe "inheritable_setting.namespace_stackable[:rescue_options]" do
+    subject(:rescue_options) { described_class.inheritable_setting.namespace_stackable[:rescue_options] }
+
+    it { is_expected.to eq [{}] }
+  end
+
+  describe "inheritable_setting.namespace_reverse_stackable[:rescue_handlers]" do
+    subject(:rescue_options) { test_api.inheritable_setting.namespace_reverse_stackable[:rescue_handlers] }
+
+    let(:test_api) { Class.new(described_class) }
+
+    it { is_expected.to match [{ActiveRecord::RecordNotFound => be_a(Proc)}] }
   end
 
   describe "response.headers" do
