@@ -13,7 +13,7 @@ class AnalysisToAnalysisMapperAdapter
 
   def id = url
 
-  def ontologies = @analysis.extended_metadata["kind"].split("|").last.strip
+  def ontologies = title
 
   def title = @analysis.extended_metadata["kind"].split("|").last.strip
 
@@ -29,5 +29,7 @@ class AnalysisToAnalysisMapperAdapter
 
   def numberOfItems = @analysis.attachments.count
 
-  def itemListElement = DataSetListAdapter.new(@analysis).item_list_element
+  def itemListElement = data_set_list_adapter.itemListElement
+
+  def data_set_list_adapter = DataSetListItemListElementAdapter.new @analysis
 end

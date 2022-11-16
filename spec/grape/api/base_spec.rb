@@ -27,8 +27,7 @@ describe API::Base do
       let(:expected_routes) do
         # HINT: combined_routes["publications"].map { |route|  [route.path, route.version] }
         {"publications" => [
-          be_a(Grape::Router::Route).and(have_attributes(path: "/:version/publications/chemotion_id/:id(.:format)", version: "v1")),
-          be_a(Grape::Router::Route).and(have_attributes(path: "/:version/publications/chemotion_id(.:format)", version: "v1"))
+          be_a(Grape::Router::Route).and(have_attributes(path: "/:version/publications/chemotion_id/:id(.:format)", version: "v1"))
         ]}
       end
 
@@ -45,7 +44,7 @@ describe API::Base do
         .new(string: "string_value")
     end
 
-    it { is_expected.to match([{xml: be_a(Proc)}, {json: be_a(Proc)}]) }
+    it { is_expected.to match [{xml: be_a(Proc)}, {json: be_a(Proc)}] }
     it { expect(formatters.length).to eq 2 }
 
     it do
@@ -63,6 +62,18 @@ describe API::Base do
 
       expect(test_mapper).to have_received(:to_json).with(no_args).once
     end
+  end
+
+  describe "inheritable_setting.namespace_stackable[:rescue_options]" do
+    subject(:rescue_options) { described_class.inheritable_setting.namespace_stackable[:rescue_options] }
+
+    it { is_expected.to eq [{}] }
+  end
+
+  describe "inheritable_setting.namespace_reverse_stackable[:rescue_handlers]" do
+    subject(:rescue_options) { described_class.inheritable_setting.namespace_reverse_stackable[:rescue_handlers] }
+
+    it { is_expected.to match [{ActiveRecord::RecordNotFound => be_a(Proc)}] }
   end
 
   describe "response.headers" do
@@ -98,12 +109,7 @@ describe API::Base do
        host: ENV["HOST_URI"], # HINT: Default value for host URI
        basePath: "/api",
        tags: [{name: "publications", description: "Operations about publications"}],
-       paths: {"/v1/publications/chemotion_id": {get: {description: "Return list of publications",
-                                                       produces: ["application/json"],
-                                                       responses: {"200": {description: "Return list of publications"}},
-                                                       tags: ["publications"],
-                                                       operationId: "getV1PublicationsChemotionId"}},
-               "/v1/publications/chemotion_id/{id}": {get: {description: "Get one publication via ChemotionID",
+       paths: {"/v1/publications/chemotion_id/{id}": {get: {description: "Get one publication via ChemotionID",
                                                             produces: ["application/json"],
                                                             parameters: [{in: "path",
                                                                           name: "id",
