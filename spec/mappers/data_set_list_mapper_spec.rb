@@ -30,7 +30,7 @@ describe DataSetListMapper do
 
     it { expect(data_set_list_mapper).to be_a described_class }
     it { expect(data_set_list_mapper.numberOfItems).to eq args[:numberOfItems] }
-    it { expect(data_set_list_mapper.itemListElement).to eq args[:itemListElement] }
+    it { expect(data_set_list_mapper.itemListElement).to eq args[:item_list_element] }
     it { expect(data_set_list_mapper.itemListElement.to_json).to eq_without_whitespace data_set_item_list_element_mapper.to_json }
 
     describe "#to_json" do
