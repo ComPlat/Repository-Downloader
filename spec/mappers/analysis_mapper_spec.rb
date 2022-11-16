@@ -1,6 +1,6 @@
 describe AnalysisMapper do
   let(:expected_json_nil_render_value) { "null" }
-  let(:data_set_list_mapper) { build :data_set_list_mapper, :with_all_args }
+  let(:data_set_list_mapper) { build :data_set_list_mapper, :with_all_args_nested_structures_as_mappers }
 
   context "when called without any arguments" do
     let(:analysis_mapper) { build :analysis_mapper }
@@ -38,7 +38,7 @@ describe AnalysisMapper do
   end
 
   context "when called with all arguments" do
-    let(:args) { attributes_for :analysis_mapper, :with_all_args }
+    let(:args) { attributes_for :analysis_mapper, :with_all_args_nested_structures_as_mappers }
     let(:analysis_mapper) { described_class.new(**args) }
 
     it { expect(analysis_mapper).to be_a described_class }
@@ -75,7 +75,7 @@ describe AnalysisMapper do
   end
 
   context "when called some arguments" do
-    let(:args) { attributes_for :analysis_mapper, :with_all_args, ontologies: nil, descriptions: nil }
+    let(:args) { attributes_for :analysis_mapper, :with_all_args_nested_structures_as_mappers, ontologies: nil, descriptions: nil }
     let(:analysis_mapper) { described_class.new(**args) }
 
     it { expect(analysis_mapper).to be_a described_class }
