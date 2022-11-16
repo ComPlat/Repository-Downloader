@@ -21,10 +21,4 @@ Rails:
 RSpec:
   Enabled: true
 
-Rails/DynamicFindBy:
-  Include:
-    - app/presenters/**/*.rb
-  Whitelist:
-    - find_by_doi!
-    - find_by_chemotion_id!
 
