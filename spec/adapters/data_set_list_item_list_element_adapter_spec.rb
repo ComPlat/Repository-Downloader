@@ -9,7 +9,9 @@ describe DataSetListItemListElementAdapter do
   end
 
   describe "#itemListElement" do
-    subject(:item_list_element) { data_set_list_adapter.itemListElement }
+    # HINT: Name of method adheres to specifications/
+    # rubocop:disable RSpec/VariableName
+    subject(:itemListElement) { data_set_list_adapter.itemListElement }
 
     let(:attachment1_dataset1) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 4 }
 
@@ -20,10 +22,10 @@ describe DataSetListItemListElementAdapter do
     context "with ONE attachment" do
       let(:expected_array) do
         [{Instrument: " Bruker",
-          attachmentList: {item_list_element: [{filename: "JK20-proton.peak.png",
-                                                filepath: "data/CRD-2913",
-                                                identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-                                                type: "AttachmentEntity"}],
+          attachmentList: {itemListElement: [{filename: "JK20-proton.peak.png",
+                                              filepath: "data/CRD-2913",
+                                              identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
+                                              type: "AttachmentEntity"}],
                            numberOfItems: 1},
           descriptions: "",
           identifier: 4,
@@ -35,10 +37,7 @@ describe DataSetListItemListElementAdapter do
         attachment1_dataset1
       end
 
-      # it { is_expected.to eq expected_array }
-      it {
-        expect(itemListElement.to_json).to eq expected_array
-      }
+      it { is_expected.to eq expected_array }
     end
 
     context "with three attachments, two with identical ds_id" do
@@ -49,20 +48,20 @@ describe DataSetListItemListElementAdapter do
 
       let(:expected_array) do
         [{Instrument: " Bruker",
-          attachmentList: {item_list_element: [{filename: "JK20-proton.peak.png",
-                                                filepath: "data/CRD-2913",
-                                                identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-                                                type: "AttachmentEntity"}],
+          attachmentList: {itemListElement: [{filename: "JK20-proton.peak.png",
+                                              filepath: "data/CRD-2913",
+                                              identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
+                                              type: "AttachmentEntity"}],
                            numberOfItems: 1},
           descriptions: "",
           identifier: 4,
           name: "BJ68_1H",
           type: "DatasetEntity"},
           {Instrument: " Bruker",
-           attachmentList: {item_list_element: [{filename: "JK20-proton.peak.png",
-                                                 filepath: "data/CRD-2913",
-                                                 identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-                                                 type: "AttachmentEntity"},
+           attachmentList: {itemListElement: [{filename: "JK20-proton.peak.png",
+                                               filepath: "data/CRD-2913",
+                                               identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
+                                               type: "AttachmentEntity"},
              {filename: "JK20-proton.peak.png",
               filepath: "data/CRD-2913",
               identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
