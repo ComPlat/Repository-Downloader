@@ -3,7 +3,9 @@ describe PublicationRepository do
 
   describe ".find_by_doi" do
     # HINT: Rubocop thinks this is the slow dynamic method, but we implement it ourselves!
+    # rubocop:disable Rails/DynamicFindBy
     subject(:find_by_doi) { described_class.find_by_doi! arg }
+    # rubocop:enable Rails/DynamicFindBy
 
     context "when an Analysis can be found" do
       let(:arg) { analysis.taggable_data["doi"] }
@@ -18,6 +20,7 @@ describe PublicationRepository do
     end
   end
 
+  # rubocop:disable Rails/DynamicFindBy
   describe ".find_by_chemotion_id" do
     subject(:find_by_chemotion_id) { described_class.find_by_chemotion_id! arg }
 
@@ -33,4 +36,5 @@ describe PublicationRepository do
       it { expect { find_by_chemotion_id }.to raise_error ActiveRecord::RecordNotFound }
     end
   end
+  # rubocop:enable Rails/DynamicFindBy
 end
