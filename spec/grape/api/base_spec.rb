@@ -71,9 +71,7 @@ describe API::Base do
   end
 
   describe "inheritable_setting.namespace_reverse_stackable[:rescue_handlers]" do
-    subject(:rescue_options) { test_api.inheritable_setting.namespace_reverse_stackable[:rescue_handlers] }
-
-    let(:test_api) { Class.new(described_class) }
+    subject(:rescue_options) { described_class.inheritable_setting.namespace_reverse_stackable[:rescue_handlers] }
 
     it { is_expected.to match [{ActiveRecord::RecordNotFound => be_a(Proc)}] }
   end
