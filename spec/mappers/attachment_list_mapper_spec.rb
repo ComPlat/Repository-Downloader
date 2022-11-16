@@ -54,7 +54,7 @@ describe AttachmentListMapper do
 
     context "when called with all arguments" do
       let(:args) { attributes_for(:attachment_list_mapper, :with_all_args_nested_structures_as_hash) }
-      let(:attachment_list_mapper) { described_class.from_hash args.deep_stringify_keys }
+      let(:attachment_list_mapper) { described_class.from_hash args }
 
       it { expect(attachment_list_mapper).to be_a described_class }
       it { expect(attachment_list_mapper.numberOfItems).to eq args[:numberOfItems] }
@@ -81,7 +81,7 @@ describe AttachmentListMapper do
 
     context "when called with all arguments" do
       let(:args) { attributes_for(:attachment_list_mapper, :with_all_args_nested_structures_as_hash) }
-      let(:attachment_list_mapper) { described_class.from_hash args.deep_stringify_keys }
+      let(:attachment_list_mapper) { described_class.from_hash args }
 
       let(:expected_json) do
         <<~JSON

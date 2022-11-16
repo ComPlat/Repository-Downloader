@@ -68,7 +68,7 @@ describe AnalysisMapper do
 
     context "when called with all arguments" do
       let(:args) { attributes_for(:analysis_mapper, :with_all_args_nested_structures_as_hash) }
-      let(:analysis_mapper) { described_class.from_hash args.deep_stringify_keys }
+      let(:analysis_mapper) { described_class.from_hash args }
 
       let(:expected_data_set_list_item_list_element_mapper) { DataSetListMapper.from_hash(args[:datasetList]) }
 
@@ -87,7 +87,7 @@ describe AnalysisMapper do
 
     context "when called some arguments" do
       let(:args) { attributes_for :analysis_mapper, :with_all_args_nested_structures_as_hash, ontologies: nil, descriptions: nil }
-      let(:analysis_mapper) { described_class.from_hash args.deep_stringify_keys }
+      let(:analysis_mapper) { described_class.from_hash args }
 
       let(:expected_data_set_list_item_list_element_mapper) { DataSetListMapper.from_hash(args[:datasetList]) }
 
@@ -130,7 +130,7 @@ describe AnalysisMapper do
 
     context "when called with all arguments" do
       let(:args) { attributes_for(:analysis_mapper, :with_all_args_nested_structures_as_hash) }
-      let(:analysis_mapper) { described_class.from_hash args.deep_stringify_keys }
+      let(:analysis_mapper) { described_class.from_hash args }
 
       let(:expected_json) do
         <<~JSON
@@ -143,7 +143,7 @@ describe AnalysisMapper do
             "descriptions": "#{args[:descriptions]}",
             "url": "#{args[:url]}",
             "identifier": "#{args[:identifier]}",
-            "datasetList":#{DataSetListMapper.from_hash(args[:datasetList].deep_stringify_keys).to_json}
+            "datasetList":#{DataSetListMapper.from_hash(args[:datasetList]).to_json}
           }
         JSON
       end

@@ -59,7 +59,7 @@ describe DataSetListItemListElementMapper do
 
     context "when called with all arguments" do
       let(:args) { attributes_for(:data_set_list_item_list_element_mapper, :with_all_args_nested_structures_as_hash) }
-      let(:data_set_list_item_list_element_mapper) { described_class.from_hash args.deep_stringify_keys }
+      let(:data_set_list_item_list_element_mapper) { described_class.from_hash args }
 
       it { expect(data_set_list_item_list_element_mapper).to be_a described_class }
       it { expect(data_set_list_item_list_element_mapper.type).to eq args[:type] }
@@ -94,7 +94,7 @@ describe DataSetListItemListElementMapper do
 
     context "when called with all arguments" do
       let(:args) { attributes_for(:data_set_list_item_list_element_mapper, :with_all_args_nested_structures_as_hash) }
-      let(:data_set_list_item_list_element_mapper) { described_class.from_hash args.deep_stringify_keys }
+      let(:data_set_list_item_list_element_mapper) { described_class.from_hash args }
 
       let(:expected_json) do
         <<~JSON
@@ -104,7 +104,7 @@ describe DataSetListItemListElementMapper do
             "name": "#{args[:name]}",
             "Instrument": "#{args[:Instrument]}",
             "descriptions": "#{args[:descriptions]}",
-            "attachmentList" : #{AttachmentListMapper.from_hash(args[:attachmentList].deep_stringify_keys).to_json}
+            "attachmentList" : #{AttachmentListMapper.from_hash(args[:attachmentList]).to_json}
           }
         JSON
       end

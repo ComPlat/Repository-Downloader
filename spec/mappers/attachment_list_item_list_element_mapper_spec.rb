@@ -51,7 +51,7 @@ describe AttachmentListItemListElementMapper do
 
     context "when called with all arguments" do
       let(:args) { attributes_for(:attachment_list_item_list_element_mapper, :with_all_args) }
-      let(:attachment_list_item_list_element_mapper) { described_class.from_hash args.deep_stringify_keys }
+      let(:attachment_list_item_list_element_mapper) { described_class.from_hash args }
 
       it { expect(attachment_list_item_list_element_mapper).to be_a described_class }
       it { expect(attachment_list_item_list_element_mapper.type).to eq args[:type] }
@@ -81,7 +81,7 @@ describe AttachmentListItemListElementMapper do
 
     context "when called with all arguments" do
       let(:args) { attributes_for(:attachment_list_item_list_element_mapper, :with_all_args) }
-      let(:attachment_list_item_list_element_mapper) { described_class.from_hash args.deep_stringify_keys }
+      let(:attachment_list_item_list_element_mapper) { described_class.from_hash args }
 
       let(:expected_json) do
         <<~JSON

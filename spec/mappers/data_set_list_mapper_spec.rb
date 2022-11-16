@@ -33,7 +33,7 @@ describe DataSetListMapper do
 
     context "when called with_all_args_nested_structures_as_hash" do
       let(:args) { attributes_for(:data_set_list_mapper, :with_all_args_nested_structures_as_hash) }
-      let(:data_set_list_mapper) { described_class.from_hash args.deep_stringify_keys }
+      let(:data_set_list_mapper) { described_class.from_hash args }
 
       it { expect(data_set_list_mapper).to be_a described_class }
       it { expect(data_set_list_mapper.numberOfItems).to eq args[:numberOfItems] }
@@ -60,13 +60,13 @@ describe DataSetListMapper do
 
     context "when called with_all_args_nested_structures_as_hash" do
       let(:args) { attributes_for(:data_set_list_mapper, :with_all_args_nested_structures_as_hash) }
-      let(:data_set_list_mapper) { described_class.from_hash args.deep_stringify_keys }
+      let(:data_set_list_mapper) { described_class.from_hash args }
 
       let(:expected_json) do
         <<~JSON
           {
             "numberOfItems":#{args[:numberOfItems]},
-            "itemListElement":#{MappersPresenter.new(DataSetListItemListElementMapper, args[:itemListElement].map { |item_list_element| item_list_element.deep_stringify_keys }).to_json}
+            "itemListElement":#{MappersPresenter.new(DataSetListItemListElementMapper, args[:itemListElement]).to_json}
           }
         JSON
       end
