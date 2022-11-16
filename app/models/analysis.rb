@@ -5,9 +5,9 @@ class Analysis < Publication
 
   has_many :attachments, foreign_key: :ana_id, primary_key: :element_id, inverse_of: :analysis, dependent: :restrict_with_exception
 
-  def present_to_api = AnalysisMapper.from_hash to_analysis_mapper_hash
-
   def chemotion_id = "CRD-#{id}"
+
+  def present_to_api = AnalysisMapper.from_hash to_analysis_mapper_hash
 
   private
 
