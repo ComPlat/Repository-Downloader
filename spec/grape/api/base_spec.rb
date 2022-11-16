@@ -14,7 +14,7 @@ describe API::Base do
   describe ".content_types" do
     subject { described_class.content_types }
 
-    it { is_expected.to eq({json: "application/json", xml: "application/xml"}) }
+    it { is_expected.to eq({csv: "text/csv", json: "application/json", xml: "application/xml"}) }
   end
 
   describe ".combined_routes" do
