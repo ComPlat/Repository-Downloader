@@ -12,11 +12,11 @@ describe ReactionToReactionMapperAdapter do
     subject { reaction_to_reaction_mapper_adapter.to_h }
 
     let(:expected_hash) {
-      {context: "",
+      {context: "https://schema.org/",
        id: "",
        type: "",
        name: "",
-       identifier: "",
+       identifier: "CRR-9739",
        status: "",
        description: "",
        temperature: "",
@@ -27,5 +27,17 @@ describe ReactionToReactionMapperAdapter do
     }
 
     it { is_expected.to eq expected_hash }
+  end
+
+  describe "#context" do
+    subject { reaction_to_reaction_mapper_adapter.context }
+
+    it { is_expected.to eq "https://schema.org/" }
+  end
+
+  describe "#identifier" do
+    subject { reaction_to_reaction_mapper_adapter.identifier }
+
+    it { is_expected.to eq reaction.chemotion_id }
   end
 end

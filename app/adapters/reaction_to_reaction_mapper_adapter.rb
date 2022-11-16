@@ -7,7 +7,7 @@ class ReactionToReactionMapperAdapter
     (public_methods(false) - [:to_h]).index_with { |method| public_send method }
   end
 
-  def context = ""
+  def context = "https://schema.org/" # HINT: becomes @context in mapper
 
   def id = ""
 
@@ -15,7 +15,7 @@ class ReactionToReactionMapperAdapter
 
   def name = ""
 
-  def identifier = ""
+  def identifier = @reaction.chemotion_id
 
   def status = ""
 
