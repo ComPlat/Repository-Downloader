@@ -10,9 +10,7 @@ module API
             requires :id, type: Integer, desc: "ChemotionID"
           end
           route_param :id, type: Integer do
-            get do
-              return error!("Invalid ChemotionID: #{params[:id]}", 404) unless present PublicationPresenter.present_by_chemotion_id(params[:id])
-            end
+            get { present PublicationPresenter.present_by_chemotion_id params[:id] }
           end
         end
 
