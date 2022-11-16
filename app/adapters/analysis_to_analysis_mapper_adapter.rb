@@ -23,13 +23,13 @@ class AnalysisToAnalysisMapperAdapter
 
   def identifier = @analysis.chemotion_id
 
-  def datasetList = DataSetListMapper.from_hash({numberOfItems:, itemListElement:})
+  def datasetList = {numberOfItems:, itemListElement:}
 
   private
 
   def numberOfItems = @analysis.attachments.count
 
-  def itemListElement = DataSetListItemListElementMapper.from_hash(data_set_list_adapter.itemListElement)
+  def itemListElement = data_set_list_adapter.itemListElement
 
   def data_set_list_adapter = DataSetListItemListElementAdapter.new @analysis
 end
