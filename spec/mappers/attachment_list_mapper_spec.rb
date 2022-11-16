@@ -30,13 +30,13 @@ describe AttachmentListMapper do
     }
     let(:args) {
       attributes_for :attachment_list_mapper, :with_all_args,
-        item_list_element: item_list_element_args.map { |args| AttachmentListItemListElementMapper.new(**args) }
+        itemListElement: item_list_element_args.map { |args| AttachmentListItemListElementMapper.new(**args) }
     }
     let(:attachment_list_mapper) { described_class.new(**args) }
 
     it { expect(attachment_list_mapper).to be_a described_class }
     it { expect(attachment_list_mapper.numberOfItems).to eq args[:numberOfItems] }
-    it { expect(attachment_list_mapper.itemListElement).to eq args[:item_list_element] }
+    it { expect(attachment_list_mapper.itemListElement).to eq args[:itemListElement] }
 
     describe "#to_json" do
       let(:expected_json) do
