@@ -67,7 +67,7 @@ describe AttachmentListMapper do
       let(:expected_json) do
         <<~JSON
           { "numberOfItems":#{args[:numberOfItems]},
-            "itemListElement": #{MappersPresenter.new(AttachmentListItemListElementMapper, args[:itemListElement]).to_json} }
+            "itemListElement": #{MappersPresenter.new(AttachmentListItemListElementMapper, args[:itemListElement].map { |item_list_element| item_list_element.deep_stringify_keys }).to_json} }
         JSON
       end
 
