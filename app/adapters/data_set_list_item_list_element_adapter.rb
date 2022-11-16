@@ -3,6 +3,7 @@ class DataSetListItemListElementAdapter
     @analysis = analysis
   end
 
+  # TODO: this needs to return a hash
   def itemListElement = # noinspection RubyResolve
     attachments_grouped_by_datastore.map do |ds_id, attachments|
       {type: "DatasetEntity",
@@ -10,7 +11,7 @@ class DataSetListItemListElementAdapter
        name: "BJ68_1H", # TODO: Find out where this comes from database.
        Instrument: attachments.first.extended_metadata.dig("instrument"),
        descriptions: "", # TODO: Find out where this comes from database.
-       attachmentList: attachment_list(attachments)}
+       attachmentList: attachment_list(attachments)} # TODO: this needs to be an AttachmentListMapper
     end
 
   private
