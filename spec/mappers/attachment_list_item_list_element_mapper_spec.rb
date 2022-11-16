@@ -59,6 +59,17 @@ describe AttachmentListItemListElementMapper do
       it { expect(attachment_list_item_list_element_mapper.filename).to eq args[:filename] }
       it { expect(attachment_list_item_list_element_mapper.filepath).to eq args[:filepath] }
     end
+
+    context "when called with some arguments" do
+      let(:args) { attributes_for(:attachment_list_item_list_element_mapper, :with_all_args, type: nil, filepath: nil) }
+      let(:attachment_list_item_list_element_mapper) { described_class.from_hash args }
+
+      it { expect(attachment_list_item_list_element_mapper).to be_a described_class }
+      it { expect(attachment_list_item_list_element_mapper.type).to be_nil }
+      it { expect(attachment_list_item_list_element_mapper.identifier).to eq args[:identifier] }
+      it { expect(attachment_list_item_list_element_mapper.filename).to eq args[:filename] }
+      it { expect(attachment_list_item_list_element_mapper.filepath).to be_nil }
+    end
   end
 
   describe "#to_json" do
@@ -90,6 +101,24 @@ describe AttachmentListItemListElementMapper do
             "identifier": "#{args[:identifier]}",
             "filename": "#{args[:filename]}",
             "filepath": "#{args[:filepath]}"
+          }
+        JSON
+      end
+
+      it { expect(attachment_list_item_list_element_mapper.to_json).to eq_without_whitespace expected_json }
+    end
+
+    context "when called with some arguments" do
+      let(:args) { attributes_for(:attachment_list_item_list_element_mapper, :with_all_args, type: nil, filepath: nil) }
+      let(:attachment_list_item_list_element_mapper) { described_class.from_hash args }
+
+      let(:expected_json) do
+        <<~JSON
+          {
+            "@type": #{expected_json_nil_render_value},
+            "identifier": "#{args[:identifier]}",
+            "filename": "#{args[:filename]}",
+            "filepath": #{expected_json_nil_render_value}
           }
         JSON
       end

@@ -90,5 +90,21 @@ describe DataSetListMapper do
 
       it { expect(JSON.parse(data_set_list_mapper.to_json)).to eq JSON.parse expected_json }
     end
+
+    context "when called with some arguments" do
+      let(:args) { attributes_for :data_set_list_mapper, :with_all_args_nested_structures_as_hash, numberOfItems: nil }
+      let(:data_set_list_mapper) { described_class.from_hash args }
+
+      let(:expected_json) do
+        <<~JSON
+          {
+            "numberOfItems":#{expected_json_nil_render_value},
+            "itemListElement":#{MappersPresenter.new(DataSetListItemListElementMapper, args[:itemListElement]).to_json}
+          }
+        JSON
+      end
+
+      it { expect(JSON.parse(data_set_list_mapper.to_json)).to eq JSON.parse expected_json }
+    end
   end
 end
