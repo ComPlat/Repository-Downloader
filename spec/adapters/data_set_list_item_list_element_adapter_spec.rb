@@ -12,6 +12,7 @@ describe DataSetListItemListElementAdapter do
     # HINT: Name of method adheres to specifications/
     # rubocop:disable RSpec/VariableName
     subject(:itemListElement) { data_set_list_adapter.itemListElement }
+    # rubocop:enable RSpec/VariableName
 
     let(:attachment1_dataset1) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 4 }
 
