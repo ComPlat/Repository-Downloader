@@ -1,7 +1,7 @@
 describe AnalysisToAnalysisMapperAdapter do
   let(:analysis) { create :analysis, :with_realistic_attributes, element_id: 1 }
-  let!(:attachment1) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 3 }
-  let!(:attachment2) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 4, ds_id: 5 }
+  let(:attachment1) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 3 }
+  let(:attachment2) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 4, ds_id: 5 }
   let(:analysis_to_analysis_mapper_adapter) { described_class.new analysis }
 
   describe ".new" do
@@ -15,7 +15,7 @@ describe AnalysisToAnalysisMapperAdapter do
 
     let(:expected_hash) {
       {context: "https://schema.org/",
-       datasetList: {itemListElement: [], numberOfItems: 0},
+       datasetList: {item_list_element: [], numberOfItems: 0},
        descriptions: "{\"ops\":[{\"insert\":\" \"}, {\"attributes\":{\"script\":\"super\"},\"insert\":\"13\"}, {\"insert\":\"C NMR (100 MHz, DMSO-d6, ppm), δ = 171.0, 141.1, 135.4 (q, J = 5.2 Hz), 127.4, 124.3 (q, J = 4.2 Hz), 124.0 (q, J = 271.3 Hz), 118.9, 118.2, 111.3 (q, J = 33.3 Hz), 44.4, 25.6, 22.3 (2 C). \"}]}",
        id: "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1",
        identifier: "CRD-2913",
@@ -75,6 +75,6 @@ describe AnalysisToAnalysisMapperAdapter do
   describe "#datasetList" do
     subject(:dataset_list) { analysis_to_analysis_mapper_adapter.datasetList }
 
-    it { is_expected.to eq({itemListElement: [], numberOfItems: 0}) }
+    it { is_expected.to eq({item_list_element: [], numberOfItems: 0}) }
   end
 end

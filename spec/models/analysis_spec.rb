@@ -35,6 +35,9 @@ describe Analysis do
     let(:analysis_to_analysis_mapper_adapter_hash) { analysis_to_analysis_mapper_adapter.to_h }
     let(:analysis_mapper) { AnalysisMapper.from_hash analysis_to_analysis_mapper_adapter_hash }
 
+    it { expect(present_to_api).to be_a AnalysisMapper }
+    it { expect(present_to_api.identifier).to eq analysis.chemotion_id }
+    it { expect(present_to_api.context).to eq analysis_to_analysis_mapper_adapter.context }
     it { expect(present_to_api.to_json).to eq analysis_mapper.to_json }
     it { expect(present_to_api.to_xml).to eq analysis_mapper.to_xml }
     it { expect(present_to_api.to_csv).to eq analysis_mapper.to_csv }
