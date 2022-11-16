@@ -12,6 +12,9 @@ module API
     content_type :json, "application/json"
     formatter :json, ->(object, _env) { object.to_json }
 
+    content_type :csv, "text/csv"
+    formatter :csv, ->(object, _env) { object.to_csv }
+
     # HINT: Needed to avoid CORS (Cross-Origin Resource Sharing) error.
     #       Swagger UI returns response code 0 if these lines aren't here.
     before do

@@ -44,8 +44,8 @@ describe API::Base do
         .new(string: "string_value")
     end
 
-    it { is_expected.to match [{xml: be_a(Proc)}, {json: be_a(Proc)}] }
-    it { expect(formatters.length).to eq 2 }
+    it { is_expected.to match [{xml: be_a(Proc)}, {json: be_a(Proc)}, {csv: be_a(Proc)}] }
+    it { expect(formatters.length).to eq 3 }
 
     it do
       allow(test_mapper).to receive(:to_xml)
@@ -61,6 +61,14 @@ describe API::Base do
       formatters.second[:json].call(test_mapper, nil)
 
       expect(test_mapper).to have_received(:to_json).with(no_args).once
+    end
+
+    it do
+      allow(test_mapper).to receive(:to_csv)
+
+      formatters.third[:csv].call(test_mapper, nil)
+
+      expect(test_mapper).to have_received(:to_csv).with(no_args).once
     end
   end
 
@@ -105,7 +113,7 @@ describe API::Base do
     let(:expected_body) do
       {info: {title: "API title", version: "0.0.1"},
        swagger: "2.0",
-       produces: %w[application/json application/xml],
+       produces: %w[application/json application/xml text/csv],
        host: ENV["HOST_URI"], # HINT: Default value for host URI
        basePath: "/api",
        tags: [{name: "publications", description: "Operations about publications"}],
