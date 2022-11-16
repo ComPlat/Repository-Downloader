@@ -27,7 +27,7 @@ describe Analysis do
     it { is_expected.to eq "CRD-#{analysis.id}" }
   end
 
-  xdescribe "#present_to_api" do
+  describe "#present_to_api" do
     subject(:present_to_api) { analysis.present_to_api }
 
     let(:analysis) { create :analysis, :with_realistic_attributes }
