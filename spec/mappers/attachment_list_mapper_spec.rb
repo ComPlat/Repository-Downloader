@@ -44,13 +44,23 @@ describe AttachmentListMapper do
   end
 
   describe ".from_hash" do
-    let(:args) { attributes_for(:attachment_list_mapper, :with_all_args_nested_structures_as_hash) }
-    let(:attachment_list_mapper) { described_class.from_hash args.deep_stringify_keys }
+    context "when called without any arguments" do
+      let(:attachment_list_mapper) { build :attachment_list_mapper }
 
-    it { expect(attachment_list_mapper).to be_a described_class }
-    it { expect(attachment_list_mapper.numberOfItems).to eq args[:numberOfItems] }
-    it { expect(attachment_list_mapper.itemListElement).to all be_a AttachmentListItemListElementMapper }
-    it { expect(attachment_list_mapper.itemListElement.as_json).to eq args[:itemListElement].as_json }
+      it { expect(attachment_list_mapper).to be_a described_class }
+      it { expect(attachment_list_mapper.numberOfItems).to be_nil }
+      it { expect(attachment_list_mapper.itemListElement).to match_array([]) }
+    end
+
+    context "when called with all arguments" do
+      let(:args) { attributes_for(:attachment_list_mapper, :with_all_args_nested_structures_as_hash) }
+      let(:attachment_list_mapper) { described_class.from_hash args }
+
+      it { expect(attachment_list_mapper).to be_a described_class }
+      it { expect(attachment_list_mapper.numberOfItems).to eq args[:numberOfItems] }
+      it { expect(attachment_list_mapper.itemListElement).to all be_a AttachmentListItemListElementMapper }
+      it { expect(attachment_list_mapper.itemListElement.as_json).to eq args[:itemListElement].as_json }
+    end
   end
 
   describe "#to_json" do
@@ -71,12 +81,12 @@ describe AttachmentListMapper do
 
     context "when called with all arguments" do
       let(:args) { attributes_for(:attachment_list_mapper, :with_all_args_nested_structures_as_hash) }
-      let(:attachment_list_mapper) { described_class.from_hash args.deep_stringify_keys }
+      let(:attachment_list_mapper) { described_class.from_hash args }
 
       let(:expected_json) do
         <<~JSON
           { "numberOfItems":#{args[:numberOfItems]},
-            "itemListElement": #{MappersPresenter.new(AttachmentListItemListElementMapper, args[:itemListElement].map { |item_list_element| item_list_element.deep_stringify_keys }).to_json} }
+            "itemListElement": #{MappersPresenter.new(AttachmentListItemListElementMapper, args[:itemListElement]).to_json} }
         JSON
       end
 
