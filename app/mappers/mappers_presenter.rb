@@ -14,5 +14,5 @@ class MappersPresenter
 
   private
 
-  def mappers = @mappers ||= @mapper_args.map { |mapper_arg| @mapper_class.new(**mapper_arg) }
+  def mappers = @mappers ||= @mapper_args.map { |mapper_arg| @mapper_class.from_hash mapper_arg }
 end
