@@ -37,10 +37,7 @@ describe AnalysisToAnalysisMapperAdapter do
   describe "#ontologies" do
     subject(:ontologies) { analysis_to_analysis_mapper_adapter.ontologies }
 
-    it {
-      expect(ontologies).to eq "13C nuclear magnetic resonance spectroscopy (13C NMR)"
-    }
-
+    it { expect(ontologies).to eq "13C nuclear magnetic resonance spectroscopy (13C NMR)" }
     it { expect(analysis.extended_metadata.to_s).to include ontologies }
   end
 
@@ -51,7 +48,7 @@ describe AnalysisToAnalysisMapperAdapter do
       "{\"ops\":[{\"insert\":\" \"}, {\"attributes\":{\"script\":\"super\"},\"insert\":\"13\"}, {\"insert\":\"C NMR (100 MHz, DMSO-d6, ppm), δ = 171.0, 141.1, 135.4 (q, J = 5.2 Hz), 127.4, 124.3 (q, J = 4.2 Hz), 124.0 (q, J = 271.3 Hz), 118.9, 118.2, 111.3 (q, J = 33.3 Hz), 44.4, 25.6, 22.3 (2 C). \"}]}"
     end
 
-    it { expect(subject).to eq_without_whitespace expected_description }
+    it { expect(descriptions).to eq_without_whitespace expected_description }
     it { expect(analysis.extended_metadata["content"].to_s).to include descriptions.to_s }
   end
 
