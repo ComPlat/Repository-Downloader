@@ -1,7 +1,7 @@
 class SampleMapper < ShaleCustom::Mapper
   attribute :context, Shale::Type::String
   attribute :type, Shale::Type::String
-  attribute :dct_ConformsTo, DctElementMapper
+  attribute :dct_conformsTo, DctElementMapper
   attribute :id, Shale::Type::String
   attribute :name, Shale::Type::String
   attribute :url, Shale::Type::String
@@ -19,7 +19,7 @@ class SampleMapper < ShaleCustom::Mapper
   json do
     map "@context", to: :context
     map "@type", to: :type
-    map "dct:conformsTo", to: :dct_ConformsTo
+    map "dct:conformsTo", to: :dct_conformsTo
     map "@id", to: :id
     map "name", to: :name
     map "url", to: :url
