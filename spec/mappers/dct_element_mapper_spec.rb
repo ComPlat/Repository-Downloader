@@ -1,5 +1,4 @@
 describe DctElementMapper do
-  # TODO: Write tests for it!
   let(:expected_json_nil_render_value) { "null" }
 
   describe ".new" do
