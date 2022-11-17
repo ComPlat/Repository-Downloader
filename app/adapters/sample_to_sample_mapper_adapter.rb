@@ -35,7 +35,7 @@ class SampleToSampleMapperAdapter
 
   def boilingPoint = ""
 
-  def molecularWeight = ""
+  def molecularWeight = {}
 
-  def analysisList = ""
+  def analysisList = {}
 end

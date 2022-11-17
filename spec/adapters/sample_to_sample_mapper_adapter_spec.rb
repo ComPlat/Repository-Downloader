@@ -26,8 +26,8 @@ describe SampleToSampleMapperAdapter do
        molecularFormula: "",
        meltingPoint: "",
        boilingPoint: "",
-       molecularWeight: "",
-       analysisList: ""}
+       molecularWeight: {},
+       analysisList: {}}
     }
 
     it { is_expected.to eq expected_hash }
@@ -120,12 +120,12 @@ describe SampleToSampleMapperAdapter do
   describe "#molecularWeight" do
     subject { sample_to_sample_mapper_adapter.molecularWeight }
 
-    it { is_expected.to eq "" }
+    it { is_expected.to eq({}) }
   end
 
   describe "#analysisList" do
     subject { sample_to_sample_mapper_adapter.analysisList }
 
-    it { is_expected.to eq "" }
+    it { is_expected.to eq({}) }
   end
 end
