@@ -11,7 +11,7 @@ class SampleToSampleMapperAdapter
 
   def type = ""
 
-  def dct_ConformsTo = {}
+  def dct_conformsTo = {}
 
   def id = ""
 

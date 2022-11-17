@@ -14,7 +14,7 @@ describe SampleToSampleMapperAdapter do
     let(:expected_hash) {
       {context: "https://schema.org/",
        type: "",
-       dct_ConformsTo: {},
+       dct_conformsTo: {},
        id: "",
        name: "",
        url: "",
@@ -45,8 +45,8 @@ describe SampleToSampleMapperAdapter do
     it { is_expected.to eq "" }
   end
 
-  describe "#dct_ConformsTo" do
-    subject { sample_to_sample_mapper_adapter.dct_ConformsTo }
+  describe "#dct_conformsTo" do
+    subject { sample_to_sample_mapper_adapter.dct_conformsTo }
 
     it { is_expected.to eq({}) }
   end
