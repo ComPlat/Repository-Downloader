@@ -18,7 +18,7 @@ describe ShaleCustom::Mapper do
   it { expect(sub_object.class.instance_variable_get(:@xml_mapping).instance_variable_get(:@root)).to eq "nestedTest" }
 
   describe ".from_hash" do
-    it { expect { sub_class.from_hash(nil) }.to raise_error ArgumentError, "hash needs to be a Hash" }
+    it { expect { sub_class.from_hash(nil) }.to raise_error ArgumentError, "hash needs to be a Hash, but it is a NilClass" }
     it { expect(sub_class.from_hash({})).to be_a sub_class }
     it { expect(sub_class.from_hash({})).to have_attributes(string: nil, integer: nil) }
     it { expect(sub_class.from_hash({string: "", integer: 0})).to have_attributes(string: "", integer: 0) }
