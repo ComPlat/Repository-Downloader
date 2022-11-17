@@ -1,7 +1,7 @@
 describe SampleMapper do
   let(:expected_json_nil_render_value) { "null" }
   let(:analysis_list_mapper) { build :analysis_list_mapper, :with_all_args_nested_structures_as_mappers }
-  let(:dct_element_mapper) { build :dct_element_mapper, :with_all_args }
+  let(:dct_element_mapper) { build :dct_element_mapper, :with_all_args_nested_structures_as_mappers }
 
   describe ".new" do
     context "when called without any arguments" do
@@ -113,7 +113,7 @@ describe SampleMapper do
           {
             "@context": #{args[:context]},
             "@type": #{args[:type]},
-            "dct:conformsTo": #{dct_element_mapper.json},
+            "dct:conformsTo": #{dct_element_mapper.to_json},
             "@id": #{args[:id]},
             "name": #{args[:name]},
             "url": #{args[:url]},
@@ -143,7 +143,7 @@ describe SampleMapper do
           {
             "@context": #{args[:context]},
             "@type": #{args[:type]},
-            "dct:conformsTo": #{dct_element_mapper.json},
+            "dct:conformsTo": #{dct_element_mapper.to_json},
             "@id": #{args[:id]},
             "name":#{expected_json_nil_render_value},
             "url": #{args[:url]},
