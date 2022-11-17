@@ -33,7 +33,7 @@ describe DctElementMapper do
 
       it { expect(dct_element_mapper).to be_a described_class }
       it { expect(dct_element_mapper.conformsTo.as_json).to eq args[:conformsTo].as_json }
-      it { expect(dct_element_mapper.conformsTo).to all be_a DctListMapper }
+      it { expect(dct_element_mapper.conformsTo).to be_a DctListMapper }
     end
   end
 
@@ -59,12 +59,12 @@ describe DctElementMapper do
       let(:expected_json) do
         <<~JSON
           {
-            "http://purl.org/dc/terms/conformsTo":#{args[:conformsTo].as_json}
+            "http://purl.org/dc/terms/conformsTo":#{DctListMapper.from_hash(args[:conformsTo]).to_json}
           }
         JSON
       end
 
-      it { expect(dct_element_mapper.to_json).to eq expected_json }
+      it { expect(JSON.parse(dct_element_mapper.to_json)).to eq JSON.parse expected_json }
     end
   end
 end
