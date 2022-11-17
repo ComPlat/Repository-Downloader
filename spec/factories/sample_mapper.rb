@@ -3,7 +3,7 @@ FactoryBot.define do
     trait :with_all_args do
       add_attribute(:context) { "https://schema.org/" } # HINT: Otherwise Rubocop is confused.
       type { "MolecularEntity" }
-      dct_conformsTo { build :dct_element_mapper }
+      dct_conformsTo { build :dct_element_mapper, :with_all_args_nested_structures_as_mappers }
       id { "10.14272/MIIFHRBUBUHJMC-UHFFFAOYSA-N.1" }
       name { "ethyl 3-oxo-4H-quinoxaline-2-carboxylate" }
       url { "http://chemotion-repository.net/home/publications/molecules/6338" }

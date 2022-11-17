@@ -1,7 +1,6 @@
 describe SampleMapper do
   let(:expected_json_nil_render_value) { "null" }
   let(:analysis_list_mapper) { build :analysis_list_mapper, :with_all_args_nested_structures_as_mappers }
-  let(:dct_element_mapper) { build :dct_element_mapper, :with_all_args_nested_structures_as_mappers }
 
   describe ".new" do
     context "when called without any arguments" do
@@ -111,27 +110,29 @@ describe SampleMapper do
       let(:expected_json) do
         <<~JSON
           {
-            "@context": #{args[:context]},
-            "@type": #{args[:type]},
-            "dct:conformsTo": #{dct_element_mapper.to_json},
-            "@id": #{args[:id]},
-            "name": #{args[:name]},
-            "url": #{args[:url]},
-            "identifier": #{args[:identifier]},
-            "iupacName": #{args[:iupacName]},
-            "smiles": #{args[:smiles]},
-            "inChI": #{args[:inChI]},
-            "inChIKey": #{args[:inChIKey]},        
-            "molecularFormula": #{args[:molecularFormula]},
-            "meltingPoint": #{args[:meltingPoint]},
-            "boilingPoint": #{args[:boilingPoint]},
-            "molecularWeight": #{args[:molecularWeight]},
+            "@context": "#{args[:context]}",
+            "@type": "#{args[:type]}",
+            "dct:conformsTo": #{sample_mapper.dct_conformsTo.to_json},
+            "@id": "#{args[:id]}",
+            "name": "#{args[:name]}",
+            "url": "#{args[:url]}",
+            "identifier": "#{args[:identifier]}",
+            "iupacName": "#{args[:iupacName]}",
+            "smiles": "#{args[:smiles]}",
+            "inChI": "#{args[:inChI]}",
+            "inChIKey": "#{args[:inChIKey]}",
+            "molecularFormula": "#{args[:molecularFormula]}",
+            "meltingPoint": "#{args[:meltingPoint]}",
+            "boilingPoint": "#{args[:boilingPoint]}",
+            "molecularWeight": #{args[:molecularWeight].to_json},
             "analysisList": #{analysis_list_mapper.to_json}
           }
         JSON
       end
 
-      it { expect(sample_mapper.to_json).to eq_without_whitespace expected_json }
+      it {
+        expect(JSON.parse(sample_mapper.to_json)).to eq JSON.parse(expected_json)
+      }
     end
 
     context "when called with some arguments" do
@@ -141,27 +142,27 @@ describe SampleMapper do
       let(:expected_json) do
         <<~JSON
           {
-            "@context": #{args[:context]},
-            "@type": #{args[:type]},
-            "dct:conformsTo": #{dct_element_mapper.to_json},
-            "@id": #{args[:id]},
+            "@context": "#{args[:context]}",
+            "@type": "#{args[:type]}",
+            "dct:conformsTo": #{sample_mapper.dct_conformsTo.to_json},
+            "@id": "#{args[:id]}",
             "name":#{expected_json_nil_render_value},
-            "url": #{args[:url]},
-            "identifier": #{args[:identifier]},
-            "iupacName": #{args[:iupacName]},
-            "smiles": #{args[:smiles]},
-            "inChI": #{args[:inChI]},
-            "inChIKey": #{args[:inChIKey]},        
-            "molecularFormula": #{args[:molecularFormula]},
-            "meltingPoint": #{args[:meltingPoint]},
-            "boilingPoint": #{args[:boilingPoint]},
-            "molecularWeight": #{args[:molecularWeight]},
+            "url": "#{args[:url]}",
+            "identifier": #{expected_json_nil_render_value},
+            "iupacName": "#{args[:iupacName]}",
+            "smiles": "#{args[:smiles]}",
+            "inChI": "#{args[:inChI]}",
+            "inChIKey": "#{args[:inChIKey]}",        
+            "molecularFormula": "#{args[:molecularFormula]}",
+            "meltingPoint": "#{args[:meltingPoint]}",
+            "boilingPoint": "#{args[:boilingPoint]}",
+            "molecularWeight": #{args[:molecularWeight].to_json},
             "analysisList": #{analysis_list_mapper.to_json}
           }
         JSON
       end
 
-      it { expect(sample_mapper.to_json).to eq_without_whitespace expected_json }
+      it { expect(JSON.parse(sample_mapper.to_json)).to eq JSON.parse expected_json }
     end
   end
 end
