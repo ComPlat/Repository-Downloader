@@ -27,7 +27,7 @@ describe SampleMapper do
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :sample_mapper, :with_all_args }
+      let(:args) { attributes_for :sample_mapper, :with_all_args_nested_structures_as_mappers }
       let(:sample_mapper) { described_class.new(**args) }
 
       it { expect(sample_mapper).to be_a described_class }
@@ -50,7 +50,7 @@ describe SampleMapper do
     end
 
     context "when called with some arguments" do
-      let(:args) { attributes_for :sample_mapper, :with_all_args, name: nil, identifier: nil }
+      let(:args) { attributes_for :sample_mapper, :with_all_args_nested_structures_as_mappers, name: nil, identifier: nil }
       let(:sample_mapper) { described_class.new(**args) }
 
       it { expect(sample_mapper).to be_a described_class }
@@ -70,6 +70,24 @@ describe SampleMapper do
       it { expect(sample_mapper.boilingPoint).to eq args[:boilingPoint] }
       it { expect(sample_mapper.molecularWeight).to eq args[:molecularWeight] }
       it { expect(sample_mapper.analysisList.to_json).to eq_without_whitespace analysis_list_mapper.to_json }
+    end
+  end
+
+  describe ".from_hash" do
+    context "when called without any arguments" do
+      let(:sample_mapper) { build :sample_mapper }
+
+      it { expect(sample_mapper).to be_a described_class }
+      it { expect(sample_mapper.dct_conformsTo).to be_nil }
+    end
+
+    context "when called with_all_args_nested_structures_as_hash" do
+      let(:args) { attributes_for(:sample_mapper, :with_all_args_nested_structures_as_hash) }
+      let(:sample_mapper) { described_class.from_hash args }
+
+      it { expect(sample_mapper).to be_a described_class }
+      it { expect(sample_mapper.dct_conformsTo.as_json).to eq args[:dct_conformsTo].as_json }
+      it { expect(sample_mapper.dct_conformsTo).to be_a DctElementMapper }
     end
   end
 
@@ -104,7 +122,7 @@ describe SampleMapper do
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :sample_mapper, :with_all_args }
+      let(:args) { attributes_for :sample_mapper, :with_all_args_nested_structures_as_mappers }
       let(:sample_mapper) { described_class.new(**args) }
 
       let(:expected_json) do
@@ -136,7 +154,7 @@ describe SampleMapper do
     end
 
     context "when called with some arguments" do
-      let(:args) { attributes_for :sample_mapper, :with_all_args, name: nil, identifier: nil }
+      let(:args) { attributes_for :sample_mapper, :with_all_args_nested_structures_as_mappers, name: nil, identifier: nil }
       let(:sample_mapper) { described_class.new(**args) }
 
       let(:expected_json) do
