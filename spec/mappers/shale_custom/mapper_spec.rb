@@ -1,7 +1,7 @@
 describe ShaleCustom::Mapper do
   let(:sub_class) do
     Class.new(described_class) do
-      def self.name = "TestMapper"
+      def self.name = "Module::NestedTestMapper"
 
       attribute :string, Shale::Type::String
       attribute :integer, Shale::Type::Integer
@@ -15,7 +15,7 @@ describe ShaleCustom::Mapper do
   it { expect(described_class.csv_mapping.instance_variable_get(:@render_nil_default)).to be true }
   it { expect(described_class.json_mapping).to be_a Shale::Mapping::Dict }
   it { expect(described_class.json_mapping.instance_variable_get(:@render_nil_default)).to be true }
-  it { expect(sub_object.class.instance_variable_get(:@xml_mapping).instance_variable_get(:@root)).to eq "test" }
+  it { expect(sub_object.class.instance_variable_get(:@xml_mapping).instance_variable_get(:@root)).to eq "nestedTest" }
 
   describe ".from_hash" do
     it { expect { sub_class.from_hash(nil) }.to raise_error ArgumentError, "hash needs to be a Hash" }

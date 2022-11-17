@@ -12,7 +12,7 @@ module ShaleCustom
 
     def initialize(**args)
       super(**args)
-      self.class.instance_variable_get(:@xml_mapping).root self.class.name.gsub("Mapper", "").downcase
+      self.class.instance_variable_get(:@xml_mapping).root self.class.name.demodulize.gsub("Mapper", "").camelize(:lower)
     end
 
     def to_csv(**args)
