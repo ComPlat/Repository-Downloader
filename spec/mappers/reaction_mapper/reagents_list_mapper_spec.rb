@@ -1,4 +1,4 @@
-describe ReagentsListMapper do
+describe ReactionMappers::ReagentsListMapper do
   let(:expected_json_nil_render_value) { "null" }
 
   context "when called without any arguments" do

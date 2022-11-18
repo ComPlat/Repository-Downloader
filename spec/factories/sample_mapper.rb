@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :sample_mapper do
+  factory :sample_mapper, class: "RootMappers::SampleMapper" do
     trait :with_all_args_nested_structures_as_mappers do
       add_attribute(:context) { "https://schema.org/" } # HINT: Otherwise Rubocop is confused.
       type { "MolecularEntity" }

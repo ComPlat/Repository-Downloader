@@ -1,4 +1,4 @@
-describe ReactionMapper do
+describe RootMappers::ReactionMapper do
   let(:expected_json_nil_render_value) { "null" }
   let(:reagents_list_mapper) { build :reagents_list_mapper, :with_all_args }
 

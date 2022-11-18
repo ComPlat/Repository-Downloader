@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :reagents_list_item_list_element_mapper do
+  factory :reagents_list_item_list_element_mapper, class: "ReactionMappers::ReagentsList::ItemListElementMapper" do
     trait :with_all_args do
       type { "MolecularEntity" }
       dct_conformsTo { build :dct_list_mapper, :with_all_args }

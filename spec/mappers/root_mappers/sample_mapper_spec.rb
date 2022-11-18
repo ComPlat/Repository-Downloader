@@ -1,4 +1,4 @@
-describe SampleMapper do
+describe RootMappers::SampleMapper do
   let(:expected_json_nil_render_value) { "null" }
   let(:analysis_list_mapper) { build :analysis_list_mapper, :with_all_args_nested_structures_as_mappers }
 
@@ -87,7 +87,7 @@ describe SampleMapper do
 
       it { expect(sample_mapper).to be_a described_class }
       it { expect(sample_mapper.dct_conformsTo.as_json).to eq args[:dct_conformsTo].as_json }
-      it { expect(sample_mapper.dct_conformsTo).to be_a DctElementMapper }
+      it { expect(sample_mapper.dct_conformsTo).to be_a SampleMappers::DctElementMapper }
     end
   end
 

@@ -7,27 +7,27 @@ class ReactionToReactionMapperAdapter
     (public_methods(false) - [:to_h]).index_with { |method| public_send method }
   end
 
-  def context = "https://schema.org/" # HINT: becomes @context in mapper
+  def context = @context ||= "https://schema.org/" # HINT: becomes @context in mapper
 
-  def id = ""
+  def id = @id ||= @reaction.taggable_data["doi"]
 
-  def type = ""
+  def type = @type ||= "BioChemicalReaction"
 
-  def name = ""
+  def name = @name ||= ""
 
-  def identifier = @reaction.chemotion_id
+  def identifier = @identifier ||= "CRR-#{@reaction.id}"
 
-  def status = ""
+  def status = @status ||= @reaction.reaction_status
 
-  def description = ""
+  def description = @description ||= @reaction.reaction_description
 
-  def temperature = ""
+  def temperature = @temperature ||= "#{@reaction.reaction_temperature["userText"]} #{@reaction.reaction_temperature["valueUnit"]}"
 
-  def reaction_type = ""
+  def reaction_type = @reaction_type ||= @reaction.rxno
 
-  def duration = ""
+  def duration = @duration ||= @reaction.reaction_duration
 
-  def purification = ""
+  def purification = @purification ||= @reaction.reaction_purification.first
 
-  def reagents_list = {}
+  def reagents_list = @reagents_list ||= {}
 end

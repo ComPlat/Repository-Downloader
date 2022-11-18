@@ -1,4 +1,4 @@
-describe AnalysisListMapper do
+describe SampleMappers::AnalysisListMapper do
   let(:expected_json_nil_render_value) { "null" }
 
   describe ".new" do
