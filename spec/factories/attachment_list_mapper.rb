@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :attachment_list_mapper do
+  factory :attachment_list_mapper, class: "AnalysisMapper::DataSetList::ItemListElement::AttachmentListMapper" do
     trait :with_all_args_nested_structures_as_mappers do
       numberOfItems { 2 }
       itemListElement {

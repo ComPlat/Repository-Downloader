@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :analysis_mapper do
+  factory :analysis_mapper, class: "RootMappers::AnalysisMapper" do
     trait :with_all_args_nested_structures_as_mappers do
       add_attribute(:context) { "https://schema.org/" } # HINT: Otherwise Rubocop is confused.
       type { "AnalysisEntity" }

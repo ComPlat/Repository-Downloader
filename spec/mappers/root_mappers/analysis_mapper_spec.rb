@@ -1,4 +1,4 @@
-describe AnalysisMapper do
+describe RootMappers::AnalysisMapper do
   let(:expected_json_nil_render_value) { "null" }
 
   describe ".new" do
@@ -70,7 +70,7 @@ describe AnalysisMapper do
       let(:args) { attributes_for(:analysis_mapper, :with_all_args_nested_structures_as_hash) }
       let(:analysis_mapper) { described_class.from_hash args }
 
-      let(:expected_data_set_list_mapper) { DataSetListMapper.from_hash(args[:datasetList]) }
+      let(:expected_data_set_list_mapper) { AnalysisMapper::DataSetListMapper.from_hash(args[:datasetList]) }
 
       it { expect(analysis_mapper).to be_a described_class }
       it { expect(analysis_mapper.context).to eq args[:context] }
@@ -81,7 +81,7 @@ describe AnalysisMapper do
       it { expect(analysis_mapper.descriptions).to eq args[:descriptions] }
       it { expect(analysis_mapper.url).to eq args[:url] }
       it { expect(analysis_mapper.identifier).to eq args[:identifier] }
-      it { expect(expected_data_set_list_mapper).to be_a DataSetListMapper }
+      it { expect(expected_data_set_list_mapper).to be_a AnalysisMapper::DataSetListMapper }
       it { expect(analysis_mapper.datasetList.as_json).to eq args[:datasetList].as_json }
     end
 
@@ -89,7 +89,7 @@ describe AnalysisMapper do
       let(:args) { attributes_for :analysis_mapper, :with_all_args_nested_structures_as_hash, ontologies: nil, descriptions: nil }
       let(:analysis_mapper) { described_class.from_hash args }
 
-      let(:expected_data_set_list_mapper) { DataSetListMapper.from_hash(args[:datasetList]) }
+      let(:expected_data_set_list_mapper) { AnalysisMapper::DataSetListMapper.from_hash(args[:datasetList]) }
 
       it { expect(analysis_mapper).to be_a described_class }
       it { expect(analysis_mapper.context).to eq args[:context] }
@@ -100,7 +100,7 @@ describe AnalysisMapper do
       it { expect(analysis_mapper.descriptions).to be_nil }
       it { expect(analysis_mapper.url).to eq args[:url] }
       it { expect(analysis_mapper.identifier).to eq args[:identifier] }
-      it { expect(expected_data_set_list_mapper).to be_a DataSetListMapper }
+      it { expect(expected_data_set_list_mapper).to be_a AnalysisMapper::DataSetListMapper }
       it { expect(analysis_mapper.datasetList.as_json).to eq args[:datasetList].as_json }
     end
   end
@@ -143,7 +143,7 @@ describe AnalysisMapper do
             "descriptions": "#{args[:descriptions]}",
             "url": "#{args[:url]}",
             "identifier": "#{args[:identifier]}",
-            "datasetList":#{DataSetListMapper.from_hash(args[:datasetList]).to_json}
+            "datasetList":#{AnalysisMapper::DataSetListMapper.from_hash(args[:datasetList]).to_json}
           }
         JSON
       end
@@ -166,12 +166,130 @@ describe AnalysisMapper do
             "descriptions": #{expected_json_nil_render_value},
             "url": "#{args[:url]}",
             "identifier": "#{args[:identifier]}",
-            "datasetList":#{DataSetListMapper.from_hash(args[:datasetList]).to_json}
+            "datasetList":#{AnalysisMapper::DataSetListMapper.from_hash(args[:datasetList]).to_json}
           }
         JSON
       end
 
       it { expect(JSON.parse(analysis_mapper.to_json)).to eq JSON.parse expected_json }
+    end
+  end
+
+  describe "#to_xml" do
+    context "when called without any arguments" do
+      let(:analysis_mapper) { build :analysis_mapper }
+
+      let(:expected_xml) do
+        <<~XML
+          <analysis>
+            <context/>
+            <type/>
+            <id/>
+            <ontologies/>
+            <title/>
+            <descriptions/>
+            <url/>
+            <identifier/>
+            <datasetList/>
+          </analysis>
+        XML
+      end
+
+      it { expect(analysis_mapper.to_xml).to eq_without_whitespace expected_xml }
+    end
+
+    context "when called with all arguments" do
+      let(:args) { attributes_for(:analysis_mapper, :with_all_args_nested_structures_as_hash) }
+      let(:analysis_mapper) { described_class.from_hash args }
+
+      let(:expected_xml) do
+        <<~XML
+          <analysis>
+            <context>https://schema.org/</context>
+            <type>AnalysisEntity</type>
+            <id>https://dx.doi.org/10.14272/MWJHDSAAGSURCA-UHFFFAOYSA-N/CHMO0000595</id>
+            <ontologies>13C nuclear magnetic resonance spectroscopy (13C NMR)</ontologies>
+            <title>13C nuclear magnetic resonance spectroscopy (13C NMR) (4-(2-oxo-2-phenylacetyl)benzoic acid)</title>
+            <descriptions>13C NMR (100 MHz, DMSO-d6, ppm) &#x3B4; = 194.2 (s, Cq), 194.1 (s, Cq), 166.3 (s, Cq), 135.7 (s, 2 x Cq), 135.1 (s, Cq), 132.0 (s, CarH), 130.1 (s, 2 x CarH), 129.9 (s, 2 x CarH), 129.8 (s, 2 x CarH), 129.5 (s, 2 x CarH).</descriptions>
+            <url>https://dx.doi.org/10.14272/MWJHDSAAGSURCA-UHFFFAOYSA-N/CHMO0000595</url>
+            <identifier>CRD-27923</identifier>
+            <datasetList>
+              <numberOfItems>1</numberOfItems>
+              <itemListElement>
+                <type>DatasetEntity</type>
+                <identifier>12345</identifier>
+                <name>BJ68_1H</name>
+                <Instrument>Bruker 400 MHz</Instrument>
+                <descriptions>Bruker 400 MHz</descriptions>
+                <attachmentList>
+                  <numberOfItems>2</numberOfItems>
+                  <itemListElement>
+                    <type>AttachmentEntity</type>
+                    <identifier>a63e278b-22f2-4da3-955f-e80e197bc853</identifier>
+                    <filename>BJ68_1H.zip</filename>
+                    <filepath>data/a63e278b-22f2-4da3-955f-e80e197bc853</filepath>
+                  </itemListElement>
+                  <itemListElement>
+                      <type>AttachmentEntity</type>
+                      <identifier>a63e278b-22f2-4da3-955f-e80e197bc853</identifier>
+                      <filename>HRMS.jpg</filename>
+                      <filepath>data/a63e278b-22f2-4da3-955f-e80e197bc853</filepath>
+                  </itemListElement>
+                </attachmentList>
+              </itemListElement>
+            </datasetList>
+          </analysis>
+        XML
+      end
+
+      it { expect(analysis_mapper.to_xml).to eq_without_whitespace expected_xml }
+    end
+
+    context "when called with some arguments" do
+      let(:args) { attributes_for(:analysis_mapper, :with_all_args_nested_structures_as_hash, ontologies: nil, descriptions: nil) }
+      let(:analysis_mapper) { described_class.from_hash args }
+
+      let(:expected_xml) do
+        <<~XML
+          <analysis>
+            <context>https://schema.org/</context>
+            <type>AnalysisEntity</type>
+            <id>https://dx.doi.org/10.14272/MWJHDSAAGSURCA-UHFFFAOYSA-N/CHMO0000595</id>
+            <ontologies/>
+            <title>13C nuclear magnetic resonance spectroscopy (13C NMR) (4-(2-oxo-2-phenylacetyl)benzoic acid)</title>
+            <descriptions/>
+            <url>https://dx.doi.org/10.14272/MWJHDSAAGSURCA-UHFFFAOYSA-N/CHMO0000595</url>
+            <identifier>CRD-27923</identifier>
+            <datasetList>
+              <numberOfItems>1</numberOfItems>
+              <itemListElement>
+                <type>DatasetEntity</type>
+                <identifier>12345</identifier>
+                <name>BJ68_1H</name>
+                <Instrument>Bruker 400 MHz</Instrument>
+                <descriptions>Bruker 400 MHz</descriptions>
+                <attachmentList>
+                  <numberOfItems>2</numberOfItems>
+                  <itemListElement>
+                    <type>AttachmentEntity</type>
+                    <identifier>a63e278b-22f2-4da3-955f-e80e197bc853</identifier>
+                    <filename>BJ68_1H.zip</filename>
+                    <filepath>data/a63e278b-22f2-4da3-955f-e80e197bc853</filepath>
+                  </itemListElement>
+                  <itemListElement>
+                      <type>AttachmentEntity</type>
+                      <identifier>a63e278b-22f2-4da3-955f-e80e197bc853</identifier>
+                      <filename>HRMS.jpg</filename>
+                      <filepath>data/a63e278b-22f2-4da3-955f-e80e197bc853</filepath>
+                  </itemListElement>
+                </attachmentList>
+              </itemListElement>
+            </datasetList>
+          </analysis>
+        XML
+      end
+
+      it { expect(analysis_mapper.to_xml).to eq_without_whitespace expected_xml }
     end
   end
 end

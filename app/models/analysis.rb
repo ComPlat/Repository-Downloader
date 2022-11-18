@@ -7,7 +7,7 @@ class Analysis < Publication
 
   def chemotion_id = "CRD-#{id}"
 
-  def present_to_api = AnalysisMapper.from_hash to_analysis_mapper_hash
+  def present_to_api = RootMappers::AnalysisMapper.from_hash to_analysis_mapper_hash
 
   private
 

@@ -1,4 +1,4 @@
 class AnalysisListMapper < ShaleCustom::Mapper
   attribute :numberOfItems, Shale::Type::Integer
-  attribute :itemListElement, AnalysisMapper, collection: true
+  attribute :itemListElement, RootMappers::AnalysisMapper, collection: true
 end

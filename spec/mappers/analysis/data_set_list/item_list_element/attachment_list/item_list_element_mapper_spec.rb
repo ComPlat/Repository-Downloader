@@ -1,4 +1,4 @@
-describe AttachmentListItemListElementMapper do
+describe AnalysisMapper::DataSetList::ItemListElement::AttachmentList::ItemListElementMapper do
   let(:expected_json_nil_render_value) { "null" }
 
   describe ".new" do
@@ -124,6 +124,61 @@ describe AttachmentListItemListElementMapper do
       end
 
       it { expect(attachment_list_item_list_element_mapper.to_json).to eq_without_whitespace expected_json }
+    end
+  end
+
+  describe "#to_xml" do
+    context "when called without any arguments" do
+      let(:attachment_list_item_list_element_mapper) { build :attachment_list_item_list_element_mapper }
+
+      let(:expected_xml) do
+        <<~XML
+          <itemListElement>
+            <type/>
+            <identifier/>
+            <filename/>
+            <filepath/>
+          </itemListElement>
+        XML
+      end
+
+      it { expect(attachment_list_item_list_element_mapper.to_xml).to eq_without_whitespace expected_xml }
+    end
+
+    context "when called with all arguments" do
+      let(:args) { attributes_for(:attachment_list_item_list_element_mapper, :with_all_args) }
+      let(:attachment_list_item_list_element_mapper) { described_class.from_hash args }
+
+      let(:expected_xml) do
+        <<~XML
+          <itemListElement>
+            <type>AttachmentEntity</type>
+            <identifier>a63e278b-22f2-4da3-955f-e80e197bc853</identifier>
+            <filename>BJ68_1H.zip</filename>
+            <filepath>data/a63e278b-22f2-4da3-955f-e80e197bc853</filepath>
+          </itemListElement>
+        XML
+      end
+
+      it { expect(attachment_list_item_list_element_mapper.to_xml).to eq_without_whitespace expected_xml }
+    end
+
+    context "when called with some arguments" do
+      let(:args) { attributes_for(:attachment_list_item_list_element_mapper, :with_all_args, type: nil, filepath: nil) }
+      let(:attachment_list_item_list_element_mapper) { described_class.from_hash args }
+
+      let(:expected_xml) do
+        <<~XML
+          <itemListElement>
+            <type/>
+            <identifier>a63e278b-22f2-4da3-955f-e80e197bc853</identifier>
+            <filename>BJ68_1H.zip</filename>
+            <filepath/>
+          </itemListElement>
+        XML
+      end
+
+      it { expect(attachment_list_item_list_element_mapper.to_xml).to eq_without_whitespace expected_xml }
     end
   end
 end

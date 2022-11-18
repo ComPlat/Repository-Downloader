@@ -1,4 +1,4 @@
-describe DataSetListItemListElementMapper do
+describe AnalysisMapper::DataSetList::ItemListElementMapper do
   let(:expected_json_nil_render_value) { "null" }
 
   describe ".new" do
@@ -67,7 +67,7 @@ describe DataSetListItemListElementMapper do
       it { expect(data_set_list_item_list_element_mapper.name).to eq args[:name] }
       it { expect(data_set_list_item_list_element_mapper.Instrument).to eq args[:Instrument] }
       it { expect(data_set_list_item_list_element_mapper.descriptions).to eq args[:descriptions] }
-      it { expect(data_set_list_item_list_element_mapper.attachmentList).to be_a AttachmentListMapper }
+      it { expect(data_set_list_item_list_element_mapper.attachmentList).to be_a AnalysisMapper::DataSetList::ItemListElement::AttachmentListMapper }
       it { expect(data_set_list_item_list_element_mapper.attachmentList.as_json).to eq args[:attachmentList].as_json }
     end
 
@@ -118,7 +118,7 @@ describe DataSetListItemListElementMapper do
             "name": "#{args[:name]}",
             "Instrument": "#{args[:Instrument]}",
             "descriptions": "#{args[:descriptions]}",
-            "attachmentList" : #{AttachmentListMapper.from_hash(args[:attachmentList]).to_json}
+            "attachmentList" : #{AnalysisMapper::DataSetList::ItemListElement::AttachmentListMapper.from_hash(args[:attachmentList]).to_json}
           }
         JSON
       end
@@ -138,12 +138,101 @@ describe DataSetListItemListElementMapper do
             "name": "#{args[:name]}",
             "Instrument": #{expected_json_nil_render_value},
             "descriptions": "#{args[:descriptions]}",
-            "attachmentList" : #{AttachmentListMapper.from_hash(args[:attachmentList]).to_json}
+            "attachmentList" : #{AnalysisMapper::DataSetList::ItemListElement::AttachmentListMapper.from_hash(args[:attachmentList]).to_json}
           }
         JSON
       end
 
       it { expect(JSON.parse(data_set_list_item_list_element_mapper.to_json)).to eq JSON.parse expected_json }
+    end
+  end
+
+  describe "#to_xml" do
+    context "when called without any arguments" do
+      let(:data_set_list_item_list_element_mapper) { build :data_set_list_item_list_element_mapper }
+
+      let(:expected_xml) do
+        <<~XML
+          <itemListElement>
+            <type/>
+            <identifier/>
+            <name/>
+            <Instrument/>
+            <descriptions/>
+            <attachmentList/>
+          </itemListElement>
+        XML
+      end
+
+      it { expect(data_set_list_item_list_element_mapper.to_xml).to eq_without_whitespace expected_xml }
+    end
+
+    context "when called with all arguments" do
+      let(:args) { attributes_for(:data_set_list_item_list_element_mapper, :with_all_args_nested_structures_as_hash) }
+      let(:data_set_list_item_list_element_mapper) { described_class.from_hash args }
+
+      let(:expected_xml) do
+        <<~XML
+          <itemListElement>
+            <type>DatasetEntity</type>
+            <identifier>12345</identifier>
+            <name>BJ68_1H</name>
+            <Instrument>Bruker 400 MHz</Instrument>
+            <descriptions>Bruker 400 MHz</descriptions>
+            <attachmentList>
+              <numberOfItems>2</numberOfItems>
+              <itemListElement>
+                <type>AttachmentEntity</type>
+                <identifier>a63e278b-22f2-4da3-955f-e80e197bc853</identifier>
+                <filename>BJ68_1H.zip</filename>
+                <filepath>data/a63e278b-22f2-4da3-955f-e80e197bc853</filepath>
+              </itemListElement>
+              <itemListElement>
+                <type>AttachmentEntity</type>
+                <identifier>a63e278b-22f2-4da3-955f-e80e197bc853</identifier>
+                <filename>HRMS.jpg</filename>
+                <filepath>data/a63e278b-22f2-4da3-955f-e80e197bc853</filepath>
+              </itemListElement>
+            </attachmentList>
+          </itemListElement>
+        XML
+      end
+
+      it { expect(data_set_list_item_list_element_mapper.to_xml).to eq_without_whitespace expected_xml }
+    end
+
+    context "when called some arguments" do
+      let(:args) { attributes_for :data_set_list_item_list_element_mapper, :with_all_args_nested_structures_as_hash, identifier: nil, Instrument: nil }
+      let(:data_set_list_item_list_element_mapper) { described_class.from_hash args }
+
+      let(:expected_xml) do
+        <<~XML
+          <itemListElement>
+            <type>DatasetEntity</type>
+            <identifier/>
+            <name>BJ68_1H</name>
+            <Instrument/>
+            <descriptions>Bruker 400 MHz</descriptions>
+            <attachmentList>
+              <numberOfItems>2</numberOfItems>
+              <itemListElement>
+                <type>AttachmentEntity</type>
+                <identifier>a63e278b-22f2-4da3-955f-e80e197bc853</identifier>
+                <filename>BJ68_1H.zip</filename>
+                <filepath>data/a63e278b-22f2-4da3-955f-e80e197bc853</filepath>
+              </itemListElement>
+              <itemListElement>
+                <type>AttachmentEntity</type>
+                <identifier>a63e278b-22f2-4da3-955f-e80e197bc853</identifier>
+                <filename>HRMS.jpg</filename>
+                <filepath>data/a63e278b-22f2-4da3-955f-e80e197bc853</filepath>
+              </itemListElement>
+            </attachmentList>
+          </itemListElement>
+        XML
+      end
+
+      it { expect(data_set_list_item_list_element_mapper.to_xml).to eq_without_whitespace expected_xml }
     end
   end
 end

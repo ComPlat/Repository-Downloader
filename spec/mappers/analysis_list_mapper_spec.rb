@@ -45,7 +45,7 @@ describe AnalysisListMapper do
 
       it { expect(analysis_list_mapper).to be_a described_class }
       it { expect(analysis_list_mapper.numberOfItems).to eq args[:numberOfItems] }
-      it { expect(analysis_list_mapper.itemListElement).to all be_a AnalysisMapper }
+      it { expect(analysis_list_mapper.itemListElement).to all be_a RootMappers::AnalysisMapper }
       it { expect(analysis_list_mapper.itemListElement.as_json).to eq args[:itemListElement].as_json }
     end
 
@@ -83,7 +83,7 @@ describe AnalysisListMapper do
         <<~JSON
           {
             "numberOfItems":#{args[:numberOfItems]},
-            "itemListElement":#{MappersPresenter.new(AnalysisMapper, args[:itemListElement]).to_json}
+            "itemListElement":#{MappersPresenter.new(RootMappers::AnalysisMapper, args[:itemListElement]).to_json}
           }
         JSON
       end
@@ -99,7 +99,7 @@ describe AnalysisListMapper do
         <<~JSON
           {
             "numberOfItems":#{expected_json_nil_render_value},
-            "itemListElement":#{MappersPresenter.new(AnalysisMapper, args[:itemListElement]).to_json}
+            "itemListElement":#{MappersPresenter.new(RootMappers::AnalysisMapper, args[:itemListElement]).to_json}
           }
         JSON
       end
