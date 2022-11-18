@@ -3,23 +3,23 @@ class AnalysisToAnalysisMapperAdapter
 
   def initialize(analysis) = (@analysis = analysis)
 
-  def context = (@context ||= "https://schema.org/") # HINT: becomes @context in mapper
+  def context = @context ||= "https://schema.org/" # HINT: becomes @context in mapper
 
-  def type = (@type ||= "AnalysisEntity") # HINT: becomes @type in mapper
+  def type = @type ||= "AnalysisEntity" # HINT: becomes @type in mapper
 
-  def id = (@id ||= "https://dx.doi.org/#{@analysis.taggable_data["analysis_doi"]}")
+  def id = @id ||= "https://dx.doi.org/#{@analysis.taggable_data["analysis_doi"]}"
 
-  def ontologies = (@ontologies ||= @analysis.extended_metadata["kind"].split("|").last.strip)
+  def ontologies = @ontologies ||= @analysis.extended_metadata["kind"].split("|").last.strip
 
   def title = ontologies
 
-  def descriptions = (@descriptions ||= @analysis.extended_metadata["content"]) # TODO: check if this is right
+  def descriptions = @descriptions ||= @analysis.extended_metadata["content"] # TODO: check if this is right
 
   def url = id
 
-  def identifier = (@identifier ||= @analysis.chemotion_id)
+  def identifier = @identifier ||= @analysis.chemotion_id
 
-  def datasetList = (@datasetList ||= {numberOfItems:, itemListElement:})
+  def datasetList = @dataset_list ||= {numberOfItems:, itemListElement:}
 
   private
 
