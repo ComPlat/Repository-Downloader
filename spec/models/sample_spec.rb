@@ -6,6 +6,41 @@ describe Sample do
   it { expect(create(:sample)).to be_valid }
   it { expect(create(:sample)).to be_persisted }
 
+  describe "#analyses" do
+    subject(:analyses) { sample.analyses }
+
+    context "when taggable_data is nil" do
+      let(:sample) { create :sample, taggable_data: nil }
+
+      it { is_expected.to eq [] }
+    end
+
+    context "when taggable_data is a Hash and has nil on key original_analysis_ids" do
+      let(:sample) { create :sample, taggable_data: {"original_analysis_ids" => nil} }
+
+      it { is_expected.to eq [] }
+    end
+
+    context "when taggable_data is a Hash and has an empty Array on key original_analysis_ids" do
+      let(:sample) { create :sample, taggable_data: {"original_analysis_ids" => []} }
+
+      it { is_expected.to eq [] }
+    end
+
+    context "when taggable_data is a Hash and has an Array on key original_analysis_ids with an id that no Analysis has" do
+      let(:sample) { create :sample, taggable_data: {"original_analysis_ids" => [0]} }
+
+      it { is_expected.to eq [] }
+    end
+
+    context "when taggable_data is a Hash and has an Array on key original_analysis_ids with id of an analysis in it" do
+      let(:sample) { create :sample, taggable_data: {"original_analysis_ids" => [analysis.id]} }
+      let(:analysis) { create :analysis, id: 1 }
+
+      it { is_expected.to eq [analysis] }
+    end
+  end
+
   describe "#chemotion_id" do
     subject(:chemotion_id) { sample.chemotion_id }
 
