@@ -1,8 +1,8 @@
 describe AttachmentRepository do
   let(:analysis) { create :analysis, element_id: 1 }
-  let(:attachment1_dataset1) { create :attachment, ana_id: analysis.element_id, att_id: 2, ds_id: 4 }
-  let(:attachment1_dataset2) { create :attachment, ana_id: analysis.element_id, att_id: 3, ds_id: 5 }
-  let(:attachment2_dataset2) { create :attachment, ana_id: analysis.element_id, att_id: 6, ds_id: 5 }
+  let(:attachment1_dataset1) { create :attachment, id: 2, ana_id: analysis.element_id, ds_id: 4 }
+  let(:attachment1_dataset2) { create :attachment, id: 3, ana_id: analysis.element_id, ds_id: 5 }
+  let(:attachment2_dataset2) { create :attachment, id: 6, ana_id: analysis.element_id, ds_id: 5 }
 
   describe ".grouped_by_dataset" do
     subject(:grouped_by_dataset) { described_class.grouped_by_dataset arg }

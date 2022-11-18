@@ -14,7 +14,7 @@ describe Analysis do
     subject { analysis.attachments }
 
     let(:analysis) { create :analysis, element_id: 1 }
-    let(:attachments) { create_list :attachment, 1, ana_id: analysis.element_id, att_id: 2 }
+    let(:attachments) { create_list :attachment, 1, id: 2, ana_id: analysis.element_id }
 
     it { is_expected.to eq attachments }
   end
