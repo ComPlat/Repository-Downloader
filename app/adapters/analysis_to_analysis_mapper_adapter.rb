@@ -1,9 +1,7 @@
 class AnalysisToAnalysisMapperAdapter
-  def initialize(analysis)
-    @analysis = analysis
-  end
+  include Hashable
 
-  def to_h = (@to_h ||= (public_methods(false) - [:to_h]).index_with { |method| public_send method })
+  def initialize(analysis) = (@analysis = analysis)
 
   def context = (@context ||= "https://schema.org/") # HINT: becomes @context in mapper
 
