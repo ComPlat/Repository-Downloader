@@ -3,27 +3,25 @@ class AnalysisToAnalysisMapperAdapter
     @analysis = analysis
   end
 
-  def to_h
-    (public_methods(false) - [:to_h]).index_with { |method| public_send method }
-  end
+  def to_h = (@to_h ||= (public_methods(false) - [:to_h]).index_with { |method| public_send method })
 
-  def context = "https://schema.org/" # HINT: becomes @context in mapper
+  def context = (@context ||= "https://schema.org/") # HINT: becomes @context in mapper
 
-  def type = "AnalysisEntity" # HINT: becomes @type in mapper
+  def type = (@type ||= "AnalysisEntity") # HINT: becomes @type in mapper
 
-  def id = url
+  def id = (@id ||= "https://dx.doi.org/#{@analysis.taggable_data["analysis_doi"]}")
 
-  def ontologies = title
+  def ontologies = (@ontologies ||= @analysis.extended_metadata["kind"].split("|").last.strip)
 
-  def title = @analysis.extended_metadata["kind"].split("|").last.strip
+  def title = ontologies
 
-  def descriptions = @analysis.extended_metadata["content"] # TODO: check if this is right
+  def descriptions = (@descriptions ||= @analysis.extended_metadata["content"]) # TODO: check if this is right
 
-  def url = "https://dx.doi.org/#{@analysis.taggable_data["analysis_doi"]}"
+  def url = id
 
-  def identifier = @analysis.chemotion_id
+  def identifier = (@identifier ||= @analysis.chemotion_id)
 
-  def datasetList = {numberOfItems:, itemListElement:}
+  def datasetList = (@datasetList ||= {numberOfItems:, itemListElement:})
 
   private
 
