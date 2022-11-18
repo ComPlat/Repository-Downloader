@@ -33,7 +33,7 @@ describe Sample do
       it { is_expected.to eq [] }
     end
 
-    context "when taggable_data is a Hash and has an Array on key original_analysis_ids with id of an analysis_mapper in it" do
+    context "when taggable_data is a Hash and has an Array on key original_analysis_ids with id of an analysis in it" do
       let(:sample) { create :sample, taggable_data: {"original_analysis_ids" => [analysis.id]} }
       let(:analysis) { create :analysis, id: 1 }
 

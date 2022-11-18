@@ -181,7 +181,7 @@ describe RootMappers::AnalysisMapper do
 
       let(:expected_xml) do
         <<~XML
-          <analysis_mapper>
+          <analysis>
             <context/>
             <type/>
             <id/>
@@ -191,7 +191,7 @@ describe RootMappers::AnalysisMapper do
             <url/>
             <identifier/>
             <datasetList/>
-          </analysis_mapper>
+          </analysis>
         XML
       end
 
@@ -204,7 +204,7 @@ describe RootMappers::AnalysisMapper do
 
       let(:expected_xml) do
         <<~XML
-          <analysis_mapper>
+          <analysis>
             <context>https://schema.org/</context>
             <type>AnalysisEntity</type>
             <id>https://dx.doi.org/10.14272/MWJHDSAAGSURCA-UHFFFAOYSA-N/CHMO0000595</id>
@@ -238,7 +238,7 @@ describe RootMappers::AnalysisMapper do
                 </attachmentList>
               </itemListElement>
             </datasetList>
-          </analysis_mapper>
+          </analysis>
         XML
       end
 
@@ -251,7 +251,7 @@ describe RootMappers::AnalysisMapper do
 
       let(:expected_xml) do
         <<~XML
-          <analysis_mapper>
+          <analysis>
             <context>https://schema.org/</context>
             <type>AnalysisEntity</type>
             <id>https://dx.doi.org/10.14272/MWJHDSAAGSURCA-UHFFFAOYSA-N/CHMO0000595</id>
@@ -285,7 +285,7 @@ describe RootMappers::AnalysisMapper do
                 </attachmentList>
               </itemListElement>
             </datasetList>
-          </analysis_mapper>
+          </analysis>
         XML
       end
 
