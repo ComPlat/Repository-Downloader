@@ -2,9 +2,7 @@ module RootAdapters
   class ReactionToReactionMapperAdapter
     include Hashable
 
-    def initialize(reaction)
-      @reaction = reaction
-    end
+    def initialize(reaction) = @reaction = reaction
 
     def context = @context ||= "https://schema.org/" # HINT: becomes @context in mapper
 
@@ -28,6 +26,6 @@ module RootAdapters
 
     def purification = @purification ||= @reaction.reaction_purification.first
 
-    def reagents_list = @reagents_list ||= {}
+    def reagents_list = @reagents_list ||= {} # TODO: implement ReactionAdapter::ReagentsListAdapter
   end
 end
