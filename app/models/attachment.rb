@@ -8,4 +8,6 @@ class Attachment < ApplicationRecord
   #       (toap_publications.element_type = "Container")
   # noinspection RailsParamDefResolve
   belongs_to :analysis, foreign_key: :ana_id, primary_key: :element_id, inverse_of: :attachments
+
+  def instrument = extended_metadata&.dig("instrument") || ""
 end
