@@ -10,5 +10,5 @@ class Reaction < Publication
 
   def to_reaction_mapper_hash = to_reaction_mapper.to_h
 
-  def to_reaction_mapper = ReactionToReactionMapperAdapter.new self
+  def to_reaction_mapper = RootAdapters::ReactionToReactionMapperAdapter.new self
 end

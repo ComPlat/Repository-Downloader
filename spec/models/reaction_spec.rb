@@ -18,7 +18,7 @@ describe Reaction do
     subject(:present_to_api) { reaction.present_to_api }
 
     let(:reaction) { create :reaction, :with_realistic_attributes }
-    let(:reaction_to_reaction_mapper_adapter) { ReactionToReactionMapperAdapter.new reaction }
+    let(:reaction_to_reaction_mapper_adapter) { RootAdapters::ReactionToReactionMapperAdapter.new reaction }
     let(:reaction_to_reaction_mapper_adapter_hash) { reaction_to_reaction_mapper_adapter.to_h }
     let(:reaction_mapper) { RootMappers::ReactionMapper.from_hash reaction_to_reaction_mapper_adapter_hash }
 

@@ -1,4 +1,4 @@
-describe SampleToSampleMapperAdapter do
+describe RootAdapters::SampleToSampleMapperAdapter do
   let(:sample) { create :sample, :with_realistic_attributes }
   let(:sample_to_sample_mapper_adapter) { described_class.new sample }
 
