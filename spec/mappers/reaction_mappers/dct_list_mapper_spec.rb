@@ -1,4 +1,4 @@
-describe DctListMapper do
+describe ReactionMappers::DctListMapper do
   let(:expected_json_nil_render_value) { "null" }
 
   context "when called without any arguments" do

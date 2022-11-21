@@ -1,4 +1,4 @@
-describe DctElementMapper do
+describe SampleMappers::DctElementMapper do
   let(:expected_json_nil_render_value) { "null" }
 
   describe ".new" do
@@ -33,7 +33,7 @@ describe DctElementMapper do
 
       it { expect(dct_element_mapper).to be_a described_class }
       it { expect(dct_element_mapper.conformsTo.as_json).to eq args[:conformsTo].as_json }
-      it { expect(dct_element_mapper.conformsTo).to be_a DctListMapper }
+      it { expect(dct_element_mapper.conformsTo).to be_a ReactionMappers::DctListMapper }
     end
   end
 
@@ -59,7 +59,7 @@ describe DctElementMapper do
       let(:expected_json) do
         <<~JSON
           {
-            "http://purl.org/dc/terms/conformsTo":#{DctListMapper.from_hash(args[:conformsTo]).to_json}
+            "http://purl.org/dc/terms/conformsTo":#{ReactionMappers::DctListMapper.from_hash(args[:conformsTo]).to_json}
           }
         JSON
       end

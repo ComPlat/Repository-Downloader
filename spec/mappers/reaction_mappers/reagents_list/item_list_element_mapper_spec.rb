@@ -1,4 +1,4 @@
-describe ReagentsListItemListElementMapper do
+describe ReactionMappers::ReagentsList::ItemListElementMapper do
   let(:expected_json_nil_render_value) { "null" }
   let(:reagents_list_item_list_element_mapper) { build :reagents_list_item_list_element_mapper, :with_all_args }
 

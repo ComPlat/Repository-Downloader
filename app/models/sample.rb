@@ -7,13 +7,13 @@ class Sample < Publication
 
   def chemotion_id = "CRS-#{id}"
 
-  def present_to_api = SampleMapper.from_hash to_reaction_mapper_hash
+  def present_to_api = RootMappers::SampleMapper.from_hash to_sample_mapper_hash
 
   private
 
-  def to_reaction_mapper_hash = to_reaction_mapper.to_h
+  def to_sample_mapper_hash = to_sample_mapper.to_h
 
-  def to_reaction_mapper = SampleToSampleMapperAdapter.new self
+  def to_sample_mapper = SampleToSampleMapperAdapter.new self
 
   def analysis_ids = taggable_data&.dig("original_analysis_ids") || []
 end

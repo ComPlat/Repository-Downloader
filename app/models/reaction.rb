@@ -4,7 +4,7 @@ class Reaction < Publication
 
   def chemotion_id = "CRR-#{id}"
 
-  def present_to_api = ReactionMapper.from_hash to_reaction_mapper_hash
+  def present_to_api = RootMappers::ReactionMapper.from_hash to_reaction_mapper_hash
 
   private
 

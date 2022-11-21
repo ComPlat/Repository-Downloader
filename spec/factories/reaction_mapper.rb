@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :reaction_mapper do
+  factory :reaction_mapper, class: "RootMappers::ReactionMapper" do
     trait :with_all_args do
       add_attribute(:context) { "https://schema.org/" } # HINT: Otherwise Rubocop is confused.
       id { "https://www.rhea-db.org/reaction?id=51724" }

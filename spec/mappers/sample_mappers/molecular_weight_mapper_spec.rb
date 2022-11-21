@@ -1,4 +1,4 @@
-describe MolecularWeightMapper do
+describe SampleMappers::MolecularWeightMapper do
   let(:expected_json_nil_render_value) { "null" }
 
   describe ".new" do
