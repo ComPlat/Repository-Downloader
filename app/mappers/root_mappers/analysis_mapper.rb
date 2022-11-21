@@ -8,7 +8,7 @@ module RootMappers
     attribute :descriptions, Shale::Type::String
     attribute :url, Shale::Type::String
     attribute :identifier, Shale::Type::String
-    attribute :datasetList, ::AnalysisMapper::DataSetListMapper
+    attribute :datasetList, ::AnalysisMappers::DataSetListMapper
 
     json do
       map "@context", to: :context

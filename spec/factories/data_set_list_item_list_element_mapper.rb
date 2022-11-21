@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :data_set_list_item_list_element_mapper, class: "AnalysisMapper::DataSetList::ItemListElementMapper" do
+  factory :data_set_list_item_list_element_mapper, class: "AnalysisMappers::DataSetList::ItemListElementMapper" do
     trait :with_all_args_nested_structures_as_mappers do
       type { "DatasetEntity" }
       identifier { "12345" }

@@ -1,4 +1,4 @@
-module AnalysisMapper::DataSetList::ItemListElement::AttachmentList
+module AnalysisMappers::DataSetList::ItemListElement::AttachmentList
   class ItemListElementMapper < ShaleCustom::Mapper
     attribute :type, Shale::Type::String
     attribute :identifier, Shale::Type::String

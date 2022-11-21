@@ -1,4 +1,4 @@
-describe AnalysisMapper::DataSetList::ItemListElementMapper do
+describe AnalysisMappers::DataSetList::ItemListElementMapper do
   let(:expected_json_nil_render_value) { "null" }
 
   describe ".new" do
@@ -67,7 +67,7 @@ describe AnalysisMapper::DataSetList::ItemListElementMapper do
       it { expect(data_set_list_item_list_element_mapper.name).to eq args[:name] }
       it { expect(data_set_list_item_list_element_mapper.Instrument).to eq args[:Instrument] }
       it { expect(data_set_list_item_list_element_mapper.descriptions).to eq args[:descriptions] }
-      it { expect(data_set_list_item_list_element_mapper.attachmentList).to be_a AnalysisMapper::DataSetList::ItemListElement::AttachmentListMapper }
+      it { expect(data_set_list_item_list_element_mapper.attachmentList).to be_a AnalysisMappers::DataSetList::ItemListElement::AttachmentListMapper }
       it { expect(data_set_list_item_list_element_mapper.attachmentList.as_json).to eq args[:attachmentList].as_json }
     end
 
@@ -118,7 +118,7 @@ describe AnalysisMapper::DataSetList::ItemListElementMapper do
             "name": "#{args[:name]}",
             "Instrument": "#{args[:Instrument]}",
             "descriptions": "#{args[:descriptions]}",
-            "attachmentList" : #{AnalysisMapper::DataSetList::ItemListElement::AttachmentListMapper.from_hash(args[:attachmentList]).to_json}
+            "attachmentList" : #{AnalysisMappers::DataSetList::ItemListElement::AttachmentListMapper.from_hash(args[:attachmentList]).to_json}
           }
         JSON
       end
@@ -138,7 +138,7 @@ describe AnalysisMapper::DataSetList::ItemListElementMapper do
             "name": "#{args[:name]}",
             "Instrument": #{expected_json_nil_render_value},
             "descriptions": "#{args[:descriptions]}",
-            "attachmentList" : #{AnalysisMapper::DataSetList::ItemListElement::AttachmentListMapper.from_hash(args[:attachmentList]).to_json}
+            "attachmentList" : #{AnalysisMappers::DataSetList::ItemListElement::AttachmentListMapper.from_hash(args[:attachmentList]).to_json}
           }
         JSON
       end

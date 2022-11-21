@@ -70,7 +70,7 @@ describe RootMappers::AnalysisMapper do
       let(:args) { attributes_for(:analysis_mapper, :with_all_args_nested_structures_as_hash) }
       let(:analysis_mapper) { described_class.from_hash args }
 
-      let(:expected_data_set_list_mapper) { AnalysisMapper::DataSetListMapper.from_hash(args[:datasetList]) }
+      let(:expected_data_set_list_mapper) { AnalysisMappers::DataSetListMapper.from_hash(args[:datasetList]) }
 
       it { expect(analysis_mapper).to be_a described_class }
       it { expect(analysis_mapper.context).to eq args[:context] }
@@ -81,7 +81,7 @@ describe RootMappers::AnalysisMapper do
       it { expect(analysis_mapper.descriptions).to eq args[:descriptions] }
       it { expect(analysis_mapper.url).to eq args[:url] }
       it { expect(analysis_mapper.identifier).to eq args[:identifier] }
-      it { expect(expected_data_set_list_mapper).to be_a AnalysisMapper::DataSetListMapper }
+      it { expect(expected_data_set_list_mapper).to be_a AnalysisMappers::DataSetListMapper }
       it { expect(analysis_mapper.datasetList.as_json).to eq args[:datasetList].as_json }
     end
 
@@ -89,7 +89,7 @@ describe RootMappers::AnalysisMapper do
       let(:args) { attributes_for :analysis_mapper, :with_all_args_nested_structures_as_hash, ontologies: nil, descriptions: nil }
       let(:analysis_mapper) { described_class.from_hash args }
 
-      let(:expected_data_set_list_mapper) { AnalysisMapper::DataSetListMapper.from_hash(args[:datasetList]) }
+      let(:expected_data_set_list_mapper) { AnalysisMappers::DataSetListMapper.from_hash(args[:datasetList]) }
 
       it { expect(analysis_mapper).to be_a described_class }
       it { expect(analysis_mapper.context).to eq args[:context] }
@@ -100,7 +100,7 @@ describe RootMappers::AnalysisMapper do
       it { expect(analysis_mapper.descriptions).to be_nil }
       it { expect(analysis_mapper.url).to eq args[:url] }
       it { expect(analysis_mapper.identifier).to eq args[:identifier] }
-      it { expect(expected_data_set_list_mapper).to be_a AnalysisMapper::DataSetListMapper }
+      it { expect(expected_data_set_list_mapper).to be_a AnalysisMappers::DataSetListMapper }
       it { expect(analysis_mapper.datasetList.as_json).to eq args[:datasetList].as_json }
     end
   end
@@ -143,7 +143,7 @@ describe RootMappers::AnalysisMapper do
             "descriptions": "#{args[:descriptions]}",
             "url": "#{args[:url]}",
             "identifier": "#{args[:identifier]}",
-            "datasetList":#{AnalysisMapper::DataSetListMapper.from_hash(args[:datasetList]).to_json}
+            "datasetList":#{AnalysisMappers::DataSetListMapper.from_hash(args[:datasetList]).to_json}
           }
         JSON
       end
@@ -166,7 +166,7 @@ describe RootMappers::AnalysisMapper do
             "descriptions": #{expected_json_nil_render_value},
             "url": "#{args[:url]}",
             "identifier": "#{args[:identifier]}",
-            "datasetList":#{AnalysisMapper::DataSetListMapper.from_hash(args[:datasetList]).to_json}
+            "datasetList":#{AnalysisMappers::DataSetListMapper.from_hash(args[:datasetList]).to_json}
           }
         JSON
       end

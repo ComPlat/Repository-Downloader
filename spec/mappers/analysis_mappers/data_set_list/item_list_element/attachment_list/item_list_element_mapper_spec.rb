@@ -1,4 +1,4 @@
-describe AnalysisMapper::DataSetList::ItemListElement::AttachmentList::ItemListElementMapper do
+describe AnalysisMappers::DataSetList::ItemListElement::AttachmentList::ItemListElementMapper do
   let(:expected_json_nil_render_value) { "null" }
 
   describe ".new" do

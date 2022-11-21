@@ -1,4 +1,4 @@
-describe AnalysisMapper::DataSetListMapper do
+describe AnalysisMappers::DataSetListMapper do
   let(:expected_json_nil_render_value) { "null" }
 
   describe ".new" do
@@ -45,7 +45,7 @@ describe AnalysisMapper::DataSetListMapper do
 
       it { expect(data_set_list_mapper).to be_a described_class }
       it { expect(data_set_list_mapper.numberOfItems).to eq args[:numberOfItems] }
-      it { expect(data_set_list_mapper.itemListElement).to all be_a AnalysisMapper::DataSetList::ItemListElementMapper }
+      it { expect(data_set_list_mapper.itemListElement).to all be_a AnalysisMappers::DataSetList::ItemListElementMapper }
       it { expect(data_set_list_mapper.itemListElement.as_json).to eq args[:itemListElement].as_json }
     end
 
@@ -83,7 +83,7 @@ describe AnalysisMapper::DataSetListMapper do
         <<~JSON
           {
             "numberOfItems":#{args[:numberOfItems]},
-            "itemListElement":#{MappersPresenter.new(AnalysisMapper::DataSetList::ItemListElementMapper, args[:itemListElement]).to_json}
+            "itemListElement":#{MappersPresenter.new(AnalysisMappers::DataSetList::ItemListElementMapper, args[:itemListElement]).to_json}
           }
         JSON
       end
@@ -99,7 +99,7 @@ describe AnalysisMapper::DataSetListMapper do
         <<~JSON
           {
             "numberOfItems":#{expected_json_nil_render_value},
-            "itemListElement":#{MappersPresenter.new(AnalysisMapper::DataSetList::ItemListElementMapper, args[:itemListElement]).to_json}
+            "itemListElement":#{MappersPresenter.new(AnalysisMappers::DataSetList::ItemListElementMapper, args[:itemListElement]).to_json}
           }
         JSON
       end

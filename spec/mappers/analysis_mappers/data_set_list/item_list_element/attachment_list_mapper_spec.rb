@@ -1,4 +1,4 @@
-describe AnalysisMapper::DataSetList::ItemListElement::AttachmentListMapper do
+describe AnalysisMappers::DataSetList::ItemListElement::AttachmentListMapper do
   let(:expected_json_nil_render_value) { "null" }
 
   describe ".new" do
@@ -45,7 +45,7 @@ describe AnalysisMapper::DataSetList::ItemListElement::AttachmentListMapper do
 
       it { expect(attachment_list_mapper).to be_a described_class }
       it { expect(attachment_list_mapper.numberOfItems).to eq args[:numberOfItems] }
-      it { expect(attachment_list_mapper.itemListElement).to all be_a AnalysisMapper::DataSetList::ItemListElement::AttachmentList::ItemListElementMapper }
+      it { expect(attachment_list_mapper.itemListElement).to all be_a AnalysisMappers::DataSetList::ItemListElement::AttachmentList::ItemListElementMapper }
       it { expect(attachment_list_mapper.itemListElement.as_json).to eq args[:itemListElement].as_json }
     end
 
@@ -82,7 +82,7 @@ describe AnalysisMapper::DataSetList::ItemListElement::AttachmentListMapper do
       let(:expected_json) do
         <<~JSON
           { "numberOfItems":#{args[:numberOfItems]},
-            "itemListElement": #{MappersPresenter.new(AnalysisMapper::DataSetList::ItemListElement::AttachmentList::ItemListElementMapper, args[:itemListElement]).to_json} }
+            "itemListElement": #{MappersPresenter.new(AnalysisMappers::DataSetList::ItemListElement::AttachmentList::ItemListElementMapper, args[:itemListElement]).to_json} }
         JSON
       end
 
@@ -130,7 +130,7 @@ describe AnalysisMapper::DataSetList::ItemListElement::AttachmentListMapper do
         <<~XML
           <attachmentList>
             <numberOfItems>2</numberOfItems>
-            #{args[:itemListElement].map { |hash| AnalysisMapper::DataSetList::ItemListElement::AttachmentList::ItemListElementMapper.from_hash(hash).to_xml }.join("")}
+            #{args[:itemListElement].map { |hash| AnalysisMappers::DataSetList::ItemListElement::AttachmentList::ItemListElementMapper.from_hash(hash).to_xml }.join("")}
           </attachmentList>
         XML
       end
