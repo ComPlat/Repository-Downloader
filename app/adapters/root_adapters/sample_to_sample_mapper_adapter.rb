@@ -18,23 +18,23 @@ module RootAdapters
 
     def identifier = @identifier ||= @sample.chemotion_id
 
-    def iupacName = @iupacName ||= @sample.iupac_name
+    def iupacName = @iupac_name ||= @sample.iupac_name
 
     def smiles = @smiles ||= @sample.cano_smiles
 
-    def inChI = @inChI ||= @sample.inchistring
+    def inChI = @in_ch_i ||= @sample.inchistring
 
-    def inChIKey = @inChIKey ||= @sample.inchikey
+    def inChIKey = @in_ch_i_key ||= @sample.inchikey
 
-    def molecularFormula = @molecularFormula ||= @sample.sum_formular
+    def molecularFormula = @molecular_formula ||= @sample.sum_formular
 
-    def meltingPoint = @meltingPoint ||= @sample.sample_melting_point.to_s # TODO: test for e.g. room temperature
+    def meltingPoint = @melting_point ||= @sample.sample_melting_point.to_s # TODO: test for e.g. room temperature
 
-    def boilingPoint = @boilingPoint ||= @sample.sample_boiling_point.to_s # TODO: test for e.g. room temperature
+    def boilingPoint = @boiling_point ||= @sample.sample_boiling_point.to_s # TODO: test for e.g. room temperature
 
-    def molecularWeight = @molecularWeight ||= {"value" => @sample.molecular_weight}
+    def molecularWeight = @molecular_weight ||= {"value" => @sample.molecular_weight}
 
-    def analysisList = @analysisList ||= {numberOfItems:, itemListElement:}
+    def analysisList = @analysis_list ||= {numberOfItems:, itemListElement:}
 
     private
 
