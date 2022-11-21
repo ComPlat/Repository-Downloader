@@ -1,10 +1,13 @@
 describe RootAdapters::AnalysisToAnalysisMapperAdapter do
-  let!(:analysis) { create :analysis, :with_realistic_attributes, element_id: 1 }
-  # rubocop:disable RSpec/LetSetup
-  let!(:attachment1) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 3 }
-  let!(:attachment2) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 4, ds_id: 5 }
-  let!(:analysis_to_analysis_mapper_adapter) { described_class.new analysis }
-  # rubocop:enable RSpec/LetSetup
+  let(:analysis) { create :analysis, :with_realistic_attributes, element_id: 1 }
+  let(:attachment1) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 3 }
+  let(:attachment2) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 4, ds_id: 5 }
+  let(:analysis_to_analysis_mapper_adapter) { described_class.new analysis }
+
+  before do
+    attachment1
+    attachment2
+  end
 
   describe ".new" do
     subject { analysis_to_analysis_mapper_adapter }
