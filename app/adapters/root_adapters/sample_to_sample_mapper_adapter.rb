@@ -8,13 +8,13 @@ module RootAdapters
 
     def type = @type ||= "MolecularEntity" # HINT: becomes @type in mapper
 
-    def dct_conformsTo = {} # TODO: Implement me!
+    def dct_conformsTo = {} # TODO: Implement me! Is it always the same?
 
     def id = @id ||= @sample.taggable_data["doi"] # HINT: becomes @id in mapper
 
     def name = @name ||= @sample.iupac_name
 
-    def url = @url ||= "http://chemotion-repository.net/home/publications/molecules/#{@sample.id}"
+    def url = @url ||= "http://chemotion-repository.net/home/publications/molecules/#{@sample.id}" # TODO: Check if this is right
 
     def identifier = @identifier ||= @sample.chemotion_id
 
@@ -22,9 +22,9 @@ module RootAdapters
 
     def smiles = @smiles ||= @sample.cano_smiles
 
-    def inChI = @in_ch_i ||= @sample.inchistring
+    def inChI = @inchi ||= @sample.inchistring
 
-    def inChIKey = @in_ch_i_key ||= @sample.inchikey
+    def inChIKey = @inchi_key ||= @sample.inchikey
 
     def molecularFormula = @molecular_formula ||= @sample.sum_formular
 
@@ -34,16 +34,6 @@ module RootAdapters
 
     def molecularWeight = @molecular_weight ||= {"value" => @sample.molecular_weight}
 
-    def analysisList = @analysis_list ||= {numberOfItems:, itemListElement:}
-
-    private
-
-    def numberOfItems = 0
-
-    def itemListElement
-      # TODO: Implement me!
-    end
-
-    def analysis_list_adapter = AnalysisListItemListElementAdapter.new @sample
+    def analysisList = @analysis_list ||= SampleAdapter::AnalysisListAdapter.new(@sample).to_h # TODO: move to private method
   end
 end

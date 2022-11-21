@@ -27,7 +27,7 @@ describe RootAdapters::SampleToSampleMapperAdapter do
        meltingPoint: "-Infinity...Infinity",
        boilingPoint: "-Infinity...Infinity",
        molecularWeight: {"value" => 366.37876000000006},
-       analysisList: {itemListElement: nil, numberOfItems: 0}}
+       analysisList: {itemListElement: [], numberOfItems: 0}}
     }
 
     it { is_expected.to eq expected_hash }
@@ -126,6 +126,6 @@ describe RootAdapters::SampleToSampleMapperAdapter do
   describe "#analysisList" do
     subject { sample_to_sample_mapper_adapter.analysisList }
 
-    it { is_expected.to eq({itemListElement: nil, numberOfItems: 0}) }
+    it { is_expected.to eq({itemListElement: [], numberOfItems: 0}) }
   end
 end
