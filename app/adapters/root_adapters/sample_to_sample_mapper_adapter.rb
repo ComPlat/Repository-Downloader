@@ -1,10 +1,8 @@
 module RootAdapters
   class SampleToSampleMapperAdapter
-    def initialize(sample) = (@sample = sample)
+    include Hashable
 
-    def to_h
-      (public_methods(false) - [:to_h]).index_with { |method| public_send method }
-    end
+    def initialize(sample) = (@sample = sample)
 
     def context = @context ||= "https://schema.org/" # HINT: becomes @context in mapper
 

@@ -1,11 +1,9 @@
 module RootAdapters
   class ReactionToReactionMapperAdapter
+    include Hashable
+
     def initialize(reaction)
       @reaction = reaction
-    end
-
-    def to_h
-      (public_methods(false) - [:to_h]).index_with { |method| public_send method }
     end
 
     def context = @context ||= "https://schema.org/" # HINT: becomes @context in mapper
