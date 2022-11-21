@@ -1,6 +1,4 @@
 class SampleToSampleMapperAdapter
-  include Hashable
-
   def initialize(sample) = (@sample = sample)
 
   def to_h
