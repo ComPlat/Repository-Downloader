@@ -12,13 +12,13 @@ module RootAdapters
 
     def id = @id ||= @sample.taggable_data["doi"] # HINT: becomes @id in mapper
 
-    def name = iupacName
+    def name = @name ||= @sample.iupac_name
 
     def url = @url ||= "http://chemotion-repository.net/home/publications/molecules/#{@sample.id}"
 
     def identifier = @identifier ||= @sample.chemotion_id
 
-    def iupacName = @iupac_name ||= @sample.iupac_name
+    def iupacName = name
 
     def smiles = @smiles ||= @sample.cano_smiles
 
