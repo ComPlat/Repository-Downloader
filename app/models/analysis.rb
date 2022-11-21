@@ -13,5 +13,5 @@ class Analysis < Publication
 
   def to_analysis_mapper_hash = to_analysis_mapper.to_h
 
-  def to_analysis_mapper = AnalysisToAnalysisMapperAdapter.new self
+  def to_analysis_mapper = RootAdapters::AnalysisToAnalysisMapperAdapter.new self
 end

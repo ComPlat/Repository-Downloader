@@ -1,4 +1,4 @@
-describe AnalysisToAnalysisMapperAdapter do
+describe RootAdapters::AnalysisToAnalysisMapperAdapter do
   let(:analysis) { create :analysis, :with_realistic_attributes, element_id: 1 }
   let(:attachment1) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 3 }
   let(:attachment2) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 4, ds_id: 5 }
@@ -11,7 +11,7 @@ describe AnalysisToAnalysisMapperAdapter do
   end
 
   describe "#to_h" do
-    subject { analysis_to_analysis_mapper_adapter.to_h }
+    subject(:to_h) { analysis_to_analysis_mapper_adapter.to_h }
 
     let(:expected_hash) {
       {context: "https://schema.org/",
@@ -25,7 +25,7 @@ describe AnalysisToAnalysisMapperAdapter do
        url: "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1"}
     }
 
-    it { is_expected.to eq expected_hash }
+    it { expect(to_h).to eq expected_hash }
   end
 
   describe "#context" do

@@ -49,4 +49,26 @@ describe Attachment do
     it { is_expected.to be_valid }
     it { is_expected.to be_persisted }
   end
+
+  describe "#instrument" do
+    subject(:instrument) { attachment.instrument }
+
+    context "when extended_metadata is nil" do
+      let(:attachment) { build :attachment, extended_metadata: nil }
+
+      it { is_expected.to eq "" }
+    end
+
+    context "when extended_metadata is a Hash and has nil on key instrument" do
+      let(:attachment) { build :attachment, extended_metadata: {"instrument" => nil} }
+
+      it { is_expected.to eq "" }
+    end
+
+    context "when extended_metadata is a Hash and has a string" do
+      let(:attachment) { build :attachment, extended_metadata: {"instrument" => "some instrument"} }
+
+      it { is_expected.to eq attachment.extended_metadata["instrument"] }
+    end
+  end
 end
