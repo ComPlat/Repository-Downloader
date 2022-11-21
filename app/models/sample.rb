@@ -13,7 +13,7 @@ class Sample < Publication
 
   def to_sample_mapper_hash = to_sample_mapper.to_h
 
-  def to_sample_mapper = SampleToSampleMapperAdapter.new self
+  def to_sample_mapper = RootAdapters::SampleToSampleMapperAdapter.new self
 
   def analysis_ids = taggable_data&.dig("original_analysis_ids") || []
 end

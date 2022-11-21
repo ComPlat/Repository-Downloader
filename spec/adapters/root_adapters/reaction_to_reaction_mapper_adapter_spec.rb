@@ -1,4 +1,4 @@
-describe ReactionToReactionMapperAdapter do
+describe RootAdapters::ReactionToReactionMapperAdapter do
   let(:reaction) { build :reaction, :with_realistic_attributes }
   let(:reaction_to_reaction_mapper_adapter) { described_class.new reaction }
 

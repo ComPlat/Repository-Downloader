@@ -53,7 +53,7 @@ describe Sample do
     subject(:present_to_api) { sample.present_to_api }
 
     let(:sample) { create :sample, :with_realistic_attributes }
-    let(:sample_to_sample_mapper_adapter) { SampleToSampleMapperAdapter.new sample }
+    let(:sample_to_sample_mapper_adapter) { RootAdapters::SampleToSampleMapperAdapter.new sample }
     let(:sample_to_sample_mapper_adapter_hash) { sample_to_sample_mapper_adapter.to_h }
     let(:sample_mapper) { RootMappers::SampleMapper.from_hash sample_to_sample_mapper_adapter_hash }
 
