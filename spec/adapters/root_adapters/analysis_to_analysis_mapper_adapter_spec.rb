@@ -15,27 +15,67 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
   describe "#to_h" do
     subject(:to_h) { analysis_to_analysis_mapper_adapter.to_h }
 
-    let(:expected_hash) {
+    let(:expected_hash) do
       {context: "https://schema.org/",
-       datasetList:
-          {itemListElement:
-              [{Instrument: " Bruker", attachmentList:
-                {itemListElement:
-                    [{filename: "JK20-proton.peak.png", filepath: "data/CRD-2913", identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a", type: "AttachmentEntity"}],
-                 numberOfItems: 1}, descriptions: "", identifier: 3, name: "BJ68_1H", type: "DatasetEntity"},
-                {Instrument: " Bruker", attachmentList:
-                  {itemListElement:
-                      [{filename: "JK20-proton.peak.png", filepath: "data/CRD-2913", identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a", type: "AttachmentEntity"}],
-                   numberOfItems: 1}, descriptions: "", identifier: 5, name: "BJ68_1H", type: "DatasetEntity"}],
-           numberOfItems: 2},
        descriptions: "{\"ops\":[{\"insert\":\" \"}, {\"attributes\":{\"script\":\"super\"},\"insert\":\"13\"}, {\"insert\":\"C NMR (100 MHz, DMSO-d6, ppm), δ = 171.0, 141.1, 135.4 (q, J = 5.2 Hz), 127.4, 124.3 (q, J = 4.2 Hz), 124.0 (q, J = 271.3 Hz), 118.9, 118.2, 111.3 (q, J = 33.3 Hz), 44.4, 25.6, 22.3 (2 C). \"}]}",
        id: "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1",
        identifier: "CRD-2913",
        ontologies: "13C nuclear magnetic resonance spectroscopy (13C NMR)",
        title: "13C nuclear magnetic resonance spectroscopy (13C NMR)",
        type: "AnalysisEntity",
-       url: "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1"}
-    }
+       url: "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1",
+       datasetList: {
+         numberOfItems: 2,
+         itemListElement: [
+           {type: "DatasetEntity",
+            identifier: 3,
+            name: "BJ68_1H",
+            Instrument: " Bruker",
+            descriptions: "",
+            attachmentList: {
+              numberOfItems: 1,
+              itemListElement: [
+                {
+                  filename: "JK20-proton.peak.png",
+                  filepath: "data/CRD-2913",
+                  identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
+                  type: "AttachmentEntity"
+                },
+                {
+                  filename: "JK20-proton.peak.png",
+                  filepath: "data/CRD-2913",
+                  identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
+                  type: "AttachmentEntity"
+                }
+              ]
+            }},
+           {
+             type: "DatasetEntity",
+             descriptions: "",
+             identifier: 5,
+             name: "BJ68_1H",
+             Instrument: " Bruker",
+             attachmentList: {
+               numberOfItems: 1,
+               itemListElement: [
+                 {
+                   filename: "JK20-proton.peak.png",
+                   filepath: "data/CRD-2913",
+                   identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
+                   type: "AttachmentEntity"
+                 },
+                 {
+                   filename: "JK20-proton.peak.png",
+                   filepath: "data/CRD-2913",
+                   identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
+                   type: "AttachmentEntity"
+                 }
+               ]
+             }
+           }
+         ]
+       }}
+    end
 
     it { expect(to_h).to eq expected_hash }
   end
@@ -84,18 +124,39 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
     subject(:dataset_list) { analysis_to_analysis_mapper_adapter.datasetList }
 
     let(:expected_hash) do
-      {itemListElement:
-          [{Instrument: " Bruker", attachmentList:
-            {itemListElement:
-                [{filename: "JK20-proton.peak.png", filepath: "data/CRD-2913", identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a", type: "AttachmentEntity"}],
-             numberOfItems: 1}, descriptions: "", identifier: 3, name: "BJ68_1H", type: "DatasetEntity"},
-            {Instrument: " Bruker", attachmentList:
-              {itemListElement:
-                  [{filename: "JK20-proton.peak.png", filepath: "data/CRD-2913", identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a", type: "AttachmentEntity"}],
-               numberOfItems: 1}, descriptions: "", identifier: 5, name: "BJ68_1H", type: "DatasetEntity"}],
-       numberOfItems: 2}
+      {numberOfItems: 2,
+       itemListElement: [
+         {Instrument: " Bruker",
+          attachmentList: {itemListElement: [{filename: "JK20-proton.peak.png",
+                                              filepath: "data/CRD-2913",
+                                              identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
+                                              type: "AttachmentEntity"},
+            {filename: "JK20-proton.peak.png",
+             filepath: "data/CRD-2913",
+             identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
+             type: "AttachmentEntity"}],
+                           numberOfItems: 1},
+          descriptions: "",
+          identifier: 3,
+          name: "BJ68_1H",
+          type: "DatasetEntity"},
+         {Instrument: " Bruker",
+          attachmentList: {itemListElement: [{filename: "JK20-proton.peak.png",
+                                              filepath: "data/CRD-2913",
+                                              identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
+                                              type: "AttachmentEntity"},
+            {filename: "JK20-proton.peak.png",
+             filepath: "data/CRD-2913",
+             identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
+             type: "AttachmentEntity"}],
+                           numberOfItems: 1},
+          descriptions: "",
+          identifier: 5,
+          name: "BJ68_1H",
+          type: "DatasetEntity"}
+       ]}
     end
 
-    it { is_expected.to eq expected_hash }
+    it { expect(dataset_list).to eq expected_hash }
   end
 end
