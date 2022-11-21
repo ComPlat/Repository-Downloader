@@ -3,7 +3,7 @@ module AnalysisAdapter::DataSetList::ItemListElement::AttachmentList
     def initialize(analysis) = @analysis = analysis
 
     def to_a = @to_a ||= attachments_grouped_by_datastore.map do |ds_id, attachments|
-      AnalysisAdapter::DataSetList::ItemListElement::AttachmentList::ItemListElementAdapter.new(@analysis, ds_id, attachments).to_h
+      ItemListElementAdapter.new(@analysis, ds_id, attachments).to_h
     end
 
     private

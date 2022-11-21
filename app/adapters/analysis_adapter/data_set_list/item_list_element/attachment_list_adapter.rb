@@ -13,6 +13,6 @@ module AnalysisAdapter::DataSetList::ItemListElement
 
     private
 
-    def item_list_element_adapter_iterator = @item_list_element_adapter_iterator ||= AnalysisAdapter::DataSetList::ItemListElement::AttachmentList::ItemListElementAdapterIterator.new(@analysis)
+    def item_list_element_adapter_iterator = @item_list_element_adapter_iterator ||= AttachmentList::ItemListElementAdapterIterator.new(@analysis)
   end
 end
