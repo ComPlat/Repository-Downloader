@@ -8,9 +8,9 @@ module RootAdapters
 
     def type = @type ||= "MolecularEntity" # HINT: becomes @type in mapper
 
-    def dct_conformsTo = {} # TODO: Implement me! Is it always the same?
+    def dct_conformsTo = @dct_conforms_to ||= {"http://purl.org/dc/terms/conformsTo" => dct_element_hash}
 
-    def id = @id ||= @sample.taggable_data["doi"] # HINT: becomes @id in mapper
+    def id = @id ||= @sample.taggable_data&.dig("doi").to_s # HINT: becomes @id in mapper
 
     def name = @name ||= @sample.iupac_name
 
@@ -35,5 +35,9 @@ module RootAdapters
     def molecularWeight = @molecular_weight ||= {"value" => @sample.molecular_weight}
 
     def analysisList = @analysis_list ||= SampleAdapter::AnalysisListAdapter.new(@sample).to_h # TODO: move to private method
+
+    private
+
+    def dct_element_hash = {"@id" => SampleAdapter::DctElementAdapter.id, "@type" => SampleAdapter::DctElementAdapter.type}
   end
 end
