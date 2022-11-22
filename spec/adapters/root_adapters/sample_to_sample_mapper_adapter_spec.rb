@@ -14,10 +14,12 @@ describe RootAdapters::SampleToSampleMapperAdapter do
     let(:expected_hash) {
       {context: "https://schema.org/",
        type: "MolecularEntity",
-       dct_conformsTo: {},
+       dct_conformsTo: {"http://purl.org/dc/terms/conformsTo" =>
+                            {"@id" => "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE",
+                             "@type" => "CreativeWork"}},
        id: "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1",
        name: "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
-       url: "http://chemotion-repository.net/home/publications/molecules/4558",
+       url: "https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1",
        identifier: "CRS-4558",
        iupacName: "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
        smiles: "c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1",
@@ -48,7 +50,7 @@ describe RootAdapters::SampleToSampleMapperAdapter do
   describe "#dct_conformsTo" do
     subject { sample_to_sample_mapper_adapter.dct_conformsTo }
 
-    it { is_expected.to eq({}) }
+    it { is_expected.to eq "http://purl.org/dc/terms/conformsTo" => {"@id" => "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE", "@type" => "CreativeWork"} }
   end
 
   describe "#id" do
@@ -66,7 +68,7 @@ describe RootAdapters::SampleToSampleMapperAdapter do
   describe "#url" do
     subject { sample_to_sample_mapper_adapter.url }
 
-    it { is_expected.to eq "http://chemotion-repository.net/home/publications/molecules/4558" }
+    it { is_expected.to eq "https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1" }
   end
 
   describe "#identifier" do
