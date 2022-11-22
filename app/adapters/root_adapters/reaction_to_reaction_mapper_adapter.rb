@@ -6,7 +6,7 @@ module RootAdapters
 
     def context = @context ||= "https://schema.org/" # HINT: becomes @context in mapper
 
-    def id = @id ||= @reaction.taggable_data&.dig("doi").to_s # TODO: check if this is correct
+    def id = @id ||= @reaction.taggable_data&.dig("doi").to_s
 
     def type = @type ||= "BioChemicalReaction"
 
@@ -18,7 +18,7 @@ module RootAdapters
 
     def description = @description ||= @reaction.reaction_description.to_s
 
-    def temperature = @temperature ||= "#{@reaction.reaction_temperature["userText"]} #{@reaction.reaction_temperature["valueUnit"]}"
+    def temperature = @temperature ||= "#{@reaction.reaction_temperature&.dig("userText")} #{@reaction.reaction_temperature&.dig("valueUnit")}"
 
     def reaction_type = @reaction_type ||= @reaction.rxno.to_s
 
