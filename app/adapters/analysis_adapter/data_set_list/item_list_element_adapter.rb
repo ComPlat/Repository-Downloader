@@ -14,7 +14,6 @@ module AnalysisAdapter::DataSetList
 
     def name = @name ||= "BJ68_1H" # TODO: Find out where this comes from database.
 
-    # HINT: .first doesn't need a save navigator because code is unreachable if attachments is empty array.
     def Instrument = @instrument ||= data_set_attachment.instrument
 
     def descriptions = @descriptions ||= "" # TODO: Find out where this comes from database.
