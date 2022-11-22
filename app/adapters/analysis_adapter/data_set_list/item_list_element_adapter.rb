@@ -25,6 +25,7 @@ module AnalysisAdapter::DataSetList
 
     def attachment_list_adapter = @attachment_list_adapter ||= ItemListElement::AttachmentListAdapter.new(@analysis, @data_set_attachments)
 
+    # HINT: This always works, because this class is only instantiated if data_set_attachments has more than one element.
     def data_set_attachment = @data_set_attachment ||= @data_set_attachments.first
   end
 end
