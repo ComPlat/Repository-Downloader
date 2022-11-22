@@ -27,5 +27,6 @@ describe AnalysisAdapter::DataSetList::ItemListElement::AttachmentList::ItemList
     end
 
     it { is_expected.to eq expected_array }
+    it { is_expected.to be_a Array }
   end
 end
