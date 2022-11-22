@@ -14,7 +14,7 @@ module RootAdapters
 
     def name = @name ||= @sample.iupac_name
 
-    def url = @url ||= "http://chemotion-repository.net/home/publications/molecules/#{@sample.id}" # TODO: Check if this is right
+    def url = @url ||= "https://dx.doi.org/#{id}"
 
     def identifier = @identifier ||= @sample.chemotion_id
 
@@ -34,10 +34,12 @@ module RootAdapters
 
     def molecularWeight = @molecular_weight ||= {"value" => @sample.molecular_weight}
 
-    def analysisList = @analysis_list ||= SampleAdapter::AnalysisListAdapter.new(@sample).to_h # TODO: move to private method
+    def analysisList = @analysis_list ||= analysis_list_hash
 
     private
 
     def dct_element_hash = {"@id" => SampleAdapter::DctElementAdapter.id, "@type" => SampleAdapter::DctElementAdapter.type}
+
+    def analysis_list_hash = SampleAdapter::AnalysisListAdapter.new(@sample).to_h
   end
 end
