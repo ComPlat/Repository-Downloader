@@ -24,6 +24,7 @@ FactoryBot.define do
     end
 
     trait :with_all_args_nested_structures_as_hash do
+      primitives
       dct_conformsTo { attributes_for :dct_element_mapper, :with_all_args_nested_structures_as_hash }
       molecularWeight { attributes_for :molecular_weight_mapper, :with_all_args }
       analysisList { attributes_for :analysis_list_mapper, :with_all_args_nested_structures_as_hash }
