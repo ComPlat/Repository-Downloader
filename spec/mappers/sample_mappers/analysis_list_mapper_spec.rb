@@ -1,6 +1,24 @@
 describe SampleMappers::AnalysisListMapper do
   let(:expected_json_nil_render_value) { "null" }
 
+  describe "factories" do
+    describe "trait :with_all_args_nested_structures_as_mappers" do
+      subject(:factory) { build :analysis_list_mapper, :with_all_args_nested_structures_as_mappers }
+
+      it { expect(factory.instance_variable_get(:@itemListElement).count).to eq 1 }
+      it { expect(factory.instance_variable_get(:@itemListElement).count).to eq factory.instance_variable_get :@numberOfItems }
+      it { expect(factory.instance_variable_get(:@itemListElement)).to all be_a RootMappers::AnalysisMapper }
+    end
+
+    describe "trait :with_all_args_nested_structures_as_hash" do
+      subject(:factory) { build :analysis_list_mapper, :with_all_args_nested_structures_as_hash }
+
+      it { expect(factory.instance_variable_get(:@itemListElement).count).to eq 1 }
+      it { expect(factory.instance_variable_get(:@itemListElement).count).to eq factory.instance_variable_get :@numberOfItems }
+      it { expect(factory.instance_variable_get(:@itemListElement)).to all be_a Hash }
+    end
+  end
+
   describe ".new" do
     context "when called without any arguments" do
       let(:analysis_list_mapper) { build :analysis_list_mapper }
