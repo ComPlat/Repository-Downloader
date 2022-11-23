@@ -38,7 +38,9 @@ module RootAdapters
 
     private
 
-    def dct_element_hash = {"@id" => SampleAdapter::DctElementAdapter.id, "@type" => SampleAdapter::DctElementAdapter.type}
+    def dct_element_hash = @dct_element_hash ||= dct_element_adapter.to_h
+
+    def dct_element_adapter = @dct_element_adapter ||= SampleAdapter::DctElementAdapter.new
 
     def analysis_list_hash = SampleAdapter::AnalysisListAdapter.new(@sample).to_h
   end

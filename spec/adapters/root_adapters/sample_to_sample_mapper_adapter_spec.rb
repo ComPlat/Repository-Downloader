@@ -14,9 +14,7 @@ describe RootAdapters::SampleToSampleMapperAdapter do
     let(:expected_hash) {
       {context: "https://schema.org/",
        type: "MolecularEntity",
-       dct_conformsTo: {"http://purl.org/dc/terms/conformsTo" =>
-                            {"@id" => "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE",
-                             "@type" => "CreativeWork"}},
+       dct_conformsTo: {"http://purl.org/dc/terms/conformsTo" => SampleAdapter::DctElementAdapter.new.to_h},
        id: "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1",
        name: "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
        url: "https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1",
@@ -50,7 +48,7 @@ describe RootAdapters::SampleToSampleMapperAdapter do
   describe "#dct_conformsTo" do
     subject { sample_to_sample_mapper_adapter.dct_conformsTo }
 
-    it { is_expected.to eq "http://purl.org/dc/terms/conformsTo" => {"@id" => "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE", "@type" => "CreativeWork"} }
+    it { is_expected.to eq "http://purl.org/dc/terms/conformsTo" => SampleAdapter::DctElementAdapter.new.to_h }
   end
 
   describe "#id" do
