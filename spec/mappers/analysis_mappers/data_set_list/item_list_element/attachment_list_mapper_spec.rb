@@ -1,5 +1,21 @@
 describe AnalysisMappers::DataSetList::ItemListElement::AttachmentListMapper do
-  let(:expected_json_nil_render_value) { "null" }
+  describe "factories" do
+    describe "trait :with_all_args_nested_structures_as_mappers" do
+      subject(:factory) { build :attachment_list_mapper, :with_all_args_nested_structures_as_mappers }
+
+      it { expect(factory.instance_variable_get(:@itemListElement).count).to eq 2 }
+      it { expect(factory.instance_variable_get(:@itemListElement).count).to eq factory.instance_variable_get :@numberOfItems }
+      it { expect(factory.instance_variable_get(:@itemListElement)).to all be_a AnalysisMappers::DataSetList::ItemListElement::AttachmentList::ItemListElementMapper }
+    end
+
+    describe "trait :with_all_args_nested_structures_as_hash" do
+      subject(:factory) { build :attachment_list_mapper, :with_all_args_nested_structures_as_hash }
+
+      it { expect(factory.instance_variable_get(:@itemListElement).count).to eq 2 }
+      it { expect(factory.instance_variable_get(:@itemListElement).count).to eq factory.instance_variable_get :@numberOfItems }
+      it { expect(factory.instance_variable_get(:@itemListElement)).to all be_a Hash }
+    end
+  end
 
   describe ".new" do
     context "when called without any arguments" do
@@ -60,6 +76,8 @@ describe AnalysisMappers::DataSetList::ItemListElement::AttachmentListMapper do
   end
 
   describe "#to_json" do
+    let(:expected_json_nil_render_value) { "null" }
+
     context "when called without any arguments" do
       let(:attachment_list_mapper) { build :attachment_list_mapper }
 
@@ -93,9 +111,9 @@ describe AnalysisMappers::DataSetList::ItemListElement::AttachmentListMapper do
       let(:args) { attributes_for(:attachment_list_mapper, :with_all_args_nested_structures_as_hash, itemListElement: nil) }
       let(:attachment_list_mapper) { described_class.from_hash args }
 
-      let(:expected_json) do
+      let(:expected_json) do # HINT: Because numberOfItems is the length of itemListElement
         <<~JSON
-          { "numberOfItems":#{args[:numberOfItems]},
+          { "numberOfItems":#{expected_json_nil_render_value},
             "itemListElement":#{expected_json_nil_render_value} }
         JSON
       end
@@ -145,7 +163,7 @@ describe AnalysisMappers::DataSetList::ItemListElement::AttachmentListMapper do
       let(:expected_xml) do
         <<~XML
           <attachmentList>
-            <numberOfItems>2</numberOfItems>
+            <numberOfItems/>
             <itemListElement/>
           </attachmentList>
         XML

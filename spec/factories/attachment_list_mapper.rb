@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :attachment_list_mapper, class: "AnalysisMappers::DataSetList::ItemListElement::AttachmentListMapper" do
     trait :primitives do
-      numberOfItems { 2 }
+      numberOfItems { itemListElement&.count }
     end
 
     trait :with_all_args_nested_structures_as_mappers do
