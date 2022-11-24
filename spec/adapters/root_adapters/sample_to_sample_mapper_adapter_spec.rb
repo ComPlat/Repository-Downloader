@@ -120,7 +120,7 @@ describe RootAdapters::SampleToSampleMapperAdapter do
   describe "#molecularWeight" do
     subject { sample_to_sample_mapper_adapter.molecularWeight }
 
-    it { is_expected.to eq({"value" => 366.37876000000006}) }
+    it { is_expected.to include({value: 366.37876000000006}) }
   end
 
   describe "#analysisList" do

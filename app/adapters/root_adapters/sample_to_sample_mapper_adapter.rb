@@ -32,7 +32,7 @@ module RootAdapters
 
     def boilingPoint = @boiling_point ||= @sample.sample_boiling_point.to_s # TODO: test for e.g. room temperature
 
-    def molecularWeight = @molecular_weight ||= {"value" => @sample.molecular_weight}
+    def molecularWeight = @molecular_weight ||= molecular_weight_adapter
 
     def analysisList = @analysis_list ||= analysis_list_hash
 
@@ -43,5 +43,7 @@ module RootAdapters
     def dct_element_adapter = @dct_element_adapter ||= SampleAdapter::DctElementAdapter.new
 
     def analysis_list_hash = SampleAdapter::AnalysisListAdapter.new(@sample).to_h
+
+    def molecular_weight_adapter = SampleAdapter::MolecularWeightAdapter.new(@sample).to_h
   end
 end
