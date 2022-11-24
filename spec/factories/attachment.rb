@@ -1,11 +1,9 @@
 FactoryBot.define do
   factory :attachment do
     trait :with_realistic_attributes do
-      id { 71223 }
       name { "R53A_EI-MS" }
       ds_desc { "" }
       filesize { "46034" }
-      ana_id { 680937 }
       ds_id { 681160 }
       # noinspection RubyResolve
       extended_metadata { {"report" => "true", "instrument" => " Bruker"} }

@@ -1,8 +1,6 @@
 describe Attachment do
   let(:analysis) { create :analysis, element_id: 1 }
 
-  it { expect(described_class.primary_key).to eq "id" }
-
   describe "columns" do
     it { is_expected.to have_db_column(:id).of_type(:integer) }
     it { is_expected.to have_db_column(:name).of_type(:string) }

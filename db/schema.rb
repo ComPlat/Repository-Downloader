@@ -17,8 +17,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_152849) do
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
-  create_table "toap_attachments", id: false, primary_key: "id", force: :cascade do |t|
-    t.integer "id"
+  create_table "toap_attachments", force: :cascade do |t|
     t.string "name"
     t.string "ds_desc"
     t.string "filesize"
