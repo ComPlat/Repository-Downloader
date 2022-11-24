@@ -9,6 +9,8 @@ class Analysis < Publication
 
   def present_to_api = RootMappers::AnalysisMapper.from_hash to_analysis_mapper_hash
 
+  def doi = taggable_data&.dig("analysis_doi")
+
   private
 
   def to_analysis_mapper_hash = to_analysis_mapper.to_h

@@ -42,4 +42,12 @@ describe Analysis do
     it { expect(present_to_api.to_xml).to eq analysis_mapper.to_xml }
     it { expect(present_to_api.to_csv).to eq analysis_mapper.to_csv }
   end
+
+  describe "#doi" do
+    subject { analysis.doi }
+
+    let(:analysis) { create :analysis, :with_realistic_attributes }
+
+    it { is_expected.to eq "10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1" }
+  end
 end
