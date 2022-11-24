@@ -72,7 +72,7 @@ describe RootAdapters::SampleToSampleMapperAdapter do
   describe "#identifier" do
     subject { sample_to_sample_mapper_adapter.identifier }
 
-    it { is_expected.to eq "CRS-4558" }
+    it { is_expected.to eq sample.chemotion_id }
   end
 
   describe "#iupacName" do
