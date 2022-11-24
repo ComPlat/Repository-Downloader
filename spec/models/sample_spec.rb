@@ -28,6 +28,7 @@ describe Sample do
       let(:sample) { create :sample, reaction: }
 
       it { expect(sample.reaction).to eq reaction }
+      it { expect { create :sample }.to raise_error ActiveRecord::RecordInvalid, "Validation failed: Reaction must exist" }
     end
   end
 
