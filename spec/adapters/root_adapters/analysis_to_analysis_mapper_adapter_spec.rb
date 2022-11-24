@@ -89,6 +89,28 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
     it { is_expected.to eq "https://schema.org/" }
   end
 
+  describe "#type" do
+    subject { analysis_to_analysis_mapper_adapter.type }
+
+    it { is_expected.to eq "AnalysisEntity" }
+  end
+
+  describe "#id" do
+    context "when analysis is given" do
+      subject { analysis_to_analysis_mapper_adapter.id }
+
+      it { is_expected.to eq "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1" }
+    end
+
+    context "when analysis is NOT given" do
+      subject { analysis_to_analysis_mapper_adapter.id }
+
+      let(:analysis) { create :analysis, :with_realistic_attributes, taggable_data: nil }
+
+      it { is_expected.to eq "" }
+    end
+  end
+
   describe "#ontologies" do
     subject(:ontologies) { analysis_to_analysis_mapper_adapter.ontologies }
 
