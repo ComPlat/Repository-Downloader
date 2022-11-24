@@ -18,15 +18,8 @@ describe AnalysisAdapter::DataSetList::ItemListElement::AttachmentListAdapter do
     subject { attachment_list_adapter.to_h }
 
     let(:expected_hash) do
-      {
-        numberOfItems: 1,
-        itemListElement: [
-          {filename: "JK20-proton.peak.png",
-           filepath: "data/CRD-2913",
-           identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-           type: "AttachmentEntity"}
-        ]
-      }
+      {numberOfItems: attachment_list_adapter.numberOfItems,
+       itemListElement: attachment_list_adapter.itemListElement}
     end
 
     it { is_expected.to eq expected_hash }
@@ -44,7 +37,7 @@ describe AnalysisAdapter::DataSetList::ItemListElement::AttachmentListAdapter do
     let(:expected_array) do
       [
         {filename: "JK20-proton.peak.png",
-         filepath: "data/CRD-2913",
+         filepath: "data/#{analysis.chemotion_id}",
          identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
          type: "AttachmentEntity"}
       ]
