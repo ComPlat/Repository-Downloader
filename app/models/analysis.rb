@@ -11,6 +11,7 @@ class Analysis < Publication
 
   def doi = taggable_data&.dig("analysis_doi")
 
+  # noinspection RubyResolve
   def kind = extended_metadata&.dig("kind")
 
   private
