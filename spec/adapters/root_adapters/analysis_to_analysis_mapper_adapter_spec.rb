@@ -1,12 +1,10 @@
 describe RootAdapters::AnalysisToAnalysisMapperAdapter do
   let(:analysis) { create :analysis, :with_realistic_attributes, element_id: 1 }
-  let(:attachment1) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 3 }
-  let(:attachment2) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 4, ds_id: 5 }
+  let(:attachment) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 3 }
   let(:analysis_to_analysis_mapper_adapter) { described_class.new analysis }
 
   before do
-    attachment1
-    attachment2
+    attachment
   end
 
   describe ".new" do
@@ -65,6 +63,7 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
     subject(:ontologies) { analysis_to_analysis_mapper_adapter.ontologies }
 
     it { expect(ontologies).to eq "13C nuclear magnetic resonance spectroscopy (13C NMR)" }
+    # noinspection RubyResolve
     it { expect(analysis.extended_metadata.to_s).to include ontologies }
   end
 
@@ -76,6 +75,7 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
     end
 
     it { expect(descriptions).to eq_without_whitespace expected_description }
+    # noinspection RubyResolve
     it { expect(analysis.extended_metadata["content"].to_s).to include descriptions.to_s }
   end
 
@@ -83,6 +83,7 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
     subject(:title) { analysis_to_analysis_mapper_adapter.title }
 
     it { is_expected.to eq "13C nuclear magnetic resonance spectroscopy (13C NMR)" }
+    # noinspection RubyResolve
     it { expect(analysis.extended_metadata.to_s).to include title }
   end
 
@@ -98,38 +99,11 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
   describe "#datasetList" do
     subject(:dataset_list) { analysis_to_analysis_mapper_adapter.datasetList }
 
+    let(:data_set_list_adapter) { AnalysisAdapter::DataSetListAdapter.new analysis }
+
     let(:expected_hash) do
-      {numberOfItems: 2,
-       itemListElement: [
-         {Instrument: " Bruker",
-          attachmentList: {itemListElement: [{filename: "JK20-proton.peak.png",
-                                              filepath: "data/CRD-2913",
-                                              identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-                                              type: "AttachmentEntity"},
-            {filename: "JK20-proton.peak.png",
-             filepath: "data/CRD-2913",
-             identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-             type: "AttachmentEntity"}],
-                           numberOfItems: 1},
-          descriptions: "",
-          identifier: 3,
-          name: "BJ68_1H",
-          type: "DatasetEntity"},
-         {Instrument: " Bruker",
-          attachmentList: {itemListElement: [{filename: "JK20-proton.peak.png",
-                                              filepath: "data/CRD-2913",
-                                              identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-                                              type: "AttachmentEntity"},
-            {filename: "JK20-proton.peak.png",
-             filepath: "data/CRD-2913",
-             identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-             type: "AttachmentEntity"}],
-                           numberOfItems: 1},
-          descriptions: "",
-          identifier: 5,
-          name: "BJ68_1H",
-          type: "DatasetEntity"}
-       ]}
+      {numberOfItems: data_set_list_adapter.numberOfItems,
+       itemListElement: data_set_list_adapter.itemListElement}
     end
 
     it { expect(dataset_list).to eq expected_hash }
