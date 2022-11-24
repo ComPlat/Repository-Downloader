@@ -8,7 +8,7 @@ module RootAdapters
 
     def type = @type ||= "AnalysisEntity" # HINT: becomes @type in mapper
 
-    def id = @id ||= "https://dx.doi.org/#{@analysis.taggable_data&.dig("analysis_doi")}"
+    def id = @id ||= "https://dx.doi.org/#{@analysis.doi}"
 
     def ontologies = @ontologies ||= @analysis.extended_metadata&.dig("kind")&.split("|")&.last&.strip.to_s
 
