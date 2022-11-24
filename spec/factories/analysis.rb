@@ -1,7 +1,8 @@
 FactoryBot.define do
   factory :analysis do
+    sequence :element_id, 1
+
     trait :with_realistic_attributes do
-      id { 2913 }
       taggable_data {
         {"doi" => "10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N",
          "creators" =>
@@ -31,8 +32,6 @@ FactoryBot.define do
          "dataset_version" => "1"}
       }
       element_type { "Container" }
-      element_id { "6620" }
-      ancestry { "2912" }
       metadata_xml { # HINT: It is that broken in database.
         <<~XML
           <?xml version="1.0" encoding="UTF-8"?>
