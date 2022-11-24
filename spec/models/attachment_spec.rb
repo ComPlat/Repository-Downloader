@@ -1,6 +1,4 @@
 describe Attachment do
-  let(:analysis) { create :analysis, element_id: 1 }
-
   describe "columns" do
     it { is_expected.to have_db_column(:id).of_type(:integer) }
     it { is_expected.to have_db_column(:name).of_type(:string) }
@@ -18,17 +16,46 @@ describe Attachment do
     it { is_expected.to have_db_column(:akey).of_type(:string).with_options(limit: 500) }
   end
 
+  describe "factories" do
+    describe "with traits :with_required_dependencies" do
+      subject(:factory) { build :attachment, :with_required_dependencies }
+
+      it { is_expected.to be_valid }
+      it { expect(factory.save).to be true }
+    end
+
+    describe "without trait" do
+      subject(:factory) { build :attachment }
+
+      it { is_expected.to be_invalid }
+      it { expect(factory.save).to be false }
+    end
+  end
+
   describe "associations" do
     it { is_expected.to belong_to(:analysis).with_primary_key(:element_id).with_foreign_key(:ana_id).inverse_of(:attachments) }
+
+    describe "#analysis" do
+      let(:analysis) { create :analysis }
+      let(:attachment) { create :attachment, analysis: }
+
+      it { expect(attachment.analysis).to eq analysis }
+      it { expect { create :attachment }.to raise_error ActiveRecord::RecordInvalid, "Validation failed: Analysis must exist" }
+    end
   end
 
   describe ".new" do
-    subject(:new) { described_class.new ana_id: analysis.element_id }
+    subject(:new) { described_class.new }
 
     it { is_expected.to be_a described_class }
-    it { expect { new }.not_to change(described_class, :count) }
-    it { is_expected.to be_valid }
+    it { expect { new }.not_to change described_class, :count }
     it { is_expected.not_to be_persisted }
+  end
+
+  describe ".create" do
+    subject(:create_method) { described_class.create }
+
+    it { is_expected.to be_a described_class }
   end
 
   describe ".attr_readonly" do
@@ -37,15 +64,6 @@ describe Attachment do
     let(:attribute_names) { described_class.attribute_names }
 
     it { attribute_names.each { |attribute_name| expect(new).to have_readonly_attribute attribute_name } }
-  end
-
-  describe ".create" do
-    subject(:create_method) { described_class.create ana_id: analysis.element_id }
-
-    it { is_expected.to be_a described_class }
-    it { expect { create_method }.to change(described_class, :count).from(0).to(1) }
-    it { is_expected.to be_valid }
-    it { is_expected.to be_persisted }
   end
 
   describe "#instrument" do

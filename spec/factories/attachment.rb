@@ -1,5 +1,9 @@
 FactoryBot.define do
   factory :attachment do
+    trait :with_required_dependencies do
+      analysis { create :analysis }
+    end
+
     trait :with_realistic_attributes do
       name { "R53A_EI-MS" }
       ds_desc { "" }
