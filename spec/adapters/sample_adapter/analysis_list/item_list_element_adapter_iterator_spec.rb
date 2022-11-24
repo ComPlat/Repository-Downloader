@@ -1,5 +1,8 @@
 describe SampleAdapter::AnalysisList::ItemListElementAdapterIterator do
-  let(:sample) { create :sample, :with_realistic_attributes, taggable_data: {"original_analysis_ids" => [analysis1.id]} }
+  let(:sample) {
+    create :sample, :with_required_dependencies, :with_realistic_attributes,
+      taggable_data: {"original_analysis_ids" => [analysis1.id]}
+  }
   let(:analysis1) { create :analysis, :with_realistic_attributes, id: 1 }
   let(:item_list_element_adapter_iterator) { described_class.new sample }
 
