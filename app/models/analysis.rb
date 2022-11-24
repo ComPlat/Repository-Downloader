@@ -11,6 +11,8 @@ class Analysis < Publication
 
   def doi = taggable_data&.dig("analysis_doi")
 
+  def kind = extended_metadata&.dig("kind")
+
   private
 
   def to_analysis_mapper_hash = to_analysis_mapper.to_h

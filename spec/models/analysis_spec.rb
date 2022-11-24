@@ -50,4 +50,12 @@ describe Analysis do
 
     it { is_expected.to eq "10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1" }
   end
+
+  describe "#kind" do
+    subject { analysis.kind }
+
+    let(:analysis) { create :analysis, :with_realistic_attributes }
+
+    it { is_expected.to eq "CHMO:0000595 | 13C nuclear magnetic resonance spectroscopy (13C NMR)" }
+  end
 end

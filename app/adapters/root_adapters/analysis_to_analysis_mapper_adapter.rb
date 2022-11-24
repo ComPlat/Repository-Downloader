@@ -10,7 +10,7 @@ module RootAdapters
 
     def id = @id ||= "https://dx.doi.org/#{@analysis.doi}"
 
-    def ontologies = @ontologies ||= @analysis.extended_metadata&.dig("kind")&.split("|")&.last&.strip.to_s
+    def ontologies = @ontologies ||= @analysis.kind&.split("|")&.last&.strip.to_s
 
     def title = ontologies
 
