@@ -9,5 +9,6 @@ class Attachment < ApplicationRecord
   # noinspection RailsParamDefResolve
   belongs_to :analysis, foreign_key: :ana_id, primary_key: :element_id, inverse_of: :attachments
 
+  # noinspection RubyResolve
   def instrument = extended_metadata&.dig("instrument") || ""
 end
