@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :reaction do
     trait :with_realistic_attributes do
-      id { 9739 }
       taggable_data {
         {"doi" => "10.14272/reaction/SA-FUHFF-UHFFFADPSC-WITXFYCLPD-UHFFFADPSC-NUHFF-NUHFF-NUHFF-ZZZ",
          "license" => "CC BY-SA",
