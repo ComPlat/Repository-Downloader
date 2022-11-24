@@ -12,7 +12,7 @@ module RootAdapters
 
     def name = @name ||= "" # TODO: implement me!
 
-    def identifier = @identifier ||= "CRR-#{@reaction.id}"
+    def identifier = @identifier ||= @reaction.chemotion_id
 
     def status = @status ||= @reaction.reaction_status.to_s
 

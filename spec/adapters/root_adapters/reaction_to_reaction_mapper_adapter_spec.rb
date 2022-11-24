@@ -65,7 +65,7 @@ describe RootAdapters::ReactionToReactionMapperAdapter do
   describe "#identifier" do
     subject { reaction_to_reaction_mapper_adapter.identifier }
 
-    it { is_expected.to eq "CRR-9739" }
+    it { is_expected.to eq reaction.chemotion_id }
   end
 
   describe "#status" do
