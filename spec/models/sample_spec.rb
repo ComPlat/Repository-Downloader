@@ -13,6 +13,12 @@ describe Sample do
       it { is_expected.to be_valid }
     end
 
+    describe "with traits :with_required_dependencies and :with_realistic_attributes" do
+      subject(:factory) { build :sample, :with_required_dependencies, :with_realistic_attributes }
+
+      it { is_expected.to be_valid }
+    end
+
     describe "without trait" do
       subject(:factory) { build :sample }
 
