@@ -8,7 +8,7 @@ module RootAdapters
 
     def type = @type ||= "MolecularEntity" # HINT: becomes @type in mapper
 
-    def dct_conformsTo = @dct_conforms_to ||= dct_conforms_hash
+    def dct_conformsTo = @dct_conforms_to ||= dct_conforms_adapter.to_h
 
     def id = @id ||= @sample.doi # HINT: becomes @id in mapper
 
@@ -32,16 +32,16 @@ module RootAdapters
 
     def boilingPoint = @boiling_point ||= @sample.sample_boiling_point.to_s # TODO: test for e.g. room temperature
 
-    def molecularWeight = @molecular_weight ||= molecular_weight_hash
+    def molecularWeight = @molecular_weight ||= molecular_weight_adapter.to_h
 
-    def analysisList = @analysis_list ||= analysis_list_hash
+    def analysisList = @analysis_list ||= analysis_list_adapter.to_h
 
     private
 
-    def dct_conforms_hash = @dct_conforms_hash ||= SampleAdapter::DctConformsAdapter.new.to_h
+    def dct_conforms_adapter = @dct_conforms_hash ||= SampleAdapter::DctConformsAdapter.new
 
-    def analysis_list_hash = @analysis_list_hash ||= SampleAdapter::AnalysisListAdapter.new(@sample).to_h
+    def molecular_weight_adapter = @molecular_weight_hash ||= SampleAdapter::MolecularWeightAdapter.new(@sample)
 
-    def molecular_weight_hash = @molecular_weight_hash ||= SampleAdapter::MolecularWeightAdapter.new(@sample).to_h
+    def analysis_list_adapter = @analysis_list_hash ||= SampleAdapter::AnalysisListAdapter.new(@sample)
   end
 end
