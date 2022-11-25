@@ -2,8 +2,8 @@ module AnalysisAdapter::DataSetList::ItemListElement::AttachmentList
   class ItemListElementAdapterIterator
     def initialize(analysis) = @analysis = analysis
 
-    def to_a = @to_a ||= attachments_grouped_by_datastore.map do |ds_id, attachments|
-      ItemListElementAdapter.new(@analysis, ds_id, attachments).to_h
+    def to_a = @to_a ||= attachments_grouped_by_datastore.map do |ds_id, attachment_list_attachments|
+      ItemListElementAdapter.new(@analysis, ds_id, attachment_list_attachments).to_h
     end
 
     private
