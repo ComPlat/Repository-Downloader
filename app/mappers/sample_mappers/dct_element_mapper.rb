@@ -1,9 +1,9 @@
 module SampleMappers
   class DctElementMapper < ShaleCustom::Mapper
-    attribute :conformsTo, ReactionMappers::DctListMapper
+    attribute :dct_conformsTo, ReactionMappers::DctListMapper
 
     json do
-      map "http://purl.org/dc/terms/conformsTo", to: :conformsTo
+      map "http://purl.org/dc/terms/conformsTo", to: :dct_conformsTo
     end
   end
 end

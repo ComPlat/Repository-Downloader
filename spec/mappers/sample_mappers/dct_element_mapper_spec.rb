@@ -7,7 +7,7 @@ describe SampleMappers::DctElementMapper do
 
       it { expect(dct_element_mapper).to be_a described_class }
       it { expect(dct_element_mapper).to be_a ShaleCustom::Mapper }
-      it { expect(dct_element_mapper.conformsTo).to be_nil }
+      it { expect(dct_element_mapper.dct_conformsTo).to be_nil }
     end
 
     context "when called with all arguments" do
@@ -15,7 +15,7 @@ describe SampleMappers::DctElementMapper do
       let(:dct_element_mapper) { described_class.new(**args) }
 
       it { expect(dct_element_mapper).to be_a described_class }
-      it { expect(dct_element_mapper.conformsTo).to eq args[:conformsTo] }
+      it { expect(dct_element_mapper.dct_conformsTo).to eq args[:dct_conformsTo] }
     end
   end
 
@@ -24,7 +24,7 @@ describe SampleMappers::DctElementMapper do
       let(:dct_element_mapper) { build :dct_element_mapper }
 
       it { expect(dct_element_mapper).to be_a described_class }
-      it { expect(dct_element_mapper.conformsTo).to be_nil }
+      it { expect(dct_element_mapper.dct_conformsTo).to be_nil }
     end
 
     context "when called with_all_args_nested_structures_as_hash" do
@@ -32,8 +32,8 @@ describe SampleMappers::DctElementMapper do
       let(:dct_element_mapper) { described_class.from_hash args }
 
       it { expect(dct_element_mapper).to be_a described_class }
-      it { expect(dct_element_mapper.conformsTo.as_json).to eq args[:conformsTo].as_json }
-      it { expect(dct_element_mapper.conformsTo).to be_a ReactionMappers::DctListMapper }
+      it { expect(dct_element_mapper.dct_conformsTo.as_json).to eq args[:dct_conformsTo].as_json }
+      it { expect(dct_element_mapper.dct_conformsTo).to be_a ReactionMappers::DctListMapper }
     end
   end
 
@@ -59,7 +59,7 @@ describe SampleMappers::DctElementMapper do
       let(:expected_json) do
         <<~JSON
           {
-            "http://purl.org/dc/terms/conformsTo":#{ReactionMappers::DctListMapper.from_hash(args[:conformsTo]).to_json}
+            "http://purl.org/dc/terms/conformsTo":#{ReactionMappers::DctListMapper.from_hash(args[:dct_conformsTo]).to_json}
           }
         JSON
       end
