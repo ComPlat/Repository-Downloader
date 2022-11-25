@@ -6,7 +6,7 @@ module RootAdapters
 
     def context = @context ||= "https://schema.org/" # HINT: becomes @context in mapper
 
-    def id = @id ||= @reaction.taggable_data&.dig("doi").to_s
+    def id = @id ||= @reaction.doi
 
     def type = @type ||= "BioChemicalReaction"
 

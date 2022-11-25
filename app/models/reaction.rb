@@ -8,6 +8,8 @@ class Reaction < Publication
 
   def present_to_api = RootMappers::ReactionMapper.from_hash to_reaction_mapper_hash
 
+  def doi = taggable_data&.dig("doi").to_s
+
   private
 
   def to_reaction_mapper_hash = to_reaction_mapper.to_h
