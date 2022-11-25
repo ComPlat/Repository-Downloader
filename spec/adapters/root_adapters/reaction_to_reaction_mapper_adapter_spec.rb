@@ -12,27 +12,18 @@ describe RootAdapters::ReactionToReactionMapperAdapter do
     subject { reaction_to_reaction_mapper_adapter.to_h }
 
     let(:expected_hash) {
-      {context: "https://schema.org/",
-       id: "10.14272/reaction/SA-FUHFF-UHFFFADPSC-WITXFYCLPD-UHFFFADPSC-NUHFF-NUHFF-NUHFF-ZZZ",
-       type: "BioChemicalReaction",
-       name: "",
-       identifier: "CRR-9739",
-       status: "Successful",
-       description: "--- !ruby/hash:Hashie::Mashops:
-- !ruby/hash:Hashie::Mash
-  insert: '2-Benzofuran-1,3-dione (75.0 g, 506 mmol, 1.00 equiv) and phenylmethanamine
-    (63.9 g, 65.0 mL, 596 mmol, 1.18 equiv) were dissolved in 300 mL glacial acetic
-    acid and refluxed for 4 h. After cooling to room temperature, 700 mL of water
-    were added. The precipitate was filtered off and washed with water. The crude
-    product was recrystallized from ethanol to give 106 g of a colorless solid.
-
-'
-",
-       temperature: "118 °C",
-       reaction_type: "MOP:0000790 | substitution reaction",
-       duration: "4 Hour(s)",
-       purification: "Crystallisation",
-       reagents_list: {}}
+      {context: reaction_to_reaction_mapper_adapter.context,
+       id: reaction_to_reaction_mapper_adapter.id,
+       type: reaction_to_reaction_mapper_adapter.type,
+       name: reaction_to_reaction_mapper_adapter.name,
+       identifier: reaction_to_reaction_mapper_adapter.identifier,
+       status: reaction_to_reaction_mapper_adapter.status,
+       description: reaction_to_reaction_mapper_adapter.description,
+       temperature: reaction_to_reaction_mapper_adapter.temperature,
+       reaction_type: reaction_to_reaction_mapper_adapter.reaction_type,
+       duration: reaction_to_reaction_mapper_adapter.duration,
+       purification: reaction_to_reaction_mapper_adapter.purification,
+       reagents_list: reaction_to_reaction_mapper_adapter.reagents_list}
     }
 
     it { is_expected.to eq expected_hash }
@@ -65,7 +56,7 @@ describe RootAdapters::ReactionToReactionMapperAdapter do
   describe "#identifier" do
     subject { reaction_to_reaction_mapper_adapter.identifier }
 
-    it { is_expected.to eq "CRR-9739" }
+    it { is_expected.to eq reaction.chemotion_id }
   end
 
   describe "#status" do

@@ -20,10 +20,10 @@ describe AnalysisAdapter::DataSetList::ItemListElement::AttachmentList::ItemList
 
     let(:expected_hash) do
       {
-        filename: "BJ68_1H.zip",
-        filepath: "data/CRD-2913",
-        identifier: "a63e278b-22f2-4da3-955f-e80e197bc853",
-        type: "AttachmentEntity"
+        filename: attachment_list_adapter.filename,
+        filepath: attachment_list_adapter.filepath,
+        identifier: attachment_list_adapter.identifier,
+        type: attachment_list_adapter.type
       }
     end
 

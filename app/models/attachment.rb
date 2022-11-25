@@ -1,6 +1,5 @@
 class Attachment < ApplicationRecord
   self.table_name = "toap_attachments"
-  self.primary_key = "id"
 
   attr_readonly(*attribute_names)
 
@@ -9,5 +8,6 @@ class Attachment < ApplicationRecord
   # noinspection RailsParamDefResolve
   belongs_to :analysis, foreign_key: :ana_id, primary_key: :element_id, inverse_of: :attachments
 
+  # noinspection RubyResolve
   def instrument = extended_metadata&.dig("instrument") || ""
 end

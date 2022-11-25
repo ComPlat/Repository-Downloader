@@ -6,12 +6,41 @@ describe Reaction do
   it { expect(create(:reaction)).to be_valid }
   it { expect(create(:reaction)).to be_persisted }
 
+  describe "factories" do
+    describe "without trait" do
+      subject(:factory) { build :reaction }
+
+      it { is_expected.to be_valid }
+    end
+
+    describe "with trait :with_realistic_attributes" do
+      subject(:factory) { build :reaction, :with_realistic_attributes }
+
+      it { is_expected.to be_valid }
+    end
+  end
+
+  describe "associations" do
+    it { is_expected.to have_many(:samples).with_foreign_key(:ancestry).inverse_of(:reaction).dependent(:restrict_with_exception) }
+
+    describe "#samples" do
+      subject(:samples) { reaction.samples }
+
+      let(:reaction) { create :reaction }
+      let(:sample) { create :sample, reaction: }
+
+      it { is_expected.to eq [sample] }
+      it { is_expected.to eq [] }
+    end
+  end
+
   describe "#chemotion_id" do
     subject(:chemotion_id) { reaction.chemotion_id }
 
-    let(:reaction) { create :reaction, :with_realistic_attributes }
+    let(:reaction) { create :reaction, :with_realistic_attributes, id: 1 }
 
     it { is_expected.to eq "CRR-#{reaction.id}" }
+    it { is_expected.to eq "CRR-1" }
   end
 
   describe "#present_to_api" do

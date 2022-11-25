@@ -1,6 +1,16 @@
 describe ReactionMappers::ReagentsListMapper do
   let(:expected_json_nil_render_value) { "null" }
 
+  describe "factories" do
+    describe "trait :with_all_args" do
+      subject(:factory) { build :reagents_list_mapper, :with_all_args }
+
+      it { expect(factory.instance_variable_get(:@itemListElement).count).to eq 1 }
+      it { expect(factory.instance_variable_get(:@itemListElement).count).to eq factory.instance_variable_get :@numberOfItems }
+      it { expect(factory.instance_variable_get(:@itemListElement)).to all be_a ReactionMappers::ReagentsList::ItemListElementMapper }
+    end
+  end
+
   context "when called without any arguments" do
     let(:reagents_list_mapper) { build :reagents_list_mapper }
 
@@ -31,15 +41,12 @@ describe ReactionMappers::ReagentsListMapper do
     it { expect(reagents_list_mapper).to be_a described_class }
     it { expect(reagents_list_mapper.numberOfItems).to eq args[:numberOfItems] }
     it { expect(reagents_list_mapper.itemListElement).to eq args[:itemListElement] }
-    it { expect(reagents_list_mapper.itemListElement.to_json).to eq_without_whitespace reagents_list_item_list_element_mapper.to_json }
 
     describe "#to_json" do
       let(:expected_json) do
         <<~JSON
-          {
-            "numberOfItems":#{args[:numberOfItems]},
-            "itemListElement":[#{reagents_list_item_list_element_mapper.to_json}]
-          }
+          { "numberOfItems":#{args[:numberOfItems]},
+            "itemListElement":[#{reagents_list_item_list_element_mapper.to_json}] }
         JSON
       end
 

@@ -11,21 +11,25 @@ describe AnalysisAdapter::DataSetList::ItemListElement::AttachmentList::ItemList
   describe "#to_a" do
     subject { item_list_element_adapter_iterator.to_a }
 
-    let(:attachment1) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 3 }
+    let(:attachment) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 3 }
+    let(:item_list_element_adapter) {
+      AnalysisAdapter::DataSetList::ItemListElement::AttachmentList::ItemListElementAdapter.new analysis, attachment.ds_id, [attachment]
+    }
 
     let(:expected_array) do
       [{
-        filename: "JK20-proton.peak.png",
-        filepath: "data/CRD-2913",
-        identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-        type: "AttachmentEntity"
+        filename: item_list_element_adapter.filename,
+        filepath: item_list_element_adapter.filepath,
+        identifier: item_list_element_adapter.identifier,
+        type: item_list_element_adapter.type
       }]
     end
 
     before do
-      attachment1
+      attachment
     end
 
     it { is_expected.to eq expected_array }
+    it { is_expected.to be_a Array }
   end
 end

@@ -5,6 +5,8 @@ class Sample < Publication
   # HINT: Pseudo has_many, because ids are not in Analysis, but a Hash-nested Array on Sample.
   def analyses = Analysis.where id: analysis_ids
 
+  belongs_to :reaction, foreign_key: :ancestry, inverse_of: :samples
+
   def chemotion_id = "CRS-#{id}"
 
   def present_to_api = RootMappers::SampleMapper.from_hash to_sample_mapper_hash

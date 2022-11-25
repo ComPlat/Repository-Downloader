@@ -1,12 +1,10 @@
 describe RootAdapters::AnalysisToAnalysisMapperAdapter do
   let(:analysis) { create :analysis, :with_realistic_attributes, element_id: 1 }
-  let(:attachment1) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 3 }
-  let(:attachment2) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 4, ds_id: 5 }
+  let(:attachment) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 3 }
   let(:analysis_to_analysis_mapper_adapter) { described_class.new analysis }
 
   before do
-    attachment1
-    attachment2
+    attachment
   end
 
   describe ".new" do
@@ -19,65 +17,15 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
     subject(:to_h) { analysis_to_analysis_mapper_adapter.to_h }
 
     let(:expected_hash) do
-      {context: "https://schema.org/",
-       descriptions: "{\"ops\":[{\"insert\":\" \"}, {\"attributes\":{\"script\":\"super\"},\"insert\":\"13\"}, {\"insert\":\"C NMR (100 MHz, DMSO-d6, ppm), δ = 171.0, 141.1, 135.4 (q, J = 5.2 Hz), 127.4, 124.3 (q, J = 4.2 Hz), 124.0 (q, J = 271.3 Hz), 118.9, 118.2, 111.3 (q, J = 33.3 Hz), 44.4, 25.6, 22.3 (2 C). \"}]}",
-       id: "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1",
-       identifier: "CRD-2913",
-       ontologies: "13C nuclear magnetic resonance spectroscopy (13C NMR)",
-       title: "13C nuclear magnetic resonance spectroscopy (13C NMR)",
-       type: "AnalysisEntity",
-       url: "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1",
-       datasetList: {
-         numberOfItems: 2,
-         itemListElement: [
-           {type: "DatasetEntity",
-            identifier: 3,
-            name: "BJ68_1H",
-            Instrument: " Bruker",
-            descriptions: "",
-            attachmentList: {
-              numberOfItems: 1,
-              itemListElement: [
-                {
-                  filename: "JK20-proton.peak.png",
-                  filepath: "data/CRD-2913",
-                  identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-                  type: "AttachmentEntity"
-                },
-                {
-                  filename: "JK20-proton.peak.png",
-                  filepath: "data/CRD-2913",
-                  identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-                  type: "AttachmentEntity"
-                }
-              ]
-            }},
-           {
-             type: "DatasetEntity",
-             descriptions: "",
-             identifier: 5,
-             name: "BJ68_1H",
-             Instrument: " Bruker",
-             attachmentList: {
-               numberOfItems: 1,
-               itemListElement: [
-                 {
-                   filename: "JK20-proton.peak.png",
-                   filepath: "data/CRD-2913",
-                   identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-                   type: "AttachmentEntity"
-                 },
-                 {
-                   filename: "JK20-proton.peak.png",
-                   filepath: "data/CRD-2913",
-                   identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-                   type: "AttachmentEntity"
-                 }
-               ]
-             }
-           }
-         ]
-       }}
+      {context: analysis_to_analysis_mapper_adapter.context,
+       descriptions: analysis_to_analysis_mapper_adapter.descriptions,
+       id: analysis_to_analysis_mapper_adapter.id,
+       identifier: analysis_to_analysis_mapper_adapter.identifier,
+       ontologies: analysis_to_analysis_mapper_adapter.ontologies,
+       title: analysis_to_analysis_mapper_adapter.title,
+       type: analysis_to_analysis_mapper_adapter.type,
+       url: analysis_to_analysis_mapper_adapter.url,
+       datasetList: analysis_to_analysis_mapper_adapter.datasetList}
     end
 
     it { expect(to_h).to eq expected_hash }
@@ -89,10 +37,33 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
     it { is_expected.to eq "https://schema.org/" }
   end
 
+  describe "#type" do
+    subject { analysis_to_analysis_mapper_adapter.type }
+
+    it { is_expected.to eq "AnalysisEntity" }
+  end
+
+  describe "#id" do
+    context "when analysis is given" do
+      subject { analysis_to_analysis_mapper_adapter.id }
+
+      it { is_expected.to eq "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1" }
+    end
+
+    context "when analysis is NOT given" do
+      subject { analysis_to_analysis_mapper_adapter.id }
+
+      let(:analysis) { create :analysis, :with_realistic_attributes, taggable_data: nil }
+
+      it { is_expected.to eq "" }
+    end
+  end
+
   describe "#ontologies" do
     subject(:ontologies) { analysis_to_analysis_mapper_adapter.ontologies }
 
     it { expect(ontologies).to eq "13C nuclear magnetic resonance spectroscopy (13C NMR)" }
+    # noinspection RubyResolve
     it { expect(analysis.extended_metadata.to_s).to include ontologies }
   end
 
@@ -104,6 +75,7 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
     end
 
     it { expect(descriptions).to eq_without_whitespace expected_description }
+    # noinspection RubyResolve
     it { expect(analysis.extended_metadata["content"].to_s).to include descriptions.to_s }
   end
 
@@ -111,6 +83,7 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
     subject(:title) { analysis_to_analysis_mapper_adapter.title }
 
     it { is_expected.to eq "13C nuclear magnetic resonance spectroscopy (13C NMR)" }
+    # noinspection RubyResolve
     it { expect(analysis.extended_metadata.to_s).to include title }
   end
 
@@ -126,38 +99,11 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
   describe "#datasetList" do
     subject(:dataset_list) { analysis_to_analysis_mapper_adapter.datasetList }
 
+    let(:data_set_list_adapter) { AnalysisAdapter::DataSetListAdapter.new analysis }
+
     let(:expected_hash) do
-      {numberOfItems: 2,
-       itemListElement: [
-         {Instrument: " Bruker",
-          attachmentList: {itemListElement: [{filename: "JK20-proton.peak.png",
-                                              filepath: "data/CRD-2913",
-                                              identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-                                              type: "AttachmentEntity"},
-            {filename: "JK20-proton.peak.png",
-             filepath: "data/CRD-2913",
-             identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-             type: "AttachmentEntity"}],
-                           numberOfItems: 1},
-          descriptions: "",
-          identifier: 3,
-          name: "BJ68_1H",
-          type: "DatasetEntity"},
-         {Instrument: " Bruker",
-          attachmentList: {itemListElement: [{filename: "JK20-proton.peak.png",
-                                              filepath: "data/CRD-2913",
-                                              identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-                                              type: "AttachmentEntity"},
-            {filename: "JK20-proton.peak.png",
-             filepath: "data/CRD-2913",
-             identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-             type: "AttachmentEntity"}],
-                           numberOfItems: 1},
-          descriptions: "",
-          identifier: 5,
-          name: "BJ68_1H",
-          type: "DatasetEntity"}
-       ]}
+      {numberOfItems: data_set_list_adapter.numberOfItems,
+       itemListElement: data_set_list_adapter.itemListElement}
     end
 
     it { expect(dataset_list).to eq expected_hash }

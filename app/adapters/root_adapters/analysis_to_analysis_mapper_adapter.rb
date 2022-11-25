@@ -8,18 +8,22 @@ module RootAdapters
 
     def type = @type ||= "AnalysisEntity" # HINT: becomes @type in mapper
 
-    def id = @id ||= "https://dx.doi.org/#{@analysis.taggable_data["analysis_doi"]}"
+    def id = @id ||= @analysis.doi.present? ? "https://dx.doi.org/#{@analysis.doi}" : ""
 
-    def ontologies = @ontologies ||= @analysis.extended_metadata["kind"].split("|").last.strip
+    def ontologies = @ontologies ||= @analysis.kind&.split("|")&.last&.strip.to_s
 
     def title = ontologies
 
-    def descriptions = @descriptions ||= @analysis.extended_metadata["content"] # TODO: check if this is right
+    def descriptions = @descriptions ||= @analysis.extended_metadata&.dig("content").to_s
 
     def url = id
 
     def identifier = @identifier ||= @analysis.chemotion_id
 
-    def datasetList = @data_set_list ||= AnalysisAdapter::DataSetListAdapter.new(@analysis).to_h
+    def datasetList = @data_set_list ||= data_set_list_adapter.to_h
+
+    private
+
+    def data_set_list_adapter = @data_set_list_adapter ||= AnalysisAdapter::DataSetListAdapter.new(@analysis)
   end
 end

@@ -6,17 +6,36 @@ describe Analysis do
   it { expect(create(:analysis)).to be_valid }
   it { expect(create(:analysis)).to be_persisted }
 
-  describe "associations" do
-    it { is_expected.to have_many(:attachments).with_primary_key(:element_id).with_foreign_key(:ana_id).inverse_of(:analysis).dependent(:restrict_with_exception) }
+  describe "factories" do
+    describe "with traits :with_realistic_attributes" do
+      subject(:factory) { build :analysis, :with_realistic_attributes }
+
+      it { is_expected.to be_valid }
+      it { expect(factory.element_id).to be_a Integer } # HINT: Needed because without element_id belongs_to attachment does not work
+      it { expect(factory.save).to be true }
+    end
+
+    describe "without trait" do
+      subject(:factory) { build :analysis }
+
+      it { is_expected.to be_valid }
+      it { expect(factory.element_id).to be_a Integer }
+      it { expect(factory.save).to be true }
+    end
   end
 
-  describe "#attachments" do
-    subject { analysis.attachments }
+  describe "associations" do
+    it { is_expected.to have_many(:attachments).with_primary_key(:element_id).with_foreign_key(:ana_id).inverse_of(:analysis).dependent(:restrict_with_exception) }
 
-    let(:analysis) { create :analysis, element_id: 1 }
-    let(:attachments) { create_list :attachment, 1, id: 2, ana_id: analysis.element_id }
+    describe "#attachments" do
+      subject { analysis.attachments }
 
-    it { is_expected.to eq attachments }
+      let(:analysis) { create :analysis }
+      let(:attachment) { create :attachment, analysis: }
+
+      it { is_expected.to eq [attachment] }
+      it { is_expected.to eq [] }
+    end
   end
 
   describe "#chemotion_id" do
@@ -41,5 +60,21 @@ describe Analysis do
     it { expect(present_to_api.to_json).to eq analysis_mapper.to_json }
     it { expect(present_to_api.to_xml).to eq analysis_mapper.to_xml }
     it { expect(present_to_api.to_csv).to eq analysis_mapper.to_csv }
+  end
+
+  describe "#doi" do
+    subject { analysis.doi }
+
+    let(:analysis) { create :analysis, :with_realistic_attributes }
+
+    it { is_expected.to eq "10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1" }
+  end
+
+  describe "#kind" do
+    subject { analysis.kind }
+
+    let(:analysis) { create :analysis, :with_realistic_attributes }
+
+    it { is_expected.to eq "CHMO:0000595 | 13C nuclear magnetic resonance spectroscopy (13C NMR)" }
   end
 end

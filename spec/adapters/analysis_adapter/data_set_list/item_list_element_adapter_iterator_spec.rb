@@ -11,31 +11,20 @@ describe AnalysisAdapter::DataSetList::ItemListElementAdapterIterator do
   describe "#to_a" do
     subject { item_list_element_adapter_iterator.to_a }
 
-    let(:attachment1) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 3 }
+    let(:attachment) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 3 }
+    let(:item_list_element_adapter) { AnalysisAdapter::DataSetList::ItemListElementAdapter.new analysis, attachment.ds_id, [attachment] }
 
     let(:expected_array) do
-      [{
-        type: "DatasetEntity",
-        descriptions: "",
-        identifier: 3,
-        name: "BJ68_1H",
-        Instrument: " Bruker",
-        attachmentList: {
-          numberOfItems: 1,
-          itemListElement: [
-            {
-              filename: "JK20-proton.peak.png",
-              filepath: "data/CRD-2913",
-              identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-              type: "AttachmentEntity"
-            }
-          ]
-        }
-      }]
+      [{type: item_list_element_adapter.type,
+        descriptions: item_list_element_adapter.descriptions,
+        identifier: item_list_element_adapter.identifier,
+        name: item_list_element_adapter.name,
+        Instrument: item_list_element_adapter.Instrument,
+        attachmentList: item_list_element_adapter.attachmentList}]
     end
 
     before do
-      attachment1
+      attachment
     end
 
     it { is_expected.to eq expected_array }

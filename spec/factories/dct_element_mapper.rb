@@ -5,7 +5,7 @@ FactoryBot.define do
     end
 
     trait :with_all_args_nested_structures_as_hash do
-      conformsTo { attributes_for(:dct_list_mapper, :with_all_args) }
+      conformsTo { attributes_for :dct_list_mapper, :with_all_args }
     end
   end
 end

@@ -14,7 +14,6 @@ module AnalysisAdapter::DataSetList
 
     def name = @name ||= "BJ68_1H" # TODO: Find out where this comes from database.
 
-    # HINT: .first doesn't need a save navigator because code is unreachable if attachments is empty array.
     def Instrument = @instrument ||= data_set_attachment.instrument
 
     def descriptions = @descriptions ||= "" # TODO: Find out where this comes from database.
@@ -25,6 +24,7 @@ module AnalysisAdapter::DataSetList
 
     def attachment_list_adapter = @attachment_list_adapter ||= ItemListElement::AttachmentListAdapter.new(@analysis, @data_set_attachments)
 
+    # HINT: This always works, because this class is only instantiated if data_set_attachments has more than one element.
     def data_set_attachment = @data_set_attachment ||= @data_set_attachments.first
   end
 end

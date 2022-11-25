@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :reaction do
     trait :with_realistic_attributes do
-      id { 9739 }
       taggable_data {
         {"doi" => "10.14272/reaction/SA-FUHFF-UHFFFADPSC-WITXFYCLPD-UHFFFADPSC-NUHFF-NUHFF-NUHFF-ZZZ",
          "license" => "CC BY-SA",
@@ -26,7 +25,7 @@ FactoryBot.define do
       element_type { "Reaction" }
       element_id { 1345 }
       ancestry { nil }
-      metadata_xml {
+      metadata_xml { # HINT: It is that broken in database.
         <<~XML
           <?xml version="1.0" encoding="UTF-8"?>
           <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://datacite.org/schema/kernel-4" xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4.1/metadata.xsd">

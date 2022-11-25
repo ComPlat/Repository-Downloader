@@ -20,53 +20,8 @@ describe AnalysisAdapter::DataSetListAdapter do
 
     let(:expected_hash) do
       {
-        numberOfItems: 2,
-        itemListElement: [
-          {Instrument: " Bruker",
-           attachmentList: {
-             numberOfItems: 1,
-             itemListElement: [
-               {
-                 filename: "JK20-proton.peak.png",
-                 filepath: "data/CRD-2913",
-                 identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-                 type: "AttachmentEntity"
-               },
-               {
-                 filename: "JK20-proton.peak.png",
-                 filepath: "data/CRD-2913",
-                 identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-                 type: "AttachmentEntity"
-               }
-             ]
-           },
-           descriptions: "",
-           identifier: 3,
-           name: "BJ68_1H",
-           type: "DatasetEntity"},
-          {Instrument: " Bruker",
-           attachmentList: {
-             numberOfItems: 1,
-             itemListElement: [
-               {
-                 filename: "JK20-proton.peak.png",
-                 filepath: "data/CRD-2913",
-                 identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-                 type: "AttachmentEntity"
-               },
-               {
-                 filename: "JK20-proton.peak.png",
-                 filepath: "data/CRD-2913",
-                 identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-                 type: "AttachmentEntity"
-               }
-             ]
-           },
-           descriptions: "",
-           identifier: 5,
-           name: "BJ68_1H",
-           type: "DatasetEntity"}
-        ]
+        numberOfItems: data_set_list_adapter.numberOfItems,
+        itemListElement: data_set_list_adapter.itemListElement
       }
     end
 
@@ -82,53 +37,6 @@ describe AnalysisAdapter::DataSetListAdapter do
   describe "#itemListElement" do
     subject { data_set_list_adapter.itemListElement }
 
-    let(:expected_array) do
-      [{Instrument: " Bruker",
-        descriptions: "",
-        identifier: 3,
-        name: "BJ68_1H",
-        type: "DatasetEntity",
-        attachmentList: {
-          numberOfItems: 1,
-          itemListElement: [
-            {
-              filename: "JK20-proton.peak.png",
-              filepath: "data/CRD-2913",
-              identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-              type: "AttachmentEntity"
-            },
-            {
-              filename: "JK20-proton.peak.png",
-              filepath: "data/CRD-2913",
-              identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-              type: "AttachmentEntity"
-            }
-          ]
-        }},
-        {Instrument: " Bruker",
-         descriptions: "",
-         identifier: 5,
-         name: "BJ68_1H",
-         type: "DatasetEntity",
-         attachmentList: {
-           numberOfItems: 1,
-           itemListElement: [
-             {
-               filename: "JK20-proton.peak.png",
-               filepath: "data/CRD-2913",
-               identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-               type: "AttachmentEntity"
-             },
-             {
-               filename: "JK20-proton.peak.png",
-               filepath: "data/CRD-2913",
-               identifier: "6954c6ca-adef-4ab1-b00b-31dbf9c53c8a",
-               type: "AttachmentEntity"
-             }
-           ]
-         }}]
-    end
-
-    it { is_expected.to eq expected_array }
+    it { is_expected.to eq AnalysisAdapter::DataSetList::ItemListElementAdapterIterator.new(analysis).to_a }
   end
 end

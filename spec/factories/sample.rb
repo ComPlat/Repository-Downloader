@@ -1,7 +1,10 @@
 FactoryBot.define do
   factory :sample do
+    trait :with_required_dependencies do
+      reaction { create :reaction }
+    end
+
     trait :with_realistic_attributes do
-      id { 4558 }
       taggable_data {
         {"doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1",
          "sid" => "384636332",
@@ -26,8 +29,7 @@ FactoryBot.define do
       }
       element_type { "Sample" }
       element_id { 43961 }
-      ancestry { nil }
-      metadata_xml {
+      metadata_xml { # HINT: It is that broken in database.
         <<~XML
           <?xml version="1.0" encoding="UTF-8"?>
           <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://datacite.org/schema/kernel-4" xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4.1/metadata.xsd">
