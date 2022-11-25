@@ -11,6 +11,8 @@ class Sample < Publication
 
   def present_to_api = RootMappers::SampleMapper.from_hash to_sample_mapper_hash
 
+  def doi = taggable_data&.dig("doi").to_s
+
   private
 
   def to_sample_mapper_hash = to_sample_mapper.to_h

@@ -10,7 +10,7 @@ module RootAdapters
 
     def dct_conformsTo = @dct_conforms_to ||= dct_conforms_hash
 
-    def id = @id ||= @sample.taggable_data&.dig("doi").to_s # HINT: becomes @id in mapper
+    def id = @id ||= @sample.doi # HINT: becomes @id in mapper
 
     def name = @name ||= @sample.iupac_name
 
