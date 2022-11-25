@@ -5,7 +5,9 @@ describe AnalysisAdapter::DataSetList::ItemListElementAdapter do
       ds_id: 2,
       ana_id: analysis.element_id,
       identifier: "a63e278b-22f2-4da3-955f-e80e197bc853",
-      filename: "BJ68_1H.zip"
+      filename: "BJ68_1H.zip",
+      name: "BJ68_1H",
+      ds_desc: "Bruker 400 MHz"
   }
   let(:data_set_list_adapter) { described_class.new analysis, data_set_attachment.ds_id, [data_set_attachment] }
 
@@ -30,7 +32,7 @@ describe AnalysisAdapter::DataSetList::ItemListElementAdapter do
   describe "#name" do
     subject { data_set_list_adapter.name }
 
-    it { is_expected.to eq "BJ68_1H" } # TODO: Implement this correctly!
+    it { is_expected.to eq data_set_attachment.name }
   end
 
   describe "#Instrument" do
@@ -43,7 +45,7 @@ describe AnalysisAdapter::DataSetList::ItemListElementAdapter do
   describe "#descriptions" do
     subject { data_set_list_adapter.descriptions }
 
-    it { is_expected.to eq "" } # TODO: Implement this correctly!
+    it { is_expected.to eq data_set_attachment.ds_desc }
   end
 
   describe "#attachmentList" do
