@@ -14,9 +14,7 @@ module API
           end
         end
 
-        route :any, "*path" do
-          error!("Not found", 404)
-        end
+        route(:any, "*path") { error!("Not found", 404) }
       end
     end
   end
