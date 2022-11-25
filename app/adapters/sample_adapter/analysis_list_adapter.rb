@@ -1,6 +1,5 @@
 module SampleAdapter
   class AnalysisListAdapter
-    # TODO: Create a spec for me!
     include Hashable
 
     def initialize(sample) = @sample = sample
