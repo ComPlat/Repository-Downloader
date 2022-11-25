@@ -40,7 +40,7 @@ module RootAdapters
 
     def dct_element_hash = @dct_element_hash ||= dct_element_adapter.to_h
 
-    def dct_element_adapter = @dct_element_adapter ||= SampleAdapter::DctElementAdapter.new
+    def dct_element_adapter = @dct_element_adapter ||= SampleAdapter::DctElementAdapter.new.to_h
 
     def analysis_list_hash = SampleAdapter::AnalysisListAdapter.new(@sample).to_h
 
