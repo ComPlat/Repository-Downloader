@@ -9,7 +9,6 @@ FactoryBot.define do
       molecularFormula { "H2O" }
       inChIKey { "XLYOFNOQVPJJNP-UHFFFAOYSA-N" }
       smiles { "[H]O[H]" }
-      image { "https://www.rhea-db.org/compoundImage?dimensions=200&chebiId=CHEBI:15377" }
     end
   end
 end

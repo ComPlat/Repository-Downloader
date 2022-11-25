@@ -15,7 +15,6 @@ describe ReactionMappers::ReagentsList::ItemListElementMapper do
     it { expect(reagents_list_item_list_element_mapper.molecularFormula).to be_nil }
     it { expect(reagents_list_item_list_element_mapper.inChIKey).to be_nil }
     it { expect(reagents_list_item_list_element_mapper.smiles).to be_nil }
-    it { expect(reagents_list_item_list_element_mapper.image).to be_nil }
 
     describe "#to_json" do
       let(:expected_json) do
@@ -28,8 +27,7 @@ describe ReactionMappers::ReagentsList::ItemListElementMapper do
             "name": #{expected_json_nil_render_value},
             "molecularFormula": #{expected_json_nil_render_value},
             "inChIKey": #{expected_json_nil_render_value},
-            "smiles": #{expected_json_nil_render_value},
-            "image": #{expected_json_nil_render_value}
+            "smiles": #{expected_json_nil_render_value}
           }
         JSON
       end
@@ -53,7 +51,6 @@ describe ReactionMappers::ReagentsList::ItemListElementMapper do
     it { expect(reagents_list_item_list_element_mapper.molecularFormula).to eq args[:molecularFormula] }
     it { expect(reagents_list_item_list_element_mapper.inChIKey).to eq args[:inChIKey] }
     it { expect(reagents_list_item_list_element_mapper.smiles).to eq args[:smiles] }
-    it { expect(reagents_list_item_list_element_mapper.image).to eq args[:image] }
 
     describe "#to_json" do
       let(:expected_json) do
@@ -66,8 +63,7 @@ describe ReactionMappers::ReagentsList::ItemListElementMapper do
             "name": "#{args[:name]}",
             "molecularFormula": "#{args[:molecularFormula]}",
             "inChIKey": "#{args[:inChIKey]}",
-            "smiles": "#{args[:smiles]}",
-            "image": "#{args[:image]}"
+            "smiles": "#{args[:smiles]}"
           }
         JSON
       end
@@ -91,7 +87,6 @@ describe ReactionMappers::ReagentsList::ItemListElementMapper do
     it { expect(reagents_list_item_list_element_mapper.molecularFormula).to be_nil }
     it { expect(reagents_list_item_list_element_mapper.inChIKey).to eq args[:inChIKey] }
     it { expect(reagents_list_item_list_element_mapper.smiles).to eq args[:smiles] }
-    it { expect(reagents_list_item_list_element_mapper.image).to eq args[:image] }
 
     describe "#to_json" do
       let(:expected_json) do
@@ -104,8 +99,7 @@ describe ReactionMappers::ReagentsList::ItemListElementMapper do
             "name": "#{args[:name]}",
             "molecularFormula": #{expected_json_nil_render_value},
             "inChIKey": "#{args[:inChIKey]}",
-            "smiles": "#{args[:smiles]}",
-            "image": "#{args[:image]}"
+            "smiles": "#{args[:smiles]}"
           }
         JSON
       end
