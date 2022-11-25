@@ -5,7 +5,7 @@ module SampleAdapter
 
     def initialize(sample) = @sample = sample
 
-    def numberOfItems = 0 # TODO: Implement me!
+    def numberOfItems = @sample.analyses.count
 
     def itemListElement = @item_list_element ||= item_list_element_adapter_iterator.to_a
 
