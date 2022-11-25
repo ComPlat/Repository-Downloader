@@ -10,13 +10,13 @@ module AnalysisAdapter::DataSetList
 
     def type = @type ||= "DatasetEntity"
 
-    def identifier = @identifier ||= @ds_id # TODO: Find out where this comes from database.
+    def identifier = @identifier ||= @ds_id
 
-    def name = @name ||= "BJ68_1H" # TODO: Find out where this comes from database.
+    def name = @name ||= data_set_attachment.name
 
     def Instrument = @instrument ||= data_set_attachment.instrument
 
-    def descriptions = @descriptions ||= "" # TODO: Find out where this comes from database.
+    def descriptions = @descriptions ||= data_set_attachment.ds_desc
 
     def attachmentList = @attachment_list ||= attachment_list_adapter.to_h
 
