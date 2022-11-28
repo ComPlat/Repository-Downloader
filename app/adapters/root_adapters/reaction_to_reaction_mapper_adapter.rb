@@ -6,7 +6,7 @@ module RootAdapters
 
     def context = @context ||= "https://schema.org/" # HINT: becomes @context in mapper
 
-    def id = @id ||= @reaction.doi
+    def id = @id ||= @reaction.doi # HINT: becomes @id in mapper
 
     def type = @type ||= "BioChemicalReaction"
 
