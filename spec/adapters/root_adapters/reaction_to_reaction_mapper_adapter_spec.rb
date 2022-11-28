@@ -1,5 +1,6 @@
 describe RootAdapters::ReactionToReactionMapperAdapter do
-  let(:reaction) { build :reaction, :with_realistic_attributes }
+  let(:reaction) { sample.reaction }
+  let(:sample) { build :sample, :with_realistic_attributes, :with_required_dependencies }
   let(:reaction_to_reaction_mapper_adapter) { described_class.new reaction }
 
   describe ".new" do
@@ -93,7 +94,7 @@ describe RootAdapters::ReactionToReactionMapperAdapter do
     subject { reaction_to_reaction_mapper_adapter.purification }
 
     context "when called with one parameter" do
-      let(:expected_reaction_purification) { reaction.reaction_purification.join(",") }
+      let(:expected_reaction_purification) { (reaction.reaction_purification || []).join(",") }
 
       it { is_expected.to eq expected_reaction_purification }
     end
