@@ -24,8 +24,12 @@ module RootAdapters
 
     def duration = @duration ||= @reaction.reaction_duration.to_s
 
-    def purification = @purification ||= @reaction.reaction_purification.first.to_s
+    def purification = @purification ||= @reaction.reaction_purification.join(", ")
 
-    def reagents_list = @reagents_list ||= {} # TODO: implement ReactionAdapter::ReagentsListAdapter
+    def reagents_list = @reagents_list ||= reagents_list_adapter.to_h
+
+    private
+
+    def reagents_list_adapter = @reagents_list_adapter ||= ReactionAdapter::ReagentsListAdapter.new(@reaction)
   end
 end
