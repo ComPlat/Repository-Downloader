@@ -9,6 +9,8 @@ class Analysis < Publication
 
   def chemotion_id = "CRD-#{id}"
 
+  def content = extended_metadata&.dig("content")
+
   def doi = taggable_data&.dig("analysis_doi")
 
   # noinspection RubyResolve
