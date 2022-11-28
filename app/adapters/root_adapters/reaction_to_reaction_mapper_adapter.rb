@@ -10,7 +10,7 @@ module RootAdapters
 
     def type = @type ||= "BioChemicalReaction"
 
-    def name = @name ||= "" # TODO: implement me!
+    def name = @name ||= "" # HINT: this is a placeholder for later implementation
 
     def identifier = @identifier ||= @reaction.chemotion_id
 
