@@ -1,6 +1,6 @@
 module SampleAdapter
   class DctConformsAdapter
-    def to_h = @to_h ||= {"http://purl.org/dc/terms/conformsTo" => dct_element_hash}
+    def to_h = @to_h ||= {"http://purl.org/dc/terms/conformsTo": dct_element_hash}
 
     private
 

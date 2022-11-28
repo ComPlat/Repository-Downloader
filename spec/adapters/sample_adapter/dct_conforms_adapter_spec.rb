@@ -10,6 +10,6 @@ describe SampleAdapter::DctConformsAdapter do
   describe "#to_h" do
     subject { dct_conforms_adapter.to_h }
 
-    it { is_expected.to eq({"http://purl.org/dc/terms/conformsTo" => {id: "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE", type: "CreativeWork"}}) }
+    it { is_expected.to eq({"http://purl.org/dc/terms/conformsTo": {id: "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE", type: "CreativeWork"}}) }
   end
 end
