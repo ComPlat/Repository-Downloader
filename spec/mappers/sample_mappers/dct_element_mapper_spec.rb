@@ -1,6 +1,4 @@
 describe SampleMappers::DctElementMapper do
-  let(:expected_json_nil_render_value) { "null" }
-
   describe ".new" do
     context "when called without any arguments" do
       let(:dct_element_mapper) { build :dct_element_mapper }
@@ -38,6 +36,8 @@ describe SampleMappers::DctElementMapper do
   end
 
   describe "#to_json" do
+    let(:expected_json_nil_render_value) { "null" }
+
     context "when called without any arguments" do
       let(:dct_element_mapper) { build :dct_element_mapper }
 
