@@ -8,7 +8,12 @@ module API
           desc "Get one publication via ChemotionID", {produces: %w[application/json application/xml text/csv]}
           params { requires :id, type: Integer, desc: "ChemotionID" }
           route_param :id, type: Integer do
-            get { present PublicationPresenter.present_by_chemotion_id params[:id] }
+            get do
+              if params[:id] <= 0
+                error!("Unprocessable Entity, 'id'=#{params[:id]} not valid", 422)
+              end
+              present PublicationPresenter.present_by_chemotion_id params[:id]
+            end
           end
         end
 

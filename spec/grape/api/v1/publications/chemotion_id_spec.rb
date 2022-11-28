@@ -12,13 +12,23 @@ describe API::V1::Publications::ChemotionId do
       it { expect(response.content_type).to eq "application/json" }
     end
 
-    context "with NOT existing chemotion_id" do
+    context "with NOT existing chemotion_id=0" do
       let(:not_existing_chemotion_id) { 0 }
 
       before { get "/api/v1/publications/chemotion_id/#{not_existing_chemotion_id}" }
 
-      it { expect(response).to have_http_status :not_found }
-      it { expect(JSON.parse(response.body)).to eq({"error" => "Couldn't find Publication with 'id'=#{not_existing_chemotion_id}"}) }
+      it { expect(response).to have_http_status :unprocessable_entity }
+      it { expect(JSON.parse(response.body)).to eq({"error" => "Unprocessable Entity, 'id'=#{not_existing_chemotion_id} not valid"}) }
+      it { expect(response.content_type).to eq "application/json" }
+    end
+
+    context "with NOT existing chemotion_id=-1" do
+      let(:not_existing_chemotion_id) { -1 }
+
+      before { get "/api/v1/publications/chemotion_id/#{not_existing_chemotion_id}" }
+
+      it { expect(response).to have_http_status :unprocessable_entity }
+      it { expect(JSON.parse(response.body)).to eq({"error" => "Unprocessable Entity, 'id'=#{not_existing_chemotion_id} not valid"}) }
       it { expect(response.content_type).to eq "application/json" }
     end
   end
