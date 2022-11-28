@@ -7,12 +7,12 @@ class Analysis < Publication
 
   def chemotion_id = "CRD-#{id}"
 
-  def present_to_api = RootMappers::AnalysisMapper.from_hash to_analysis_mapper_hash
-
   def doi = taggable_data&.dig("analysis_doi")
 
   # noinspection RubyResolve
   def kind = extended_metadata&.dig("kind")
+
+  def present_to_api = RootMappers::AnalysisMapper.from_hash to_analysis_mapper_hash # TODO: move to concern!
 
   private
 

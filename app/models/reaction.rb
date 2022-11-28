@@ -6,13 +6,13 @@ class Reaction < Publication
 
   def chemotion_id = "CRR-#{id}"
 
-  def present_to_api = RootMappers::ReactionMapper.from_hash to_reaction_mapper_hash
-
   def doi = taggable_data&.dig("doi").to_s
 
   def temperature_user_text = reaction_temperature&.dig("userText").to_s
 
   def temperature_value_unit = reaction_temperature&.dig("valueUnit").to_s
+
+  def present_to_api = RootMappers::ReactionMapper.from_hash to_reaction_mapper_hash # TODO: move to concern!
 
   private
 

@@ -9,9 +9,9 @@ class Sample < Publication
 
   def chemotion_id = "CRS-#{id}"
 
-  def present_to_api = RootMappers::SampleMapper.from_hash to_sample_mapper_hash
-
   def doi = taggable_data&.dig("doi").to_s
+
+  def present_to_api = RootMappers::SampleMapper.from_hash to_sample_mapper_hash # TODO: move to concern!
 
   private
 
