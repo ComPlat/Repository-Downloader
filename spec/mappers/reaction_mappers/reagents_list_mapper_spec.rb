@@ -11,15 +11,31 @@ describe ReactionMappers::ReagentsListMapper do
     end
   end
 
-  context "when called without any arguments" do
-    let(:reagents_list_mapper) { build :reagents_list_mapper }
+  describe ".new" do
+    context "when called without any arguments" do
+      let(:reagents_list_mapper) { build :reagents_list_mapper }
 
-    it { expect(reagents_list_mapper).to be_a described_class }
-    it { expect(reagents_list_mapper).to be_a ShaleCustom::Mapper }
-    it { expect(reagents_list_mapper.numberOfItems).to be_nil }
-    it { expect(reagents_list_mapper.itemListElement).to match_array([]) }
+      it { expect(reagents_list_mapper).to be_a described_class }
+      it { expect(reagents_list_mapper).to be_a ShaleCustom::Mapper }
+      it { expect(reagents_list_mapper.numberOfItems).to be_nil }
+      it { expect(reagents_list_mapper.itemListElement).to match_array([]) }
+    end
 
-    describe "#to_json" do
+    context "when called with all arguments" do
+      let(:args) { attributes_for :reagents_list_mapper, :with_all_args }
+      let(:reagents_list_mapper) { described_class.new(**args) }
+      let(:reagents_list_item_list_element_mapper) { build :reagents_list_item_list_element_mapper, :with_all_args }
+
+      it { expect(reagents_list_mapper).to be_a described_class }
+      it { expect(reagents_list_mapper.numberOfItems).to eq args[:numberOfItems] }
+      it { expect(reagents_list_mapper.itemListElement).to eq args[:itemListElement] }
+    end
+  end
+
+  describe "to_json" do
+    context "when called without any arguments" do
+      let(:reagents_list_mapper) { build :reagents_list_mapper }
+
       let(:expected_json) do
         <<~JSON
           {
@@ -31,18 +47,12 @@ describe ReactionMappers::ReagentsListMapper do
 
       it { expect(reagents_list_mapper.to_json).to eq_without_whitespace expected_json }
     end
-  end
 
-  context "when called with all arguments" do
-    let(:args) { attributes_for :reagents_list_mapper, :with_all_args }
-    let(:reagents_list_mapper) { described_class.new(**args) }
-    let(:reagents_list_item_list_element_mapper) { build :reagents_list_item_list_element_mapper, :with_all_args }
+    context "when called with all arguments" do
+      let(:args) { attributes_for :reagents_list_mapper, :with_all_args }
+      let(:reagents_list_mapper) { described_class.new(**args) }
+      let(:reagents_list_item_list_element_mapper) { build :reagents_list_item_list_element_mapper, :with_all_args }
 
-    it { expect(reagents_list_mapper).to be_a described_class }
-    it { expect(reagents_list_mapper.numberOfItems).to eq args[:numberOfItems] }
-    it { expect(reagents_list_mapper.itemListElement).to eq args[:itemListElement] }
-
-    describe "#to_json" do
       let(:expected_json) do
         <<~JSON
           { "numberOfItems":#{args[:numberOfItems]},
