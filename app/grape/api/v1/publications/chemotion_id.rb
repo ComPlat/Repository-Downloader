@@ -6,9 +6,7 @@ module API
 
         namespace "/publications/chemotion_id" do
           desc "Get one publication via ChemotionID", {produces: %w[application/json application/xml text/csv]}
-          params do
-            requires :id, type: Integer, desc: "ChemotionID"
-          end
+          params { requires :id, type: Integer, desc: "ChemotionID" }
           route_param :id, type: Integer do
             get { present PublicationPresenter.present_by_chemotion_id params[:id] }
           end
