@@ -1,9 +1,9 @@
 describe SampleAdapter::AnalysisList::ItemListElementAdapterIterator do
   let(:sample) {
     create :sample, :with_required_dependencies, :with_realistic_attributes,
-      taggable_data: {"original_analysis_ids" => [analysis.id]}
+      taggable_data: {"original_analysis_ids" => [attachment.analysis.id]}
   }
-  let(:analysis) { create :analysis, :with_realistic_attributes, id: 1 }
+  let(:attachment) { create :attachment, :with_required_dependencies, :with_realistic_attributes }
   let(:item_list_element_adapter_iterator) { described_class.new sample }
 
   describe ".new" do
@@ -15,20 +15,22 @@ describe SampleAdapter::AnalysisList::ItemListElementAdapterIterator do
   describe "#to_a" do
     subject { item_list_element_adapter_iterator.to_a }
 
-    before do
-      analysis
-    end
+    let(:analysis_to_analysis_mapper_adapter) { RootAdapters::AnalysisToAnalysisMapperAdapter.new attachment.analysis }
 
     let(:expected_array) do
-      [{context: "https://schema.org/",
-        datasetList: {itemListElement: [], numberOfItems: 0},
-        descriptions: "{\"ops\":[{\"insert\":\" \"}, {\"attributes\":{\"script\":\"super\"},\"insert\":\"13\"}, {\"insert\":\"C NMR (100 MHz, DMSO-d6, ppm), δ = 171.0, 141.1, 135.4 (q, J = 5.2 Hz), 127.4, 124.3 (q, J = 4.2 Hz), 124.0 (q, J = 271.3 Hz), 118.9, 118.2, 111.3 (q, J = 33.3 Hz), 44.4, 25.6, 22.3 (2 C). \"}]}",
-        id: "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1",
-        identifier: "CRD-1",
-        ontologies: "13C nuclear magnetic resonance spectroscopy (13C NMR)",
-        title: "13C nuclear magnetic resonance spectroscopy (13C NMR)",
-        type: "AnalysisEntity",
-        url: "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1"}]
+      [{context: analysis_to_analysis_mapper_adapter.context,
+        datasetList: analysis_to_analysis_mapper_adapter.datasetList,
+        descriptions: analysis_to_analysis_mapper_adapter.descriptions,
+        id: analysis_to_analysis_mapper_adapter.id,
+        identifier: analysis_to_analysis_mapper_adapter.identifier,
+        ontologies: analysis_to_analysis_mapper_adapter.ontologies,
+        title: analysis_to_analysis_mapper_adapter.title,
+        type: analysis_to_analysis_mapper_adapter.type,
+        url: analysis_to_analysis_mapper_adapter.url}]
+    end
+
+    before do
+      attachment.analysis
     end
 
     it { is_expected.to eq expected_array }
