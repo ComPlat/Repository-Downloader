@@ -1,15 +1,6 @@
 describe AnalysisAdapter::DataSetList::ItemListElementAdapter do
-  let(:analysis) { create :analysis, :with_realistic_attributes, element_id: 1 }
-  let(:data_set_attachment) {
-    create :attachment,
-      ds_id: 2,
-      ana_id: analysis.element_id,
-      identifier: "a63e278b-22f2-4da3-955f-e80e197bc853",
-      filename: "BJ68_1H.zip",
-      name: "BJ68_1H",
-      ds_desc: "Bruker 400 MHz"
-  }
-  let(:data_set_list_adapter) { described_class.new analysis, data_set_attachment.ds_id, [data_set_attachment] }
+  let(:data_set_attachment) { create :attachment, :with_required_dependencies, :with_realistic_attributes }
+  let(:data_set_list_adapter) { described_class.new data_set_attachment.analysis, data_set_attachment.ds_id, [data_set_attachment] }
 
   describe ".new" do
     subject { data_set_list_adapter }
@@ -52,7 +43,7 @@ describe AnalysisAdapter::DataSetList::ItemListElementAdapter do
     subject { data_set_list_adapter.attachmentList }
 
     let(:expected_hash) {
-      AnalysisAdapter::DataSetList::ItemListElement::AttachmentListAdapter.new(analysis, [data_set_attachment]).to_h
+      AnalysisAdapter::DataSetList::ItemListElement::AttachmentListAdapter.new(data_set_attachment.analysis, [data_set_attachment]).to_h
     }
 
     it { is_expected.to eq expected_hash }
