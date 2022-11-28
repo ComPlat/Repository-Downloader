@@ -1,7 +1,7 @@
 module ReactionMappers::ReagentsList
   class ItemListElementMapper < ShaleCustom::Mapper
     attribute :type, Shale::Type::String
-    attribute :dct_conformsTo, ReactionMappers::DctListMapper, collection: true
+    attribute :dct_conformsTo, ReactionMappers::DctListMapper
     attribute :id, Shale::Type::String
     attribute :identifier, Shale::Type::String
     attribute :name, Shale::Type::String
