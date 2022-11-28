@@ -17,5 +17,6 @@ describe SampleAdapter::AnalysisList::ItemListElementAdapter do
     subject { item_list_element_adapter.itemListElement }
 
     it { is_expected.to be_a Array }
+    it { is_expected.to eq SampleAdapter::AnalysisList::ItemListElementAdapterIterator.new(sample).to_a }
   end
 end
