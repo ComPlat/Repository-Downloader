@@ -3,7 +3,6 @@ describe Sample do
 
   it { expect(described_class.sti_name).to eq "Sample" }
   it { expect { create :sample, :with_required_dependencies }.to change(described_class, :count).from(0).to(1) }
-  it { expect(create(:sample, :with_required_dependencies)).to be_valid }
   it { expect(create(:sample, :with_required_dependencies)).to be_persisted }
 
   describe "factories" do
@@ -11,18 +10,21 @@ describe Sample do
       subject(:factory) { build :sample, :with_required_dependencies }
 
       it { is_expected.to be_valid }
+      it { expect(factory.save).to be true }
     end
 
     describe "with traits :with_required_dependencies and :with_realistic_attributes" do
       subject(:factory) { build :sample, :with_required_dependencies, :with_realistic_attributes }
 
       it { is_expected.to be_valid }
+      it { expect(factory.save).to be true }
     end
 
     describe "without trait" do
       subject(:factory) { build :sample }
 
       it { is_expected.to be_invalid }
+      it { expect(factory.save).to be false }
     end
   end
 

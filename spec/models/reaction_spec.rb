@@ -3,7 +3,6 @@ describe Reaction do
 
   it { expect(described_class.sti_name).to eq "Reaction" }
   it { expect { create :reaction }.to change(described_class, :count).from(0).to(1) }
-  it { expect(create(:reaction)).to be_valid }
   it { expect(create(:reaction)).to be_persisted }
 
   describe "factories" do
@@ -11,12 +10,14 @@ describe Reaction do
       subject(:factory) { build :reaction }
 
       it { is_expected.to be_valid }
+      it { expect(factory.save).to be true }
     end
 
     describe "with trait :with_realistic_attributes" do
       subject(:factory) { build :reaction, :with_realistic_attributes }
 
       it { is_expected.to be_valid }
+      it { expect(factory.save).to be true }
     end
   end
 
