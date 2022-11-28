@@ -124,7 +124,9 @@ describe RootAdapters::SampleToSampleMapperAdapter do
     subject { sample_to_sample_mapper_adapter.boilingPoint }
 
     context "when called with no parameters" do
-      it { is_expected.to eq "-Infinity...Infinity" }
+      let(:infinity_range) { -Float::INFINITY...Float::INFINITY }
+
+      it { is_expected.to eq(infinity_range.to_s) }
     end
 
     context "when called with room temperature" do
