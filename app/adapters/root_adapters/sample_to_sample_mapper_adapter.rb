@@ -28,9 +28,9 @@ module RootAdapters
 
     def molecularFormula = @molecular_formula ||= @sample.sum_formular
 
-    def meltingPoint = @melting_point ||= @sample.sample_melting_point.to_s # TODO: test for e.g. room temperature
+    def meltingPoint = @melting_point ||= @sample.sample_melting_point.to_s
 
-    def boilingPoint = @boiling_point ||= @sample.sample_boiling_point.to_s # TODO: test for e.g. room temperature
+    def boilingPoint = @boiling_point ||= @sample.sample_boiling_point.to_s
 
     def molecularWeight = @molecular_weight ||= molecular_weight_adapter.to_h
 
