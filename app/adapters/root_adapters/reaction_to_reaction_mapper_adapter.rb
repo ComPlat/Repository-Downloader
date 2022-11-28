@@ -18,7 +18,7 @@ module RootAdapters
 
     def description = @description ||= @reaction.reaction_description.to_s
 
-    def temperature = @temperature ||= "#{@reaction.reaction_temperature&.dig("userText")} #{@reaction.reaction_temperature&.dig("valueUnit")}"
+    def temperature = @temperature ||= "#{@reaction.temperature_user_text} #{@reaction.temperature_value_unit}"
 
     def reaction_type = @reaction_type ||= @reaction.rxno.to_s
 

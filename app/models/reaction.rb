@@ -10,6 +10,10 @@ class Reaction < Publication
 
   def doi = taggable_data&.dig("doi").to_s
 
+  def temperature_user_text = reaction_temperature&.dig("userText").to_s
+
+  def temperature_value_unit = reaction_temperature&.dig("valueUnit").to_s
+
   private
 
   def to_reaction_mapper_hash = to_reaction_mapper.to_h

@@ -58,4 +58,28 @@ describe Reaction do
     it { expect(present_to_api.to_xml).to eq reaction_mapper.to_xml }
     it { expect(present_to_api.to_csv).to eq reaction_mapper.to_csv }
   end
+
+  describe "#doi" do
+    subject(:doi) { reaction.doi }
+
+    let(:reaction) { create :reaction, :with_realistic_attributes }
+
+    it { is_expected.to eq "10.14272/reaction/SA-FUHFF-UHFFFADPSC-WITXFYCLPD-UHFFFADPSC-NUHFF-NUHFF-NUHFF-ZZZ" }
+  end
+
+  describe "#temperature_user_text" do
+    subject(:temperature_user_text) { reaction.temperature_user_text }
+
+    let(:reaction) { create :reaction, :with_realistic_attributes }
+
+    it { is_expected.to eq "118" }
+  end
+
+  describe "#temperature_value_unit" do
+    subject(:temperature_value_unit) { reaction.temperature_value_unit }
+
+    let(:reaction) { create :reaction, :with_realistic_attributes, id: 1 }
+
+    it { is_expected.to eq "°C" }
+  end
 end
