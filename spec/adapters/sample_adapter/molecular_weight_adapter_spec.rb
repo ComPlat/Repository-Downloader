@@ -18,5 +18,6 @@ describe SampleAdapter::MolecularWeightAdapter do
     subject { molecular_weight_adapter.value }
 
     it { is_expected.to eq sample.molecular_weight }
+    it { is_expected.to be_a Float }
   end
 end
