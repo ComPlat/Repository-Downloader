@@ -1,4 +1,6 @@
 class Sample < Publication
+  include Presentable
+
   # HINT: Sample == `select * from toap_publications where element_type = "Sample"`
   def self.sti_name = "Sample"
 
@@ -11,13 +13,7 @@ class Sample < Publication
 
   def doi = taggable_data&.dig("doi").to_s
 
-  def present_to_api = RootMappers::SampleMapper.from_hash to_sample_mapper_hash # TODO: move to concern!
-
   private
-
-  def to_sample_mapper_hash = to_sample_mapper.to_h
-
-  def to_sample_mapper = RootAdapters::SampleToSampleMapperAdapter.new self
 
   def analysis_ids = taggable_data&.dig("original_analysis_ids") || []
 end
