@@ -43,9 +43,7 @@ describe SampleMappers::DctElementMapper do
 
       let(:expected_json) do
         <<~JSON
-          {
-            "http://purl.org/dc/terms/conformsTo":#{expected_json_nil_render_value}
-          }
+          { "http://purl.org/dc/terms/conformsTo":#{expected_json_nil_render_value} }
         JSON
       end
 
@@ -58,9 +56,7 @@ describe SampleMappers::DctElementMapper do
 
       let(:expected_json) do
         <<~JSON
-          {
-            "http://purl.org/dc/terms/conformsTo":#{ReactionMappers::DctListMapper.from_hash(args[:dct_conformsTo]).to_json}
-          }
+          { "http://purl.org/dc/terms/conformsTo":#{ReactionMappers::DctListMapper.from_hash(args[:dct_conformsTo]).to_json} }
         JSON
       end
 
