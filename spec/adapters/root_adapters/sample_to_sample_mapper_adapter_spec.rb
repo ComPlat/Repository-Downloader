@@ -48,25 +48,25 @@ describe RootAdapters::SampleToSampleMapperAdapter do
   describe "#dct_conformsTo" do
     subject { sample_to_sample_mapper_adapter.dct_conformsTo }
 
-    it { is_expected.to eq "http://purl.org/dc/terms/conformsTo" => SampleAdapter::DctElementAdapter.new.to_h }
+    it { is_expected.to eq SampleAdapter::DctConformsAdapter.new.to_h }
   end
 
   describe "#id" do
     subject { sample_to_sample_mapper_adapter.id }
 
-    it { is_expected.to eq "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1" }
+    it { is_expected.to eq sample.doi }
   end
 
   describe "#name" do
     subject { sample_to_sample_mapper_adapter.name }
 
-    it { is_expected.to eq "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine" }
+    it { is_expected.to eq sample.iupac_name }
   end
 
   describe "#url" do
     subject { sample_to_sample_mapper_adapter.url }
 
-    it { is_expected.to eq "https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1" }
+    it { is_expected.to eq "https://dx.doi.org/#{sample_to_sample_mapper_adapter.id}" }
   end
 
   describe "#identifier" do
@@ -78,31 +78,31 @@ describe RootAdapters::SampleToSampleMapperAdapter do
   describe "#iupacName" do
     subject { sample_to_sample_mapper_adapter.iupacName }
 
-    it { is_expected.to eq "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine" }
+    it { is_expected.to eq sample_to_sample_mapper_adapter.name }
   end
 
   describe "#smiles" do
     subject { sample_to_sample_mapper_adapter.smiles }
 
-    it { is_expected.to eq "c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1" }
+    it { is_expected.to eq sample.cano_smiles }
   end
 
   describe "#inChI" do
     subject { sample_to_sample_mapper_adapter.inChI }
 
-    it { is_expected.to eq "InChI=1S/C20H14N8/c1-3-10-21-15(8-1)19-17(23-27-25-19)13-6-5-7-14(12-13)18-20(26-28-24-18)16-9-2-4-11-22-16/h1-12H,(H,23,25,27)(H,24,26,28)" }
+    it { is_expected.to eq sample.inchistring }
   end
 
   describe "#inChIKey" do
     subject { sample_to_sample_mapper_adapter.inChIKey }
 
-    it { is_expected.to eq "MUAMZYSBUQADBN-UHFFFAOYSA-N" }
+    it { is_expected.to eq sample.inchikey }
   end
 
   describe "#molecularFormula" do
     subject { sample_to_sample_mapper_adapter.molecularFormula }
 
-    it { is_expected.to eq "C20H14N8" }
+    it { is_expected.to eq sample.sum_formular }
   end
 
   describe "#meltingPoint" do
@@ -142,12 +142,12 @@ describe RootAdapters::SampleToSampleMapperAdapter do
   describe "#molecularWeight" do
     subject { sample_to_sample_mapper_adapter.molecularWeight }
 
-    it { is_expected.to include({value: 366.37876000000006}) }
+    it { is_expected.to eq SampleAdapter::MolecularWeightAdapter.new(sample).to_h }
   end
 
   describe "#analysisList" do
     subject { sample_to_sample_mapper_adapter.analysisList }
 
-    it { is_expected.to eq({itemListElement: [], numberOfItems: 0}) }
+    it { is_expected.to eq SampleAdapter::AnalysisListAdapter.new(sample).to_h }
   end
 end
