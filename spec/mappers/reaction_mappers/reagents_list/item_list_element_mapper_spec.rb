@@ -9,7 +9,7 @@ describe ReactionMappers::ReagentsList::ItemListElementMapper do
       it { expect(reagents_list_item_list_element_mapper).to be_a described_class }
       it { expect(reagents_list_item_list_element_mapper).to be_a ShaleCustom::Mapper }
       it { expect(reagents_list_item_list_element_mapper.type).to be_nil }
-      it { expect(reagents_list_item_list_element_mapper.dct_conformsTo).to eq [] }
+      it { expect(reagents_list_item_list_element_mapper.dct_conformsTo).to be_nil }
       it { expect(reagents_list_item_list_element_mapper.id).to be_nil }
       it { expect(reagents_list_item_list_element_mapper.identifier).to be_nil }
       it { expect(reagents_list_item_list_element_mapper.name).to be_nil }
@@ -61,7 +61,7 @@ describe ReactionMappers::ReagentsList::ItemListElementMapper do
         <<~JSON
           {
             "@type": #{expected_json_nil_render_value},
-            "dct:conformsTo": [],
+            "dct:conformsTo": #{expected_json_nil_render_value},
             "@id": #{expected_json_nil_render_value},
             "identifier": #{expected_json_nil_render_value},
             "name": #{expected_json_nil_render_value},
@@ -84,7 +84,7 @@ describe ReactionMappers::ReagentsList::ItemListElementMapper do
         <<~JSON
           {
             "@type": "#{args[:type]}",
-            "dct:conformsTo": [{"@type": "#{dct_list_mapper.type}", "@id": "#{dct_list_mapper.id}"}],
+            "dct:conformsTo": {"@type": "#{dct_list_mapper.type}", "@id": "#{dct_list_mapper.id}"},
             "@id": "#{args[:id]}",
             "identifier": "#{args[:identifier]}",
             "name": "#{args[:name]}",
@@ -107,7 +107,7 @@ describe ReactionMappers::ReagentsList::ItemListElementMapper do
         <<~JSON
           {
             "@type": #{expected_json_nil_render_value},
-            "dct:conformsTo": [{"@type": "#{dct_list_mapper.type}", "@id": "#{dct_list_mapper.id}"}],
+            "dct:conformsTo": {"@type": "#{dct_list_mapper.type}", "@id": "#{dct_list_mapper.id}"},
             "@id": #{expected_json_nil_render_value},
             "identifier": "#{args[:identifier]}",
             "name": "#{args[:name]}",

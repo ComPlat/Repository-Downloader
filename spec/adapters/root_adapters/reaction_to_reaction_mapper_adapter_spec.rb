@@ -111,8 +111,6 @@ describe RootAdapters::ReactionToReactionMapperAdapter do
   describe "#reagents_list" do
     subject { reaction_to_reaction_mapper_adapter.reagents_list }
 
-    let(:expected_hash) { {itemListElement: [], numberOfItems: 0} }
-
-    it { is_expected.to eq expected_hash }
+    it { is_expected.to eq ReactionAdapter::ReagentsListAdapter.new(reaction).to_h }
   end
 end
