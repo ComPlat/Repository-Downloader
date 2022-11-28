@@ -2,7 +2,7 @@ module RootAdapters
   class SampleToSampleMapperAdapter
     include Hashable
 
-    def initialize(sample) = (@sample = sample)
+    def initialize(sample) = @sample = sample
 
     def context = @context ||= "https://schema.org/" # HINT: becomes @context in mapper
 
