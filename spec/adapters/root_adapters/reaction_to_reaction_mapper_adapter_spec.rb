@@ -92,12 +92,27 @@ describe RootAdapters::ReactionToReactionMapperAdapter do
   describe "#purification" do
     subject { reaction_to_reaction_mapper_adapter.purification }
 
-    it { is_expected.to eq reaction.reaction_purification.first.to_s }
+    context "when called with one parameter" do
+      let(:expected_reaction_purification) { reaction.reaction_purification.join(",") }
+
+      it { is_expected.to eq expected_reaction_purification }
+    end
+
+    context "when called with two parameters" do
+      let(:reaction_purification) { ["Flash-Chromatography", "HPLC"] }
+      let(:reaction) { build :reaction, :with_realistic_attributes, reaction_purification: reaction_purification }
+
+      let(:expected_reaction_purification) { "Flash-Chromatography, HPLC" }
+
+      it { is_expected.to eq expected_reaction_purification }
+    end
   end
 
   describe "#reagents_list" do
     subject { reaction_to_reaction_mapper_adapter.reagents_list }
 
-    it { is_expected.to eq({}) }
+    let(:expected_hash) { {itemListElement: [], numberOfItems: 0} }
+
+    it { is_expected.to eq expected_hash }
   end
 end
