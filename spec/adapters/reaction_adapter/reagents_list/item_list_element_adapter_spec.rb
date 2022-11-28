@@ -1,6 +1,7 @@
 describe ReactionAdapter::ReagentsList::ItemListElementAdapter do
   let(:sample) { create :sample, :with_required_dependencies, :with_realistic_attributes }
   let(:item_list_element_adapter) { described_class.new sample }
+  let(:sample_to_sample_adapter) { RootAdapters::SampleToSampleMapperAdapter.new sample }
 
   describe ".new" do
     subject { item_list_element_adapter }
@@ -34,42 +35,42 @@ describe ReactionAdapter::ReagentsList::ItemListElementAdapter do
   describe "#dct_conformsTo" do
     subject { item_list_element_adapter.dct_conformsTo }
 
-    it { is_expected.to eq "http://purl.org/dc/terms/conformsTo" => SampleAdapter::DctElementAdapter.new.to_h }
+    it { is_expected.to eq sample_to_sample_adapter.dct_conformsTo }
   end
 
   describe "#id" do
     subject { item_list_element_adapter.id }
 
-    it { is_expected.to eq "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1" }
+    it { is_expected.to eq sample_to_sample_adapter.id }
   end
 
   describe "#identifier" do
     subject { item_list_element_adapter.identifier }
 
-    it { is_expected.to eq sample.chemotion_id }
+    it { is_expected.to eq sample_to_sample_adapter.identifier }
   end
 
   describe "#name" do
     subject { item_list_element_adapter.name }
 
-    it { is_expected.to eq "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine" }
+    it { is_expected.to eq sample_to_sample_adapter.name }
   end
 
   describe "#molecularFormula" do
     subject { item_list_element_adapter.molecularFormula }
 
-    it { is_expected.to eq "C20H14N8" }
+    it { is_expected.to eq sample_to_sample_adapter.molecularFormula }
   end
 
   describe "#inChIKey" do
     subject { item_list_element_adapter.inChIKey }
 
-    it { is_expected.to eq "MUAMZYSBUQADBN-UHFFFAOYSA-N" }
+    it { is_expected.to eq sample_to_sample_adapter.inChIKey }
   end
 
   describe "#smiles" do
     subject { item_list_element_adapter.smiles }
 
-    it { is_expected.to eq "c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1" }
+    it { is_expected.to eq sample_to_sample_adapter.smiles }
   end
 end
