@@ -24,7 +24,7 @@ module RootAdapters
 
     def duration = @duration ||= @reaction.reaction_duration.to_s
 
-    def purification = @purification ||= @reaction.reaction_purification.join(", ")
+    def purification = @purification ||= (@reaction.reaction_purification || []).join(", ")
 
     def reagents_list = @reagents_list ||= reagents_list_adapter.to_h
 
