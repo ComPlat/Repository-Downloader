@@ -116,7 +116,7 @@ describe RootAdapters::SampleToSampleMapperAdapter do
       let(:sample) { create :sample, :with_required_dependencies, :with_realistic_attributes, sample_melting_point: room_temperature }
       let(:room_temperature) { 18.0...25.0 }
 
-      it { is_expected.to eq "18.0...25.0" }
+      it { is_expected.to eq room_temperature.to_s }
     end
   end
 
@@ -131,7 +131,7 @@ describe RootAdapters::SampleToSampleMapperAdapter do
       let(:sample) { create :sample, :with_required_dependencies, :with_realistic_attributes, sample_boiling_point: room_temperature }
       let(:room_temperature) { 18.0...25.0 }
 
-      it { is_expected.to eq "18.0...25.0" }
+      it { is_expected.to eq room_temperature.to_s }
     end
   end
 
