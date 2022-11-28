@@ -43,22 +43,6 @@ describe Analysis do
     it { is_expected.to eq "CRD-#{analysis.id}" }
   end
 
-  describe "#present_to_api" do
-    subject(:present_to_api) { analysis.present_to_api }
-
-    let(:analysis) { create :analysis, :with_realistic_attributes }
-    let(:analysis_to_analysis_mapper_adapter) { RootAdapters::AnalysisToAnalysisMapperAdapter.new analysis }
-    let(:analysis_to_analysis_mapper_adapter_hash) { analysis_to_analysis_mapper_adapter.to_h }
-    let(:analysis_mapper) { RootMappers::AnalysisMapper.from_hash analysis_to_analysis_mapper_adapter_hash }
-
-    it { expect(present_to_api).to be_a RootMappers::AnalysisMapper }
-    it { expect(present_to_api.identifier).to eq analysis.chemotion_id }
-    it { expect(present_to_api.context).to eq analysis_to_analysis_mapper_adapter.context }
-    it { expect(present_to_api.to_json).to eq analysis_mapper.to_json }
-    it { expect(present_to_api.to_xml).to eq analysis_mapper.to_xml }
-    it { expect(present_to_api.to_csv).to eq analysis_mapper.to_csv }
-  end
-
   describe "#doi" do
     subject { analysis.doi }
 
@@ -73,5 +57,11 @@ describe Analysis do
     let(:analysis) { create :analysis, :with_realistic_attributes }
 
     it { is_expected.to eq "CHMO:0000595 | 13C nuclear magnetic resonance spectroscopy (13C NMR)" }
+  end
+
+  describe "#present_to_api" do
+    subject(:present_to_api) { described_class.new.present_to_api }
+
+    it { expect(present_to_api).to be_a RootMappers::AnalysisMapper }
   end
 end

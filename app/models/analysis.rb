@@ -1,4 +1,6 @@
 class Analysis < Publication
+  include Presentable
+
   # HINT: Analysis == `select * from toap_publications where element_type = "Container"`
   # HINT: belongs to Sample
   def self.sti_name = "Container"
@@ -11,12 +13,4 @@ class Analysis < Publication
 
   # noinspection RubyResolve
   def kind = extended_metadata&.dig("kind")
-
-  def present_to_api = RootMappers::AnalysisMapper.from_hash to_analysis_mapper_hash # TODO: move to concern!
-
-  private
-
-  def to_analysis_mapper_hash = to_analysis_mapper.to_h
-
-  def to_analysis_mapper = RootAdapters::AnalysisToAnalysisMapperAdapter.new self
 end

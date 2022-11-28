@@ -83,18 +83,8 @@ describe Sample do
   end
 
   describe "#present_to_api" do
-    subject(:present_to_api) { sample.present_to_api }
-
-    let(:sample) { create :sample, :with_required_dependencies, :with_realistic_attributes }
-    let(:sample_to_sample_mapper_adapter) { RootAdapters::SampleToSampleMapperAdapter.new sample }
-    let(:sample_to_sample_mapper_adapter_hash) { sample_to_sample_mapper_adapter.to_h }
-    let(:sample_mapper) { RootMappers::SampleMapper.from_hash sample_to_sample_mapper_adapter_hash }
+    subject(:present_to_api) { described_class.new.present_to_api }
 
     it { is_expected.to be_a RootMappers::SampleMapper }
-    it { expect(present_to_api.identifier).to eq sample.chemotion_id }
-    it { expect(present_to_api.context).to eq sample_to_sample_mapper_adapter.context }
-    it { expect(present_to_api.to_json).to eq sample_mapper.to_json }
-    it { expect(present_to_api.to_xml).to eq sample_mapper.to_xml }
-    it { expect(present_to_api.to_csv).to eq sample_mapper.to_csv }
   end
 end
