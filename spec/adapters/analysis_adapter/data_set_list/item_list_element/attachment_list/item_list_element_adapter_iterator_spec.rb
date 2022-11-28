@@ -17,12 +17,10 @@ describe AnalysisAdapter::DataSetList::ItemListElement::AttachmentList::ItemList
     }
 
     let(:expected_array) do
-      [{
-        filename: item_list_element_adapter.filename,
+      [{filename: item_list_element_adapter.filename,
         filepath: item_list_element_adapter.filepath,
         identifier: item_list_element_adapter.identifier,
-        type: item_list_element_adapter.type
-      }]
+        type: item_list_element_adapter.type}]
     end
 
     before do
