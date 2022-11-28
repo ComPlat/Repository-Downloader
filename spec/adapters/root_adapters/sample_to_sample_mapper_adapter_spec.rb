@@ -108,13 +108,31 @@ describe RootAdapters::SampleToSampleMapperAdapter do
   describe "#meltingPoint" do
     subject { sample_to_sample_mapper_adapter.meltingPoint }
 
-    it { is_expected.to eq "-Infinity...Infinity" }
+    context "when called with no parameters" do
+      it { is_expected.to eq "-Infinity...Infinity" }
+    end
+
+    context "when called with room temperature" do
+      let(:sample) { create :sample, :with_required_dependencies, :with_realistic_attributes, sample_melting_point: room_temperature }
+      let(:room_temperature) { -18.0...25.0 }
+
+      it { is_expected.to eq "-18.0...25.0" }
+    end
   end
 
   describe "#boilingPoint" do
     subject { sample_to_sample_mapper_adapter.boilingPoint }
 
-    it { is_expected.to eq "-Infinity...Infinity" }
+    context "when called with no parameters" do
+      it { is_expected.to eq "-Infinity...Infinity" }
+    end
+
+    context "when called with room temperature" do
+      let(:sample) { create :sample, :with_required_dependencies, :with_realistic_attributes, sample_boiling_point: room_temperature }
+      let(:room_temperature) { -18.0...25.0 }
+
+      it { is_expected.to eq "-18.0...25.0" }
+    end
   end
 
   describe "#molecularWeight" do
