@@ -47,6 +47,6 @@ describe API::V1::Publications::ChemotionId do
 
     before { get "/api/v1/publications/chemotion_id/#{sample.id}" }
 
-    it { expect(JSON.parse(response.body)).to eq "" }
+    it { expect(JSON.parse(response.body).dig("dct:conformsTo")).to eq "" }
   end
 end

@@ -2,7 +2,7 @@ module RootMappers
   class SampleMapper < ShaleCustom::Mapper
     attribute :context, Shale::Type::String
     attribute :type, Shale::Type::String
-    attribute :dct_conformsTo, SampleMappers::DctElementMapper
+    attribute :dct_conformsTo, SampleMappers::DctElementMapper # TODO: Should be DctConformsToMapper
     attribute :id, Shale::Type::String
     attribute :name, Shale::Type::String
     attribute :url, Shale::Type::String
