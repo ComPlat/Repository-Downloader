@@ -140,7 +140,7 @@ describe RootMappers::AnalysisMapper do
             "@id": "#{args[:id]}",
             "ontologies": "#{args[:ontologies]}",
             "title": "#{args[:title]}",
-            "descriptions": "#{args[:descriptions]}",
+            "descriptions": #{args[:descriptions].to_json},
             "url": "#{args[:url]}",
             "identifier": "#{args[:identifier]}",
             "datasetList":#{AnalysisMappers::DataSetListMapper.from_hash(args[:datasetList]).to_json}
@@ -210,7 +210,7 @@ describe RootMappers::AnalysisMapper do
             <id>https://dx.doi.org/10.14272/MWJHDSAAGSURCA-UHFFFAOYSA-N/CHMO0000595</id>
             <ontologies>13C nuclear magnetic resonance spectroscopy (13C NMR)</ontologies>
             <title>13C nuclear magnetic resonance spectroscopy (13C NMR) (4-(2-oxo-2-phenylacetyl)benzoic acid)</title>
-            <descriptions>13C NMR (100 MHz, DMSO-d6, ppm) &#x3B4; = 194.2 (s, Cq), 194.1 (s, Cq), 166.3 (s, Cq), 135.7 (s, 2 x Cq), 135.1 (s, Cq), 132.0 (s, CarH), 130.1 (s, 2 x CarH), 129.9 (s, 2 x CarH), 129.8 (s, 2 x CarH), 129.5 (s, 2 x CarH).</descriptions>
+            <descriptions>{"ops"=&gt;[{"insert"=&gt;"&#xA0;"}, {"attributes"=&gt;{"script"=&gt;"super"}, "insert"=&gt;"13"}, {"insert"=&gt;"C NMR (100 MHz, DMSO-d6, ppm), &#x3B4; = 171.0, 141.1, 135.4 (q, J = 5.2 Hz), 127.4, 124.3 (q, J = 4.2 Hz), 124.0 (q, J = 271.3 Hz), 118.9, 118.2, 111.3 (q, J = 33.3 Hz), 44.4, 25.6, 22.3 (2 C). "}]}</descriptions>
             <url>https://dx.doi.org/10.14272/MWJHDSAAGSURCA-UHFFFAOYSA-N/CHMO0000595</url>
             <identifier>CRD-27923</identifier>
             <datasetList>

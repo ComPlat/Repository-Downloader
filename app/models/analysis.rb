@@ -7,9 +7,12 @@ class Analysis < Publication
 
   has_many :attachments, foreign_key: :ana_id, primary_key: :element_id, inverse_of: :analysis, dependent: :restrict_with_exception
 
-  def chemotion_id = "CRD-#{id}"
+  def chemotion_id = id ? "CRD-#{id}" : ""
 
-  def content = JSON.parse extended_metadata&.dig("content").to_json
+  def content
+    content = extended_metadata&.dig("content")
+    content ? JSON.parse(content) : {}
+  end
 
   def doi = taggable_data&.dig("analysis_doi").to_s
 

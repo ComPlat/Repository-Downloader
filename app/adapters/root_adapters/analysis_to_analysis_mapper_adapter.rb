@@ -14,7 +14,7 @@ module RootAdapters
 
     def title = ontologies
 
-    def descriptions = @descriptions ||= @analysis.content.to_s
+    def descriptions = @descriptions ||= @analysis.content
 
     def url = id
 

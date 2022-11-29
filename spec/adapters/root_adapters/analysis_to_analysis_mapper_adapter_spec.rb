@@ -70,9 +70,7 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
   describe "#descriptions" do
     subject(:descriptions) { analysis_to_analysis_mapper_adapter.descriptions }
 
-    it { expect(JSON.parse(descriptions)).to eq JSON.parse(analysis.extended_metadata&.dig("content")) }
-    # noinspection RubyResolve
-    it { expect(analysis.extended_metadata["content"].to_s).to include descriptions.to_s }
+    it { expect(descriptions).to eq analysis.content }
   end
 
   describe "#title" do

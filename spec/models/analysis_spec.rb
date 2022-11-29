@@ -39,35 +39,66 @@ describe Analysis do
     let(:analysis) { create :analysis, :with_realistic_attributes }
 
     it { expect(analysis).to be_a described_class }
+  end
 
-    describe "#chemotion_id" do
-      subject(:chemotion_id) { analysis.chemotion_id }
+  describe "#chemotion_id" do
+    subject(:chemotion_id) { analysis.chemotion_id }
 
-      it { is_expected.to eq "CRD-#{analysis.id}" }
+    let(:analysis) { build :analysis, id: }
+
+    context "when id is 1" do
+      let(:id) { 1 }
+
+      it { is_expected.to eq "CRD-1" }
     end
 
-    describe "#content" do
-      subject(:content) { analysis.content }
+    context "when id is nil" do
+      let(:id) { nil }
 
-      it { is_expected.to eq JSON.parse(analysis.extended_metadata&.dig("content").to_json) }
+      it { is_expected.to eq "" }
+    end
+  end
+
+  describe "#content" do
+    subject(:content) { analysis.content }
+
+    context "when content is a stringified JSON" do
+      let(:json) { JSON.parse(analysis.extended_metadata&.dig("content")) }
+
+      let(:analysis) { build :analysis, :with_realistic_attributes }
+
+      it { is_expected.to eq json }
+      it { is_expected.to eq({"ops" => [{"insert" => " "}, {"attributes" => {"script" => "super"}, "insert" => "13"}, {"insert" => "C NMR (100 MHz, DMSO-d6, ppm), δ = 171.0, 141.1, 135.4 (q, J = 5.2 Hz), 127.4, 124.3 (q, J = 4.2 Hz), 124.0 (q, J = 271.3 Hz), 118.9, 118.2, 111.3 (q, J = 33.3 Hz), 44.4, 25.6, 22.3 (2 C). "}]}) }
     end
 
-    describe "#doi" do
-      subject(:doi) { analysis.doi }
+    context "when content is nil" do
+      let(:analysis) { build :analysis }
 
-      it { is_expected.to eq analysis.taggable_data&.dig("analysis_doi") }
+      it { is_expected.to eq({}) }
     end
+  end
 
-    describe "#kind" do
-      subject(:kind) { analysis.kind }
+  describe "#doi" do
+    subject(:doi) { analysis.doi }
 
-      it { is_expected.to eq analysis.extended_metadata&.dig("kind") }
-    end
+    let(:analysis) { create :analysis, :with_realistic_attributes }
 
-    describe "#present_to_api" do
-      subject(:present_to_api) { described_class.new.present_to_api }
+    it { is_expected.to eq analysis.taggable_data&.dig("analysis_doi") }
+  end
 
-      it { expect(present_to_api).to be_a RootMappers::AnalysisMapper }
-    end
+  describe "#kind" do
+    subject(:kind) { analysis.kind }
+
+    let(:analysis) { create :analysis, :with_realistic_attributes }
+
+    it { is_expected.to eq analysis.extended_metadata&.dig("kind") }
+  end
+
+  describe "#present_to_api" do
+    subject(:present_to_api) { described_class.new.present_to_api }
+
+    let(:analysis) { create :analysis, :with_realistic_attributes }
+
+    it { expect(present_to_api).to be_a RootMappers::AnalysisMapper }
   end
 end
