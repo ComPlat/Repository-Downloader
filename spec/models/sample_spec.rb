@@ -38,6 +38,12 @@ describe Sample do
     end
   end
 
+  describe ".new" do
+    subject(:sample) { create :sample, :with_required_dependencies }
+
+    it { is_expected.to be_a described_class }
+  end
+
   describe "#analyses" do
     subject(:analyses) { sample.analyses }
 
