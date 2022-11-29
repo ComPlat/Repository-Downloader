@@ -29,7 +29,7 @@ describe AnalysisAdapter::DataSetList::ItemListElement::AttachmentListAdapter do
   describe "#numberOfItems" do
     subject { attachment_list_adapter.numberOfItems }
 
-    it { expect(subject).to eq attachments[attachment1.ds_id].count }
+    it { is_expected.to eq attachments[attachment1.ds_id].count }
   end
 
   describe "#itemListElement" do
