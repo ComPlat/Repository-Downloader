@@ -10,10 +10,6 @@ describe SampleAdapter::DctConformsAdapter do
   describe "#to_h" do
     subject { dct_conforms_adapter.to_h }
 
-    let(:url) { SampleAdapter::DctConformsAdapter::CONFORMS_URL }
-    let(:id) { SampleAdapter::DctElementAdapter::ID }
-    let(:type) { SampleAdapter::DctElementAdapter::TYPE }
-
-    it { is_expected.to eq({url => {id: id, type: type}}) }
+    it { is_expected.to eq({described_class::CONFORMS_URL => SampleAdapter::DctElementAdapter.new.to_h}) }
   end
 end
