@@ -43,11 +43,11 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
     it { is_expected.to eq "AnalysisEntity" }
   end
 
-  describe "#id" do
+  describe "RootAdapters::AnalysisToAnalysisMapperAdapter" do
     context "when analysis is given" do
       subject { analysis_to_analysis_mapper_adapter.id }
 
-      it { is_expected.to eq "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1" }
+      it { is_expected.to eq "https://dx.doi.org/#{analysis.doi}" }
     end
 
     context "when analysis is NOT given" do
@@ -70,11 +70,7 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
   describe "#descriptions" do
     subject(:descriptions) { analysis_to_analysis_mapper_adapter.descriptions }
 
-    let(:expected_description) do
-      "{\"ops\":[{\"insert\":\" \"}, {\"attributes\":{\"script\":\"super\"},\"insert\":\"13\"}, {\"insert\":\"C NMR (100 MHz, DMSO-d6, ppm), δ = 171.0, 141.1, 135.4 (q, J = 5.2 Hz), 127.4, 124.3 (q, J = 4.2 Hz), 124.0 (q, J = 271.3 Hz), 118.9, 118.2, 111.3 (q, J = 33.3 Hz), 44.4, 25.6, 22.3 (2 C). \"}]}"
-    end
-
-    it { expect(descriptions).to eq_without_whitespace expected_description }
+    it { expect(JSON.parse(descriptions)).to eq JSON.parse(analysis.extended_metadata&.dig("content")) }
     # noinspection RubyResolve
     it { expect(analysis.extended_metadata["content"].to_s).to include descriptions.to_s }
   end
