@@ -5,7 +5,7 @@ module RootMappers
     attribute :id, Shale::Type::String
     attribute :ontologies, Shale::Type::String
     attribute :title, Shale::Type::String
-    attribute :descriptions, Shale::Type::String
+    attribute :descriptions, ShaleCustom::Types::HashType
     attribute :url, Shale::Type::String
     attribute :identifier, Shale::Type::String
     attribute :datasetList, ::AnalysisMappers::DataSetListMapper
