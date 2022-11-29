@@ -38,6 +38,8 @@ describe Analysis do
   describe ".new" do
     let(:analysis) { create :analysis, :with_realistic_attributes }
 
+    it { expect(analysis).to be_a described_class }
+
     describe "#chemotion_id" do
       subject(:chemotion_id) { analysis.chemotion_id }
 
