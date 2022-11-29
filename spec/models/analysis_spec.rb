@@ -35,33 +35,37 @@ describe Analysis do
     end
   end
 
-  describe "#chemotion_id" do
-    subject(:chemotion_id) { analysis.chemotion_id }
-
+  describe ".new" do
     let(:analysis) { create :analysis, :with_realistic_attributes }
 
-    it { is_expected.to eq "CRD-#{analysis.id}" }
-  end
+    describe "#chemotion_id" do
+      subject(:chemotion_id) { analysis.chemotion_id }
 
-  describe "#doi" do
-    subject { analysis.doi }
+      it { is_expected.to eq "CRD-#{analysis.id}" }
+    end
 
-    let(:analysis) { create :analysis, :with_realistic_attributes }
+    describe "#content" do
+      subject(:content) { analysis.content }
 
-    it { is_expected.to eq "10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1" }
-  end
+      it { is_expected.to eq JSON.parse(analysis.extended_metadata&.dig("content").to_json) }
+    end
 
-  describe "#kind" do
-    subject { analysis.kind }
+    describe "#doi" do
+      subject(:doi) { analysis.doi }
 
-    let(:analysis) { create :analysis, :with_realistic_attributes }
+      it { is_expected.to eq analysis.taggable_data&.dig("analysis_doi") }
+    end
 
-    it { is_expected.to eq "CHMO:0000595 | 13C nuclear magnetic resonance spectroscopy (13C NMR)" }
-  end
+    describe "#kind" do
+      subject(:kind) { analysis.kind }
 
-  describe "#present_to_api" do
-    subject(:present_to_api) { described_class.new.present_to_api }
+      it { is_expected.to eq analysis.extended_metadata&.dig("kind") }
+    end
 
-    it { expect(present_to_api).to be_a RootMappers::AnalysisMapper }
+    describe "#present_to_api" do
+      subject(:present_to_api) { described_class.new.present_to_api }
+
+      it { expect(present_to_api).to be_a RootMappers::AnalysisMapper }
+    end
   end
 end

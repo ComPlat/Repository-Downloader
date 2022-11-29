@@ -9,10 +9,10 @@ class Analysis < Publication
 
   def chemotion_id = "CRD-#{id}"
 
-  def content = extended_metadata&.dig("content")
+  def content = JSON.parse extended_metadata&.dig("content").to_json
 
-  def doi = taggable_data&.dig("analysis_doi")
+  def doi = taggable_data&.dig("analysis_doi").to_s
 
   # noinspection RubyResolve
-  def kind = extended_metadata&.dig("kind")
+  def kind = extended_metadata&.dig("kind").to_s
 end
