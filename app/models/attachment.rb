@@ -1,7 +1,7 @@
 class Attachment < ApplicationRecord
-  self.table_name = "toap_attachments"
+  include HasOnlyReadonlyAttributes
 
-  attr_readonly(*attribute_names)
+  self.table_name = "toap_attachments"
 
   # HINT: select * from toap_attachments where ana_id = {toap_publications.element_id}
   #       (toap_publications.element_type = "Container")
