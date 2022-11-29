@@ -1,5 +1,7 @@
 module HasOnlyReadonlyAttributes
   extend ActiveSupport::Concern
 
-  attr_readonly(*attribute_names)
+  included do
+    attr_readonly(*attribute_names)
+  end
 end
