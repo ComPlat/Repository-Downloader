@@ -32,4 +32,21 @@ describe API::V1::Publications::ChemotionId do
       it { expect(response.content_type).to eq "application/json" }
     end
   end
+
+  describe "GET Analysis" do
+    let(:analysis) { create(:analysis, :with_realistic_attributes) }
+    let(:attachment) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 3 }
+
+    before { get "/api/v1/publications/chemotion_id/#{analysis.id}" }
+
+    it { expect(JSON.parse(response.body)).to eq "" }
+  end
+
+  describe "GET Sample" do
+    let(:sample) { create(:sample, :with_required_dependencies, :with_realistic_attributes) }
+
+    before { get "/api/v1/publications/chemotion_id/#{sample.id}" }
+
+    it { expect(JSON.parse(response.body)).to eq "" }
+  end
 end
