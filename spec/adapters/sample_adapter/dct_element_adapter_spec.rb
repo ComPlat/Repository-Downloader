@@ -16,12 +16,12 @@ describe SampleAdapter::DctElementAdapter do
   describe "#id" do
     subject { dct_element_adapter.id }
 
-    it { is_expected.to eq "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE" }
+    it { is_expected.to eq SampleAdapter::DctElementAdapter::ID }
   end
 
   describe "#type" do
     subject { dct_element_adapter.type }
 
-    it { is_expected.to eq "CreativeWork" }
+    it { is_expected.to eq SampleAdapter::DctElementAdapter::TYPE }
   end
 end

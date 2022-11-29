@@ -2,8 +2,11 @@ module SampleAdapter
   class DctElementAdapter
     include Hashable
 
-    def id = "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE"
+    ID = "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE".freeze
+    TYPE = "CreativeWork".freeze
 
-    def type = "CreativeWork"
+    def id = ID
+
+    def type = TYPE
   end
 end
