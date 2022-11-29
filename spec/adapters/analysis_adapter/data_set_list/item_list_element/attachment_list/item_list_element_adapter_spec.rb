@@ -7,7 +7,7 @@ describe AnalysisAdapter::DataSetList::ItemListElement::AttachmentList::ItemList
       identifier: "a63e278b-22f2-4da3-955f-e80e197bc853",
       filename: "BJ68_1H.zip"
   }
-  let(:attachment_list_adapter) { described_class.new analysis, attachment.ds_id, [attachment] }
+  let(:attachment_list_adapter) { described_class.new analysis, attachment }
 
   describe ".new" do
     subject { attachment_list_adapter }
