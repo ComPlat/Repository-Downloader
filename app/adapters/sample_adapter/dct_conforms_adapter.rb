@@ -6,6 +6,7 @@ module SampleAdapter
 
     private
 
+    # TODO: Method should only do one thing.
     def dct_element_hash = @dct_element_hash ||= DctElementAdapter.new.to_h
   end
 end
