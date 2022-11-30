@@ -48,7 +48,7 @@ describe RootAdapters::SampleToSampleMapperAdapter do
   describe "#dct_conformsTo" do
     subject { sample_to_sample_mapper_adapter.dct_conformsTo }
 
-    it { is_expected.to eq SampleAdapter::DctConformsAdapter.new.to_h }
+    it { is_expected.to eq SampleAdapter::DctConformsToAdapter.new.to_h }
   end
 
   describe "#id" do

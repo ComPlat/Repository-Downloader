@@ -8,10 +8,7 @@ module RootAdapters
 
     def type = @type ||= "MolecularEntity" # HINT: becomes @type in mapper
 
-    def dct_conformsTo
-      # TODO: Should be dct_conforms_to_adapter, etc.
-      @dct_conforms_to ||= dct_conforms_adapter.to_h
-    end
+    def dct_conformsTo = @dct_conforms_to ||= dct_conforms_to_adapter.to_h
 
     def id = @id ||= @sample.doi # HINT: becomes @id in mapper
 
@@ -41,7 +38,7 @@ module RootAdapters
 
     private
 
-    def dct_conforms_adapter = @dct_conforms_hash ||= SampleAdapter::DctConformsAdapter.new
+    def dct_conforms_to_adapter = @dct_conforms_to_adapter ||= SampleAdapter::DctConformsToAdapter.new
 
     def molecular_weight_adapter = @molecular_weight_hash ||= SampleAdapter::MolecularWeightAdapter.new(@sample)
 
