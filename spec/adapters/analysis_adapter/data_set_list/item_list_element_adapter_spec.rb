@@ -24,6 +24,7 @@ describe AnalysisAdapter::DataSetList::ItemListElementAdapter do
     subject { data_set_list_adapter.name }
 
     it { is_expected.to eq attachment.name }
+    it { is_expected.to be_a String }
   end
 
   describe "#Instrument" do
@@ -37,6 +38,7 @@ describe AnalysisAdapter::DataSetList::ItemListElementAdapter do
     subject { data_set_list_adapter.descriptions }
 
     it { is_expected.to eq attachment.ds_desc }
+    it { is_expected.to be_a String }
   end
 
   describe "#attachmentList" do

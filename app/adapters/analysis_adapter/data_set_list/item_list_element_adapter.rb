@@ -12,11 +12,11 @@ module AnalysisAdapter::DataSetList
 
     def identifier = @identifier ||= @ds_id
 
-    def name = @name ||= data_set_attachment.name
+    def name = @name ||= data_set_attachment.name.to_s
 
-    def Instrument = @instrument ||= data_set_attachment.instrument
+    def Instrument = @instrument ||= data_set_attachment.instrument.to_s
 
-    def descriptions = @descriptions ||= data_set_attachment.ds_desc
+    def descriptions = @descriptions ||= data_set_attachment.ds_desc.to_s
 
     def attachmentList = @attachment_list ||= attachment_list_adapter.to_h
 
