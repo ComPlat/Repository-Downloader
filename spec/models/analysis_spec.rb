@@ -78,6 +78,26 @@ describe Analysis do
     end
   end
 
+  describe "#fill_id" do
+    subject(:fill_id) { analysis.fill_id }
+
+    context "when doi is nil" do
+      let(:analysis) { build :analysis, :with_realistic_attributes, taggable_data: nil }
+
+      it { is_expected.to eq "" }
+      it { is_expected.to be_a String }
+    end
+
+    context "when doi exists" do
+      let(:analysis) { build :analysis, :with_realistic_attributes }
+
+      let(:expected_id) { "https://dx.doi.org/#{analysis.doi}" }
+
+      it { is_expected.to eq expected_id }
+      it { is_expected.to be_a String }
+    end
+  end
+
   describe "#doi" do
     subject(:doi) { analysis.doi }
 
