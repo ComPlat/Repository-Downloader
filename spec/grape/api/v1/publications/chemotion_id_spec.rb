@@ -58,6 +58,16 @@ describe API::V1::Publications::ChemotionId do
     it { expect(JSON.parse(response.body)).to eq JSON.parse(expected_json) }
   end
 
+  describe "GET Reaction" do
+    let(:reaction) { create :reaction, :with_realistic_attributes }
+    let(:attached_sample1) { create :sample, :with_required_dependencies, :with_realistic_attributes, reaction: }
+    let(:attached_sample2) { create :sample, :with_required_dependencies, :with_realistic_attributes, reaction: }
+
+    before { get "/api/v1/publications/chemotion_id/#{reaction.id}" }
+
+    it { expect(JSON.parse(response.body)).to eq "" }
+  end
+
   describe "GET Sample" do
     let(:sample) {
       create :sample, :with_required_dependencies, :with_realistic_attributes,
@@ -85,7 +95,7 @@ describe API::V1::Publications::ChemotionId do
           "molecularWeight": #{SampleMappers::MolecularWeightMapper.from_hash(SampleAdapter::MolecularWeightAdapter.new(sample).to_h).to_json},
           "name": "#{sample.iupac_name}",
           "smiles": "#{sample.cano_smiles}",
-          "url": "https://dx.doi.org/#{sample.taggable_data&.dig("doi")}"
+          "url": "https://dx.doi.org/#{sample.doi}"
         }
       JSON
     end
