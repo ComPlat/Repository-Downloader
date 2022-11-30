@@ -1,12 +1,9 @@
 module SampleAdapter
   class DctConformsAdapter
-    CONFORMS_URL = "http://purl.org/dc/terms/conformsTo".freeze
-
-    def to_h = @to_h ||= {dct_conformsTo: dct_element_hash}
+    def to_h = @to_h ||= {dct_conformsTo: dct_element_adapter.to_h}
 
     private
 
-    # TODO: Method should only do one thing.
-    def dct_element_hash = @dct_element_hash ||= DctElementAdapter.new.to_h
+    def dct_element_adapter = @dct_element_hash ||= DctElementAdapter.new
   end
 end
