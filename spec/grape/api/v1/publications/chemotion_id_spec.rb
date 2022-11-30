@@ -74,7 +74,7 @@ describe API::V1::Publications::ChemotionId do
           "@type": "MolecularEntity",
           "analysisList": #{SampleMappers::AnalysisListMapper.from_hash(SampleAdapter::AnalysisListAdapter.new(sample).to_h).to_json},
           "boilingPoint": "#{sample.sample_boiling_point}",
-          "dct:conformsTo": #{SampleMappers::DctElementMapper.from_hash(SampleAdapter::DctConformsAdapter.new.to_h).to_json},
+          "dct:conformsTo": #{SampleMappers::DctConformsToMapper.from_hash(SampleAdapter::DctConformsToAdapter.new.to_h).to_json},
           "identifier": "#{sample.chemotion_id}",
           "inChI": "#{sample.inchistring}",
           "inChIKey": "#{sample.inchikey}",
