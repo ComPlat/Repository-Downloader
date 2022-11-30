@@ -1,5 +1,5 @@
 module SampleMappers
-  class DctElementMapper < ShaleCustom::Mapper
+  class DctConformsToMapper < ShaleCustom::Mapper
     attribute :dct_conformsTo, ReactionMappers::ReagentsList::ItemListElement::DctListMapper
 
     json do

@@ -18,14 +18,14 @@ FactoryBot.define do
 
     trait :with_all_args_nested_structures_as_mappers do
       primitives
-      dct_conformsTo { build :dct_element_mapper, :with_all_args_nested_structures_as_mappers }
+      dct_conformsTo { build :dct_conforms_to_mapper, :with_all_args_nested_structures_as_mappers }
       molecularWeight { build :molecular_weight_mapper, :with_all_args }
       analysisList { build :analysis_list_mapper, :with_all_args_nested_structures_as_mappers }
     end
 
     trait :with_all_args_nested_structures_as_hash do
       primitives
-      dct_conformsTo { attributes_for :dct_element_mapper, :with_all_args_nested_structures_as_hash }
+      dct_conformsTo { attributes_for :dct_conforms_to_mapper, :with_all_args_nested_structures_as_hash }
       molecularWeight { attributes_for :molecular_weight_mapper, :with_all_args }
       analysisList { attributes_for :analysis_list_mapper, :with_all_args_nested_structures_as_hash }
     end

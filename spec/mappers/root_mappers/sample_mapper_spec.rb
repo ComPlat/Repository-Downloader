@@ -87,7 +87,7 @@ describe RootMappers::SampleMapper do
 
       it { expect(sample_mapper).to be_a described_class }
       it { expect(sample_mapper.dct_conformsTo.as_json).to eq args[:dct_conformsTo].as_json }
-      it { expect(sample_mapper.dct_conformsTo).to be_a SampleMappers::DctElementMapper }
+      it { expect(sample_mapper.dct_conformsTo).to be_a SampleMappers::DctConformsToMapper }
     end
   end
 
