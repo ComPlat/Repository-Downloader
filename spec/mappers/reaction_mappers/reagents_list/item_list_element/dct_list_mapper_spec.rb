@@ -1,4 +1,4 @@
-describe ReactionMappers::DctListMapper do
+describe ReactionMappers::ReagentsList::ItemListElement::DctListMapper do
   let(:expected_json_nil_render_value) { "null" }
 
   describe ".new" do

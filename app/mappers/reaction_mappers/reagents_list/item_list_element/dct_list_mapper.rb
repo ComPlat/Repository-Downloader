@@ -1,4 +1,4 @@
-module ReactionMappers
+module ReactionMappers::ReagentsList::ItemListElement
   class DctListMapper < ShaleCustom::Mapper
     attribute :type, Shale::Type::String
     attribute :id, Shale::Type::String
