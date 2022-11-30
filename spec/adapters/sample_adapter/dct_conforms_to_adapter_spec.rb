@@ -1,4 +1,4 @@
-describe SampleAdapter::DctConformsAdapter do
+describe SampleAdapter::DctConformsToAdapter do
   let(:dct_conforms_adapter) { described_class.new }
 
   describe ".new" do
@@ -10,6 +10,6 @@ describe SampleAdapter::DctConformsAdapter do
   describe "#to_h" do
     subject { dct_conforms_adapter.to_h }
 
-    it { is_expected.to eq({dct_conformsTo: SampleAdapter::DctElementAdapter.new.to_h}) }
+    it { is_expected.to eq({dct_conformsTo: SampleAdapter::DctConformsToElementAdapter.new.to_h}) }
   end
 end
