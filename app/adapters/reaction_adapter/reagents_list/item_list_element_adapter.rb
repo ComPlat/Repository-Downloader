@@ -6,7 +6,7 @@ module ReactionAdapter::ReagentsList
 
     def type = @type ||= sample_to_sample_mapper_adapter.type
 
-    def dct_conformsTo = @dct_conforms_to ||= sample_to_sample_mapper_adapter.dct_conformsTo
+    def dct_conformsTo = @dct_conforms_to ||= dct_element_adapter.to_h
 
     def id = @id ||= sample_to_sample_mapper_adapter.id
 
@@ -23,5 +23,7 @@ module ReactionAdapter::ReagentsList
     private
 
     def sample_to_sample_mapper_adapter = @sample_to_sample_mapper_adapter ||= RootAdapters::SampleToSampleMapperAdapter.new(@sample)
+
+    def dct_element_adapter = @dct_element_adapter ||= SampleAdapter::DctConformsToElementAdapter.new
   end
 end
