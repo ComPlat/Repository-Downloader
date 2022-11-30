@@ -1,5 +1,5 @@
 module SampleAdapter
-  class DctElementAdapter
+  class DctConformsToElementAdapter
     include Hashable
 
     ID = "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE".freeze
