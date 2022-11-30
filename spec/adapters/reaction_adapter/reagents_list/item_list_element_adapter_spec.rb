@@ -30,6 +30,7 @@ describe ReactionAdapter::ReagentsList::ItemListElementAdapter do
     subject { item_list_element_adapter.type }
 
     it { is_expected.to eq "MolecularEntity" }
+    it { is_expected.to be_a String }
   end
 
   describe "#dct_conformsTo" do
@@ -44,35 +45,41 @@ describe ReactionAdapter::ReagentsList::ItemListElementAdapter do
     subject { item_list_element_adapter.id }
 
     it { is_expected.to eq sample_to_sample_adapter.id }
+    it { is_expected.to be_a String }
   end
 
   describe "#identifier" do
     subject { item_list_element_adapter.identifier }
 
     it { is_expected.to eq sample_to_sample_adapter.identifier }
+    it { is_expected.to be_a String }
   end
 
   describe "#name" do
     subject { item_list_element_adapter.name }
 
     it { is_expected.to eq sample_to_sample_adapter.name }
+    it { is_expected.to be_a String }
   end
 
   describe "#molecularFormula" do
     subject { item_list_element_adapter.molecularFormula }
 
     it { is_expected.to eq sample_to_sample_adapter.molecularFormula }
+    it { is_expected.to be_a String }
   end
 
   describe "#inChIKey" do
     subject { item_list_element_adapter.inChIKey }
 
     it { is_expected.to eq sample_to_sample_adapter.inChIKey }
+    it { is_expected.to be_a String }
   end
 
   describe "#smiles" do
     subject { item_list_element_adapter.smiles }
 
     it { is_expected.to eq sample_to_sample_adapter.smiles }
+    it { is_expected.to be_a String }
   end
 end
