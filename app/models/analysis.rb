@@ -14,6 +14,10 @@ class Analysis < Publication
     content ? JSON.parse(content) : {}
   end
 
+  def fill_id
+    doi.present? ? "https://dx.doi.org/#{doi}" : ""
+  end
+
   def doi = taggable_data&.dig("analysis_doi").to_s
 
   # noinspection RubyResolve
