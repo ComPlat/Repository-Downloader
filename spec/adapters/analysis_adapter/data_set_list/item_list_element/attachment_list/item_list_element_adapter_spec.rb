@@ -40,12 +40,14 @@ describe AnalysisAdapter::DataSetList::ItemListElement::AttachmentList::ItemList
     subject { attachment_list_adapter.identifier }
 
     it { is_expected.to eq attachment.identifier }
+    it { is_expected.to be_a String }
   end
 
   describe "#filename" do
     subject { attachment_list_adapter.filename }
 
     it { is_expected.to eq "BJ68_1H.zip" }
+    it { is_expected.to be_a String }
   end
 
   describe "#filepath" do
@@ -54,5 +56,6 @@ describe AnalysisAdapter::DataSetList::ItemListElement::AttachmentList::ItemList
     let(:expected_file_path) { "data/#{analysis.chemotion_id}" }
 
     it { is_expected.to eq expected_file_path }
+    it { is_expected.to be_a String }
   end
 end

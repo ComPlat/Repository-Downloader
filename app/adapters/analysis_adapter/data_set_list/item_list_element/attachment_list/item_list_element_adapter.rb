@@ -9,10 +9,10 @@ module AnalysisAdapter::DataSetList::ItemListElement::AttachmentList
 
     def type = @type ||= "AttachmentEntity"
 
-    def identifier = @identifier ||= @data_set_attachment.identifier
+    def identifier = @identifier ||= @data_set_attachment.identifier.to_s
 
-    def filename = @filename ||= @data_set_attachment.filename
+    def filename = @filename ||= @data_set_attachment.filename.to_s
 
-    def filepath = @filepath ||= "data/#{@analysis.chemotion_id}"
+    def filepath = @filepath ||= @analysis.chemotion_id.present? ? "data/#{@analysis.chemotion_id}" : ""
   end
 end
