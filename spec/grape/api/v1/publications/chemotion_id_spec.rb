@@ -61,7 +61,8 @@ describe API::V1::Publications::ChemotionId do
   describe "GET Sample" do
     let(:sample) {
       create :sample, :with_required_dependencies, :with_realistic_attributes,
-        taggable_data: {"original_analysis_ids" => [attachment1.analysis.id, attachment2.analysis.id]}
+        taggable_data: {"original_analysis_ids" => [attachment1.analysis.id, attachment2.analysis.id],
+                        "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"}
     }
     let(:attachment1) { create :attachment, :with_required_dependencies, :with_realistic_attributes }
     let(:attachment2) { create :attachment, :with_required_dependencies, :with_realistic_attributes }
@@ -70,7 +71,7 @@ describe API::V1::Publications::ChemotionId do
       <<~JSON
         {
           "@context": "https://schema.org/",
-          "@id": "#{sample.taggable_data&.dig("doi")}",
+          "@id": "#{sample.doi}",
           "@type": "MolecularEntity",
           "analysisList": #{SampleMappers::AnalysisListMapper.from_hash(SampleAdapter::AnalysisListAdapter.new(sample).to_h).to_json},
           "boilingPoint": "#{sample.sample_boiling_point}",
