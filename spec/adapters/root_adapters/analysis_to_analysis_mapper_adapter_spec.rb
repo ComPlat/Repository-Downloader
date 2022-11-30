@@ -89,7 +89,6 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
     it { is_expected.to include analysis.taggable_data["analysis_doi"] }
   end
 
-  # TODO: test call to DataSetListAdapter
   describe "#datasetList" do
     subject(:dataset_list) { analysis_to_analysis_mapper_adapter.datasetList }
 
