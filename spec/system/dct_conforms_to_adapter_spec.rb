@@ -7,7 +7,7 @@ RSpec.describe "dct_conforms_to_adapter integrates with dct_conforms_to_mapper" 
 
   it {
     expect(JSON.parse(to_json)).to eq({"http://purl.org/dc/terms/conformsTo" =>
-                                         {"@id" => "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE",
+                                         {"@id" => "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/",
                                           "@type" => "CreativeWork"}})
   }
 end

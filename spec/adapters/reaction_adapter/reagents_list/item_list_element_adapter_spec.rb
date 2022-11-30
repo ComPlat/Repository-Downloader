@@ -35,7 +35,9 @@ describe ReactionAdapter::ReagentsList::ItemListElementAdapter do
   describe "#dct_conformsTo" do
     subject { item_list_element_adapter.dct_conformsTo }
 
-    it { is_expected.to eq sample_to_sample_adapter.dct_conformsTo }
+    let(:expected_hash) { {type: "CreativeWork", id: "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/"} }
+
+    it { is_expected.to eq expected_hash }
   end
 
   describe "#id" do
