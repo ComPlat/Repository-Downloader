@@ -67,17 +67,17 @@ describe API::V1::Publications::ChemotionId do
       <<~JSON
         {
           "@context":"https://schema.org/", 
-          "@id":"10.14272/reaction/SA-FUHFF-UHFFFADPSC-WITXFYCLPD-UHFFFADPSC-NUHFF-NUHFF-NUHFF-ZZZ", 
+          "@id":"#{reaction.doi}", 
           "@type":"BioChemicalReaction", 
           "name":"", 
           "identifier":"#{reaction.chemotion_id}", 
-          "status":"Successful", 
+          "status":"#{reaction.reaction_status}", 
           "description":"--- !ruby/hash:Hashie::Mashops:\\n- !ruby/hash:Hashie::Mash\\n  insert: '2-Benzofuran-1,3-dione (75.0 g, 506 mmol, 1.00 equiv) and phenylmethanamine\\n    (63.9 g, 65.0 mL, 596 mmol, 1.18 equiv) were dissolved in 300 mL glacial acetic\\n    acid and refluxed for 4 h. After cooling to room temperature, 700 mL of water\\n    were added. The precipitate was filtered off and washed with water. The crude\\n    product was recrystallized from ethanol to give 106 g of a colorless solid.\\n\\n'\\n", 
-          "temperature":"118 °C", 
-          "reactionType":"MOP:0000790 | substitution reaction", 
-          "duration":"4 Hour(s)", 
-          "purification":"Crystallisation", 
-          "reagentsList":{"numberOfItems":2, "itemListElement":[{"@type":"MolecularEntity", "dct:conformsTo":{"@type":"CreativeWork", "@id":"https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/"}, "@id":"10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1", "identifier":"#{attached_sample1.chemotion_id}", "name":"2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine", "molecularFormula":"C20H14N8", "inChIKey":"MUAMZYSBUQADBN-UHFFFAOYSA-N", "smiles":"c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1"}, {"@type":"MolecularEntity", "dct:conformsTo":{"@type":"CreativeWork", "@id":"https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/"}, "@id":"10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1", "identifier":"#{attached_sample2.chemotion_id}", "name":"2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine", "molecularFormula":"C20H14N8", "inChIKey":"MUAMZYSBUQADBN-UHFFFAOYSA-N", "smiles":"c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1"}]}
+          "temperature":"#{reaction.temperature_user_text} #{reaction.temperature_value_unit}", 
+          "reactionType":"#{reaction.rxno}", 
+          "duration":"#{reaction.reaction_duration}", 
+          "purification":"#{(reaction.reaction_purification || []).join(", ")}", 
+          "reagentsList":#{ReactionMappers::ReagentsListMapper.from_hash(ReactionAdapter::ReagentsListAdapter.new(reaction).to_h).to_json}
         }
       JSON
     end
