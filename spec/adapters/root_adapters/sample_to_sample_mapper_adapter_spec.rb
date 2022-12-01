@@ -55,54 +55,63 @@ describe RootAdapters::SampleToSampleMapperAdapter do
     subject { sample_to_sample_mapper_adapter.id }
 
     it { is_expected.to eq sample.doi }
+    it { is_expected.to be_a String }
   end
 
   describe "#name" do
     subject { sample_to_sample_mapper_adapter.name }
 
     it { is_expected.to eq sample.iupac_name }
+    it { is_expected.to be_a String }
   end
 
   describe "#url" do
     subject { sample_to_sample_mapper_adapter.url }
 
     it { is_expected.to eq "https://dx.doi.org/#{sample_to_sample_mapper_adapter.id}" }
+    it { is_expected.to be_a String }
   end
 
   describe "#identifier" do
     subject { sample_to_sample_mapper_adapter.identifier }
 
     it { is_expected.to eq sample.chemotion_id }
+    it { is_expected.to be_a String }
   end
 
   describe "#iupacName" do
     subject { sample_to_sample_mapper_adapter.iupacName }
 
     it { is_expected.to eq sample_to_sample_mapper_adapter.name }
+    it { is_expected.to be_a String }
   end
 
   describe "#smiles" do
     subject { sample_to_sample_mapper_adapter.smiles }
 
     it { is_expected.to eq sample.cano_smiles }
+    it { is_expected.to be_a String }
   end
 
   describe "#inChI" do
     subject { sample_to_sample_mapper_adapter.inChI }
 
     it { is_expected.to eq sample.inchistring }
+    it { is_expected.to be_a String }
   end
 
   describe "#inChIKey" do
     subject { sample_to_sample_mapper_adapter.inChIKey }
 
     it { is_expected.to eq sample.inchikey }
+    it { is_expected.to be_a String }
   end
 
   describe "#molecularFormula" do
     subject { sample_to_sample_mapper_adapter.molecularFormula }
 
     it { is_expected.to eq sample.sum_formular }
+    it { is_expected.to be_a String }
   end
 
   describe "#meltingPoint" do
@@ -112,6 +121,7 @@ describe RootAdapters::SampleToSampleMapperAdapter do
       let(:infinity_range) { -Float::INFINITY...Float::INFINITY }
 
       it { is_expected.to eq(infinity_range.to_s) }
+      it { is_expected.to be_a String }
     end
 
     context "when called with room temperature" do
@@ -119,6 +129,7 @@ describe RootAdapters::SampleToSampleMapperAdapter do
       let(:room_temperature) { 18.0...25.0 }
 
       it { is_expected.to eq room_temperature.to_s }
+      it { is_expected.to be_a String }
     end
   end
 

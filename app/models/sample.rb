@@ -13,6 +13,8 @@ class Sample < Publication
 
   def doi = taggable_data&.dig("doi").to_s
 
+  def url = doi.present? ? "https://dx.doi.org/#{doi}" : ""
+
   private
 
   def analysis_ids = taggable_data&.dig("original_analysis_ids") || []

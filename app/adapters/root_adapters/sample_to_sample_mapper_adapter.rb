@@ -12,21 +12,21 @@ module RootAdapters
 
     def id = @id ||= @sample.doi # HINT: becomes @id in mapper
 
-    def name = @name ||= @sample.iupac_name
+    def name = @name ||= @sample.iupac_name.to_s
 
-    def url = @url ||= "https://dx.doi.org/#{id}"
+    def url = @url ||= @sample.url
 
     def identifier = @identifier ||= @sample.chemotion_id
 
     def iupacName = name
 
-    def smiles = @smiles ||= @sample.cano_smiles
+    def smiles = @smiles ||= @sample.cano_smiles.to_s
 
-    def inChI = @inchi ||= @sample.inchistring
+    def inChI = @inchi ||= @sample.inchistring.to_s
 
-    def inChIKey = @inchi_key ||= @sample.inchikey
+    def inChIKey = @inchi_key ||= @sample.inchikey.to_s
 
-    def molecularFormula = @molecular_formula ||= @sample.sum_formular
+    def molecularFormula = @molecular_formula ||= @sample.sum_formular.to_s
 
     def meltingPoint = @melting_point ||= @sample.sample_melting_point.to_s
 
