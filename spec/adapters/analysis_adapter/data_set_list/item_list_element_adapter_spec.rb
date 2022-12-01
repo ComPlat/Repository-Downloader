@@ -12,12 +12,14 @@ describe AnalysisAdapter::DataSetList::ItemListElementAdapter do
     subject { data_set_list_adapter.type }
 
     it { is_expected.to eq "DatasetEntity" }
+    it { is_expected.to be_a String }
   end
 
   describe "#identifier" do
     subject { data_set_list_adapter.identifier }
 
-    it { is_expected.to eq attachment.ds_id }
+    it { is_expected.to eq attachment.ds_id.to_s }
+    it { is_expected.to be_a String }
   end
 
   describe "#name" do

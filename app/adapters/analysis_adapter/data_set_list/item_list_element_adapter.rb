@@ -10,7 +10,7 @@ module AnalysisAdapter::DataSetList
 
     def type = @type ||= "DatasetEntity"
 
-    def identifier = @identifier ||= @ds_id
+    def identifier = @identifier ||= @ds_id.to_s
 
     def name = @name ||= data_set_attachment.name.to_s
 
