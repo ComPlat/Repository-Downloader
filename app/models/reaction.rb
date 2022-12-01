@@ -16,7 +16,11 @@ class Reaction < Publication
 
   def temperature_value_unit = reaction_temperature&.dig("valueUnit").to_s
 
+  def temperature = reaction_temperature.present? ? temperature_user_text_value_unit : ""
+
   private
 
   def samples_iupac_names = samples.map { |sample| sample.iupac_name }
+
+  def temperature_user_text_value_unit = "#{temperature_user_text} #{temperature_value_unit}"
 end

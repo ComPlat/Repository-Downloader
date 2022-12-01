@@ -80,13 +80,43 @@ describe Reaction do
   describe "#temperature_user_text" do
     subject(:temperature_user_text) { reaction.temperature_user_text }
 
-    it { is_expected.to eq "118" }
+    context "when reaction_temperature is filled correctly" do
+      it { is_expected.to eq "118" }
+    end
+
+    context "when reaction_temperature is nil" do
+      let(:reaction) { create :reaction, :with_realistic_attributes, samples: [sample], reaction_temperature: nil }
+
+      it { is_expected.to eq "" }
+    end
   end
 
   describe "#temperature_value_unit" do
     subject(:temperature_value_unit) { reaction.temperature_value_unit }
 
-    it { is_expected.to eq "°C" }
+    context "when reaction_temperature is filled correctly" do
+      it { is_expected.to eq "°C" }
+    end
+
+    context "when reaction_temperature is nil" do
+      let(:reaction) { create :reaction, :with_realistic_attributes, samples: [sample], reaction_temperature: nil }
+
+      it { is_expected.to eq "" }
+    end
+  end
+
+  describe "#temperature" do
+    subject(:temperature_value_unit) { reaction.temperature }
+
+    context "when reaction_temperature is filled correctly" do
+      it { is_expected.to eq "118 °C" }
+    end
+
+    context "when reaction_temperature is nil" do
+      let(:reaction) { create :reaction, :with_realistic_attributes, samples: [sample], reaction_temperature: nil }
+
+      it { is_expected.to eq "" }
+    end
   end
 
   describe "#present_to_api" do
