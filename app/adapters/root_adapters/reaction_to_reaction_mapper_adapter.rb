@@ -12,7 +12,7 @@ module RootAdapters
 
     def name = @name ||= @reaction.name.to_s
 
-    def identifier = @identifier ||= @reaction.chemotion_id
+    def identifier = @identifier ||= @reaction.chemotion_id.to_s
 
     def status = @status ||= @reaction.reaction_status.to_s
 
