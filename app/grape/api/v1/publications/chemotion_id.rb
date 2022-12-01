@@ -6,13 +6,16 @@ module API
 
         namespace "/publications/chemotion_id" do
           desc "Get one publication via ChemotionID", {produces: %w[application/json application/xml text/csv]}
-          params { requires :id, type: Integer, desc: "ChemotionID" }
-          route_param :id, type: Integer do
+          params { requires :id, type: String, desc: "ChemotionID" }
+          route_param :id, type: String do
             get do
-              if params[:id] <= 0
-                error!("Unprocessable Entity, 'id'=#{params[:id]} not valid", 422)
-              end
-              present PublicationPresenter.present_by_chemotion_id params[:id]
+              array = params[:id].split(",")
+
+              error!("Unprocessable Entity, 'id'=#{params[:id]} not valid", 422) unless array.is_a? Array
+
+              present PublicationPresenter.present_by_chemotion_id array.first.to_i if array.length == 1
+
+              PublicationsPresenter.present_by_chemotion_ids(array.map { |chomotion_id| chomotion_id.to_i })
             end
           end
         end

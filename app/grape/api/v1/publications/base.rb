@@ -3,6 +3,7 @@ module API
     module Publications
       class Base < Grape::API
         mount API::V1::Publications::ChemotionId
+        mount API::V1::Publications::Doi
       end
     end
   end
