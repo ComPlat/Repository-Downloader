@@ -43,7 +43,7 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
     it { is_expected.to eq "AnalysisEntity" }
   end
 
-  describe "RootAdapters::AnalysisToAnalysisMapperAdapter" do
+  describe "#id" do
     context "when analysis is given" do
       subject { analysis_to_analysis_mapper_adapter.id }
 
