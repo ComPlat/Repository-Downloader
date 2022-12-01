@@ -9,13 +9,16 @@ module API
           params { requires :id, type: String, desc: "ChemotionID" }
           route_param :id, type: String do
             get do
-              array = params[:id].split(",")
+              ids = params[:id].split(",")
 
-              error!("Unprocessable Entity, 'id'=#{params[:id]} not valid", 422) unless array.is_a? Array
-
-              present PublicationPresenter.present_by_chemotion_id array.first.to_i if array.length == 1
-
-              PublicationsPresenter.present_by_chemotion_ids(array.map { |chomotion_id| chomotion_id.to_i })
+              case ids.size
+              when 0
+                error!("Unprocessable Entity, 'id'=#{params[:id]} not valid", 422)
+              when 1
+                present PublicationPresenter.present_by_chemotion_id ids.first
+              else
+                present PublicationsByChemotionIdPresenter.new ids
+              end
             end
           end
         end
