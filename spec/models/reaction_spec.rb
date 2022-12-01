@@ -1,5 +1,6 @@
 describe Reaction do
-  let(:reaction) { create :reaction, :with_realistic_attributes }
+  let(:reaction) { create :reaction, :with_realistic_attributes, samples: [sample] }
+  let(:sample) { build :sample, :with_realistic_attributes }
 
   it_behaves_like "Publication"
 
@@ -52,6 +53,28 @@ describe Reaction do
     subject(:doi) { reaction.doi }
 
     it { is_expected.to eq "10.14272/reaction/SA-FUHFF-UHFFFADPSC-WITXFYCLPD-UHFFFADPSC-NUHFF-NUHFF-NUHFF-ZZZ" }
+  end
+
+  describe "#name" do
+    subject { reaction.name }
+
+    context "when only one sample exists" do
+      let(:expected_name) { "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine" }
+
+      it { is_expected.to eq expected_name }
+    end
+
+    context "when multiple samples exists" do
+      let(:reaction) { build(:reaction, samples: samples) }
+      let(:samples) do
+        [build(:sample, :with_realistic_attributes),
+          build(:sample, :with_realistic_attributes, iupac_name: "5-cryptonite-2-yl-2H-azurite-4-yl")]
+      end
+
+      let(:expected_name) { "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine 5-cryptonite-2-yl-2H-azurite-4-yl" }
+
+      it { is_expected.to eq expected_name }
+    end
   end
 
   describe "#temperature_user_text" do

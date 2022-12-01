@@ -51,7 +51,19 @@ describe RootAdapters::ReactionToReactionMapperAdapter do
   describe "#name" do
     subject { reaction_to_reaction_mapper_adapter.name }
 
-    it { is_expected.to eq "" }
+    context "when only one sample exists" do
+      it { is_expected.to eq reaction.name }
+    end
+
+    context "when multiple samples exists" do
+      let(:reaction) { build(:reaction, samples: samples) }
+      let(:samples) do
+        [build(:sample, :with_realistic_attributes),
+          build(:sample, :with_realistic_attributes, iupac_name: "5-cryptonite-2-yl-2H-azurite-4-yl")]
+      end
+
+      it { is_expected.to eq reaction.name }
+    end
   end
 
   describe "#identifier" do
