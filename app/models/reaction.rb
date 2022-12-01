@@ -6,7 +6,7 @@ class Reaction < Publication
 
   has_many :samples, foreign_key: :ancestry, inverse_of: :reaction, dependent: :restrict_with_exception
 
-  def chemotion_id = "CRR-#{id}"
+  def chemotion_id = id ? "CRR-#{id}" : ""
 
   def doi = taggable_data&.dig("doi").to_s
 
