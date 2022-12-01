@@ -1,5 +1,5 @@
 describe SampleAdapter::MolecularWeightAdapter do
-  let(:sample) { create :sample, :with_required_dependencies, :with_realistic_attributes }
+  let(:sample) { build :sample, :with_required_dependencies, :with_realistic_attributes }
   let(:molecular_weight_adapter) { described_class.new sample }
 
   describe ".new" do

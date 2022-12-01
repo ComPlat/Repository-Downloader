@@ -1,5 +1,5 @@
 describe AnalysisAdapter::DataSetList::ItemListElementAdapter do
-  let(:attachment) { create :attachment, :with_required_dependencies, :with_realistic_attributes }
+  let(:attachment) { build :attachment, :with_required_dependencies, :with_realistic_attributes }
   let(:data_set_list_adapter) { described_class.new attachment.analysis, attachment.ds_id, [attachment] }
 
   describe ".new" do

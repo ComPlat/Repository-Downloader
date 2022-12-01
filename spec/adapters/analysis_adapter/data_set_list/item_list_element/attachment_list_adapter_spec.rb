@@ -1,6 +1,6 @@
 describe AnalysisAdapter::DataSetList::ItemListElement::AttachmentListAdapter do
-  let(:attachment1) { create :attachment, :with_required_dependencies, :with_realistic_attributes, ds_id: 3 }
-  let(:attachment2) { create :attachment, :with_realistic_attributes, ana_id: attachment1.ana_id, ds_id: 3, filename: "tstnm" }
+  let(:attachment1) { build :attachment, :with_required_dependencies, :with_realistic_attributes, ds_id: 3 }
+  let(:attachment2) { build :attachment, :with_realistic_attributes, ana_id: attachment1.ana_id, ds_id: 3, filename: "tstnm" }
   let(:attachments_grouped_by_dataset) { AttachmentRepository.grouped_by_dataset attachment1.analysis }
   let(:attachment_list_adapter) { described_class.new attachment1.analysis, attachments_grouped_by_dataset[attachment1.ds_id] }
 

@@ -1,5 +1,5 @@
 describe RootAdapters::SampleToSampleMapperAdapter do
-  let(:sample) { create :sample, :with_required_dependencies, :with_realistic_attributes }
+  let(:sample) { build :sample, :with_required_dependencies, :with_realistic_attributes }
   let(:sample_to_sample_mapper_adapter) { described_class.new sample }
 
   describe ".new" do
@@ -143,7 +143,7 @@ describe RootAdapters::SampleToSampleMapperAdapter do
     end
 
     context "when called with room temperature" do
-      let(:sample) { create :sample, :with_required_dependencies, :with_realistic_attributes, sample_boiling_point: room_temperature }
+      let(:sample) { build :sample, :with_required_dependencies, :with_realistic_attributes, sample_boiling_point: room_temperature }
       let(:room_temperature) { 18.0...25.0 }
 
       it { is_expected.to eq room_temperature.to_s }

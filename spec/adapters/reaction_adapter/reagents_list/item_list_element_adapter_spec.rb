@@ -1,5 +1,5 @@
 describe ReactionAdapter::ReagentsList::ItemListElementAdapter do
-  let(:sample) { create :sample, :with_required_dependencies, :with_realistic_attributes }
+  let(:sample) { build :sample, :with_required_dependencies, :with_realistic_attributes }
   let(:item_list_element_adapter) { described_class.new sample }
   let(:sample_to_sample_adapter) { RootAdapters::SampleToSampleMapperAdapter.new sample }
 
