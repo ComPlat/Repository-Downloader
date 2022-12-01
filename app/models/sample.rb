@@ -9,7 +9,7 @@ class Sample < Publication
 
   belongs_to :reaction, foreign_key: :ancestry, inverse_of: :samples
 
-  def chemotion_id = id ? "CRS-#{id}" : ""
+  def chemotion_id = "CRS-#{id}"
 
   def doi = taggable_data&.dig("doi").to_s
 

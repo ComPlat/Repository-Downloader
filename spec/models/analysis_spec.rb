@@ -53,12 +53,6 @@ describe Analysis do
 
       it { is_expected.to eq "CRD-1" }
     end
-
-    context "when id is nil" do
-      let(:id) { nil }
-
-      it { is_expected.to eq "" }
-    end
   end
 
   describe "#content" do
