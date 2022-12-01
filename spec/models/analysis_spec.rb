@@ -1,4 +1,6 @@
 describe Analysis do
+  let(:analysis) { build :analysis, :with_realistic_attributes }
+
   it_behaves_like "Publication"
 
   it { expect(described_class.sti_name).to eq "Container" }
@@ -65,8 +67,6 @@ describe Analysis do
     context "when content is a stringified JSON" do
       let(:json) { JSON.parse(analysis.extended_metadata&.dig("content")) }
 
-      let(:analysis) { build :analysis, :with_realistic_attributes }
-
       it { is_expected.to eq json }
       it { is_expected.to eq({"ops" => [{"insert" => " "}, {"attributes" => {"script" => "super"}, "insert" => "13"}, {"insert" => "C NMR (100 MHz, DMSO-d6, ppm), δ = 171.0, 141.1, 135.4 (q, J = 5.2 Hz), 127.4, 124.3 (q, J = 4.2 Hz), 124.0 (q, J = 271.3 Hz), 118.9, 118.2, 111.3 (q, J = 33.3 Hz), 44.4, 25.6, 22.3 (2 C). "}]}) }
     end
@@ -89,8 +89,6 @@ describe Analysis do
     end
 
     context "when doi exists" do
-      let(:analysis) { build :analysis, :with_realistic_attributes }
-
       let(:expected_id) { "https://dx.doi.org/#{analysis.doi}" }
 
       it { is_expected.to eq expected_id }
@@ -101,23 +99,44 @@ describe Analysis do
   describe "#doi" do
     subject(:doi) { analysis.doi }
 
-    let(:analysis) { create :analysis, :with_realistic_attributes }
-
     it { is_expected.to eq analysis.taggable_data&.dig("analysis_doi") }
   end
 
   describe "#kind" do
     subject(:kind) { analysis.kind }
 
-    let(:analysis) { create :analysis, :with_realistic_attributes }
-
     it { is_expected.to eq analysis.extended_metadata&.dig("kind") }
+  end
+
+  describe "#ontologies" do
+    subject(:ontologies) { analysis.ontologies }
+
+    context "when kind is correctly filled" do
+      let(:expected_ontologies) { "13C nuclear magnetic resonance spectroscopy (13C NMR)" }
+
+      it { is_expected.to eq expected_ontologies }
+    end
+
+    context "when kind is filled without a |" do
+      let(:analysis) {
+        build :analysis, :with_realistic_attributes,
+          extended_metadata: {"kind" => "CHMO:0000595 13C nuclear magnetic resonance spectroscopy (13C NMR)"}
+      }
+
+      let(:expected_ontologies) { "CHMO:0000595 13C nuclear magnetic resonance spectroscopy (13C NMR)" }
+
+      it { is_expected.to eq expected_ontologies }
+    end
+
+    context "when extended_metadata is nil" do
+      let(:analysis) { build :analysis, :with_realistic_attributes, extended_metadata: nil }
+
+      it { is_expected.to eq "" }
+    end
   end
 
   describe "#present_to_api" do
     subject(:present_to_api) { described_class.new.present_to_api }
-
-    let(:analysis) { create :analysis, :with_realistic_attributes }
 
     it { expect(present_to_api).to be_a RootMappers::AnalysisMapper }
   end
