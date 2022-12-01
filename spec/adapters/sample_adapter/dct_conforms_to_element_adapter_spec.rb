@@ -16,12 +16,12 @@ describe SampleAdapter::DctConformsToElementAdapter do
   describe "#id" do
     subject { dct_element_adapter.id }
 
-    it { is_expected.to eq SampleAdapter::DctConformsToElementAdapter::ID }
+    it { is_expected.to eq described_class::ID }
   end
 
   describe "#type" do
     subject { dct_element_adapter.type }
 
-    it { is_expected.to eq SampleAdapter::DctConformsToElementAdapter::TYPE }
+    it { is_expected.to eq described_class::TYPE }
   end
 end
