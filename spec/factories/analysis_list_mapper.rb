@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :analysis_list_mapper, class: "SampleMappers::AnalysisListMapper" do
     trait :primitives do
-      numberOfItems { itemListElement.count }
+      numberOfItems { itemListElement.size }
     end
 
     trait :with_all_args_nested_structures_as_mappers do

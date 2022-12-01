@@ -17,7 +17,7 @@ describe SampleAdapter::AnalysisListAdapter do
   describe "#numberOfItems" do
     subject { analysis_list_adapter.numberOfItems }
 
-    it { is_expected.to eq sample.analyses.count }
+    it { is_expected.to eq sample.analyses.size }
   end
 
   describe "#itemListElement" do

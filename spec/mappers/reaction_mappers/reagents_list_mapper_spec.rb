@@ -5,8 +5,8 @@ describe ReactionMappers::ReagentsListMapper do
     describe "trait :with_all_args" do
       subject(:factory) { build :reagents_list_mapper, :with_all_args }
 
-      it { expect(factory.instance_variable_get(:@itemListElement).count).to eq 1 }
-      it { expect(factory.instance_variable_get(:@itemListElement).count).to eq factory.instance_variable_get :@numberOfItems }
+      it { expect(factory.instance_variable_get(:@itemListElement).size).to eq 1 }
+      it { expect(factory.instance_variable_get(:@itemListElement).size).to eq factory.instance_variable_get :@numberOfItems }
       it { expect(factory.instance_variable_get(:@itemListElement)).to all be_a ReactionMappers::ReagentsList::ItemListElementMapper }
     end
   end

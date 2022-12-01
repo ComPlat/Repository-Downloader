@@ -3,16 +3,16 @@ describe AnalysisMappers::DataSetList::ItemListElement::AttachmentListMapper do
     describe "trait :with_all_args_nested_structures_as_mappers" do
       subject(:factory) { build :attachment_list_mapper, :with_all_args_nested_structures_as_mappers }
 
-      it { expect(factory.instance_variable_get(:@itemListElement).count).to eq 2 }
-      it { expect(factory.instance_variable_get(:@itemListElement).count).to eq factory.instance_variable_get :@numberOfItems }
+      it { expect(factory.instance_variable_get(:@itemListElement).size).to eq 2 }
+      it { expect(factory.instance_variable_get(:@itemListElement).size).to eq factory.instance_variable_get :@numberOfItems }
       it { expect(factory.instance_variable_get(:@itemListElement)).to all be_a AnalysisMappers::DataSetList::ItemListElement::AttachmentList::ItemListElementMapper }
     end
 
     describe "trait :with_all_args_nested_structures_as_hash" do
       subject(:factory) { build :attachment_list_mapper, :with_all_args_nested_structures_as_hash }
 
-      it { expect(factory.instance_variable_get(:@itemListElement).count).to eq 2 }
-      it { expect(factory.instance_variable_get(:@itemListElement).count).to eq factory.instance_variable_get :@numberOfItems }
+      it { expect(factory.instance_variable_get(:@itemListElement).size).to eq 2 }
+      it { expect(factory.instance_variable_get(:@itemListElement).size).to eq factory.instance_variable_get :@numberOfItems }
       it { expect(factory.instance_variable_get(:@itemListElement)).to all be_a Hash }
     end
   end

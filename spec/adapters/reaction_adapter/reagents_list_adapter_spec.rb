@@ -25,7 +25,7 @@ describe ReactionAdapter::ReagentsListAdapter do
   describe "#numberOfItems" do
     subject { reagents_list_adapter.numberOfItems }
 
-    it { is_expected.to eq reaction.samples.count }
+    it { is_expected.to eq reaction.samples.size }
   end
 
   describe "#itemListElement" do
