@@ -18,6 +18,7 @@ class Analysis < Publication
     doi.present? ? "https://dx.doi.org/#{doi}" : ""
   end
 
+  # HINT: malformed input will result in malformed output
   def ontologies = kind&.split("|")&.last&.strip.to_s
 
   def doi = taggable_data&.dig("analysis_doi").to_s
