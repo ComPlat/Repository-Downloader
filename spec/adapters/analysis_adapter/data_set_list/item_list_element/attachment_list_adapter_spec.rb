@@ -1,8 +1,8 @@
 describe AnalysisAdapter::DataSetList::ItemListElement::AttachmentListAdapter do
   let(:attachment1) { create :attachment, :with_required_dependencies, :with_realistic_attributes, ds_id: 3 }
   let(:attachment2) { create :attachment, :with_realistic_attributes, ana_id: attachment1.ana_id, ds_id: 3, filename: "tstnm" }
-  let(:attachments) { AttachmentRepository.grouped_by_dataset attachment1.analysis }
-  let(:attachment_list_adapter) { described_class.new attachment1.analysis, attachments[attachment1.ds_id] }
+  let(:attachments_grouped_by_dataset) { AttachmentRepository.grouped_by_dataset attachment1.analysis }
+  let(:attachment_list_adapter) { described_class.new attachment1.analysis, attachments_grouped_by_dataset[attachment1.ds_id] }
 
   before do
     attachment1
@@ -29,7 +29,7 @@ describe AnalysisAdapter::DataSetList::ItemListElement::AttachmentListAdapter do
   describe "#numberOfItems" do
     subject { attachment_list_adapter.numberOfItems }
 
-    it { is_expected.to eq attachments[attachment1.ds_id].count }
+    it { is_expected.to eq attachments_grouped_by_dataset[attachment1.ds_id].count }
   end
 
   describe "#itemListElement" do
@@ -37,7 +37,7 @@ describe AnalysisAdapter::DataSetList::ItemListElement::AttachmentListAdapter do
 
     let(:item_list_element_adapter) {
       AnalysisAdapter::DataSetList::ItemListElement::AttachmentList::ItemListElementAdapterIterator
-        .new attachment1.analysis, attachments[attachment1.ds_id]
+        .new attachment1.analysis, attachments_grouped_by_dataset[attachment1.ds_id]
     }
 
     it { is_expected.to eq item_list_element_adapter.to_a }
