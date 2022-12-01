@@ -1,5 +1,4 @@
 describe ReactionMappers::ReagentsList::ItemListElementMapper do
-  let(:expected_json_nil_render_value) { "null" }
   let(:reagents_list_item_list_element_mapper) { build :reagents_list_item_list_element_mapper, :with_all_args }
 
   describe ".new" do
@@ -54,6 +53,8 @@ describe ReactionMappers::ReagentsList::ItemListElementMapper do
   end
 
   describe "to_json" do
+    let(:expected_json_nil_render_value) { "null" }
+
     context "when called without any arguments" do
       let(:reagents_list_item_list_element_mapper) { build :reagents_list_item_list_element_mapper }
 
