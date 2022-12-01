@@ -1,13 +1,11 @@
 describe AnalysisAdapter::DataSetList::ItemListElement::AttachmentList::ItemListElementAdapter do
-  let(:analysis) { create :analysis, :with_realistic_attributes, element_id: 1 }
-  let(:attachment) {
-    create :attachment,
-      ds_id: 2,
-      ana_id: analysis.element_id,
-      identifier: "a63e278b-22f2-4da3-955f-e80e197bc853",
-      filename: "BJ68_1H.zip"
-  }
+  let(:analysis) { create :analysis, :with_realistic_attributes, element_id: 1, attachments: [attachment] }
+  let(:attachment) { build :attachment, :with_realistic_attributes }
   let(:attachment_list_adapter) { described_class.new analysis, attachment }
+
+  before do
+    attachment
+  end
 
   describe ".new" do
     subject { attachment_list_adapter }
@@ -34,6 +32,7 @@ describe AnalysisAdapter::DataSetList::ItemListElement::AttachmentList::ItemList
     subject { attachment_list_adapter.type }
 
     it { is_expected.to eq "AttachmentEntity" }
+    it { is_expected.to be_a String }
   end
 
   describe "#identifier" do
@@ -46,7 +45,7 @@ describe AnalysisAdapter::DataSetList::ItemListElement::AttachmentList::ItemList
   describe "#filename" do
     subject { attachment_list_adapter.filename }
 
-    it { is_expected.to eq "BJ68_1H.zip" }
+    it { is_expected.to eq analysis.attachments.first.filename }
     it { is_expected.to be_a String }
   end
 
