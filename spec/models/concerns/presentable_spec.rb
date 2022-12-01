@@ -1,10 +1,5 @@
 describe Presentable do
-  let(:test_publication_model_class) do
-    stub_const("TestPublicationModel",
-      Class.new {
-        include Presentable
-      })
-  end
+  let(:test_publication_model_class) { stub_const("TestPublicationModel", Class.new { include Presentable }) }
   let(:test_publication_mapper_class) do
     stub_const("RootMappers::TestPublicationModelMapper", Class.new {
       def self.from_hash(hash) = new
