@@ -31,7 +31,7 @@ describe AnalysisAdapter::DataSetListAdapter do
   describe "#numberOfItems" do
     subject { data_set_list_adapter.numberOfItems }
 
-    it { is_expected.to eq analysis.attachments.count }
+    it { is_expected.to eq analysis.attachments.size }
   end
 
   describe "#itemListElement" do
