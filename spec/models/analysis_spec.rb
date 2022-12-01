@@ -99,13 +99,29 @@ describe Analysis do
   describe "#doi" do
     subject(:doi) { analysis.doi }
 
-    it { is_expected.to eq analysis.taggable_data&.dig("analysis_doi") }
+    context "when taggable_data is correctly filled" do
+      it { is_expected.to eq analysis.taggable_data&.dig("analysis_doi") }
+    end
+
+    context "when taggable_data is nil" do
+      let(:analysis) { build :analysis, :with_realistic_attributes, taggable_data: nil }
+
+      it { is_expected.to eq "" }
+    end
   end
 
   describe "#kind" do
     subject(:kind) { analysis.kind }
 
-    it { is_expected.to eq analysis.extended_metadata&.dig("kind") }
+    context "when extended_metadata is correctly filled" do
+      it { is_expected.to eq analysis.extended_metadata&.dig("kind") }
+    end
+
+    context "when extended_metadata is nil" do
+      let(:analysis) { build :analysis, :with_realistic_attributes, extended_metadata: nil }
+
+      it { is_expected.to eq "" }
+    end
   end
 
   describe "#ontologies" do
