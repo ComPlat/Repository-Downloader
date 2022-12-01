@@ -10,7 +10,7 @@ module RootAdapters
 
     def id = @id ||= @analysis.fill_id
 
-    def ontologies = @ontologies ||= @analysis.kind&.split("|")&.last&.strip.to_s
+    def ontologies = @ontologies ||= @analysis.ontologies
 
     def title = ontologies
 

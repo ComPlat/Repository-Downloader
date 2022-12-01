@@ -18,6 +18,8 @@ class Analysis < Publication
     doi.present? ? "https://dx.doi.org/#{doi}" : ""
   end
 
+  def ontologies = kind&.split("|")&.last&.strip.to_s
+
   def doi = taggable_data&.dig("analysis_doi").to_s
 
   # noinspection RubyResolve
