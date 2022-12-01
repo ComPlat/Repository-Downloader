@@ -46,11 +46,11 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
   describe "#id" do
     subject { analysis_to_analysis_mapper_adapter.id }
 
-    context "when analysis is given" do
+    context "when taggable_data is filled correctly" do
       it { is_expected.to eq "https://dx.doi.org/#{analysis.doi}" }
     end
 
-    context "when analysis is NOT given" do
+    context "when taggable_data is nil" do
       let(:analysis) { create :analysis, :with_realistic_attributes, taggable_data: nil }
 
       it { is_expected.to eq "" }
