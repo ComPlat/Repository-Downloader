@@ -6,19 +6,15 @@ class SamplePresenter
 
   delegate :to_json, :to_xml, :to_csv, to: :mapper
 
-  def to_zip
-    nil
-    # TODO: Test and implement me!
-    # HINT: Do not put the whole logic in here.
-  end
+  # TODO: Test and implement me!
+  # HINT: Do not put the whole logic in here.
+  def to_zip = nil
 
   private
 
-  def mapper
-    RootMappers::SampleMapper.from_hash model_to_mapper_adapter_hash
-  end
+  def mapper = @mapper ||= RootMappers::SampleMapper.from_hash(model_to_mapper_adapter_hash)
 
-  def model_to_mapper_adapter_hash = model_to_mapper_adapter.to_h
+  def model_to_mapper_adapter_hash = @model_to_mapper_adapter_hash ||= model_to_mapper_adapter.to_h
 
-  def model_to_mapper_adapter = RootAdapters::SampleToSampleMapperAdapter.new @sample
+  def model_to_mapper_adapter = @model_to_mapper_adapter ||= RootAdapters::SampleToSampleMapperAdapter.new(@sample)
 end
