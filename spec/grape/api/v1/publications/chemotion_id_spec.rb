@@ -33,31 +33,6 @@ describe API::V1::Publications::ChemotionId do
     end
   end
 
-  describe "GET Analysis" do
-    let(:analysis) { create(:analysis, :with_realistic_attributes) }
-    let(:attachment) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id }
-
-    let(:expected_json) do
-      <<~JSON
-        {
-          "@context": "https://schema.org/",
-          "@id": "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1",
-          "@type": "AnalysisEntity",
-          "datasetList": {"itemListElement":[{"@type":"DatasetEntity", "Instrument":" Bruker", "attachmentList":{"itemListElement":[{"@type":"AttachmentEntity", "filename":"JK20-proton.peak.png", "filepath":"data/#{attachment.analysis.chemotion_id}", "identifier":"6954c6ca-adef-4ab1-b00b-31dbf9c53c8a"}], "numberOfItems":1}, "descriptions":"", "identifier":"681160", "name":"R53A_EI-MS"}], "numberOfItems":1},
-          "descriptions": {"ops":[{"insert":" "}, {"attributes":{"script":"super"},"insert":"13"}, {"insert":"C NMR (100 MHz, DMSO-d6, ppm), δ = 171.0, 141.1, 135.4 (q, J = 5.2 Hz), 127.4, 124.3 (q, J = 4.2 Hz), 124.0 (q, J = 271.3 Hz), 118.9, 118.2, 111.3 (q, J = 33.3 Hz), 44.4, 25.6, 22.3 (2 C). "}]},
-          "identifier": "#{attachment.analysis.chemotion_id}",
-          "ontologies": "13C nuclear magnetic resonance spectroscopy (13C NMR)",
-          "title": "13C nuclear magnetic resonance spectroscopy (13C NMR)",
-          "url": "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1"
-        }
-      JSON
-    end
-
-    before { get "/api/v1/publications/chemotion_id/#{attachment.analysis.id}" }
-
-    it { expect(JSON.parse(response.body)).to eq JSON.parse(expected_json) }
-  end
-
   describe "GET Reaction" do
     let(:reaction) { create :reaction, :with_realistic_attributes }
     let(:attached_sample1) { create :sample, :with_realistic_attributes, reaction:, id: 2 }
