@@ -60,8 +60,8 @@ describe API::V1::Publications::ChemotionId do
 
   describe "GET Reaction" do
     let(:reaction) { create :reaction, :with_realistic_attributes }
-    let(:attached_sample1) { create :sample, :with_realistic_attributes, reaction: }
-    let(:attached_sample2) { create :sample, :with_realistic_attributes, reaction: }
+    let(:attached_sample1) { create :sample, :with_realistic_attributes, reaction:, id: 2 }
+    let(:attached_sample2) { create :sample, :with_realistic_attributes, reaction:, id: 3 }
 
     let(:expected_json) do
       <<~JSON
@@ -77,7 +77,7 @@ describe API::V1::Publications::ChemotionId do
           "reactionType":"MOP:0000790 | substitution reaction", 
           "duration":"4 Hour(s)", 
           "purification":"Crystallisation", 
-          "reagentsList": {"numberOfItems":2, "itemListElement":[{"@type":"MolecularEntity", "dct:conformsTo":{"@type":"CreativeWork", "@id":"https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/"}, "@id":"10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1", "identifier":"#{attached_sample1.chemotion_id}", "name":"2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine", "molecularFormula":"C20H14N8", "inChIKey":"MUAMZYSBUQADBN-UHFFFAOYSA-N", "smiles":"c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1"}, {"@type":"MolecularEntity", "dct:conformsTo":{"@type":"CreativeWork", "@id":"https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/"}, "@id":"10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1", "identifier":"#{attached_sample2.chemotion_id}", "name":"2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine", "molecularFormula":"C20H14N8", "inChIKey":"MUAMZYSBUQADBN-UHFFFAOYSA-N", "smiles":"c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1"}]}
+          "reagentsList": {"numberOfItems":2, "itemListElement":[{"@type":"MolecularEntity", "dct:conformsTo":{"@type":"CreativeWork", "@id":"https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/"}, "@id":"10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1", "identifier":"CRS-2", "name":"2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine", "molecularFormula":"C20H14N8", "inChIKey":"MUAMZYSBUQADBN-UHFFFAOYSA-N", "smiles":"c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1"}, {"@type":"MolecularEntity", "dct:conformsTo":{"@type":"CreativeWork", "@id":"https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/"}, "@id":"10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1", "identifier":"CRS-3", "name":"2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine", "molecularFormula":"C20H14N8", "inChIKey":"MUAMZYSBUQADBN-UHFFFAOYSA-N", "smiles":"c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1"}]}
         }
       JSON
     end
