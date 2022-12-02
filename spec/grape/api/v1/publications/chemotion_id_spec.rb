@@ -41,14 +41,14 @@ describe API::V1::Publications::ChemotionId do
       <<~JSON
         {
           "@context": "https://schema.org/",
-          "@id": "https://dx.doi.org/#{analysis.doi}",
+          "@id": "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1",
           "@type": "AnalysisEntity",
-          "datasetList": #{AnalysisMappers::DataSetListMapper.from_hash(AnalysisAdapter::DataSetListAdapter.new(analysis).to_h).to_json},
+          "datasetList": {"itemListElement":[{"@type":"DatasetEntity", "Instrument":" Bruker", "attachmentList":{"itemListElement":[{"@type":"AttachmentEntity", "filename":"JK20-proton.peak.png", "filepath":"data/#{attachment.analysis.chemotion_id}", "identifier":"6954c6ca-adef-4ab1-b00b-31dbf9c53c8a"}], "numberOfItems":1}, "descriptions":"", "identifier":"681160", "name":"R53A_EI-MS"}], "numberOfItems":1},
           "descriptions": {"ops":[{"insert":" "}, {"attributes":{"script":"super"},"insert":"13"}, {"insert":"C NMR (100 MHz, DMSO-d6, ppm), δ = 171.0, 141.1, 135.4 (q, J = 5.2 Hz), 127.4, 124.3 (q, J = 4.2 Hz), 124.0 (q, J = 271.3 Hz), 118.9, 118.2, 111.3 (q, J = 33.3 Hz), 44.4, 25.6, 22.3 (2 C). "}]},
           "identifier": "#{attachment.analysis.chemotion_id}",
-          "ontologies": "#{analysis.kind&.split("|")&.last&.strip}",
-          "title": "#{analysis.kind&.split("|")&.last&.strip}",
-          "url": "https://dx.doi.org/#{analysis.doi}"
+          "ontologies": "13C nuclear magnetic resonance spectroscopy (13C NMR)",
+          "title": "13C nuclear magnetic resonance spectroscopy (13C NMR)",
+          "url": "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1"
         }
       JSON
     end
@@ -104,21 +104,21 @@ describe API::V1::Publications::ChemotionId do
       <<~JSON
         {
           "@context": "https://schema.org/",
-          "@id": "#{sample.doi}",
+          "@id": "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1",
           "@type": "MolecularEntity",
-          "analysisList": #{SampleMappers::AnalysisListMapper.from_hash(SampleAdapter::AnalysisListAdapter.new(sample).to_h).to_json},
-          "boilingPoint": "#{sample.sample_boiling_point}",
-          "dct:conformsTo": #{SampleMappers::DctConformsToMapper.from_hash(SampleAdapter::DctConformsToAdapter.new.to_h).to_json},
+          "analysisList": {"itemListElement":[{"@context":"https://schema.org/", "@id":"", "@type":"AnalysisEntity", "datasetList":{"itemListElement":[{"@type":"DatasetEntity", "Instrument":" Bruker", "attachmentList":{"itemListElement":[{"@type":"AttachmentEntity", "filename":"JK20-proton.peak.png", "filepath":"data/#{attachment1.analysis.chemotion_id}", "identifier":"6954c6ca-adef-4ab1-b00b-31dbf9c53c8a"}], "numberOfItems":1}, "descriptions":"", "identifier":"681160", "name":"R53A_EI-MS"}], "numberOfItems":1}, "descriptions":{}, "identifier":"#{attachment1.analysis.chemotion_id}", "ontologies":"", "title":"", "url":""}, {"@context":"https://schema.org/", "@id":"", "@type":"AnalysisEntity", "datasetList":{"itemListElement":[{"@type":"DatasetEntity", "Instrument":" Bruker", "attachmentList":{"itemListElement":[{"@type":"AttachmentEntity", "filename":"JK20-proton.peak.png", "filepath":"data/#{attachment2.analysis.chemotion_id}", "identifier":"6954c6ca-adef-4ab1-b00b-31dbf9c53c8a"}], "numberOfItems":1}, "descriptions":"", "identifier":"681160", "name":"R53A_EI-MS"}], "numberOfItems":1}, "descriptions":{}, "identifier":"#{attachment2.analysis.chemotion_id}", "ontologies":"", "title":"", "url":""}], "numberOfItems":2},
+          "boilingPoint": "-Infinity...Infinity",
+          "dct:conformsTo": {"http://purl.org/dc/terms/conformsTo":{"@id":"https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/", "@type":"CreativeWork"}},
           "identifier": "#{sample.chemotion_id}",
-          "inChI": "#{sample.inchistring}",
-          "inChIKey": "#{sample.inchikey}",
-          "iupacName": "#{sample.iupac_name}",
-          "meltingPoint": "#{sample.sample_melting_point}",
-          "molecularFormula": "#{sample.sum_formular}",
-          "molecularWeight": #{SampleMappers::MolecularWeightMapper.from_hash(SampleAdapter::MolecularWeightAdapter.new(sample).to_h).to_json},
-          "name": "#{sample.iupac_name}",
-          "smiles": "#{sample.cano_smiles}",
-          "url": "https://dx.doi.org/#{sample.doi}"
+          "inChI": "InChI=1S/C20H14N8/c1-3-10-21-15(8-1)19-17(23-27-25-19)13-6-5-7-14(12-13)18-20(26-28-24-18)16-9-2-4-11-22-16/h1-12H,(H,23,25,27)(H,24,26,28)",
+          "inChIKey": "MUAMZYSBUQADBN-UHFFFAOYSA-N",
+          "iupacName": "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
+          "meltingPoint": "-Infinity...Infinity",
+          "molecularFormula": "C20H14N8",
+          "molecularWeight": {"value":366.37876000000006},
+          "name": "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
+          "smiles": "c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1",
+          "url": "https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"
         }
       JSON
     end
