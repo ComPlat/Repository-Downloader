@@ -6,7 +6,7 @@ class SamplePresenter
 
   delegate :to_json, :to_xml, :to_csv, to: :mapper
 
-  # TODO: Test and implement me!
+  # TODO: Implement me!
   # HINT: Do not put the whole logic in here.
   def to_zip = nil
 
