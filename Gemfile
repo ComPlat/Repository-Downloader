@@ -36,32 +36,35 @@ gem "tzinfo-data", "1.2022.5", platforms: %i[mingw mswin x64_mingw jruby]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", "1.13.0", require: false
 
-# Use Grape to create a REST API and generate a Swagger UI to interact with the endpoints
+# Use Grape to create a REST API and generate a Swagger UI to interact with the endpoints [https://www.ruby-grape.org/]
 gem "grape", "1.6.2"
-gem "grape-swagger", "1.5.0"
-gem "grape-swagger-rails", "0.3.1"
+gem "grape-swagger", "1.5.0" # [https://github.com/ruby-grape/grape-swagger]
+gem "grape-swagger-rails", "0.3.1" # [https://github.com/ruby-grape/grape-swagger-rails]
 
 # Use Sass to process CSS
 # gem "sassc-rails"
 
-# Ruby Object mapper and serialization library for JSON, YAML, TOML, CSV and XML.
+# Ruby Object mapper and serialization library for JSON, YAML, TOML, CSV and XML [https://www.shalerb.org/]
 gem "shale", "0.9.0"
 
-# Autoload dotenv in Rails.
+# Autoload dotenv in Rails [https://github.com/bkeepers/dotenv]
 gem "dotenv-rails", "2.8.1"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", "1.6.2", platforms: %i[mri mingw x64_mingw]
 
-  gem "standard", "1.16.1", require: false
-  gem "rubocop-rails", "2.16.1", require: false
-  gem "rubocop-rspec", "2.13.2", require: false
+  # Ruby Style Guide, with linter & automatic code fixer [https://github.com/testdouble/standard]
+  gem "standard", "1.16.1", require: false #
+  gem "rubocop-rails", "2.16.1", require: false # [https://docs.rubocop.org/rubocop-rails/]
+  gem "rubocop-rspec", "2.13.2", require: false # [https://docs.rubocop.org/rubocop-rspec/]
+  gem "rubocop-thread_safety", "0.4.4", require: false # [https://github.com/rubocop/rubocop-thread_safety]
 
-  gem "rspec-rails", "6.0.1"
-  gem "rails-controller-testing", "1.0.5"
-  gem "shoulda-matchers", "5.2.0"
-  gem "factory_bot_rails", "6.2.0"
+  # Behaviour-Driven Development tool for the TDD part focusing on the documentation and design aspects of TDD [https://relishapp.com/rspec/]
+  gem "rspec-rails", "6.0.1" # RSpec for Rails 5+ [https://relishapp.com/rspec/rspec-rails/docs]
+  gem "rails-controller-testing", "1.0.5" # Needed for Controller tests [https://github.com/rails/rails-controller-testing]
+  gem "shoulda-matchers", "5.2.0" # Simple One-Liner Tests for Rails [https://matchers.shoulda.io/]
+  gem "factory_bot_rails", "6.2.0" # fixtures replacement with a straightforward definition syntax, support for multiple build strategies and support for multiple factories for the same class [https://github.com/thoughtbot/factory_bot_rails]
 end
 
 group :development do
@@ -73,6 +76,9 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  # A Ruby code quality reporter [https://github.com/whitesmith/rubycritic]
+  gem "rubycritic", "4.7.0"
 end
 
 group :test do

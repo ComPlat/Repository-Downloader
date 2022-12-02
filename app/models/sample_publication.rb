@@ -1,2 +1,0 @@
-class SamplePublication < Publication
-end
