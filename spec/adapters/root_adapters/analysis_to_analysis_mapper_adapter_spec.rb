@@ -72,6 +72,7 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
     subject(:descriptions) { analysis_to_analysis_mapper_adapter.descriptions }
 
     it { expect(descriptions).to eq analysis.content }
+    it { is_expected.to be_a Hash }
   end
 
   describe "#title" do
