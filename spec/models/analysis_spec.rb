@@ -148,6 +148,6 @@ describe Analysis do
   describe "#present_to_api" do
     subject(:present_to_api) { described_class.new.present_to_api }
 
-    it { expect(present_to_api).to be_a RootMappers::AnalysisMapper }
+    it { expect(present_to_api).to be_a AnalysisPresenter }
   end
 end

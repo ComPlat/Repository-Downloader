@@ -122,6 +122,6 @@ describe Reaction do
   describe "#present_to_api" do
     subject(:present_to_api) { reaction.present_to_api }
 
-    it { expect(present_to_api).to be_a RootMappers::ReactionMapper }
+    it { expect(present_to_api).to be_a ReactionPresenter }
   end
 end

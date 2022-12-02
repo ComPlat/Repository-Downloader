@@ -91,6 +91,6 @@ describe Sample do
   describe "#present_to_api" do
     subject(:present_to_api) { described_class.new.present_to_api }
 
-    it { is_expected.to be_a RootMappers::SampleMapper }
+    it { is_expected.to be_a SamplePresenter }
   end
 end

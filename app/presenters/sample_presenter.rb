@@ -1,5 +1,3 @@
-# TODO: Test me!
-# TODO: Use me in Sample model.
 class SamplePresenter
   def initialize(sample) = @sample = sample
 
