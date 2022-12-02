@@ -90,41 +90,4 @@ describe API::V1::Publications::ChemotionId do
 
     it { expect(JSON.parse(response.body)).to eq JSON.parse(expected_json) }
   end
-
-  describe "GET Sample" do
-    let(:sample) {
-      create :sample, :with_required_dependencies, :with_realistic_attributes,
-        taggable_data: {"original_analysis_ids" => [attachment1.analysis.id, attachment2.analysis.id],
-                        "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"}
-    }
-    let(:attachment1) { create :attachment, :with_required_dependencies, :with_realistic_attributes }
-    let(:attachment2) { create :attachment, :with_required_dependencies, :with_realistic_attributes }
-
-    let(:expected_json) do
-      <<~JSON
-        {
-          "@context": "https://schema.org/",
-          "@id": "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1",
-          "@type": "MolecularEntity",
-          "analysisList": {"itemListElement":[{"@context":"https://schema.org/", "@id":"", "@type":"AnalysisEntity", "datasetList":{"itemListElement":[{"@type":"DatasetEntity", "Instrument":" Bruker", "attachmentList":{"itemListElement":[{"@type":"AttachmentEntity", "filename":"JK20-proton.peak.png", "filepath":"data/#{attachment1.analysis.chemotion_id}", "identifier":"6954c6ca-adef-4ab1-b00b-31dbf9c53c8a"}], "numberOfItems":1}, "descriptions":"", "identifier":"681160", "name":"R53A_EI-MS"}], "numberOfItems":1}, "descriptions":{}, "identifier":"#{attachment1.analysis.chemotion_id}", "ontologies":"", "title":"", "url":""}, {"@context":"https://schema.org/", "@id":"", "@type":"AnalysisEntity", "datasetList":{"itemListElement":[{"@type":"DatasetEntity", "Instrument":" Bruker", "attachmentList":{"itemListElement":[{"@type":"AttachmentEntity", "filename":"JK20-proton.peak.png", "filepath":"data/#{attachment2.analysis.chemotion_id}", "identifier":"6954c6ca-adef-4ab1-b00b-31dbf9c53c8a"}], "numberOfItems":1}, "descriptions":"", "identifier":"681160", "name":"R53A_EI-MS"}], "numberOfItems":1}, "descriptions":{}, "identifier":"#{attachment2.analysis.chemotion_id}", "ontologies":"", "title":"", "url":""}], "numberOfItems":2},
-          "boilingPoint": "-Infinity...Infinity",
-          "dct:conformsTo": {"http://purl.org/dc/terms/conformsTo":{"@id":"https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/", "@type":"CreativeWork"}},
-          "identifier": "#{sample.chemotion_id}",
-          "inChI": "InChI=1S/C20H14N8/c1-3-10-21-15(8-1)19-17(23-27-25-19)13-6-5-7-14(12-13)18-20(26-28-24-18)16-9-2-4-11-22-16/h1-12H,(H,23,25,27)(H,24,26,28)",
-          "inChIKey": "MUAMZYSBUQADBN-UHFFFAOYSA-N",
-          "iupacName": "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
-          "meltingPoint": "-Infinity...Infinity",
-          "molecularFormula": "C20H14N8",
-          "molecularWeight": {"value":366.37876000000006},
-          "name": "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
-          "smiles": "c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1",
-          "url": "https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"
-        }
-      JSON
-    end
-
-    before { get "/api/v1/publications/chemotion_id/#{sample.id}" }
-
-    it { expect(JSON.parse(response.body)).to eq JSON.parse(expected_json) }
-  end
 end
