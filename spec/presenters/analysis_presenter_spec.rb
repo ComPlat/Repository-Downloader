@@ -9,26 +9,30 @@ describe AnalysisPresenter do
   end
 
   describe "#to_json" do
-    subject { analysis_presenter.to_json }
+    subject(:to_json) { analysis_presenter.to_json }
 
-    it { is_expected.to eq RootMappers::AnalysisMapper.from_hash(RootAdapters::AnalysisToAnalysisMapperAdapter.new(analysis).to_h).to_json }
+    it { is_expected.to be_a Enumerator }
+    it { expect(to_json.to_a.join).to eq RootMappers::AnalysisMapper.from_hash(RootAdapters::AnalysisToAnalysisMapperAdapter.new(analysis).to_h).to_json }
   end
 
   describe "#to_xml" do
-    subject { analysis_presenter.to_xml }
+    subject(:to_xml) { analysis_presenter.to_xml }
 
-    it { is_expected.to eq RootMappers::AnalysisMapper.from_hash(RootAdapters::AnalysisToAnalysisMapperAdapter.new(analysis).to_h).to_xml }
+    it { is_expected.to be_a Enumerator }
+    it { expect(to_xml.to_a.join).to eq RootMappers::AnalysisMapper.from_hash(RootAdapters::AnalysisToAnalysisMapperAdapter.new(analysis).to_h).to_xml }
   end
 
   describe "#to_csv" do
-    subject { analysis_presenter.to_csv }
+    subject(:to_csv) { analysis_presenter.to_csv }
 
-    it { is_expected.to eq RootMappers::AnalysisMapper.from_hash(RootAdapters::AnalysisToAnalysisMapperAdapter.new(analysis).to_h).to_csv }
+    it { is_expected.to be_a Enumerator }
+    it { expect(to_csv.to_a.join).to eq RootMappers::AnalysisMapper.from_hash(RootAdapters::AnalysisToAnalysisMapperAdapter.new(analysis).to_h).to_csv }
   end
 
   describe "#to_zip" do
-    subject { analysis_presenter.to_zip }
+    subject(:to_zip) { analysis_presenter.to_zip }
 
-    it { is_expected.to be_nil }
+    it { is_expected.to be_a Enumerator }
+    it { expect(to_zip.to_a.join).to eq "" }
   end
 end

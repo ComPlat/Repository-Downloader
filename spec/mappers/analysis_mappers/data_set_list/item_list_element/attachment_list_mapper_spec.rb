@@ -148,7 +148,7 @@ describe AnalysisMappers::DataSetList::ItemListElement::AttachmentListMapper do
         <<~XML
           <attachmentList>
             <numberOfItems>2</numberOfItems>
-            #{args[:itemListElement].map { |hash| AnalysisMappers::DataSetList::ItemListElement::AttachmentList::ItemListElementMapper.from_hash(hash).to_xml }.join("")}
+            #{args[:itemListElement].map { |hash| AnalysisMappers::DataSetList::ItemListElement::AttachmentList::ItemListElementMapper.from_hash(hash).to_xml }.join}
           </attachmentList>
         XML
       end

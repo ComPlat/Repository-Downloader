@@ -5,9 +5,8 @@ describe PublicationPresenter do
     context "when an existing doi is given" do
       subject(:present_by_doi) { described_class.present_by_doi analysis.taggable_data["doi"] }
 
-      it { expect(present_by_doi.to_json).to eq analysis.present_to_api.to_json }
-      it { expect(present_by_doi.to_xml).to eq analysis.present_to_api.to_xml }
-      it { expect(present_by_doi.to_csv).to eq analysis.present_to_api.to_csv }
+      it { is_expected.to be_a analysis.present_to_api.class }
+      it { expect(present_by_doi.instance_variable_get(:@analysis)).to eq analysis }
     end
 
     context "when an NOT existing doi is given" do
@@ -21,9 +20,8 @@ describe PublicationPresenter do
     context "when an existing chemotion_id is given" do
       subject(:present_by_chemotion_id) { described_class.present_by_chemotion_id analysis.id }
 
-      it { expect(present_by_chemotion_id.to_json).to eq analysis.present_to_api.to_json }
-      it { expect(present_by_chemotion_id.to_xml).to eq analysis.present_to_api.to_xml }
-      it { expect(present_by_chemotion_id.to_csv).to eq analysis.present_to_api.to_csv }
+      it { is_expected.to be_a analysis.present_to_api.class }
+      it { expect(present_by_chemotion_id.instance_variable_get(:@analysis)).to eq analysis }
     end
 
     context "when an NOT existing chemotion_id is given" do

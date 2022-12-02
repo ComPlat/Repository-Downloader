@@ -12,7 +12,8 @@ module API
               if params[:id] <= 0
                 error!("Unprocessable Entity, 'id'=#{params[:id]} not valid", 422)
               end
-              present PublicationPresenter.present_by_chemotion_id params[:id]
+
+              stream PublicationPresenter.present_by_chemotion_id(params[:id]).public_send("to_#{env["api.format"]}")
             end
           end
         end

@@ -1,11 +1,14 @@
 class AnalysisPresenter
   def initialize(analysis) = @analysis = analysis
 
-  delegate :to_json, :to_xml, :to_csv, to: :mapper
+  def to_json = Enumerator.new { |yielder| yielder << mapper.to_json }
 
-  # TODO: Implement me!
-  # HINT: Do not put the whole logic in here.
-  def to_zip = nil
+  def to_xml = Enumerator.new { |yielder| yielder << mapper.to_xml }
+
+  def to_csv = Enumerator.new { |yielder| yielder << mapper.to_csv }
+
+  # TODO: Instead give the correct zip stream from bagitstream gem.
+  def to_zip = Enumerator.new { |yielder| yielder << "" }
 
   private
 
