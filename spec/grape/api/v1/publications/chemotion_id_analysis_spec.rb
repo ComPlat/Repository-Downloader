@@ -4,15 +4,15 @@ describe API::V1::Publications::ChemotionId, ".analysis" do
 
     let(:expected_json) do
       {
-        :"@context" => "https://schema.org/",
-        :"@id" => "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1",
-        :"@type" => "AnalysisEntity",
-        "datasetList" => {"itemListElement" => [], "numberOfItems" => 0},
-        :descriptions => {ops: [{insert: " "}, {attributes: {script: "super"}, insert: "13"}, {insert: "C NMR (100 MHz, DMSO-d6, ppm), δ = 171.0, 141.1, 135.4 (q, J = 5.2 Hz), 127.4, 124.3 (q, J = 4.2 Hz), 124.0 (q, J = 271.3 Hz), 118.9, 118.2, 111.3 (q, J = 33.3 Hz), 44.4, 25.6, 22.3 (2 C). "}]},
-        :identifier => analysis.chemotion_id.to_s,
-        :ontologies => "13C nuclear magnetic resonance spectroscopy (13C NMR)",
-        :title => "13C nuclear magnetic resonance spectroscopy (13C NMR)",
-        :url => "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1"
+        "@context": "https://schema.org/",
+        "@id": "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1",
+        "@type": "AnalysisEntity",
+        datasetList: {"itemListElement" => [], "numberOfItems" => 0},
+        descriptions: {ops: [{insert: " "}, {attributes: {script: "super"}, insert: "13"}, {insert: "C NMR (100 MHz, DMSO-d6, ppm), δ = 171.0, 141.1, 135.4 (q, J = 5.2 Hz), 127.4, 124.3 (q, J = 4.2 Hz), 124.0 (q, J = 271.3 Hz), 118.9, 118.2, 111.3 (q, J = 33.3 Hz), 44.4, 25.6, 22.3 (2 C). "}]},
+        identifier: analysis.chemotion_id.to_s,
+        ontologies: "13C nuclear magnetic resonance spectroscopy (13C NMR)",
+        title: "13C nuclear magnetic resonance spectroscopy (13C NMR)",
+        url: "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1"
       }.to_json
     end
 
