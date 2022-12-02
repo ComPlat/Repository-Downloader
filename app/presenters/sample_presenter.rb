@@ -1,12 +1,11 @@
 # TODO: Test me!
 # TODO: Use me in Sample model.
-# TODO: Replicate me and test me for Analysis and Reaction.
 class SamplePresenter
   def initialize(sample) = @sample = sample
 
   delegate :to_json, :to_xml, :to_csv, to: :mapper
 
-  # TODO: Test and implement me!
+  # TODO: Implement me!
   # HINT: Do not put the whole logic in here.
   def to_zip = nil
 

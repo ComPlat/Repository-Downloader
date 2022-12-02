@@ -1,9 +1,10 @@
+# TODO: Use me in Reaction model.
 class ReactionPresenter
   def initialize(reaction) = @reaction = reaction
 
   delegate :to_json, :to_xml, :to_csv, to: :mapper
 
-  # TODO: Test and implement me!
+  # TODO: Implement me!
   # HINT: Do not put the whole logic in here.
   def to_zip = nil
 
