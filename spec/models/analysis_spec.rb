@@ -73,7 +73,7 @@ describe Analysis do
   end
 
   describe "#doi_url" do
-    subject(:doi_url) { analysis.doi_url }
+    subject(:doi_uri) { analysis.doi_uri }
 
     context "when doi is nil" do
       let(:analysis) { build :analysis, :with_realistic_attributes, taggable_data: nil }

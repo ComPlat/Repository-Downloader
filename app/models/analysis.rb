@@ -14,7 +14,7 @@ class Analysis < Publication
     content ? JSON.parse(content) : {}
   end
 
-  def doi_url
+  def doi_uri
     doi.present? ? "https://dx.doi.org/#{doi}" : ""
   end
 
