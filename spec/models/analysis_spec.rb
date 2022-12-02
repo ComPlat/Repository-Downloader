@@ -72,8 +72,8 @@ describe Analysis do
     end
   end
 
-  describe "#fill_id" do
-    subject(:fill_id) { analysis.fill_id }
+  describe "#doi_url" do
+    subject(:doi_url) { analysis.doi_url }
 
     context "when doi is nil" do
       let(:analysis) { build :analysis, :with_realistic_attributes, taggable_data: nil }

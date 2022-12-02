@@ -8,7 +8,7 @@ module RootAdapters
 
     def type = @type ||= "AnalysisEntity" # HINT: becomes @type in mapper
 
-    def id = @id ||= @analysis.fill_id
+    def id = @id ||= @analysis.doi_url
 
     def ontologies = @ontologies ||= @analysis.ontologies
 
