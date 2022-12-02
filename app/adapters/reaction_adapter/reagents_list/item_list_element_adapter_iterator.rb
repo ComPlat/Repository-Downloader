@@ -1,8 +1,8 @@
 module ReactionAdapter::ReagentsList
   class ItemListElementAdapterIterator
-    def initialize(reaction) = @reaction = reaction
+    def initialize(samples) = @samples = samples
 
-    def to_a = @to_a ||= @reaction.samples.map { |sample| item_list_element_adapter(sample).to_h }
+    def to_a = @to_a ||= @samples.map { |sample| item_list_element_adapter(sample).to_h }
 
     private
 
