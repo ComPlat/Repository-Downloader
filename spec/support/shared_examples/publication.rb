@@ -43,16 +43,6 @@ RSpec.shared_examples "Publication" do |_parameter|
     it { is_expected.to have_db_column(:molecular_weight).of_type(:float) }
   end
 
-  describe ".new" do
-    subject(:new) { described_class.new }
-
-    it { is_expected.to be_a described_class }
-    it { is_expected.to be_a Publication }
-    it { expect { new }.not_to change(described_class, :count) }
-    it { is_expected.to be_valid }
-    it { is_expected.not_to be_persisted }
-  end
-
   describe ".attr_readonly" do
     subject(:new) { described_class.new }
 
@@ -61,12 +51,19 @@ RSpec.shared_examples "Publication" do |_parameter|
     it { attribute_names.each { |attribute_name| expect(new).to have_readonly_attribute attribute_name } }
   end
 
+  describe ".new" do
+    subject(:new) { described_class.new }
+
+    it { is_expected.to be_a described_class }
+    it { is_expected.to be_a Publication }
+    it { expect { new }.not_to change(described_class, :count) }
+    it { is_expected.not_to be_persisted }
+  end
+
   describe ".create" do
     subject(:create) { described_class.create }
 
     it { is_expected.to be_a described_class }
-    it { expect { create }.to change(described_class, :count).from(0).to(1) }
-    it { is_expected.to be_valid }
-    it { is_expected.to be_persisted }
+    it { is_expected.to be_a Publication }
   end
 end
