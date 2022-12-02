@@ -1,6 +1,5 @@
 # TODO: Test me!
 # TODO: Use me in Sample model.
-# TODO: Replicate me and test me for Analysis and Reaction.
 class SamplePresenter
   def initialize(sample) = @sample = sample
 

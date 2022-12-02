@@ -1,3 +1,4 @@
+# TODO: Use me in Analysis model.
 class AnalysisPresenter
   def initialize(analysis) = @analysis = analysis
 
