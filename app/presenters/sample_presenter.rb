@@ -1,3 +1,5 @@
+require "bag_it_stream"
+
 class SamplePresenter
   def initialize(sample) = @sample = sample
 
@@ -7,8 +9,16 @@ class SamplePresenter
 
   def to_csv = Enumerator.new { |yielder| yielder << mapper.to_csv }
 
-  # TODO: Instead give the correct zip stream from bagitstream gem.
-  def to_zip = Enumerator.new { |yielder| yielder << "" }
+  def to_zip
+    # TODO: Implement unique path
+    # TODO: Use ActiveJob for cleanup
+    FileUtils.rm_rf "tmp/data/input"
+    FileUtils.mkpath "tmp/data/input"
+    BagItStream.new({"sample.json" => StringIO.open(mapper.to_json),
+                      "sample.xml" => StringIO.open(mapper.to_xml),
+                      "sample.csv" => StringIO.open(mapper.to_csv)},
+      "tmp/data/input").rack_body
+  end
 
   private
 

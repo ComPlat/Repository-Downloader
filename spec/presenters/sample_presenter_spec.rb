@@ -32,7 +32,42 @@ describe SamplePresenter do
   describe "#to_zip" do
     subject(:to_zip) { sample_presenter.to_zip }
 
-    it { is_expected.to be_a Enumerator }
-    it { expect(to_zip.to_a.join).to eq "" }
+    before do
+      zip_string = []
+      to_zip.each { |x| zip_string << x }
+
+      FileUtils.mkpath "tmp/data/output/data"
+
+      io = StringIO.new(zip_string.join)
+
+      ZipTricks::FileReader.read_zip_structure(io:).each do |entry|
+        File.open("tmp/data/output/#{entry.filename}", "wb") do |extracted_file|
+          inflated_reader = entry.extractor_from io
+          extracted_file << inflated_reader.extract until inflated_reader.eof?
+        end
+      end
+    end
+
+    after do
+      FileUtils.rm_rf "tmp/data/output"
+    end
+
+    context "when sample has minimal attributes" do
+      it { is_expected.to be_a ZipTricks::OutputEnumerator }
+      it { expect(Dir.new("tmp/data/output").entries.size).to eq 9 }
+      it { expect(File.read("tmp/data/output/data/sample.json")).to eq sample_presenter.to_json.to_a.join }
+      it { expect(File.read("tmp/data/output/data/sample.xml")).to eq sample_presenter.to_xml.to_a.join }
+      it { expect(File.read("tmp/data/output/data/sample.csv")).to eq sample_presenter.to_csv.to_a.join }
+    end
+
+    context "when sample has realistic attributes" do
+      let(:sample) { build :sample, :with_realistic_attributes }
+
+      it { is_expected.to be_a ZipTricks::OutputEnumerator }
+      it { expect(Dir.new("tmp/data/output").entries.size).to eq 9 }
+      it { expect(File.read("tmp/data/output/data/sample.json")).to eq sample_presenter.to_json.to_a.join }
+      it { expect(File.read("tmp/data/output/data/sample.xml")).to eq sample_presenter.to_xml.to_a.join }
+      it { expect(File.read("tmp/data/output/data/sample.csv")).to eq sample_presenter.to_csv.to_a.join }
+    end
   end
 end
