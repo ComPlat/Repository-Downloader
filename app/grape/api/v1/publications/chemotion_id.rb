@@ -5,14 +5,15 @@ module API
         version "v1", using: :path
 
         namespace "/publications/chemotion_id" do
-          desc "Get one publication via ChemotionID", {produces: %w[application/json application/xml text/csv]} # TODO: Add zip format here!
+          desc "Get one publication via ChemotionID", {produces: %w[application/json application/xml text/csv application/zip]}
           params { requires :id, type: Integer, desc: "ChemotionID" }
           route_param :id, type: Integer do
             get do
               if params[:id] <= 0
                 error!("Unprocessable Entity, 'id'=#{params[:id]} not valid", 422)
               end
-              present PublicationPresenter.present_by_chemotion_id params[:id]
+
+              stream PublicationPresenter.present_by_chemotion_id(params[:id]).public_send("to_#{env["api.format"]}")
             end
           end
         end

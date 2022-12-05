@@ -9,26 +9,30 @@ describe ReactionPresenter do
   end
 
   describe "#to_json" do
-    subject { reaction_presenter.to_json }
+    subject(:to_json) { reaction_presenter.to_json }
 
-    it { is_expected.to eq RootMappers::ReactionMapper.from_hash(RootAdapters::ReactionToReactionMapperAdapter.new(reaction).to_h).to_json }
+    it { is_expected.to be_a Enumerator }
+    it { expect(to_json.to_a.join).to eq RootMappers::ReactionMapper.from_hash(RootAdapters::ReactionToReactionMapperAdapter.new(reaction).to_h).to_json }
   end
 
   describe "#to_xml" do
-    subject { reaction_presenter.to_xml }
+    subject(:to_xml) { reaction_presenter.to_xml }
 
-    it { is_expected.to eq RootMappers::ReactionMapper.from_hash(RootAdapters::ReactionToReactionMapperAdapter.new(reaction).to_h).to_xml }
+    it { is_expected.to be_a Enumerator }
+    it { expect(to_xml.to_a.join).to eq RootMappers::ReactionMapper.from_hash(RootAdapters::ReactionToReactionMapperAdapter.new(reaction).to_h).to_xml }
   end
 
   describe "#to_csv" do
-    subject { reaction_presenter.to_csv }
+    subject(:to_csv) { reaction_presenter.to_csv }
 
-    it { is_expected.to eq RootMappers::ReactionMapper.from_hash(RootAdapters::ReactionToReactionMapperAdapter.new(reaction).to_h).to_csv }
+    it { is_expected.to be_a Enumerator }
+    it { expect(to_csv.to_a.join).to eq RootMappers::ReactionMapper.from_hash(RootAdapters::ReactionToReactionMapperAdapter.new(reaction).to_h).to_csv }
   end
 
   describe "#to_zip" do
-    subject { reaction_presenter.to_zip }
+    subject(:to_zip) { reaction_presenter.to_zip }
 
-    it { is_expected.to be_nil }
+    it { is_expected.to be_a Enumerator }
+    it { expect(to_zip.to_a.join).to eq "" }
   end
 end

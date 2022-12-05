@@ -14,7 +14,7 @@ describe API::Base do
   describe ".content_types" do
     subject { described_class.content_types }
 
-    it { is_expected.to eq({csv: "text/csv", json: "application/json", xml: "application/xml"}) }
+    it { is_expected.to eq({csv: "text/csv", json: "application/json", xml: "application/xml", zip: "application/zip"}) }
   end
 
   describe ".combined_routes" do
@@ -44,8 +44,8 @@ describe API::Base do
         .new(string: "string_value")
     end
 
-    it { is_expected.to match [{xml: be_a(Proc)}, {json: be_a(Proc)}, {csv: be_a(Proc)}] }
-    it { expect(formatters.length).to eq 3 }
+    it { is_expected.to match [{xml: be_a(Proc)}, {json: be_a(Proc)}, {csv: be_a(Proc)}, zip: be_a(Proc)] }
+    it { expect(formatters.length).to eq 4 }
 
     it do
       allow(test_mapper).to receive(:to_xml)
@@ -113,12 +113,12 @@ describe API::Base do
     let(:expected_body) do
       {info: {title: "API title", version: "0.0.1"},
        swagger: "2.0",
-       produces: %w[application/json application/xml text/csv],
+       produces: %w[application/json application/xml text/csv application/zip],
        host: ENV["HOST_URI"], # HINT: Default value for host URI
        basePath: "/api",
        tags: [{name: "publications", description: "Operations about publications"}],
        paths: {"/v1/publications/chemotion_id/{id}": {get: {description: "Get one publication via ChemotionID",
-                                                            produces: %w[application/json application/xml text/csv],
+                                                            produces: %w[application/json application/xml text/csv application/zip],
                                                             parameters: [{in: "path",
                                                                           name: "id",
                                                                           description: "ChemotionID",
