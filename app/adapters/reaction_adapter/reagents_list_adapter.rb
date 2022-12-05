@@ -12,6 +12,6 @@ module ReactionAdapter
 
     def reaction_samples = @reaction_samples ||= @reaction.samples
 
-    def item_list_element_adapter_iterator = @item_list_element_adapter_iterator ||= ReagentsList::ItemListElementAdapterIterator.new(@reaction)
+    def item_list_element_adapter_iterator = @item_list_element_adapter_iterator ||= ReagentsList::ItemListElementAdapterIterator.new(reaction_samples)
   end
 end

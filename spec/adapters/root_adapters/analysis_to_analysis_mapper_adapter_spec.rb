@@ -48,12 +48,14 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
 
     context "when taggable_data is filled correctly" do
       it { is_expected.to eq "https://dx.doi.org/#{analysis.doi}" }
+      it { is_expected.to be_a String }
     end
 
     context "when taggable_data is nil" do
       let(:analysis) { build :analysis, :with_realistic_attributes, taggable_data: nil }
 
       it { is_expected.to eq "" }
+      it { is_expected.to be_a String }
     end
   end
 
@@ -63,12 +65,14 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
     it { expect(ontologies).to eq "13C nuclear magnetic resonance spectroscopy (13C NMR)" }
     # noinspection RubyResolve
     it { expect(analysis.extended_metadata.to_s).to include ontologies }
+    it { is_expected.to be_a String }
   end
 
   describe "#descriptions" do
     subject(:descriptions) { analysis_to_analysis_mapper_adapter.descriptions }
 
     it { expect(descriptions).to eq analysis.content }
+    it { is_expected.to be_a Hash }
   end
 
   describe "#title" do
@@ -77,6 +81,7 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
     it { is_expected.to eq "13C nuclear magnetic resonance spectroscopy (13C NMR)" }
     # noinspection RubyResolve
     it { expect(analysis.extended_metadata.to_s).to include title }
+    it { is_expected.to be_a String }
   end
 
   describe "#url" do
@@ -85,6 +90,7 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
     it { is_expected.to eq "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1" }
     it { is_expected.to include analysis.taggable_data["doi"] }
     it { is_expected.to include analysis.taggable_data["analysis_doi"] }
+    it { is_expected.to be_a String }
   end
 
   describe "#datasetList" do

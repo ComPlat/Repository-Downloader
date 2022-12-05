@@ -13,6 +13,6 @@ module AnalysisAdapter::DataSetList::ItemListElement::AttachmentList
 
     def filename = @filename ||= @data_set_attachment.filename.to_s
 
-    def filepath = @filepath ||= @analysis.chemotion_id.present? ? "data/#{@analysis.chemotion_id}" : ""
+    def filepath = @filepath ||= "data/#{@analysis.chemotion_id}"
   end
 end

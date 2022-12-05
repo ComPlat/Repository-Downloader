@@ -1,6 +1,4 @@
 describe ReactionMappers::ReagentsList::ItemListElement::DctConformsToElementMapper do
-  let(:expected_json_nil_render_value) { "null" }
-
   describe ".new" do
     context "when called without any arguments" do
       let(:dct_conforms_to_element_mapper) { build :dct_conforms_to_element_mapper }
@@ -33,6 +31,8 @@ describe ReactionMappers::ReagentsList::ItemListElement::DctConformsToElementMap
   end
 
   describe "to_json" do
+    let(:expected_json_nil_render_value) { "null" }
+
     context "when called without any arguments" do
       let(:dct_conforms_to_element_mapper) { build :dct_conforms_to_element_mapper }
 

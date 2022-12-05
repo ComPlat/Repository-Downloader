@@ -10,13 +10,17 @@ class Reaction < Publication
 
   def doi = taggable_data&.dig("doi").to_s
 
-  def name = samples_iupac_names.join(" ") # TODO: check if this should to be concatenated with a "-"
+  def name = samples_iupac_names.join(" ")
 
   def temperature_user_text = reaction_temperature&.dig("userText").to_s
 
   def temperature_value_unit = reaction_temperature&.dig("valueUnit").to_s
 
+  def temperature = reaction_temperature.present? ? temperature_user_text_value_unit : ""
+
   private
 
   def samples_iupac_names = samples.map { |sample| sample.iupac_name }
+
+  def temperature_user_text_value_unit = "#{temperature_user_text} #{temperature_value_unit}"
 end

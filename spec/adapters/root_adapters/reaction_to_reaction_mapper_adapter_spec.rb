@@ -1,6 +1,6 @@
 describe RootAdapters::ReactionToReactionMapperAdapter do
-  let(:reaction) { sample.reaction }
-  let(:sample) { build :sample, :with_realistic_attributes, :with_required_dependencies }
+  let(:sample) { build :sample, :with_realistic_attributes }
+  let(:reaction) { build :reaction, :with_realistic_attributes, samples: [sample] }
   let(:reaction_to_reaction_mapper_adapter) { described_class.new reaction }
 
   describe ".new" do
@@ -92,8 +92,24 @@ describe RootAdapters::ReactionToReactionMapperAdapter do
   describe "#temperature" do
     subject { reaction_to_reaction_mapper_adapter.temperature }
 
-    it { is_expected.to eq "#{reaction.temperature_user_text} #{reaction.temperature_value_unit}" }
-    it { is_expected.to be_a String }
+    context "when reaction_temperature is filled correctly" do
+      it { is_expected.to eq "#{reaction.temperature_user_text} #{reaction.temperature_value_unit}" }
+      it { is_expected.to be_a String }
+    end
+
+    context "when reaction_temperature is filled partially" do
+      let(:reaction) { build(:reaction, reaction_temperature: {"data" => [], "userText" => "25"}) }
+
+      it { is_expected.to eq "#{reaction.temperature_user_text} #{reaction.temperature_value_unit}" }
+      it { is_expected.to be_a String }
+    end
+
+    context "when reaction_temperature is nil" do
+      let(:reaction) { build(:reaction, reaction_temperature: nil) }
+
+      it { is_expected.to eq "" }
+      it { is_expected.to be_a String }
+    end
   end
 
   describe "#reaction_type" do

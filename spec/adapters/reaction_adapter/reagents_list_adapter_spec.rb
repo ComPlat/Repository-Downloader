@@ -1,6 +1,6 @@
 describe ReactionAdapter::ReagentsListAdapter do
-  let(:reaction) { sample.reaction }
-  let(:sample) { build :sample, :with_realistic_attributes, :with_required_dependencies }
+  let(:sample) { build :sample, :with_realistic_attributes }
+  let(:reaction) { build :reaction, :with_realistic_attributes, samples: [sample] }
   let(:reagents_list_adapter) { described_class.new reaction }
 
   describe ".new" do
@@ -31,6 +31,6 @@ describe ReactionAdapter::ReagentsListAdapter do
   describe "#itemListElement" do
     subject { reagents_list_adapter.itemListElement }
 
-    it { is_expected.to eq ReactionAdapter::ReagentsList::ItemListElementAdapterIterator.new(reaction).to_a }
+    it { is_expected.to eq ReactionAdapter::ReagentsList::ItemListElementAdapterIterator.new([sample]).to_a }
   end
 end

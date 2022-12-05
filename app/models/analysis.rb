@@ -14,9 +14,7 @@ class Analysis < Publication
     content ? JSON.parse(content) : {}
   end
 
-  def fill_id
-    doi.present? ? "https://dx.doi.org/#{doi}" : ""
-  end
+  def doi_uri = doi.present? ? "https://dx.doi.org/#{doi}" : ""
 
   # HINT: malformed input will result in malformed output
   def ontologies = kind&.split("|")&.last&.strip.to_s
