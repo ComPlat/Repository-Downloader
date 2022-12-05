@@ -13,9 +13,9 @@ module API
           get do
             stream PublicationsByChemotionIdPresenter.new(params[:ids].value).public_send("to_#{params[:format].value}")
           end
-
-          route(:any, "*path") { error!("Not found", 404) }
         end
+
+        route(:any, "*path") { error!("Not found", 404) }
       end
     end
   end
