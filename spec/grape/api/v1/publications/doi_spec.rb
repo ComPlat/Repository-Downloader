@@ -1,32 +1,40 @@
-describe API::V1::Publications::ChemotionId do
+describe API::V1::Publications::Doi do
   let(:analysis1) { create :analysis, :with_realistic_attributes }
   let(:analysis2) { create :analysis, :with_realistic_attributes }
+  let(:doi1) { analysis1.taggable_data["doi"] }
+  let(:doi2) { analysis2.taggable_data["doi"] }
 
-  describe "GET /api/v1/publications/chemotion_id/:chemotion_id" do
-    context "with existing chemotion_id" do
-      before { get "/api/v1/publications/chemotion_id/#{analysis1.id}" }
+  # 2 Errors:
+  # NewMappers is missing to what did we rename that
+  # Cant use PublicationsPresenter in specs
 
-      let(:expected_json) { PublicationPresenter.present_by_chemotion_id(analysis1.id).to_json }
+  describe "GET /api/v1/publications/doi/:doi" do
+    context "with existing doi" do
+      before { get "/api/v1/publications/doi/#{CGI.escape(doi1)}" }
+
+      let(:expected_json) {
+        PublicationPresenter.present_by_doi(doi1).to_json
+      }
 
       it { expect(response).to have_http_status :ok }
       it { expect(response.body).to eq expected_json }
       it { expect(response.content_type).to eq "application/json" }
     end
 
-    context "with NOT existing chemotion_id=0" do
-      let(:not_existing_chemotion_id) { 0 }
+    context "with NOT existing doi=0" do
+      let(:not_existing_doi) { 0 }
 
-      before { get "/api/v1/publications/chemotion_id/#{not_existing_chemotion_id}" }
+      before { get "/api/v1/publications/doi/#{not_existing_doi}" }
 
       it { expect(response).to have_http_status :unprocessable_entity }
-      it { expect(JSON.parse(response.body)).to eq({"error" => "Unprocessable Entity, 'id'=#{not_existing_chemotion_id} not valid"}) }
+      it { expect(JSON.parse(response.body)).to eq({"error" => "Unprocessable Entity, 'id'=#{not_existing_doi} not valid"}) }
       it { expect(response.content_type).to eq "application/json" }
     end
 
-    context "with NOT existing chemotion_id=-1" do
-      let(:not_existing_chemotion_id) { -1 }
+    context "with NOT existing doi=-1" do
+      let(:not_existing_doi) { -1 }
 
-      before { get "/api/v1/publications/chemotion_id/#{not_existing_chemotion_id}" }
+      before { get "/api/v1/publications/chemotion_id/#{not_existing_doi}" }
 
       it { expect(response).to have_http_status :unprocessable_entity }
       it { expect(JSON.parse(response.body)).to eq({"error" => "Unprocessable Entity, 'id'=#{not_existing_chemotion_id} not valid"}) }
