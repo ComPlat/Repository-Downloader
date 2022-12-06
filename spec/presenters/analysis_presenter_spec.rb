@@ -32,8 +32,6 @@ describe AnalysisPresenter do
   describe "#to_zip" do
     subject(:to_zip) { analysis_presenter.to_zip }
 
-    # let(:io) { StringIO.new([].join(->(e) { to_zip.each { |chunk| e << chunk } })) }
-
     before do
       zip_string = []
       to_zip.each { |x| zip_string << x }
