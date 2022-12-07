@@ -4,11 +4,15 @@ module Types
     def initialize(value)= @value = value
 
     def self.parse(value)
-      # array_of_filled_strings =
-      # Grape::Types::InvalidValue.new("Empty values not allowed") unless array_of_filled_strings.size.positive?
-      # Grape::Types::InvalidValue.new("Duplicate values not allowed") unless array_of_filled_strings.uniq == array_of_filled_strings
+      array_of_strings = value.split(",")
+      return Grape::Types::InvalidValue.new("No empty values allowed.") if array_of_strings.any? { |str| str.blank? }
+      return Grape::Types::InvalidValue.new("No empty list allowed.") if array_of_strings.empty?
 
-      new value.split(",").compact.map { |filled_string| filled_string.to_i }.select { |num| num.positive? }.uniq
+      array_of_numbers = array_of_strings.map { |string| string.to_i }
+      return Grape::Types::InvalidValue.new("No none-positive values allowed.") if array_of_numbers.none? { |str| str.positive? }
+      return Grape::Types::InvalidValue.new("No duplicates in list allowed.") unless array_of_numbers.uniq.size == array_of_numbers.size
+
+      new array_of_numbers
     end
   end
 end
