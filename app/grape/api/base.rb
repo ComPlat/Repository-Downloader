@@ -4,9 +4,8 @@ module API
       error! error.message, 404
     end
 
-    format :json
-
-    content_type :xml, "application/xml" # HINT: It is the MIME type, see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
+    # HINT: It is the MIME type, see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
+    content_type :xml, "application/xml"
     formatter :xml, ->(object, _env) { object.to_xml }
 
     content_type :json, "application/json"
@@ -27,6 +26,6 @@ module API
 
     mount API::V1::Publications
 
-    add_swagger_documentation array_use_braces: false
+    add_swagger_documentation
   end
 end
