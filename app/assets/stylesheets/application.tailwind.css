@@ -1,3 +1,6 @@
+@import "swagger-ui-react/swagger-ui.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
