@@ -1,4 +1,4 @@
-describe API::V1::Publications::ChemotionId, ".sample" do
+describe API::V1::Publications, ".chemotion_ids .sample" do
   context "when one sample and no analyses and no attachments" do
     let(:sample) {
       create :sample, :with_required_dependencies, :with_realistic_attributes,

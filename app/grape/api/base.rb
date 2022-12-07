@@ -25,7 +25,7 @@ module API
       header["Access-Control-Request-Method"] = "*"
     end
 
-    mount API::V1::Publications::Base
+    mount API::V1::Publications
 
     add_swagger_documentation array_use_braces: false
   end

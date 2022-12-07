@@ -1,23 +1,17 @@
-describe API::V1::Publications::Doi do
+describe API::V1::Publications, ".dois" do
   let(:analysis1) { create :analysis, :with_realistic_attributes }
   let(:analysis2) { create :analysis, :with_realistic_attributes }
-  let(:doi1) { analysis1.taggable_data["doi"] }
-  let(:doi2) { analysis2.taggable_data["doi"] }
 
   # 2 Errors:
   # NewMappers is missing to what did we rename that
   # Cant use PublicationsPresenter in specs
 
-  describe "GET /api/v1/publications/doi/:doi" do
+  describe "GET /api/v1/publications?dois={analysis1.id}&format=json" do
     context "with existing doi" do
-      before { get "/api/v1/publications/doi/#{CGI.escape(doi1)}" }
-
-      let(:expected_json) {
-        PublicationPresenter.present_by_doi(doi1).to_json
-      }
+      before { get "/api/v1/publications?dois=#{analysis1.doi}&format=json" }
 
       it { expect(response).to have_http_status :ok }
-      it { expect(response.body).to eq expected_json }
+      it { expect(response.body).to eq PublicationsByDoiPresenter.new([analysis1.doi]).to_json.to_a.join }
       it { expect(response.content_type).to eq "application/json" }
     end
 

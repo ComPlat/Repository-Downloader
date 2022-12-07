@@ -1,4 +1,4 @@
-describe API::V1::Publications::ChemotionId, ".reaction" do
+describe API::V1::Publications, ".chemotion_ids .reaction" do
   context "when one reaction and no attachments" do
     let(:reaction) { create :reaction, :with_realistic_attributes }
 

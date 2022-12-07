@@ -1,16 +1,14 @@
-describe API::V1::Publications::ChemotionId do
+describe API::V1::Publications, ".chemotion_ids" do
   let(:analysis1) { create :analysis, :with_realistic_attributes }
   let(:analysis2) { create :analysis, :with_realistic_attributes }
 
-  describe "GET /api/v1/publications/chemotion_id/:chemotion_id" do
+  describe "GET /api/v1/publications?chemotion_ids={analysis1.id}&format=json" do
     context "with existing chemotion_id" do
-      before { get "/api/v1/publications/chemotion_id/#{analysis1.id}" }
-
-      let(:expected_json) { PublicationPresenter.present_by_chemotion_id(analysis1.id).to_json.to_a.join }
+      before { get "/api/v1/publications?chemotion_ids=#{analysis1.id}&format=json" }
 
       it { expect(response).to have_http_status :ok }
-      xit { expect(response.body).to eq expected_json }
-      xit { expect(response.content_type).to eq "application/json" }
+      it { expect(response.body).to eq PublicationsByChemotionIdPresenter.new(analysis1.id).to_json.to_a.join }
+      it { expect(response.content_type).to eq "application/json" }
     end
 
     xcontext "with NOT existing chemotion_id=0" do

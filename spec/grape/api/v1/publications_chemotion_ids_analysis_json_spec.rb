@@ -1,4 +1,4 @@
-describe API::V1::Publications::ChemotionId, ".analysis" do
+describe API::V1::Publications, ".chemotion_ids .analysis" do
   context "when one analysis and no attachments" do
     let(:analysis) { create(:analysis, :with_realistic_attributes) }
 
