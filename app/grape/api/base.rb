@@ -5,7 +5,6 @@ module API
     end
 
     # HINT: It is the MIME type, see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
-
     content_type :json, "application/json"
     formatter :json, ->(object, _env) { object.to_json }
 
@@ -18,10 +17,15 @@ module API
     content_type :xml, "application/xml"
     formatter :xml, ->(object, _env) { object.to_xml }
 
-    # TODO: For some unknown reason xml is default format.
-    #       default_format method does not change that.
-    #       format method causes accept headers to be ignored.
-    #       Order of content_type method calls does not change anything.
+    default_format :json
+
+    # HINT: When you call an API endpoint from a modern browser,
+    #       it will show XML. This is not a bug in our API,
+    #       but the browsers send Headers that actually want XML.
+    # TODO: Write tests that proof this. We already checked by hand with curl (produces JSON, JSON, and XML - all as intended):
+    #       curl -X 'GET' 'http://localhost:3000/api/v1/publications?chemotion_ids=1'
+    #       curl -X 'GET' 'http://localhost:3000/api/v1/publications?chemotion_ids=1' -H 'accept: application/json'
+    #       curl -X 'GET' 'http://localhost:3000/api/v1/publications?chemotion_ids=1'-H 'accept: application/xml
 
     # HINT: Needed to avoid CORS (Cross-Origin Resource Sharing) error.
     #       Swagger UI returns response code 0 if these lines aren't here.
