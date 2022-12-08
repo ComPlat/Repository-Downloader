@@ -31,15 +31,14 @@ gem "cssbundling-rails", "1.1.1"
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", "1.2022.5", platforms: %i[mingw mswin x64_mingw jruby]
+gem "tzinfo-data", "1.2022.7", platforms: %i[mingw mswin x64_mingw jruby]
 
 # Reduces boot times through caching; required in config/boot.rb
-gem "bootsnap", "1.13.0", require: false
+gem "bootsnap", "1.15.0", require: false
 
 # Use Grape to create a REST API and generate a Swagger UI to interact with the endpoints [https://www.ruby-grape.org/]
 gem "grape", "1.6.2"
 gem "grape-swagger", "1.5.0" # [https://github.com/ruby-grape/grape-swagger]
-gem "grape-swagger-rails", "0.3.1" # [https://github.com/ruby-grape/grape-swagger-rails]
 
 # Use Sass to process CSS
 # gem "sassc-rails"
@@ -55,9 +54,9 @@ group :development, :test do
   gem "debug", "1.6.2", platforms: %i[mri mingw x64_mingw]
 
   # Ruby Style Guide, with linter & automatic code fixer [https://github.com/testdouble/standard]
-  gem "standard", "1.16.1", require: false #
-  gem "rubocop-rails", "2.16.1", require: false # [https://docs.rubocop.org/rubocop-rails/]
-  gem "rubocop-rspec", "2.13.2", require: false # [https://docs.rubocop.org/rubocop-rspec/]
+  gem "standard", "1.19.1", require: false #
+  gem "rubocop-rails", "2.17.3", require: false # [https://docs.rubocop.org/rubocop-rails/]
+  gem "rubocop-rspec", "2.15.0", require: false # [https://docs.rubocop.org/rubocop-rspec/]
   gem "rubocop-thread_safety", "0.4.4", require: false # [https://github.com/rubocop/rubocop-thread_safety]
 
   # Behaviour-Driven Development tool for the TDD part focusing on the documentation and design aspects of TDD [https://relishapp.com/rspec/]
