@@ -10,7 +10,7 @@ gem "rails", "7.0.4"
 gem "sprockets-rails", "3.4.2"
 
 # Use postgresql as the database for Active Record
-gem "pg", "1.4.4"
+gem "pg", "1.4.5"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "5.6.5"
@@ -51,7 +51,7 @@ gem "dotenv-rails", "2.8.1"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", "1.6.2", platforms: %i[mri mingw x64_mingw]
+  gem "debug", "1.7.0", platforms: %i[mri mingw x64_mingw]
 
   # Ruby Style Guide, with linter & automatic code fixer [https://github.com/testdouble/standard]
   gem "standard", "1.19.1", require: false #
@@ -82,7 +82,7 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara", "3.37.1"
+  gem "capybara", "3.38.0"
   gem "selenium-webdriver", "4.5.0"
   gem "webdrivers", "5.2.0"
 end
