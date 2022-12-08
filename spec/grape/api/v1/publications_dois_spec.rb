@@ -1,58 +1,43 @@
 describe API::V1::Publications, ".dois" do
-  let(:analysis1) { create :analysis, :with_realistic_attributes }
-  let(:analysis2) { create :analysis, :with_realistic_attributes }
+  let(:analysis1) { create(:analysis, :with_realistic_attributes) }
+  let(:reaction1) { create(:reaction, :with_realistic_attributes) }
 
-  # 2 Errors:
-  # NewMappers is missing to what did we rename that
-  # Cant use PublicationsPresenter in specs
-
-  describe "GET /api/v1/publications?dois={analysis1.id}&format=json" do
+  describe "GET /api/v1/publications?dois={analysis1.doi}&format=json" do
     context "with existing doi" do
       before { get "/api/v1/publications?dois=#{analysis1.doi}&format=json" }
 
       it { expect(response).to have_http_status :ok }
-      it { expect(response.body).to eq PublicationsByDoiPresenter.new([analysis1.doi]).to_json.to_a.join }
+      it { expect(response.body).to eq PublicationsByDoiPresenter.new([analysis1.id]).to_json.to_a.join }
       it { expect(response.content_type).to eq "application/json" }
     end
 
-    context "with NOT existing doi=0" do
-      let(:not_existing_doi) { 0 }
+    context "with NOT existing dois" do
+      let(:not_existing_doi) { "10.24790/not_existing_doi" }
 
-      before { get "/api/v1/publications/doi/#{not_existing_doi}" }
+      before { get "/api/v1/publications?dois=#{not_existing_doi}&format=json" }
 
-      it { expect(response).to have_http_status :unprocessable_entity }
-      it { expect(JSON.parse(response.body)).to eq({"error" => "Unprocessable Entity, 'id'=#{not_existing_doi} not valid"}) }
+      it { expect(response).to have_http_status :ok }
+      it { expect(response.body).to eq [].to_json }
       it { expect(response.content_type).to eq "application/json" }
     end
 
-    context "with NOT existing doi=-1" do
-      let(:not_existing_doi) { -1 }
+    context "with NOT existing and invalid dois" do
+      let(:invalid_doi) { "invalid_doi" }
 
-      before { get "/api/v1/publications/chemotion_id/#{not_existing_doi}" }
+      before { get "/api/v1/publications?dois=#{invalid_doi}&format=json" }
 
-      it { expect(response).to have_http_status :unprocessable_entity }
-      it { expect(JSON.parse(response.body)).to eq({"error" => "Unprocessable Entity, 'id'=#{not_existing_chemotion_id} not valid"}) }
-      it { expect(response.content_type).to eq "application/json" }
-    end
-
-    context "with illegal chemotion_id format containing alphabetical characters" do
-      let(:not_existing_chemotion_id) { "ABC" }
-
-      before { get "/api/v1/publications/chemotion_id/#{not_existing_chemotion_id}" }
-
-      it { expect(response).to have_http_status :unprocessable_entity }
-      it { expect(JSON.parse(response.body)).to eq({"error" => "Unprocessable Entity, 'id'=#{not_existing_chemotion_id} not valid"}) }
+      it { expect(response).to have_http_status :bad_request }
+      it { expect(JSON.parse(response.body)).to eq({"error" => "dois is invalid"}) }
       it { expect(response.content_type).to eq "application/json" }
     end
   end
 
-  describe "GET /api/v1/publications/chemotion_id/:chemotion_id1, :chemotion_id2" do
-    context "with two existing chemotion_id" do
-      before { get "/api/v1/publications/chemotion_id/#{analysis1.id},#{analysis2.id}" }
+  describe "GET /api/v1/publications?dois={analysis1.doi},{analysis2.doi}&format=json" do
+    context "with two existing dois" do
+      before { get "/api/v1/publications?dois=#{analysis1.doi},#{reaction1.doi}&format=json" }
 
       let(:expected_json) do
-        [PublicationPresenter.present_by_chemotion_id(analysis1.id),
-          PublicationPresenter.present_by_chemotion_id(analysis2.id)].to_json
+        PublicationsByDoiPresenter.new([analysis1.doi, reaction1.doi]).to_json.to_a.join
       end
 
       it { expect(response).to have_http_status :ok }
@@ -60,85 +45,64 @@ describe API::V1::Publications, ".dois" do
       it { expect(response.content_type).to eq "application/json" }
     end
 
-    context "with one not existing chemotion_id=0" do
-      let(:not_existing_chemotion_id) { 0 }
+    context "with one not existing doi" do
+      let(:not_existing_doi) { "10.24790/not_existing_doi" }
 
-      before { get "/api/v1/publications/chemotion_id/#{analysis1.id},#{not_existing_chemotion_id}" }
+      before { get "/api/v1/publications?dois=#{analysis1.doi},#{not_existing_doi}&format=json" }
 
-      it { expect(response).to have_http_status :unprocessable_entity }
-      it { expect(JSON.parse(response.body)).to eq({"error" => "Unprocessable Entity, 'id'=#{analysis1.id},#{not_existing_chemotion_id} not valid"}) }
+      it { expect(response).to have_http_status :ok }
+      it { expect(response.body).to eq PublicationsByDoiPresenter.new([analysis1.id]).to_json.to_a.join }
       it { expect(response.content_type).to eq "application/json" }
     end
 
-    context "with two not existing chemotion_id=0" do
-      let(:not_existing_chemotion_id) { 0 }
+    context "with two not existing dois" do
+      let(:not_existing_doi1) { "10.24790/not_existing_doi" }
+      let(:not_existing_doi2) { "10.24791/not_existing_doi" }
 
-      before { get "/api/v1/publications/chemotion_id/#{not_existing_chemotion_id},#{not_existing_chemotion_id}" }
+      before { get "/api/v1/publications?dois=#{not_existing_doi1},#{not_existing_doi2}&format=json" }
 
-      it { expect(response).to have_http_status :unprocessable_entity }
-      it { expect(JSON.parse(response.body)).to eq({"error" => "Unprocessable Entity, 'id'=#{not_existing_chemotion_id},#{not_existing_chemotion_id} not valid"}) }
+      it { expect(response).to have_http_status :ok }
+      it { expect(response.body).to eq [].to_json }
       it { expect(response.content_type).to eq "application/json" }
     end
 
-    context "with one not existing chemotion_id=-1" do
-      let(:not_existing_chemotion_id) { -1 }
+    context "with one invalid doi" do
+      let(:invalid_doi) { "invalid_doi" }
 
-      before { get "/api/v1/publications/chemotion_id/#{analysis1.id},#{not_existing_chemotion_id}" }
+      before { get "/api/v1/publications?dois=#{analysis1.id},#{invalid_doi}&format=json" }
 
-      it { expect(response).to have_http_status :unprocessable_entity }
-      it { expect(JSON.parse(response.body)).to eq({"error" => "Unprocessable Entity, 'id'=#{analysis1.id},#{not_existing_chemotion_id} not valid"}) }
+      it { expect(response).to have_http_status :bad_request }
+      it { expect(JSON.parse(response.body)).to eq({"error" => "dois is invalid"}) }
       it { expect(response.content_type).to eq "application/json" }
     end
 
-    context "with two not existing chemotion_id=-1" do
-      let(:not_existing_chemotion_id) { -1 }
+    context "with two invalid dois" do
+      let(:invalid_doi1) { "invalid_doi1" }
+      let(:invalid_doi2) { "invalid_doi2" }
 
-      before { get "/api/v1/publications/chemotion_id/#{not_existing_chemotion_id},#{not_existing_chemotion_id}" }
+      before { get "/api/v1/publications?dois=#{invalid_doi1},#{invalid_doi2}&format=json" }
 
-      it { expect(response).to have_http_status :unprocessable_entity }
-      it { expect(JSON.parse(response.body)).to eq({"error" => "Unprocessable Entity, 'id'=#{not_existing_chemotion_id},#{not_existing_chemotion_id} not valid"}) }
+      it { expect(response).to have_http_status :bad_request }
+      it { expect(JSON.parse(response.body)).to eq({"error" => "dois is invalid"}) }
       it { expect(response.content_type).to eq "application/json" }
     end
 
-    context "with one illegal chemotion_id format containing alphabetical characters" do
-      let(:not_existing_chemotion_id) { "ABC" }
+    context "with two identical existing dois" do
+      before { get "/api/v1/publications?dois=#{analysis1.doi},#{analysis1.doi}&format=json" }
 
-      before { get "/api/v1/publications/chemotion_id/#{analysis1.id},#{not_existing_chemotion_id}" }
-
-      it { expect(response).to have_http_status :unprocessable_entity }
-      it { expect(JSON.parse(response.body)).to eq({"error" => "Unprocessable Entity, 'id'=#{analysis1.id},#{not_existing_chemotion_id} not valid"}) }
+      it { expect(response).to have_http_status :bad_request }
+      it { expect(JSON.parse(response.body)).to eq({"error" => "dois is invalid"}) }
       it { expect(response.content_type).to eq "application/json" }
     end
-
-    context "with two illegal chemotion_id format containing alphabetical characters" do
-      let(:not_existing_chemotion_id) { "ABC" }
-
-      before { get "/api/v1/publications/chemotion_id/#{not_existing_chemotion_id},#{not_existing_chemotion_id}" }
-
-      it { expect(response).to have_http_status :unprocessable_entity }
-      it { expect(JSON.parse(response.body)).to eq({"error" => "Unprocessable Entity, 'id'=#{not_existing_chemotion_id},#{not_existing_chemotion_id} not valid"}) }
-      it { expect(response.content_type).to eq "application/json" }
-    end
-
-    # TODO: That is not yet working because Rspec / CGI / ... formats whitespaces different than most browsers & postman
-    # context "with one empty chemotion_id" do
-    #  let(:empty_chemotion_id) { CGI.escape("  ") }
-    #
-    # before { get "/api/v1/publications/chemotion_id/#{analysis1.id},#{empty_chemotion_id},#{analysis2.id}" }
-    #
-    # it { expect(response).to have_http_status :unprocessable_entity }
-    # it { expect(JSON.parse(response.body)).to eq({"error" => "Unprocessable Entity, 'id'=#{analysis1.id},#{empty_chemotion_id},#{analysis2.id}, not valid"}) }
-    # it { expect(response.content_type).to eq "application/json" }
-    # end
   end
 
-  describe "GET Analysis" do
+  xdescribe "GET Analysis" do
     let(:analysis) { create(:analysis, :with_realistic_attributes) }
-    let(:attachment) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id }
+    let(:attachment) { create(:attachment, :with_realistic_attributes, ana_id: analysis.element_id) }
 
     let(:expected_json) do
       <<~JSON
-        {
+        [{
           "@context": "https://schema.org/",
           "@id": "https://dx.doi.org/#{analysis.doi}",
           "@type": "AnalysisEntity",
@@ -148,23 +112,23 @@ describe API::V1::Publications, ".dois" do
           "ontologies": "#{analysis.kind&.split("|")&.last&.strip}",
           "title": "#{analysis.kind&.split("|")&.last&.strip}",
           "url": "https://dx.doi.org/#{analysis.doi}"
-        }
+        }]
       JSON
     end
 
-    before { get "/api/v1/publications/chemotion_id/#{attachment.analysis.id}" }
+    before { get "/api/v1/publications?dois=#{attachment.analysis.doi}&format=json" }
 
     it { expect(JSON.parse(response.body)).to eq JSON.parse(expected_json) }
   end
 
   describe "GET Reaction" do
-    let(:reaction) { create :reaction, :with_realistic_attributes }
-    let(:attached_sample1) { create :sample, :with_realistic_attributes, reaction: }
-    let(:attached_sample2) { create :sample, :with_realistic_attributes, reaction: }
+    let(:reaction) { create(:reaction, :with_realistic_attributes) }
+    let(:attached_sample1) { create(:sample, :with_realistic_attributes, reaction:) }
+    let(:attached_sample2) { create(:sample, :with_realistic_attributes, reaction:) }
 
     let(:expected_json) do
       <<~JSON
-        {
+         [{
           "@context":"https://schema.org/", 
           "@id":"#{reaction.doi}", 
           "@type":"BioChemicalReaction", 
@@ -177,14 +141,14 @@ describe API::V1::Publications, ".dois" do
           "duration":"#{reaction.reaction_duration}", 
           "purification":"#{(reaction.reaction_purification || []).join(", ")}", 
           "reagentsList":#{ReactionMappers::ReagentsListMapper.from_hash(ReactionAdapter::ReagentsListAdapter.new(reaction).to_h).to_json}
-        }
+        }]
       JSON
     end
 
     before do
       attached_sample1
       attached_sample2
-      get "/api/v1/publications/chemotion_id/#{reaction.id}"
+      get "/api/v1/publications?dois=#{reaction.doi}&format=json"
     end
 
     it { expect(JSON.parse(response.body)).to eq JSON.parse(expected_json) }
@@ -192,16 +156,16 @@ describe API::V1::Publications, ".dois" do
 
   describe "GET Sample" do
     let(:sample) {
-      create :sample, :with_required_dependencies, :with_realistic_attributes,
+      create(:sample, :with_required_dependencies, :with_realistic_attributes,
         taggable_data: {"original_analysis_ids" => [attachment1.analysis.id, attachment2.analysis.id],
-                        "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"}
+                        "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"})
     }
-    let(:attachment1) { create :attachment, :with_required_dependencies, :with_realistic_attributes }
-    let(:attachment2) { create :attachment, :with_required_dependencies, :with_realistic_attributes }
+    let(:attachment1) { create(:attachment, :with_required_dependencies, :with_realistic_attributes) }
+    let(:attachment2) { create(:attachment, :with_required_dependencies, :with_realistic_attributes) }
 
     let(:expected_json) do
       <<~JSON
-        {
+        [{
           "@context": "https://schema.org/",
           "@id": "#{sample.doi}",
           "@type": "MolecularEntity",
@@ -218,11 +182,11 @@ describe API::V1::Publications, ".dois" do
           "name": "#{sample.iupac_name}",
           "smiles": "#{sample.cano_smiles}",
           "url": "https://dx.doi.org/#{sample.doi}"
-        }
+        }]
       JSON
     end
 
-    before { get "/api/v1/publications/chemotion_id/#{sample.id}" }
+    before { get "/api/v1/publications?dois=#{sample.doi}&format=json" }
 
     it { expect(JSON.parse(response.body)).to eq JSON.parse(expected_json) }
   end

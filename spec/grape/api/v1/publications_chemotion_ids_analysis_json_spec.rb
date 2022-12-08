@@ -3,7 +3,7 @@ describe API::V1::Publications, ".chemotion_ids .analysis" do
     let(:analysis) { create(:analysis, :with_realistic_attributes) }
 
     let(:expected_json) do
-      {
+      [{
         "@context": "https://schema.org/",
         "@id": "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1",
         "@type": "AnalysisEntity",
@@ -13,17 +13,17 @@ describe API::V1::Publications, ".chemotion_ids .analysis" do
         ontologies: "13C nuclear magnetic resonance spectroscopy (13C NMR)",
         title: "13C nuclear magnetic resonance spectroscopy (13C NMR)",
         url: "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1"
-      }.to_json
+      }].to_json
     end
 
-    before { get "/api/v1/publications/chemotion_id/#{analysis.id}" }
+    before { get "/api/v1/publications?chemotion_ids=#{analysis.id}&format=json" }
 
     it { expect(JSON.parse(response.body)).to eq JSON.parse(expected_json) }
   end
 
   context "when one analysis and one attachment" do
     let(:analysis) { create(:analysis, :with_realistic_attributes) }
-    let(:attachment) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id }
+    let(:attachment) { create(:attachment, :with_realistic_attributes, ana_id: analysis.element_id) }
 
     let(:expected_data_set_list_json) {
       {"itemListElement" => [
@@ -50,7 +50,7 @@ describe API::V1::Publications, ".chemotion_ids .analysis" do
     }
 
     let(:expected_json) do
-      {
+      [{
         "@context": "https://schema.org/",
         "@id": "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1",
         "@type": "AnalysisEntity",
@@ -60,12 +60,12 @@ describe API::V1::Publications, ".chemotion_ids .analysis" do
         ontologies: "13C nuclear magnetic resonance spectroscopy (13C NMR)",
         title: "13C nuclear magnetic resonance spectroscopy (13C NMR)",
         url: "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1"
-      }.to_json
+      }].to_json
     end
 
     before do
       attachment
-      get "/api/v1/publications/chemotion_id/#{analysis.id}"
+      get "/api/v1/publications?chemotion_ids=#{analysis.id}&format=json"
     end
 
     it { expect(JSON.parse(response.body)).to eq JSON.parse(expected_json) }
@@ -74,8 +74,8 @@ describe API::V1::Publications, ".chemotion_ids .analysis" do
   context "when one analysis and two attachments" do
     let(:analysis) { create(:analysis, :with_realistic_attributes) }
     let(:attachments) {
-      [(create :attachment, :with_realistic_attributes, ana_id: analysis.element_id),
-        (create :attachment, :with_realistic_attributes, ana_id: analysis.element_id)]
+      [create(:attachment, :with_realistic_attributes, ana_id: analysis.element_id),
+        create(:attachment, :with_realistic_attributes, ana_id: analysis.element_id)]
     }
 
     let(:expected_data_set_list_json) {
@@ -109,7 +109,7 @@ describe API::V1::Publications, ".chemotion_ids .analysis" do
     }
 
     let(:expected_json) do
-      {
+      [{
         "@context": "https://schema.org/",
         "@id": "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1",
         "@type": "AnalysisEntity",
@@ -119,12 +119,12 @@ describe API::V1::Publications, ".chemotion_ids .analysis" do
         ontologies: "13C nuclear magnetic resonance spectroscopy (13C NMR)",
         title: "13C nuclear magnetic resonance spectroscopy (13C NMR)",
         url: "https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1"
-      }.to_json
+      }].to_json
     end
 
     before do
       attachments
-      get "/api/v1/publications/chemotion_id/#{analysis.id}"
+      get "/api/v1/publications?chemotion_ids=#{analysis.id}&format=json"
     end
 
     it { expect(JSON.parse(response.body)).to eq JSON.parse(expected_json) }

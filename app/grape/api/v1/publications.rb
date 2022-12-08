@@ -19,8 +19,6 @@ class API::V1::Publications < Grape::API
     end
 
     get do
-
-
       case params
       in {chemotion_ids: Array}
         stream PublicationsByChemotionIdPresenter.new(params[:chemotion_ids]).public_send("to_#{env["api.format"]}")

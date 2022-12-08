@@ -1,42 +1,42 @@
 describe API::V1::Publications, ".chemotion_ids .sample" do
   context "when one sample and no analyses and no attachments" do
     let(:sample) {
-      create :sample, :with_required_dependencies, :with_realistic_attributes,
+      create(:sample, :with_required_dependencies, :with_realistic_attributes,
         taggable_data: {"original_analysis_ids" => [],
-                        "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"}
+                        "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"})
     }
 
     let(:expected_json) do
-      {"@context" => "https://schema.org/",
-       "@id" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1",
-       "@type" => "MolecularEntity",
-       "analysisList" => {"itemListElement" => [], "numberOfItems" => 0},
-       "boilingPoint" => "-Infinity...Infinity",
-       "dct:conformsTo" => {"http://purl.org/dc/terms/conformsTo" => {"@id" => "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/", "@type" => "CreativeWork"}},
-       "identifier" => "CRS-#{sample.id}",
-       "inChI" => "InChI=1S/C20H14N8/c1-3-10-21-15(8-1)19-17(23-27-25-19)13-6-5-7-14(12-13)18-20(26-28-24-18)16-9-2-4-11-22-16/h1-12H,(H,23,25,27)(H,24,26,28)",
-       "inChIKey" => "MUAMZYSBUQADBN-UHFFFAOYSA-N",
-       "iupacName" => "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
-       "meltingPoint" => "-Infinity...Infinity",
-       "molecularFormula" => "C20H14N8",
-       "molecularWeight" => {"value" => 366.37876000000006},
-       "name" => "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
-       "smiles" => "c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1",
-       "url" => "https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"}.to_json
+      [{"@context" => "https://schema.org/",
+        "@id" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1",
+        "@type" => "MolecularEntity",
+        "analysisList" => {"itemListElement" => [], "numberOfItems" => 0},
+        "boilingPoint" => "-Infinity...Infinity",
+        "dct:conformsTo" => {"http://purl.org/dc/terms/conformsTo" => {"@id" => "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/", "@type" => "CreativeWork"}},
+        "identifier" => "CRS-#{sample.id}",
+        "inChI" => "InChI=1S/C20H14N8/c1-3-10-21-15(8-1)19-17(23-27-25-19)13-6-5-7-14(12-13)18-20(26-28-24-18)16-9-2-4-11-22-16/h1-12H,(H,23,25,27)(H,24,26,28)",
+        "inChIKey" => "MUAMZYSBUQADBN-UHFFFAOYSA-N",
+        "iupacName" => "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
+        "meltingPoint" => "-Infinity...Infinity",
+        "molecularFormula" => "C20H14N8",
+        "molecularWeight" => {"value" => 366.37876000000006},
+        "name" => "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
+        "smiles" => "c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1",
+        "url" => "https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"}].to_json
     end
 
-    before { get "/api/v1/publications/chemotion_id/#{sample.id}" }
+    before { get "/api/v1/publications?chemotion_ids=#{sample.id}&format=json" }
 
     it { expect(JSON.parse(response.body)).to eq JSON.parse(expected_json) }
   end
 
   context "when one sample and one analysis and no attachments" do
     let(:sample) {
-      create :sample, :with_required_dependencies, :with_realistic_attributes,
+      create(:sample, :with_required_dependencies, :with_realistic_attributes,
         taggable_data: {"original_analysis_ids" => [analysis.id],
-                        "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"}
+                        "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"})
     }
-    let(:analysis) { create :analysis, :with_realistic_attributes }
+    let(:analysis) { create(:analysis, :with_realistic_attributes) }
 
     let(:expected_analysis_list_json) {
       {
@@ -65,37 +65,37 @@ describe API::V1::Publications, ".chemotion_ids .sample" do
     }
 
     let(:expected_json) do
-      {"@context" => "https://schema.org/",
-       "@id" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1",
-       "@type" => "MolecularEntity",
-       "analysisList" => expected_analysis_list_json,
-       "boilingPoint" => "-Infinity...Infinity",
-       "dct:conformsTo" => {"http://purl.org/dc/terms/conformsTo" => {"@id" => "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/", "@type" => "CreativeWork"}},
-       "identifier" => "CRS-#{sample.id}",
-       "inChI" => "InChI=1S/C20H14N8/c1-3-10-21-15(8-1)19-17(23-27-25-19)13-6-5-7-14(12-13)18-20(26-28-24-18)16-9-2-4-11-22-16/h1-12H,(H,23,25,27)(H,24,26,28)",
-       "inChIKey" => "MUAMZYSBUQADBN-UHFFFAOYSA-N",
-       "iupacName" => "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
-       "meltingPoint" => "-Infinity...Infinity",
-       "molecularFormula" => "C20H14N8",
-       "molecularWeight" => {"value" => 366.37876000000006},
-       "name" => "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
-       "smiles" => "c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1",
-       "url" => "https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"}.to_json
+      [{"@context" => "https://schema.org/",
+        "@id" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1",
+        "@type" => "MolecularEntity",
+        "analysisList" => expected_analysis_list_json,
+        "boilingPoint" => "-Infinity...Infinity",
+        "dct:conformsTo" => {"http://purl.org/dc/terms/conformsTo" => {"@id" => "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/", "@type" => "CreativeWork"}},
+        "identifier" => "CRS-#{sample.id}",
+        "inChI" => "InChI=1S/C20H14N8/c1-3-10-21-15(8-1)19-17(23-27-25-19)13-6-5-7-14(12-13)18-20(26-28-24-18)16-9-2-4-11-22-16/h1-12H,(H,23,25,27)(H,24,26,28)",
+        "inChIKey" => "MUAMZYSBUQADBN-UHFFFAOYSA-N",
+        "iupacName" => "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
+        "meltingPoint" => "-Infinity...Infinity",
+        "molecularFormula" => "C20H14N8",
+        "molecularWeight" => {"value" => 366.37876000000006},
+        "name" => "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
+        "smiles" => "c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1",
+        "url" => "https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"}].to_json
     end
 
-    before { get "/api/v1/publications/chemotion_id/#{sample.id}" }
+    before { get "/api/v1/publications?chemotion_ids=#{sample.id}&format=json" }
 
     it { expect(JSON.parse(response.body)).to eq JSON.parse(expected_json) }
   end
 
   context "when one sample and one analysis and one attachment" do
     let(:sample) {
-      create :sample, :with_required_dependencies, :with_realistic_attributes,
+      create(:sample, :with_required_dependencies, :with_realistic_attributes,
         taggable_data: {"original_analysis_ids" => [analysis.id],
-                        "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"}
+                        "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"})
     }
-    let(:analysis) { create :analysis, :with_realistic_attributes }
-    let(:attachment) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id }
+    let(:analysis) { create(:analysis, :with_realistic_attributes) }
+    let(:attachment) { create(:attachment, :with_realistic_attributes, ana_id: analysis.element_id) }
 
     let(:expected_analysis_list_json) {
       expected_data_set_list = {
@@ -145,27 +145,27 @@ describe API::V1::Publications, ".chemotion_ids .sample" do
     }
 
     let(:expected_json) do
-      {"@context" => "https://schema.org/",
-       "@id" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1",
-       "@type" => "MolecularEntity",
-       "analysisList" => expected_analysis_list_json,
-       "boilingPoint" => "-Infinity...Infinity",
-       "dct:conformsTo" => {"http://purl.org/dc/terms/conformsTo" => {"@id" => "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/", "@type" => "CreativeWork"}},
-       "identifier" => "CRS-#{sample.id}",
-       "inChI" => "InChI=1S/C20H14N8/c1-3-10-21-15(8-1)19-17(23-27-25-19)13-6-5-7-14(12-13)18-20(26-28-24-18)16-9-2-4-11-22-16/h1-12H,(H,23,25,27)(H,24,26,28)",
-       "inChIKey" => "MUAMZYSBUQADBN-UHFFFAOYSA-N",
-       "iupacName" => "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
-       "meltingPoint" => "-Infinity...Infinity",
-       "molecularFormula" => "C20H14N8",
-       "molecularWeight" => {"value" => 366.37876000000006},
-       "name" => "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
-       "smiles" => "c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1",
-       "url" => "https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"}.to_json
+      [{"@context" => "https://schema.org/",
+        "@id" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1",
+        "@type" => "MolecularEntity",
+        "analysisList" => expected_analysis_list_json,
+        "boilingPoint" => "-Infinity...Infinity",
+        "dct:conformsTo" => {"http://purl.org/dc/terms/conformsTo" => {"@id" => "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/", "@type" => "CreativeWork"}},
+        "identifier" => "CRS-#{sample.id}",
+        "inChI" => "InChI=1S/C20H14N8/c1-3-10-21-15(8-1)19-17(23-27-25-19)13-6-5-7-14(12-13)18-20(26-28-24-18)16-9-2-4-11-22-16/h1-12H,(H,23,25,27)(H,24,26,28)",
+        "inChIKey" => "MUAMZYSBUQADBN-UHFFFAOYSA-N",
+        "iupacName" => "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
+        "meltingPoint" => "-Infinity...Infinity",
+        "molecularFormula" => "C20H14N8",
+        "molecularWeight" => {"value" => 366.37876000000006},
+        "name" => "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
+        "smiles" => "c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1",
+        "url" => "https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"}].to_json
     end
 
     before do
       attachment
-      get "/api/v1/publications/chemotion_id/#{sample.id}"
+      get "/api/v1/publications?chemotion_ids=#{sample.id}&format=json"
     end
 
     it { expect(JSON.parse(response.body)).to eq JSON.parse(expected_json) }
@@ -173,19 +173,19 @@ describe API::V1::Publications, ".chemotion_ids .sample" do
 
   context "when one sample and two analyses and two attachments for each analysis" do
     let(:sample) {
-      create :sample, :with_required_dependencies, :with_realistic_attributes,
+      create(:sample, :with_required_dependencies, :with_realistic_attributes,
         taggable_data: {"original_analysis_ids" => [analyses.first.id, analyses.second.id],
-                        "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"}
+                        "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"})
     }
     let(:analyses) {
-      [(create :analysis, :with_realistic_attributes, element_id: 1),
-        (create :analysis, :with_realistic_attributes, element_id: 2)]
+      [create(:analysis, :with_realistic_attributes, element_id: 1),
+        create(:analysis, :with_realistic_attributes, element_id: 2)]
     }
     let(:attachments) {
-      [(create :attachment, :with_realistic_attributes, ana_id: analyses.first.element_id),
-        (create :attachment, :with_realistic_attributes, ana_id: analyses.first.element_id),
-        (create :attachment, :with_realistic_attributes, ana_id: analyses.second.element_id),
-        (create :attachment, :with_realistic_attributes, ana_id: analyses.second.element_id)]
+      [create(:attachment, :with_realistic_attributes, ana_id: analyses.first.element_id),
+        create(:attachment, :with_realistic_attributes, ana_id: analyses.first.element_id),
+        create(:attachment, :with_realistic_attributes, ana_id: analyses.second.element_id),
+        create(:attachment, :with_realistic_attributes, ana_id: analyses.second.element_id)]
     }
 
     let(:expected_analysis_list_json) {
@@ -306,27 +306,27 @@ describe API::V1::Publications, ".chemotion_ids .sample" do
     }
 
     let(:expected_json) do
-      {"@context" => "https://schema.org/",
-       "@id" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1",
-       "@type" => "MolecularEntity",
-       "analysisList" => expected_analysis_list_json,
-       "boilingPoint" => "-Infinity...Infinity",
-       "dct:conformsTo" => {"http://purl.org/dc/terms/conformsTo" => {"@id" => "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/", "@type" => "CreativeWork"}},
-       "identifier" => "CRS-#{sample.id}",
-       "inChI" => "InChI=1S/C20H14N8/c1-3-10-21-15(8-1)19-17(23-27-25-19)13-6-5-7-14(12-13)18-20(26-28-24-18)16-9-2-4-11-22-16/h1-12H,(H,23,25,27)(H,24,26,28)",
-       "inChIKey" => "MUAMZYSBUQADBN-UHFFFAOYSA-N",
-       "iupacName" => "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
-       "meltingPoint" => "-Infinity...Infinity",
-       "molecularFormula" => "C20H14N8",
-       "molecularWeight" => {"value" => 366.37876000000006},
-       "name" => "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
-       "smiles" => "c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1",
-       "url" => "https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"}.to_json
+      [{"@context" => "https://schema.org/",
+        "@id" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1",
+        "@type" => "MolecularEntity",
+        "analysisList" => expected_analysis_list_json,
+        "boilingPoint" => "-Infinity...Infinity",
+        "dct:conformsTo" => {"http://purl.org/dc/terms/conformsTo" => {"@id" => "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/", "@type" => "CreativeWork"}},
+        "identifier" => "CRS-#{sample.id}",
+        "inChI" => "InChI=1S/C20H14N8/c1-3-10-21-15(8-1)19-17(23-27-25-19)13-6-5-7-14(12-13)18-20(26-28-24-18)16-9-2-4-11-22-16/h1-12H,(H,23,25,27)(H,24,26,28)",
+        "inChIKey" => "MUAMZYSBUQADBN-UHFFFAOYSA-N",
+        "iupacName" => "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
+        "meltingPoint" => "-Infinity...Infinity",
+        "molecularFormula" => "C20H14N8",
+        "molecularWeight" => {"value" => 366.37876000000006},
+        "name" => "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
+        "smiles" => "c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1",
+        "url" => "https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"}].to_json
     end
 
     before do
       attachments
-      get "/api/v1/publications/chemotion_id/#{sample.id}"
+      get "/api/v1/publications?chemotion_ids=#{sample.id}&format=json"
     end
 
     it { expect(JSON.parse(response.body)).to eq JSON.parse(expected_json) }

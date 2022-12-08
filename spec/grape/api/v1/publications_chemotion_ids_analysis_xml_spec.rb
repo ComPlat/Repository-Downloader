@@ -20,14 +20,14 @@ describe API::V1::Publications, ".chemotion_ids .analysis" do
       XML
     end
 
-    before { get "/api/v1/publications/chemotion_id/#{analysis.id}.xml" }
+    before { get "/api/v1/publications?chemotion_ids=#{analysis.id}&format=xml" }
 
     it { expect(response.parsed_body).to eq_without_whitespace expected_xml }
   end
 
   context "when one analysis and one attachment" do
     let(:analysis) { create(:analysis, :with_realistic_attributes) }
-    let(:attachment) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id }
+    let(:attachment) { create(:attachment, :with_realistic_attributes, ana_id: analysis.element_id) }
 
     let(:expected_data_set_list_xml) do
       <<~XML
@@ -71,7 +71,7 @@ describe API::V1::Publications, ".chemotion_ids .analysis" do
 
     before do
       attachment
-      get "/api/v1/publications/chemotion_id/#{analysis.id}.xml"
+      get "/api/v1/publications?chemotion_ids=#{analysis.id}&format=xml"
     end
 
     it { expect(response.parsed_body).to eq_without_whitespace expected_xml }
@@ -80,8 +80,8 @@ describe API::V1::Publications, ".chemotion_ids .analysis" do
   context "when one analysis and two attachments" do
     let(:analysis) { create(:analysis, :with_realistic_attributes) }
     let(:attachments) {
-      [(create :attachment, :with_realistic_attributes, ana_id: analysis.element_id),
-        (create :attachment, :with_realistic_attributes, ana_id: analysis.element_id)]
+      [create(:attachment, :with_realistic_attributes, ana_id: analysis.element_id),
+        create(:attachment, :with_realistic_attributes, ana_id: analysis.element_id)]
     }
 
     let(:expected_data_set_list_xml) do
@@ -132,7 +132,7 @@ describe API::V1::Publications, ".chemotion_ids .analysis" do
 
     before do
       attachments
-      get "/api/v1/publications/chemotion_id/#{analysis.id}.xml"
+      get "/api/v1/publications?chemotion_ids=#{analysis.id}&format=xml"
     end
 
     it { expect(response.parsed_body).to eq_without_whitespace expected_xml }

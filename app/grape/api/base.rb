@@ -25,7 +25,7 @@ module API
     # TODO: Write tests that proof this. We already checked by hand with curl (produces JSON, JSON, and XML - all as intended):
     #       curl -X 'GET' 'http://localhost:3000/api/v1/publications?chemotion_ids=1'
     #       curl -X 'GET' 'http://localhost:3000/api/v1/publications?chemotion_ids=1' -H 'accept: application/json'
-    #       curl -X 'GET' 'http://localhost:3000/api/v1/publications?chemotion_ids=1'-H 'accept: application/xml
+    #       curl -X 'GET' 'http://localhost:3000/api/v1/publications?chemotion_ids=1' -H 'accept: application/xml'
 
     # HINT: Needed to avoid CORS (Cross-Origin Resource Sharing) error.
     #       Swagger UI returns response code 0 if these lines aren't here.
