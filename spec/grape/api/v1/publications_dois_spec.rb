@@ -96,7 +96,7 @@ describe API::V1::Publications, ".dois" do
     end
   end
 
-  xdescribe "GET Analysis" do
+  describe "GET Analysis" do
     let!(:analysis) { create(:analysis, :with_realistic_attributes) }
     let(:attachment) { create(:attachment, :with_realistic_attributes, ana_id: analysis.element_id) }
 
