@@ -1,5 +1,3 @@
-require "bag_it_stream"
-
 class ReactionPresenter
   def initialize(reaction) = @reaction = reaction
 
@@ -10,14 +8,13 @@ class ReactionPresenter
   def to_csv = Enumerator.new { |yielder| yielder << mapper.to_csv }
 
   def to_zip
-    # TODO: Implement unique path
-    # TODO: Use ActiveJob for cleanup
-    FileUtils.rm_rf "tmp/data/input"
-    FileUtils.mkpath "tmp/data/input"
+    unix_timestamp_in_ns = (Time.current.to_r * 1000).round
+    path = "./tmp/bagit/#{unix_timestamp_in_ns}-#{@reaction.chemotion_id}_##{SecureRandom.uuid}"
+    FileUtils.mkpath path
     BagItStream.new({"reaction.json" => StringIO.open(mapper.to_json),
                       "reaction.xml" => StringIO.open(mapper.to_xml),
                       "reaction.csv" => StringIO.open(mapper.to_csv)},
-      "tmp/data/input").rack_body
+      path, false).rack_body
   end
 
   private
