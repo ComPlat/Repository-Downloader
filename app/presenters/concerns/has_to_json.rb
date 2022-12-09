@@ -6,7 +6,7 @@ module HasToJson
       yielder << "["
       publications.each.with_index(1) { |publication, index|
         publication.present_to_api.to_json.each { |json_chunk|
-          yielder << (index < publications_size ? "#{json_chunk}," : json_chunk)
+          yielder << ((index < publications_size) ? "#{json_chunk}," : json_chunk)
         }
       }
       yielder << "]"
@@ -15,7 +15,5 @@ module HasToJson
 
   private
 
-  def publications_size
-    @publications_size ||= publications.size
-  end
+  def publications_size = @publications_size ||= publications.size
 end
