@@ -1,5 +1,5 @@
 describe AnalysisPresenter do
-  let(:analysis) { build :analysis }
+  let(:analysis) { create :analysis }
   let(:analysis_presenter) { described_class.new analysis }
 
   describe ".new" do
@@ -33,12 +33,14 @@ describe AnalysisPresenter do
     subject(:to_zip) { analysis_presenter.to_zip }
 
     before do
-      zip_string = []
-      to_zip.each { |x| zip_string << x }
+      zip_chunks = []
+      to_zip.each { |zip_chunk|
+        zip_chunks << zip_chunk
+      }
 
       FileUtils.mkpath "tmp/data/output/data"
 
-      io = StringIO.new(zip_string.join)
+      io = StringIO.new(zip_chunks.join)
 
       ZipTricks::FileReader.read_zip_structure(io:).each do |entry|
         File.open("tmp/data/output/#{entry.filename}", "wb") do |extracted_file|
@@ -49,7 +51,8 @@ describe AnalysisPresenter do
     end
 
     after do
-      FileUtils.rm_rf "tmp/data/output"
+      FileUtils.rm_rf "tmp/data"
+      FileUtils.rm_rf "tmp/bagit"
     end
 
     context "when analysis has minimal attributes" do
@@ -61,7 +64,7 @@ describe AnalysisPresenter do
     end
 
     context "when analysis has realistic attributes" do
-      let(:analysis) { build :analysis, :with_realistic_attributes }
+      let(:analysis) { create :analysis, :with_realistic_attributes }
 
       it { is_expected.to be_a ZipTricks::OutputEnumerator }
       it { expect(Dir.new("tmp/data/output").entries.size).to eq 9 }
