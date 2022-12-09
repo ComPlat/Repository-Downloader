@@ -51,7 +51,8 @@ gem "dotenv-rails", "2.8.1"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", "1.7.0", platforms: %i[mri mingw x64_mingw]
+  gem "debug", "1.6.3", platforms: %i[mri mingw x64_mingw] # HINT: Version 1.7.0 needs irb of at least 1.5.0
+  gem "irb", "1.4.2" # HINT: Version 1.4.3 breaks ruby-debug-ide with version 3.0.0.beta.5
 
   # Ruby Style Guide, with linter & automatic code fixer [https://github.com/testdouble/standard]
   gem "standard", "1.19.1", require: false #
