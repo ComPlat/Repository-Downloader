@@ -97,7 +97,7 @@ describe API::V1::Publications, ".dois" do
   end
 
   xdescribe "GET Analysis" do
-    let(:analysis) { create(:analysis, :with_realistic_attributes) }
+    let!(:analysis) { create(:analysis, :with_realistic_attributes) }
     let(:attachment) { create(:attachment, :with_realistic_attributes, ana_id: analysis.element_id) }
 
     let(:expected_json) do
@@ -116,7 +116,7 @@ describe API::V1::Publications, ".dois" do
       JSON
     end
 
-    before { get "/api/v1/publications?dois=#{attachment.analysis.doi}&format=json" }
+    before { get "/api/v1/publications?dois=#{analysis.doi}&format=json" }
 
     it { expect(JSON.parse(response.body)).to eq JSON.parse(expected_json) }
   end

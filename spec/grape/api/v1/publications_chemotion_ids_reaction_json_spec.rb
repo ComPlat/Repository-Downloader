@@ -26,7 +26,7 @@ describe API::V1::Publications, ".chemotion_ids .reaction" do
 
   context "when one reaction and one attachment" do
     let(:reaction) { create(:reaction, :with_realistic_attributes) }
-    let(:attached_sample1) { create(:sample, :with_realistic_attributes, reaction:, id: 2) }
+    let(:attached_sample1) { create(:sample, :with_realistic_attributes, reaction:) }
 
     let(:expected_reagents_list_json) do
       {"itemListElement" => [
@@ -37,7 +37,7 @@ describe API::V1::Publications, ".chemotion_ids .reaction" do
              "@id" => "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/",
              "@type" => "CreativeWork"
            },
-           "identifier" => "CRS-2",
+           "identifier" => "CRS-#{attached_sample1.id}",
            "inChIKey" => "MUAMZYSBUQADBN-UHFFFAOYSA-N",
            "molecularFormula" => "C20H14N8",
            "name" => "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
