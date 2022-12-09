@@ -47,13 +47,8 @@ gem "grape-swagger-rails", "0.3.1" # [https://github.com/ruby-grape/grape-swagge
 # Ruby Object mapper and serialization library for JSON, YAML, TOML, CSV and XML [https://www.shalerb.org/]
 gem "shale", "0.9.0"
 
-# Ruby Library and Command Line tools for BagIt [https://github.com/tipr/bagit], [https://www.rubydoc.info/gems/bagit/]
-gem "bagit", "0.4.5"
-
-# Stream out ZIP files from Ruby [https://github.com/wetransfer/zip_tricks]
-gem "zip_tricks", "5.6.0"
-
-gem "bag-it-stream", git: "git@github.com:Cleaner-Code/bagit_stream.git", branch: 'main', tag: "v0.1.1"
+# Streaming for zipped BagIt [https://github.com/Cleaner-Code/bagit_stream]
+gem "bag-it-stream", git: "git@github.com:Cleaner-Code/bagit_stream.git", branch: "main", tag: "v0.2.0"
 
 # Autoload dotenv in Rails [https://github.com/bkeepers/dotenv]
 gem "dotenv-rails", "2.8.1"
@@ -73,6 +68,9 @@ group :development, :test do
   gem "rails-controller-testing", "1.0.5" # Needed for Controller tests [https://github.com/rails/rails-controller-testing]
   gem "shoulda-matchers", "5.2.0" # Simple One-Liner Tests for Rails [https://matchers.shoulda.io/]
   gem "factory_bot_rails", "6.2.0" # fixtures replacement with a straightforward definition syntax, support for multiple build strategies and support for multiple factories for the same class [https://github.com/thoughtbot/factory_bot_rails]
+
+  # Run any kind of code in parallel processes [https://github.com/grosser/parallel]
+  gem "parallel", "1.22.1"
 end
 
 group :development do
