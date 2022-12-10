@@ -1,9 +1,10 @@
 class PublicationRepository
-  def self.find_by_doi!(doi) = Publication.find_by!("taggable_data @> ?", {doi:}.to_json)
+  DOI_FIELD_NAMES = [:doi, :analysis_doi].freeze
+  JSONB_QUERY = "taggable_data @> any(array[?]::jsonb[])".freeze
+  def self.find_by_doi!(doi) = Publication.find_by! JSONB_QUERY, DOI_FIELD_NAMES.map { |key| {key => doi}.to_json }
 
-  def self.where_dois(dois)
-    Publication.where("taggable_data @> any(array[?]::jsonb[])", dois.map { |doi| {doi: doi}.to_json })
-  end
+  def self.where_dois(dois) = Publication.where JSONB_QUERY, DOI_FIELD_NAMES.product(dois)
+    .map { |field_name_doi_pair| {field_name_doi_pair.first => field_name_doi_pair.second}.to_json }
 
   def self.find_by_chemotion_id!(chemotion_id) = Publication.find chemotion_id
 
