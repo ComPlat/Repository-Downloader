@@ -14,6 +14,30 @@ describe Types::ValidDoiSet do
       it { is_expected.to be_a Grape::Types::InvalidValue }
     end
 
+    context "when invalid doi is 101.1234/JCKOUAWEMPKIAT-OBKDMQGPSA-N" do
+      let(:value) { "101.1234/JCKOUAWEMPKIAT-OBKDMQGPSA-N" }
+
+      it { is_expected.to be_a Grape::Types::InvalidValue }
+    end
+
+    context "when invalid doi is 10.123/JCKOUAWEMPKIAT-OBKDMQGPSA-N" do
+      let(:value) { "10.123/JCKOUAWEMPKIAT-OBKDMQGPSA-N" }
+
+      it { is_expected.to be_a Grape::Types::InvalidValue }
+    end
+
+    context "when valid doi is 10.1234/JCKOUAWEMPKIAT-OBKDMQGPSA-N" do
+      let(:value) { "10.1234/JCKOUAWEMPKIAT-OBKDMQGPSA-N" }
+
+      it { expect(parse.value).to eq [value] }
+    end
+
+    context "when valid doi is 10.1234567890/JCKOUAWEMPKIAT-OBKDMQGPSA-N" do
+      let(:value) { "10.1234567890/JCKOUAWEMPKIAT-OBKDMQGPSA-N" }
+
+      it { expect(parse.value).to eq [value] }
+    end
+
     context "when value is {valid_doi1},{invalid_doi1}" do
       let(:valid_doi1) { "10.14272/JCKOUAWEMPKIAT-OBKDMQGPSA-N" }
       let(:invalid_doi1) { "invalid_doi_format" }
