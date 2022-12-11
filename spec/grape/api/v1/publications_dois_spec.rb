@@ -7,7 +7,7 @@ describe API::V1::Publications, ".dois" do
       before { get "/api/v1/publications?dois=#{analysis1.doi}&format=json" }
 
       it { expect(response).to have_http_status :ok }
-      it { expect(response.body).to eq PublicationsByDoiPresenter.new([analysis1.id]).to_json.to_a.join }
+      it { expect(response.body).to eq PublicationsByDoiPresenter.new([analysis1.doi]).to_json.to_a.join }
       it { expect(response.content_type).to eq "application/json" }
     end
 
@@ -51,7 +51,7 @@ describe API::V1::Publications, ".dois" do
       before { get "/api/v1/publications?dois=#{analysis1.doi},#{not_existing_doi}&format=json" }
 
       it { expect(response).to have_http_status :ok }
-      it { expect(response.body).to eq PublicationsByDoiPresenter.new([analysis1.id]).to_json.to_a.join }
+      it { expect(response.body).to eq PublicationsByDoiPresenter.new([analysis1.doi]).to_json.to_a.join }
       it { expect(response.content_type).to eq "application/json" }
     end
 

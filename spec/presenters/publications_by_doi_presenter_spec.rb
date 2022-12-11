@@ -20,15 +20,22 @@ describe PublicationsByDoiPresenter do
       let(:analysis) { create(:analysis, :with_realistic_attributes) }
       let(:dois) { [analysis.doi] }
 
-      it { expect(to_json.to_a.join).to eq analysis.present_to_api.to_json.to_a.join }
+      it { expect(to_json.to_a.join).to eq "[#{analysis.present_to_api.to_json.to_a.join}]" }
     end
 
     context "when dois is an array with two dois in it" do
       let(:analysis1) { create(:analysis, :with_realistic_attributes) }
-      let(:analysis2) { create(:analysis, :with_realistic_attributes, taggable_data: {"doi" => analysis1.doi.tr("N", "Z")}) }
+      let(:analysis2) do
+        create(:analysis, :with_realistic_attributes, taggable_data: {"doi" => analysis1.doi.tr("N", "Z"),
+                                                                      "analysis_doi" => analysis1.doi.tr("N", "Z")})
+      end
       let(:dois) { [analysis1.doi, analysis2.doi] }
 
-      it { expect(to_json.to_a.join).to eq "[#{analysis1.present_to_api.to_json.to_a.join},#{analysis1.present_to_api.to_json.to_a.join}]" }
+      let(:present_to_api) do
+        "[#{analysis1.present_to_api.to_json.to_a.join},#{analysis2.present_to_api.to_json.to_a.join}]"
+      end
+
+      it { expect(to_json.to_a.join).to eq present_to_api }
     end
   end
 end
