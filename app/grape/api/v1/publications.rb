@@ -3,7 +3,6 @@ class API::V1::Publications < Grape::API
 
   namespace "/publications" do
     desc "Get publications via ChemotionID(s) or DOI(s)", produces: %w[application/json application/xml text/csv application/zip]
-
     params do
       optional :dois,
         type: Array[String],
@@ -17,7 +16,6 @@ class API::V1::Publications < Grape::API
         desc: "List of Chemotion IDs, separated by comma, either this or dois needs to be given"
       exactly_one_of :chemotion_ids, :dois
     end
-
     get do
       case params
       in {chemotion_ids: Array}
