@@ -12,7 +12,7 @@ FactoryBot.define do
       reaction_type { "RXNO:0000300 | thiol-ene reaction" }
       duration { "18 Hour(s)" }
       purification { "HPLC" }
-      reagents_list { build :reagents_list_mapper, :with_all_args }
+      reagents_list { build(:reagents_list_mapper, :with_all_args) }
     end
   end
 end

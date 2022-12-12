@@ -1,6 +1,6 @@
 describe RootAdapters::AnalysisToAnalysisMapperAdapter do
-  let(:analysis) { build :analysis, :with_realistic_attributes, element_id: 1 }
-  let(:attachment) { build :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 3 }
+  let(:analysis) { build(:analysis, :with_realistic_attributes, element_id: 1) }
+  let(:attachment) { build(:attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 3) }
   let(:analysis_to_analysis_mapper_adapter) { described_class.new analysis }
 
   before do
@@ -52,7 +52,7 @@ describe RootAdapters::AnalysisToAnalysisMapperAdapter do
     end
 
     context "when taggable_data is nil" do
-      let(:analysis) { build :analysis, :with_realistic_attributes, taggable_data: nil }
+      let(:analysis) { build(:analysis, :with_realistic_attributes, taggable_data: nil) }
 
       it { is_expected.to eq "" }
       it { is_expected.to be_a String }

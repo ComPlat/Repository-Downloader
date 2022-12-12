@@ -3,7 +3,7 @@ describe SampleMappers::MolecularWeightMapper do
 
   describe ".new" do
     context "when called without any arguments" do
-      let(:molecular_weight_mapper) { build :molecular_weight_mapper }
+      let(:molecular_weight_mapper) { build(:molecular_weight_mapper) }
 
       it { expect(molecular_weight_mapper).to be_a described_class }
       it { expect(molecular_weight_mapper).to be_a ShaleCustom::Mapper }
@@ -11,7 +11,7 @@ describe SampleMappers::MolecularWeightMapper do
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :molecular_weight_mapper, :with_all_args }
+      let(:args) { attributes_for(:molecular_weight_mapper, :with_all_args) }
       let(:molecular_weight_mapper) { described_class.new(**args) }
 
       it { expect(molecular_weight_mapper).to be_a described_class }
@@ -22,7 +22,7 @@ describe SampleMappers::MolecularWeightMapper do
 
   describe ".from_hash" do
     context "when called without any arguments" do
-      let(:molecular_weight_mapper) { build :molecular_weight_mapper }
+      let(:molecular_weight_mapper) { build(:molecular_weight_mapper) }
 
       it { expect(molecular_weight_mapper).to be_a described_class }
       it { expect(molecular_weight_mapper.value).to be_nil }
@@ -39,7 +39,7 @@ describe SampleMappers::MolecularWeightMapper do
 
   describe "#to_json" do
     context "when called without any arguments" do
-      let(:molecular_weight_mapper) { build :molecular_weight_mapper }
+      let(:molecular_weight_mapper) { build(:molecular_weight_mapper) }
 
       let(:expected_json) do
         <<~JSON

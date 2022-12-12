@@ -1,10 +1,10 @@
 describe RootMappers::ReactionMapper do
   let(:expected_json_nil_render_value) { "null" }
-  let(:reagents_list_mapper) { build :reagents_list_mapper, :with_all_args }
+  let(:reagents_list_mapper) { build(:reagents_list_mapper, :with_all_args) }
 
   describe ".new" do
     context "when called without any arguments" do
-      let(:reaction_mapper) { build :reaction_mapper }
+      let(:reaction_mapper) { build(:reaction_mapper) }
 
       it { expect(reaction_mapper).to be_a described_class }
       it { expect(reaction_mapper).to be_a ShaleCustom::Mapper }
@@ -23,7 +23,7 @@ describe RootMappers::ReactionMapper do
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :reaction_mapper, :with_all_args }
+      let(:args) { attributes_for(:reaction_mapper, :with_all_args) }
       let(:reaction_mapper) { described_class.new(**args) }
 
       it { expect(reaction_mapper).to be_a described_class }
@@ -43,7 +43,7 @@ describe RootMappers::ReactionMapper do
     end
 
     context "when called with some arguments" do
-      let(:args) { attributes_for :reaction_mapper, :with_all_args, name: nil, identifier: nil }
+      let(:args) { attributes_for(:reaction_mapper, :with_all_args, name: nil, identifier: nil) }
       let(:reaction_mapper) { described_class.new(**args) }
 
       it { expect(reaction_mapper).to be_a described_class }
@@ -65,7 +65,7 @@ describe RootMappers::ReactionMapper do
 
   describe "#to_json" do
     context "when called without any arguments" do
-      let(:reaction_mapper) { build :reaction_mapper }
+      let(:reaction_mapper) { build(:reaction_mapper) }
 
       let(:expected_json) do
         <<~JSON
@@ -90,7 +90,7 @@ describe RootMappers::ReactionMapper do
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :reaction_mapper, :with_all_args }
+      let(:args) { attributes_for(:reaction_mapper, :with_all_args) }
       let(:reaction_mapper) { described_class.new(**args) }
 
       let(:expected_json) do
@@ -116,7 +116,7 @@ describe RootMappers::ReactionMapper do
     end
 
     context "when called with some arguments" do
-      let(:args) { attributes_for :reaction_mapper, :with_all_args, name: nil, identifier: nil }
+      let(:args) { attributes_for(:reaction_mapper, :with_all_args, name: nil, identifier: nil) }
       let(:reaction_mapper) { described_class.new(**args) }
 
       let(:expected_json) do

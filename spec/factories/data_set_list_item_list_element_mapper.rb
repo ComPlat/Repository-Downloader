@@ -10,12 +10,12 @@ FactoryBot.define do
 
     trait :with_all_args_nested_structures_as_mappers do
       primitives
-      attachmentList { build :attachment_list_mapper, :with_all_args_nested_structures_as_mappers }
+      attachmentList { build(:attachment_list_mapper, :with_all_args_nested_structures_as_mappers) }
     end
 
     trait :with_all_args_nested_structures_as_hash do
       primitives
-      attachmentList { attributes_for :attachment_list_mapper, :with_all_args_nested_structures_as_hash }
+      attachmentList { attributes_for(:attachment_list_mapper, :with_all_args_nested_structures_as_hash) }
     end
   end
 end

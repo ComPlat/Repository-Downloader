@@ -18,14 +18,14 @@ describe Attachment do
 
   describe "factories" do
     describe "with traits :with_required_dependencies" do
-      subject(:factory) { build :attachment, :with_required_dependencies }
+      subject(:factory) { build(:attachment, :with_required_dependencies) }
 
       it { is_expected.to be_valid }
       it { expect(factory.save).to be true }
     end
 
     describe "without trait" do
-      subject(:factory) { build :attachment }
+      subject(:factory) { build(:attachment) }
 
       it { is_expected.to be_invalid }
       it { expect(factory.save).to be false }
@@ -36,11 +36,11 @@ describe Attachment do
     it { is_expected.to belong_to(:analysis).with_primary_key(:element_id).with_foreign_key(:ana_id).inverse_of(:attachments) }
 
     describe "#analysis" do
-      let(:analysis) { create :analysis }
-      let(:attachment) { create :attachment, analysis: }
+      let(:analysis) { create(:analysis) }
+      let(:attachment) { create(:attachment, analysis:) }
 
       it { expect(attachment.analysis).to eq analysis }
-      it { expect { create :attachment }.to raise_error ActiveRecord::RecordInvalid, "Validation failed: Analysis must exist" }
+      it { expect { create(:attachment) }.to raise_error ActiveRecord::RecordInvalid, "Validation failed: Analysis must exist" }
     end
   end
 
@@ -70,19 +70,19 @@ describe Attachment do
     subject(:instrument) { attachment.instrument }
 
     context "when extended_metadata is nil" do
-      let(:attachment) { build :attachment, extended_metadata: nil }
+      let(:attachment) { build(:attachment, extended_metadata: nil) }
 
       it { is_expected.to eq "" }
     end
 
     context "when extended_metadata is a Hash and has nil on key instrument" do
-      let(:attachment) { build :attachment, extended_metadata: {"instrument" => nil} }
+      let(:attachment) { build(:attachment, extended_metadata: {"instrument" => nil}) }
 
       it { is_expected.to eq "" }
     end
 
     context "when extended_metadata is a Hash and has a string" do
-      let(:attachment) { build :attachment, extended_metadata: {"instrument" => "some instrument"} }
+      let(:attachment) { build(:attachment, extended_metadata: {"instrument" => "some instrument"}) }
 
       it { is_expected.to eq attachment.extended_metadata["instrument"] }
     end
