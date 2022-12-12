@@ -130,7 +130,6 @@ describe API::Base do
     let(:expected_body) do
       {info: {title: "Chemotion Repository Downloader", version: "v1"},
        swagger: "2.0",
-       produces: %w[application/json application/xml text/csv application/zip],
        host: ENV["HOST_URI"], # HINT: Default value for host URI
        basePath: "/api",
        tags: [{name: "publications", description: "Operations about publications"}],
