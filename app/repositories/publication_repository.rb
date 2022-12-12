@@ -1,6 +1,7 @@
 class PublicationRepository
   DOI_FIELD_NAMES = [:doi, :analysis_doi].freeze
   JSONB_QUERY = "taggable_data @> any(array[?]::jsonb[])".freeze
+
   def self.find_by_doi!(doi) = Publication.find_by! JSONB_QUERY, DOI_FIELD_NAMES.map { |key| {key => doi}.to_json }
 
   def self.where_dois(dois) = Publication.where JSONB_QUERY, DOI_FIELD_NAMES.product(dois)
