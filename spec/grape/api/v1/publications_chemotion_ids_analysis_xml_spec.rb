@@ -29,7 +29,6 @@ describe API::V1::Publications, ".chemotion_ids .analysis" do
 
   context "when one analysis and one attachment" do
     let(:analysis) { create(:analysis, :with_realistic_attributes) }
-    let(:attachment) { create(:attachment, :with_realistic_attributes, ana_id: analysis.element_id) }
 
     let(:expected_data_set_list_xml) do
       <<~XML
@@ -74,7 +73,8 @@ describe API::V1::Publications, ".chemotion_ids .analysis" do
     end
 
     before do
-      attachment
+      create(:attachment, :with_realistic_attributes, ana_id: analysis.element_id)
+
       get "/api/v1/publications?chemotion_ids=#{analysis.id}&format=xml"
     end
 
@@ -83,10 +83,6 @@ describe API::V1::Publications, ".chemotion_ids .analysis" do
 
   context "when one analysis and two attachments" do
     let(:analysis) { create(:analysis, :with_realistic_attributes) }
-    let(:attachments) {
-      [create(:attachment, :with_realistic_attributes, ana_id: analysis.element_id),
-        create(:attachment, :with_realistic_attributes, ana_id: analysis.element_id)]
-    }
 
     let(:expected_data_set_list_xml) do
       <<~XML
@@ -137,7 +133,8 @@ describe API::V1::Publications, ".chemotion_ids .analysis" do
     end
 
     before do
-      attachments
+      create_list(:attachment, 2, :with_realistic_attributes, ana_id: analysis.element_id)
+
       get "/api/v1/publications?chemotion_ids=#{analysis.id}&format=xml"
     end
 
