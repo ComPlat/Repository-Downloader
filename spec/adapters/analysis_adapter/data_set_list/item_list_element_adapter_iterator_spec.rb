@@ -11,7 +11,7 @@ describe AnalysisAdapter::DataSetList::ItemListElementAdapterIterator do
   describe "#to_a" do
     subject { item_list_element_adapter_iterator.to_a }
 
-    let(:attachment) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 3 }
+    let(:attachment) { create(:attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 3) }
     let(:item_list_element_adapter) { AnalysisAdapter::DataSetList::ItemListElementAdapter.new analysis, attachment.ds_id, [attachment] }
 
     let(:expected_array) do

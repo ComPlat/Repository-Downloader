@@ -1,6 +1,6 @@
 describe AnalysisAdapter::DataSetList::ItemListElement::AttachmentList::ItemListElementAdapterIterator do
-  let(:attachment1) { create :attachment, :with_required_dependencies, :with_realistic_attributes, ds_id: 3 }
-  let(:attachment2) { create :attachment, :with_realistic_attributes, ana_id: attachment1.ana_id, ds_id: 3 }
+  let(:attachment1) { create(:attachment, :with_required_dependencies, :with_realistic_attributes, ds_id: 3) }
+  let(:attachment2) { create(:attachment, :with_realistic_attributes, ana_id: attachment1.ana_id, ds_id: 3) }
   let(:attachments_grouped_by_dataset) { AttachmentRepository.grouped_by_dataset attachment1.analysis }
 
   describe ".new" do

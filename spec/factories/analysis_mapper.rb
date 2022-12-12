@@ -13,12 +13,12 @@ FactoryBot.define do
 
     trait :with_all_args_nested_structures_as_mappers do
       primitives
-      datasetList { build :data_set_list_mapper, :with_all_args_nested_structures_as_mappers }
+      datasetList { build(:data_set_list_mapper, :with_all_args_nested_structures_as_mappers) }
     end
 
     trait :with_all_args_nested_structures_as_hash do
       primitives
-      datasetList { attributes_for :data_set_list_mapper, :with_all_args_nested_structures_as_hash }
+      datasetList { attributes_for(:data_set_list_mapper, :with_all_args_nested_structures_as_hash) }
     end
   end
 end

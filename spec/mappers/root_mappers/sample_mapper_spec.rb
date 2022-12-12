@@ -1,10 +1,10 @@
 describe RootMappers::SampleMapper do
   let(:expected_json_nil_render_value) { "null" }
-  let(:analysis_list_mapper) { build :analysis_list_mapper, :with_all_args_nested_structures_as_mappers }
+  let(:analysis_list_mapper) { build(:analysis_list_mapper, :with_all_args_nested_structures_as_mappers) }
 
   describe ".new" do
     context "when called without any arguments" do
-      let(:sample_mapper) { build :sample_mapper }
+      let(:sample_mapper) { build(:sample_mapper) }
 
       it { expect(sample_mapper).to be_a described_class }
       it { expect(sample_mapper).to be_a ShaleCustom::Mapper }
@@ -27,7 +27,7 @@ describe RootMappers::SampleMapper do
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :sample_mapper, :with_all_args_nested_structures_as_mappers }
+      let(:args) { attributes_for(:sample_mapper, :with_all_args_nested_structures_as_mappers) }
       let(:sample_mapper) { described_class.new(**args) }
 
       it { expect(sample_mapper).to be_a described_class }
@@ -50,7 +50,7 @@ describe RootMappers::SampleMapper do
     end
 
     context "when called with some arguments" do
-      let(:args) { attributes_for :sample_mapper, :with_all_args_nested_structures_as_mappers, name: nil, identifier: nil }
+      let(:args) { attributes_for(:sample_mapper, :with_all_args_nested_structures_as_mappers, name: nil, identifier: nil) }
       let(:sample_mapper) { described_class.new(**args) }
 
       it { expect(sample_mapper).to be_a described_class }
@@ -75,7 +75,7 @@ describe RootMappers::SampleMapper do
 
   describe ".from_hash" do
     context "when called without any arguments" do
-      let(:sample_mapper) { build :sample_mapper }
+      let(:sample_mapper) { build(:sample_mapper) }
 
       it { expect(sample_mapper).to be_a described_class }
       it { expect(sample_mapper.dct_conformsTo).to be_nil }
@@ -93,7 +93,7 @@ describe RootMappers::SampleMapper do
 
   describe "#to_json" do
     context "when called without any arguments" do
-      let(:sample_mapper) { build :sample_mapper }
+      let(:sample_mapper) { build(:sample_mapper) }
 
       let(:expected_json) do
         <<~JSON
@@ -122,7 +122,7 @@ describe RootMappers::SampleMapper do
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :sample_mapper, :with_all_args_nested_structures_as_mappers }
+      let(:args) { attributes_for(:sample_mapper, :with_all_args_nested_structures_as_mappers) }
       let(:sample_mapper) { described_class.new(**args) }
 
       let(:expected_json) do
@@ -154,7 +154,7 @@ describe RootMappers::SampleMapper do
     end
 
     context "when called with some arguments" do
-      let(:args) { attributes_for :sample_mapper, :with_all_args_nested_structures_as_mappers, name: nil, identifier: nil }
+      let(:args) { attributes_for(:sample_mapper, :with_all_args_nested_structures_as_mappers, name: nil, identifier: nil) }
       let(:sample_mapper) { described_class.new(**args) }
 
       let(:expected_json) do

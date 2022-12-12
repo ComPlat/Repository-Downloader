@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :sample do
     trait :with_required_dependencies do
-      reaction { create :reaction }
+      reaction { create(:reaction) }
     end
 
     trait :with_realistic_attributes do

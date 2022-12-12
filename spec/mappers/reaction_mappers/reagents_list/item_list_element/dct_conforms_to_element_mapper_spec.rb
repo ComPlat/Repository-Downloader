@@ -1,7 +1,7 @@
 describe ReactionMappers::ReagentsList::ItemListElement::DctConformsToElementMapper do
   describe ".new" do
     context "when called without any arguments" do
-      let(:dct_conforms_to_element_mapper) { build :dct_conforms_to_element_mapper }
+      let(:dct_conforms_to_element_mapper) { build(:dct_conforms_to_element_mapper) }
 
       it { expect(dct_conforms_to_element_mapper).to be_a described_class }
       it { expect(dct_conforms_to_element_mapper).to be_a ShaleCustom::Mapper }
@@ -10,7 +10,7 @@ describe ReactionMappers::ReagentsList::ItemListElement::DctConformsToElementMap
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :dct_conforms_to_element_mapper, :with_all_args }
+      let(:args) { attributes_for(:dct_conforms_to_element_mapper, :with_all_args) }
       let(:dct_conforms_to_element_mapper) { described_class.new(**args) }
 
       it { expect(dct_conforms_to_element_mapper).to be_a described_class }
@@ -20,7 +20,7 @@ describe ReactionMappers::ReagentsList::ItemListElement::DctConformsToElementMap
     end
 
     context "when called with some arguments" do
-      let(:args) { attributes_for :dct_conforms_to_element_mapper, :with_all_args, type: nil }
+      let(:args) { attributes_for(:dct_conforms_to_element_mapper, :with_all_args, type: nil) }
       let(:dct_conforms_to_element_mapper) { described_class.new(**args) }
 
       it { expect(dct_conforms_to_element_mapper).to be_a described_class }
@@ -34,7 +34,7 @@ describe ReactionMappers::ReagentsList::ItemListElement::DctConformsToElementMap
     let(:expected_json_nil_render_value) { "null" }
 
     context "when called without any arguments" do
-      let(:dct_conforms_to_element_mapper) { build :dct_conforms_to_element_mapper }
+      let(:dct_conforms_to_element_mapper) { build(:dct_conforms_to_element_mapper) }
 
       let(:expected_json) do
         <<~JSON
@@ -49,7 +49,7 @@ describe ReactionMappers::ReagentsList::ItemListElement::DctConformsToElementMap
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :dct_conforms_to_element_mapper, :with_all_args }
+      let(:args) { attributes_for(:dct_conforms_to_element_mapper, :with_all_args) }
       let(:dct_conforms_to_element_mapper) { described_class.new(**args) }
 
       let(:expected_json) do
@@ -65,7 +65,7 @@ describe ReactionMappers::ReagentsList::ItemListElement::DctConformsToElementMap
     end
 
     context "when called with some arguments" do
-      let(:args) { attributes_for :dct_conforms_to_element_mapper, :with_all_args, type: nil }
+      let(:args) { attributes_for(:dct_conforms_to_element_mapper, :with_all_args, type: nil) }
       let(:dct_conforms_to_element_mapper) { described_class.new(**args) }
 
       let(:expected_json) do

@@ -1,4 +1,3 @@
-# TODO: Use me in Reaction model.
 class ReactionPresenter
   def initialize(reaction) = @reaction = reaction
 

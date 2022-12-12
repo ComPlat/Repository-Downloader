@@ -1,5 +1,5 @@
 describe Analysis do
-  let(:analysis) { build :analysis, :with_realistic_attributes }
+  let(:analysis) { build(:analysis, :with_realistic_attributes) }
 
   it_behaves_like "Publication"
 
@@ -7,7 +7,7 @@ describe Analysis do
 
   describe "factories" do
     describe "with traits :with_realistic_attributes" do
-      subject(:factory) { build :analysis, :with_realistic_attributes }
+      subject(:factory) { build(:analysis, :with_realistic_attributes) }
 
       it { is_expected.to be_valid }
       it { expect(factory.element_id).to be_a Integer } # HINT: Needed because without element_id belongs_to attachment does not work
@@ -15,7 +15,7 @@ describe Analysis do
     end
 
     describe "without trait" do
-      subject(:factory) { build :analysis }
+      subject(:factory) { build(:analysis) }
 
       it { is_expected.to be_valid }
       it { expect(factory.element_id).to be_a Integer }
@@ -29,8 +29,8 @@ describe Analysis do
     describe "#attachments" do
       subject { analysis.attachments }
 
-      let(:analysis) { create :analysis }
-      let(:attachment) { create :attachment, analysis: }
+      let(:analysis) { create(:analysis) }
+      let(:attachment) { create(:attachment, analysis:) }
 
       it { is_expected.to eq [attachment] }
       it { is_expected.to eq [] }
@@ -38,7 +38,7 @@ describe Analysis do
   end
 
   describe ".new" do
-    let(:analysis) { create :analysis, :with_realistic_attributes }
+    let(:analysis) { create(:analysis, :with_realistic_attributes) }
 
     it { expect(analysis).to be_a described_class }
   end
@@ -46,7 +46,7 @@ describe Analysis do
   describe "#chemotion_id" do
     subject(:chemotion_id) { analysis.chemotion_id }
 
-    let(:analysis) { build :analysis, id: }
+    let(:analysis) { build(:analysis, id:) }
 
     context "when id is 1" do
       let(:id) { 1 }
@@ -66,7 +66,7 @@ describe Analysis do
     end
 
     context "when content is nil" do
-      let(:analysis) { build :analysis }
+      let(:analysis) { build(:analysis) }
 
       it { is_expected.to eq({}) }
     end
@@ -76,7 +76,7 @@ describe Analysis do
     subject(:doi_uri) { analysis.doi_uri }
 
     context "when doi is nil" do
-      let(:analysis) { build :analysis, :with_realistic_attributes, taggable_data: nil }
+      let(:analysis) { build(:analysis, :with_realistic_attributes, taggable_data: nil) }
 
       it { is_expected.to eq "" }
       it { is_expected.to be_a String }
@@ -98,7 +98,7 @@ describe Analysis do
     end
 
     context "when taggable_data is nil" do
-      let(:analysis) { build :analysis, :with_realistic_attributes, taggable_data: nil }
+      let(:analysis) { build(:analysis, :with_realistic_attributes, taggable_data: nil) }
 
       it { is_expected.to eq "" }
     end
@@ -112,7 +112,7 @@ describe Analysis do
     end
 
     context "when extended_metadata is nil" do
-      let(:analysis) { build :analysis, :with_realistic_attributes, extended_metadata: nil }
+      let(:analysis) { build(:analysis, :with_realistic_attributes, extended_metadata: nil) }
 
       it { is_expected.to eq "" }
     end
@@ -129,8 +129,8 @@ describe Analysis do
 
     context "when kind is filled without a |" do
       let(:analysis) {
-        build :analysis, :with_realistic_attributes,
-          extended_metadata: {"kind" => "CHMO:0000595 13C nuclear magnetic resonance spectroscopy (13C NMR)"}
+        build(:analysis, :with_realistic_attributes,
+          extended_metadata: {"kind" => "CHMO:0000595 13C nuclear magnetic resonance spectroscopy (13C NMR)"})
       }
 
       let(:expected_ontologies) { "CHMO:0000595 13C nuclear magnetic resonance spectroscopy (13C NMR)" }
@@ -139,7 +139,7 @@ describe Analysis do
     end
 
     context "when extended_metadata is nil" do
-      let(:analysis) { build :analysis, :with_realistic_attributes, extended_metadata: nil }
+      let(:analysis) { build(:analysis, :with_realistic_attributes, extended_metadata: nil) }
 
       it { is_expected.to eq "" }
     end

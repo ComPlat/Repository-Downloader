@@ -1,5 +1,5 @@
 describe SamplePresenter do
-  let(:sample) { build :sample }
+  let(:sample) { build(:sample) }
   let(:sample_presenter) { described_class.new sample }
 
   describe ".new" do

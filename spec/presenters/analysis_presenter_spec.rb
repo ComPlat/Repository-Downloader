@@ -1,5 +1,5 @@
 describe AnalysisPresenter do
-  let(:analysis) { build :analysis }
+  let(:analysis) { build(:analysis) }
   let(:analysis_presenter) { described_class.new analysis }
 
   describe ".new" do

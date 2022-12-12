@@ -1,6 +1,6 @@
 describe AnalysisAdapter::DataSetList::ItemListElement::AttachmentList::ItemListElementAdapter do
-  let(:analysis) { create :analysis, :with_realistic_attributes, element_id: 1, attachments: [attachment] }
-  let(:attachment) { build :attachment, :with_realistic_attributes }
+  let(:analysis) { create(:analysis, :with_realistic_attributes, element_id: 1, attachments: [attachment]) }
+  let(:attachment) { build(:attachment, :with_realistic_attributes) }
   let(:item_list_element_adapter) { described_class.new analysis, attachment }
 
   before do

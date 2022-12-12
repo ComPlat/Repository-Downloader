@@ -3,7 +3,7 @@ describe SampleMappers::AnalysisListMapper do
 
   describe "factories" do
     describe "trait :with_all_args_nested_structures_as_mappers" do
-      subject(:factory) { build :analysis_list_mapper, :with_all_args_nested_structures_as_mappers }
+      subject(:factory) { build(:analysis_list_mapper, :with_all_args_nested_structures_as_mappers) }
 
       it { expect(factory.instance_variable_get(:@itemListElement).size).to eq 1 }
       it { expect(factory.instance_variable_get(:@itemListElement).size).to eq factory.instance_variable_get :@numberOfItems }
@@ -11,7 +11,7 @@ describe SampleMappers::AnalysisListMapper do
     end
 
     describe "trait :with_all_args_nested_structures_as_hash" do
-      subject(:factory) { build :analysis_list_mapper, :with_all_args_nested_structures_as_hash }
+      subject(:factory) { build(:analysis_list_mapper, :with_all_args_nested_structures_as_hash) }
 
       it { expect(factory.instance_variable_get(:@itemListElement).size).to eq 1 }
       it { expect(factory.instance_variable_get(:@itemListElement).size).to eq factory.instance_variable_get :@numberOfItems }
@@ -21,7 +21,7 @@ describe SampleMappers::AnalysisListMapper do
 
   describe ".new" do
     context "when called without any arguments" do
-      let(:analysis_list_mapper) { build :analysis_list_mapper }
+      let(:analysis_list_mapper) { build(:analysis_list_mapper) }
 
       it { expect(analysis_list_mapper).to be_a described_class }
       it { expect(analysis_list_mapper).to be_a ShaleCustom::Mapper }
@@ -30,7 +30,7 @@ describe SampleMappers::AnalysisListMapper do
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :analysis_list_mapper, :with_all_args_nested_structures_as_mappers }
+      let(:args) { attributes_for(:analysis_list_mapper, :with_all_args_nested_structures_as_mappers) }
       let(:analysis_list_mapper) { described_class.new(**args) }
 
       it { expect(analysis_list_mapper).to be_a described_class }
@@ -39,7 +39,7 @@ describe SampleMappers::AnalysisListMapper do
     end
 
     context "when called with some arguments" do
-      let(:args) { attributes_for :analysis_list_mapper, :with_all_args_nested_structures_as_mappers, numberOfItems: nil }
+      let(:args) { attributes_for(:analysis_list_mapper, :with_all_args_nested_structures_as_mappers, numberOfItems: nil) }
       let(:analysis_list_mapper) { described_class.new(**args) }
 
       it { expect(analysis_list_mapper).to be_a described_class }
@@ -50,7 +50,7 @@ describe SampleMappers::AnalysisListMapper do
 
   describe ".from_hash" do
     context "when called without any arguments" do
-      let(:analysis_list_mapper) { build :analysis_list_mapper }
+      let(:analysis_list_mapper) { build(:analysis_list_mapper) }
 
       it { expect(analysis_list_mapper).to be_a described_class }
       it { expect(analysis_list_mapper.numberOfItems).to be_nil }
@@ -68,7 +68,7 @@ describe SampleMappers::AnalysisListMapper do
     end
 
     context "when called with some arguments" do
-      let(:args) { attributes_for :analysis_list_mapper, :with_all_args_nested_structures_as_hash, numberOfItems: nil }
+      let(:args) { attributes_for(:analysis_list_mapper, :with_all_args_nested_structures_as_hash, numberOfItems: nil) }
       let(:analysis_list_mapper) { described_class.from_hash args }
 
       it { expect(analysis_list_mapper).to be_a described_class }
@@ -79,7 +79,7 @@ describe SampleMappers::AnalysisListMapper do
 
   describe "#to_json" do
     context "when called without any arguments" do
-      let(:analysis_list_mapper) { build :analysis_list_mapper }
+      let(:analysis_list_mapper) { build(:analysis_list_mapper) }
 
       let(:expected_json) do
         <<~JSON
@@ -110,7 +110,7 @@ describe SampleMappers::AnalysisListMapper do
     end
 
     context "when called with some arguments" do
-      let(:args) { attributes_for :analysis_list_mapper, :with_all_args_nested_structures_as_hash, numberOfItems: nil }
+      let(:args) { attributes_for(:analysis_list_mapper, :with_all_args_nested_structures_as_hash, numberOfItems: nil) }
       let(:analysis_list_mapper) { described_class.from_hash args }
 
       let(:expected_json) do

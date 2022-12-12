@@ -5,5 +5,5 @@ class Publication < ApplicationRecord
   include HasOnlyReadonlyAttributes
 
   # HINT: Analysis == `select * from toap_publications where element_type = "Container"`
-  def self.find_sti_class(type_name) = type_name == "Container" ? Analysis : super(type_name)
+  def self.find_sti_class(type_name) = (type_name == "Container") ? Analysis : super(type_name)
 end
