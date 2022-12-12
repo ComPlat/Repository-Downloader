@@ -133,8 +133,6 @@ describe API::V1::Publications, ".chemotion_ids" do
 
   describe "GET Reaction" do
     let(:reaction) { create(:reaction, :with_realistic_attributes) }
-    let(:attached_sample1) { create(:sample, :with_realistic_attributes, reaction:) }
-    let(:attached_sample2) { create(:sample, :with_realistic_attributes, reaction:) }
 
     let(:expected_json) do
       <<~JSON
@@ -156,8 +154,8 @@ describe API::V1::Publications, ".chemotion_ids" do
     end
 
     before do
-      attached_sample1
-      attached_sample2
+      create_list(:sample, 2, :with_realistic_attributes, reaction:)
+
       get "/api/v1/publications?chemotion_ids=#{reaction.id}&format=json"
     end
 
@@ -167,11 +165,10 @@ describe API::V1::Publications, ".chemotion_ids" do
   describe "GET Sample" do
     let(:sample) {
       create(:sample, :with_required_dependencies, :with_realistic_attributes,
-        taggable_data: {"original_analysis_ids" => [attachment1.analysis.id, attachment2.analysis.id],
+        taggable_data: {"original_analysis_ids" => [attachments.first.analysis.id, attachments.second.analysis.id],
                         "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"})
     }
-    let(:attachment1) { create(:attachment, :with_required_dependencies, :with_realistic_attributes) }
-    let(:attachment2) { create(:attachment, :with_required_dependencies, :with_realistic_attributes) }
+    let(:attachments) { create_list(:attachment, 2, :with_required_dependencies, :with_realistic_attributes) }
 
     let(:expected_json) do
       <<~JSON
