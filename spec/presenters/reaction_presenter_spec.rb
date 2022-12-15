@@ -61,6 +61,7 @@ describe ReactionPresenter do
       it { expect(File.read("tmp/output/data/reaction.json")).to eq reaction_presenter.to_json.to_a.join }
       it { expect(File.read("tmp/output/data/reaction.xml")).to eq reaction_presenter.to_xml.to_a.join }
       it { expect(File.read("tmp/output/data/reaction.csv")).to eq reaction_presenter.to_csv.to_a.join }
+      it { expect(BagIt::Bag.new("tmp/output").valid?).to be true }
     end
 
     context "when reaction has realistic attributes" do
@@ -71,6 +72,7 @@ describe ReactionPresenter do
       it { expect(File.read("tmp/output/data/reaction.json")).to eq reaction_presenter.to_json.to_a.join }
       it { expect(File.read("tmp/output/data/reaction.xml")).to eq reaction_presenter.to_xml.to_a.join }
       it { expect(File.read("tmp/output/data/reaction.csv")).to eq reaction_presenter.to_csv.to_a.join }
+      it { expect(BagIt::Bag.new("tmp/output").valid?).to be true }
     end
   end
 end

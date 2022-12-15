@@ -61,6 +61,7 @@ describe SamplePresenter do
       it { expect(File.read("tmp/output/data/sample.json")).to eq sample_presenter.to_json.to_a.join }
       it { expect(File.read("tmp/output/data/sample.xml")).to eq sample_presenter.to_xml.to_a.join }
       it { expect(File.read("tmp/output/data/sample.csv")).to eq sample_presenter.to_csv.to_a.join }
+      it { expect(BagIt::Bag.new("tmp/output").valid?).to be true }
     end
 
     context "when sample has realistic attributes" do
@@ -71,6 +72,7 @@ describe SamplePresenter do
       it { expect(File.read("tmp/output/data/sample.json")).to eq sample_presenter.to_json.to_a.join }
       it { expect(File.read("tmp/output/data/sample.xml")).to eq sample_presenter.to_xml.to_a.join }
       it { expect(File.read("tmp/output/data/sample.csv")).to eq sample_presenter.to_csv.to_a.join }
+      it { expect(BagIt::Bag.new("tmp/output").valid?).to be true }
     end
   end
 end
