@@ -1,5 +1,5 @@
 describe SamplePresenter do
-  let(:sample) { create :sample, :with_required_dependencies }
+  let(:sample) { create(:sample, :with_required_dependencies) }
   let(:sample_presenter) { described_class.new sample }
 
   describe ".new" do
@@ -65,6 +65,7 @@ describe SamplePresenter do
     end
 
     context "when sample has realistic attributes" do
+      # TODO: NEVER overwrite lets.
       let(:sample) { create :sample, :with_required_dependencies, :with_realistic_attributes }
 
       it { is_expected.to be_a ZipTricks::OutputEnumerator }

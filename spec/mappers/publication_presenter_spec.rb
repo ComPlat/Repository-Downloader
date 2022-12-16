@@ -1,5 +1,5 @@
 describe PublicationPresenter do
-  let(:analysis) { create :analysis, :with_realistic_attributes }
+  let(:analysis) { create(:analysis, :with_realistic_attributes) }
 
   describe ".present_by_doi" do
     context "when an existing doi is given" do

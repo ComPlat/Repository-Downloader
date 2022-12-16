@@ -1,6 +1,6 @@
 describe Reaction do
-  let(:reaction) { create :reaction, :with_realistic_attributes, samples: [sample] }
-  let(:sample) { build :sample, :with_realistic_attributes }
+  let(:reaction) { create(:reaction, :with_realistic_attributes, samples: [sample]) }
+  let(:sample) { build(:sample, :with_realistic_attributes) }
 
   it_behaves_like "Publication"
 
@@ -8,14 +8,14 @@ describe Reaction do
 
   describe "factories" do
     describe "without trait" do
-      subject(:factory) { build :reaction }
+      subject(:factory) { build(:reaction) }
 
       it { is_expected.to be_valid }
       it { expect(factory.save).to be true }
     end
 
     describe "with trait :with_realistic_attributes" do
-      subject(:factory) { build :reaction, :with_realistic_attributes }
+      subject(:factory) { build(:reaction, :with_realistic_attributes) }
 
       it { is_expected.to be_valid }
       it { expect(factory.save).to be true }
@@ -28,8 +28,8 @@ describe Reaction do
     describe "#samples" do
       subject(:samples) { reaction.samples }
 
-      let(:reaction) { create :reaction }
-      let(:sample) { create :sample, reaction: }
+      let(:reaction) { create(:reaction) }
+      let(:sample) { create(:sample, reaction:) }
 
       it { is_expected.to eq [sample] }
       it { is_expected.to eq [] }
@@ -43,7 +43,7 @@ describe Reaction do
   describe "#chemotion_id" do
     subject(:chemotion_id) { reaction.chemotion_id }
 
-    let(:reaction) { create :reaction, :with_realistic_attributes, id: 1 }
+    let(:reaction) { create(:reaction, :with_realistic_attributes, id: 1) }
 
     it { is_expected.to eq "CRR-#{reaction.id}" }
     it { is_expected.to eq "CRR-1" }
@@ -85,7 +85,7 @@ describe Reaction do
     end
 
     context "when reaction_temperature is nil" do
-      let(:reaction) { create :reaction, :with_realistic_attributes, samples: [sample], reaction_temperature: nil }
+      let(:reaction) { create(:reaction, :with_realistic_attributes, samples: [sample], reaction_temperature: nil) }
 
       it { is_expected.to eq "" }
     end
@@ -99,7 +99,7 @@ describe Reaction do
     end
 
     context "when reaction_temperature is nil" do
-      let(:reaction) { create :reaction, :with_realistic_attributes, samples: [sample], reaction_temperature: nil }
+      let(:reaction) { create(:reaction, :with_realistic_attributes, samples: [sample], reaction_temperature: nil) }
 
       it { is_expected.to eq "" }
     end
@@ -113,7 +113,7 @@ describe Reaction do
     end
 
     context "when reaction_temperature is nil" do
-      let(:reaction) { create :reaction, :with_realistic_attributes, samples: [sample], reaction_temperature: nil }
+      let(:reaction) { create(:reaction, :with_realistic_attributes, samples: [sample], reaction_temperature: nil) }
 
       it { is_expected.to eq "" }
     end

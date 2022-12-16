@@ -1,7 +1,7 @@
 describe SampleMappers::DctConformsToMapper do
   describe ".new" do
     context "when called without any arguments" do
-      let(:dct_conforms_to_mapper) { build :dct_conforms_to_mapper }
+      let(:dct_conforms_to_mapper) { build(:dct_conforms_to_mapper) }
 
       it { expect(dct_conforms_to_mapper).to be_a described_class }
       it { expect(dct_conforms_to_mapper).to be_a ShaleCustom::Mapper }
@@ -9,7 +9,7 @@ describe SampleMappers::DctConformsToMapper do
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :dct_conforms_to_mapper, :with_all_args_nested_structures_as_mappers }
+      let(:args) { attributes_for(:dct_conforms_to_mapper, :with_all_args_nested_structures_as_mappers) }
       let(:dct_conforms_to_mapper) { described_class.new(**args) }
 
       it { expect(dct_conforms_to_mapper).to be_a described_class }
@@ -19,7 +19,7 @@ describe SampleMappers::DctConformsToMapper do
 
   describe ".from_hash" do
     context "when called without any arguments" do
-      let(:dct_conforms_to_mapper) { build :dct_conforms_to_mapper }
+      let(:dct_conforms_to_mapper) { build(:dct_conforms_to_mapper) }
 
       it { expect(dct_conforms_to_mapper).to be_a described_class }
       it { expect(dct_conforms_to_mapper.dct_conformsTo).to be_nil }
@@ -39,7 +39,7 @@ describe SampleMappers::DctConformsToMapper do
     let(:expected_json_nil_render_value) { "null" }
 
     context "when called without any arguments" do
-      let(:dct_conforms_to_mapper) { build :dct_conforms_to_mapper }
+      let(:dct_conforms_to_mapper) { build(:dct_conforms_to_mapper) }
 
       let(:expected_json) do
         <<~JSON

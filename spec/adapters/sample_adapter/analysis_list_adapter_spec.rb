@@ -1,5 +1,5 @@
 describe SampleAdapter::AnalysisListAdapter do
-  let(:sample) { build :sample, :with_required_dependencies, :with_realistic_attributes }
+  let(:sample) { build(:sample, :with_required_dependencies, :with_realistic_attributes) }
   let(:analysis_list_adapter) { described_class.new sample }
 
   describe ".new" do

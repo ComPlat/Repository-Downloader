@@ -1,5 +1,5 @@
 describe AnalysisPresenter do
-  let(:analysis) { create :analysis }
+  let(:analysis) { create(:analysis) }
   let(:analysis_presenter) { described_class.new analysis }
 
   describe ".new" do
@@ -65,6 +65,7 @@ describe AnalysisPresenter do
     end
 
     context "when analysis has realistic attributes" do
+      # TODO: NEVER overwrite already existing let blocks.
       let(:analysis) { create :analysis, :with_realistic_attributes }
 
       it { is_expected.to be_a ZipTricks::OutputEnumerator }

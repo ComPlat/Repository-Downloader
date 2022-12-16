@@ -1,10 +1,10 @@
 describe SampleAdapter::AnalysisList::ItemListElementAdapter do
   let(:sample) {
-    create :sample, :with_required_dependencies, :with_realistic_attributes,
-      taggable_data: {"original_analysis_ids" => [analysis1.id, analysis2.id]}
+    create(:sample, :with_required_dependencies, :with_realistic_attributes,
+      taggable_data: {"original_analysis_ids" => [analysis1.id, analysis2.id]})
   }
-  let(:analysis1) { create :analysis, :with_realistic_attributes }
-  let(:analysis2) { create :analysis, :with_realistic_attributes }
+  let(:analysis1) { create(:analysis, :with_realistic_attributes) }
+  let(:analysis2) { create(:analysis, :with_realistic_attributes) }
   let(:item_list_element_adapter) { described_class.new sample }
 
   describe ".new" do

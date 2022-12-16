@@ -3,7 +3,7 @@ describe AnalysisMappers::DataSetList::ItemListElement::AttachmentList::ItemList
 
   describe ".new" do
     context "when called without any arguments" do
-      let(:attachment_list_item_list_element_mapper) { build :attachment_list_item_list_element_mapper }
+      let(:attachment_list_item_list_element_mapper) { build(:attachment_list_item_list_element_mapper) }
 
       it { expect(attachment_list_item_list_element_mapper).to be_a described_class }
       it { expect(attachment_list_item_list_element_mapper).to be_a ShaleCustom::Mapper }
@@ -14,7 +14,7 @@ describe AnalysisMappers::DataSetList::ItemListElement::AttachmentList::ItemList
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :attachment_list_item_list_element_mapper, :with_all_args }
+      let(:args) { attributes_for(:attachment_list_item_list_element_mapper, :with_all_args) }
       let(:attachment_list_item_list_element_mapper) { described_class.new(**args) }
 
       it { expect(attachment_list_item_list_element_mapper).to be_a described_class }
@@ -26,7 +26,7 @@ describe AnalysisMappers::DataSetList::ItemListElement::AttachmentList::ItemList
     end
 
     context "when called some arguments" do
-      let(:args) { attributes_for :attachment_list_item_list_element_mapper, :with_all_args, identifier: nil, filepath: nil }
+      let(:args) { attributes_for(:attachment_list_item_list_element_mapper, :with_all_args, identifier: nil, filepath: nil) }
       let(:attachment_list_item_list_element_mapper) { described_class.new(**args) }
 
       it { expect(attachment_list_item_list_element_mapper).to be_a described_class }
@@ -40,7 +40,7 @@ describe AnalysisMappers::DataSetList::ItemListElement::AttachmentList::ItemList
 
   describe ".from_hash" do
     context "when called without any arguments" do
-      let(:attachment_list_item_list_element_mapper) { build :attachment_list_item_list_element_mapper }
+      let(:attachment_list_item_list_element_mapper) { build(:attachment_list_item_list_element_mapper) }
 
       it { expect(attachment_list_item_list_element_mapper).to be_a described_class }
       it { expect(attachment_list_item_list_element_mapper.type).to be_nil }
@@ -74,7 +74,7 @@ describe AnalysisMappers::DataSetList::ItemListElement::AttachmentList::ItemList
 
   describe "#to_json" do
     context "when called without any arguments" do
-      let(:attachment_list_item_list_element_mapper) { build :attachment_list_item_list_element_mapper }
+      let(:attachment_list_item_list_element_mapper) { build(:attachment_list_item_list_element_mapper) }
 
       let(:expected_json) do
         <<~JSON
@@ -129,7 +129,7 @@ describe AnalysisMappers::DataSetList::ItemListElement::AttachmentList::ItemList
 
   describe "#to_xml" do
     context "when called without any arguments" do
-      let(:attachment_list_item_list_element_mapper) { build :attachment_list_item_list_element_mapper }
+      let(:attachment_list_item_list_element_mapper) { build(:attachment_list_item_list_element_mapper) }
 
       let(:expected_xml) do
         <<~XML

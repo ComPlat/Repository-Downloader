@@ -1,7 +1,7 @@
 describe AnalysisMappers::DataSetListMapper do
   describe "factories" do
     describe "trait :with_all_args_nested_structures_as_mappers" do
-      subject(:factory) { build :data_set_list_mapper, :with_all_args_nested_structures_as_mappers }
+      subject(:factory) { build(:data_set_list_mapper, :with_all_args_nested_structures_as_mappers) }
 
       it { expect(factory.instance_variable_get(:@itemListElement).size).to eq 1 }
       it { expect(factory.instance_variable_get(:@itemListElement).size).to eq factory.instance_variable_get :@numberOfItems }
@@ -9,7 +9,7 @@ describe AnalysisMappers::DataSetListMapper do
     end
 
     describe "trait :with_all_args_nested_structures_as_hash" do
-      subject(:factory) { build :data_set_list_mapper, :with_all_args_nested_structures_as_hash }
+      subject(:factory) { build(:data_set_list_mapper, :with_all_args_nested_structures_as_hash) }
 
       it { expect(factory.instance_variable_get(:@itemListElement).size).to eq 1 }
       it { expect(factory.instance_variable_get(:@itemListElement).size).to eq factory.instance_variable_get :@numberOfItems }
@@ -19,7 +19,7 @@ describe AnalysisMappers::DataSetListMapper do
 
   describe ".new" do
     context "when called without any arguments" do
-      let(:data_set_list_mapper) { build :data_set_list_mapper }
+      let(:data_set_list_mapper) { build(:data_set_list_mapper) }
 
       it { expect(data_set_list_mapper).to be_a described_class }
       it { expect(data_set_list_mapper).to be_a ShaleCustom::Mapper }
@@ -28,7 +28,7 @@ describe AnalysisMappers::DataSetListMapper do
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :data_set_list_mapper, :with_all_args_nested_structures_as_mappers }
+      let(:args) { attributes_for(:data_set_list_mapper, :with_all_args_nested_structures_as_mappers) }
       let(:data_set_list_mapper) { described_class.new(**args) }
 
       it { expect(data_set_list_mapper).to be_a described_class }
@@ -37,7 +37,7 @@ describe AnalysisMappers::DataSetListMapper do
     end
 
     context "when called with some arguments" do
-      let(:args) { attributes_for :data_set_list_mapper, :with_all_args_nested_structures_as_mappers, numberOfItems: nil }
+      let(:args) { attributes_for(:data_set_list_mapper, :with_all_args_nested_structures_as_mappers, numberOfItems: nil) }
       let(:data_set_list_mapper) { described_class.new(**args) }
 
       it { expect(data_set_list_mapper).to be_a described_class }
@@ -48,7 +48,7 @@ describe AnalysisMappers::DataSetListMapper do
 
   describe ".from_hash" do
     context "when called without any arguments" do
-      let(:data_set_list_mapper) { build :data_set_list_mapper }
+      let(:data_set_list_mapper) { build(:data_set_list_mapper) }
 
       it { expect(data_set_list_mapper).to be_a described_class }
       it { expect(data_set_list_mapper.numberOfItems).to be_nil }
@@ -66,7 +66,7 @@ describe AnalysisMappers::DataSetListMapper do
     end
 
     context "when called with some arguments" do
-      let(:args) { attributes_for :data_set_list_mapper, :with_all_args_nested_structures_as_hash, numberOfItems: nil }
+      let(:args) { attributes_for(:data_set_list_mapper, :with_all_args_nested_structures_as_hash, numberOfItems: nil) }
       let(:data_set_list_mapper) { described_class.from_hash args }
 
       it { expect(data_set_list_mapper).to be_a described_class }
@@ -79,7 +79,7 @@ describe AnalysisMappers::DataSetListMapper do
     let(:expected_json_nil_render_value) { "null" }
 
     context "when called without any arguments" do
-      let(:data_set_list_mapper) { build :data_set_list_mapper }
+      let(:data_set_list_mapper) { build(:data_set_list_mapper) }
 
       let(:expected_json) do
         <<~JSON
@@ -110,7 +110,7 @@ describe AnalysisMappers::DataSetListMapper do
     end
 
     context "when called with some arguments" do
-      let(:args) { attributes_for :data_set_list_mapper, :with_all_args_nested_structures_as_hash, numberOfItems: nil }
+      let(:args) { attributes_for(:data_set_list_mapper, :with_all_args_nested_structures_as_hash, numberOfItems: nil) }
       let(:data_set_list_mapper) { described_class.from_hash args }
 
       let(:expected_json) do
@@ -128,7 +128,7 @@ describe AnalysisMappers::DataSetListMapper do
 
   describe "#to_xml" do
     context "when called without any arguments" do
-      let(:data_set_list_mapper) { build :data_set_list_mapper }
+      let(:data_set_list_mapper) { build(:data_set_list_mapper) }
 
       let(:expected_xml) do
         <<~XML
@@ -179,7 +179,7 @@ describe AnalysisMappers::DataSetListMapper do
     end
 
     context "when called with some arguments" do
-      let(:args) { attributes_for :data_set_list_mapper, :with_all_args_nested_structures_as_hash, numberOfItems: nil }
+      let(:args) { attributes_for(:data_set_list_mapper, :with_all_args_nested_structures_as_hash, numberOfItems: nil) }
       let(:data_set_list_mapper) { described_class.from_hash args }
 
       let(:expected_xml) do

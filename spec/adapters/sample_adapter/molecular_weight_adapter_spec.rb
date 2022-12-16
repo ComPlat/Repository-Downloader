@@ -1,5 +1,5 @@
 describe SampleAdapter::MolecularWeightAdapter do
-  let(:sample) { build :sample, :with_required_dependencies, :with_realistic_attributes }
+  let(:sample) { build(:sample, :with_required_dependencies, :with_realistic_attributes) }
   let(:molecular_weight_adapter) { described_class.new sample }
 
   describe ".new" do
@@ -16,7 +16,7 @@ describe SampleAdapter::MolecularWeightAdapter do
     end
 
     context "when molecular_weight is nil" do
-      let(:sample) { build :sample, :with_required_dependencies, :with_realistic_attributes, molecular_weight: nil }
+      let(:sample) { build(:sample, :with_required_dependencies, :with_realistic_attributes, molecular_weight: nil) }
 
       let(:expected_hash) { {value: nil} }
 
@@ -33,7 +33,7 @@ describe SampleAdapter::MolecularWeightAdapter do
     end
 
     context "when molecular_weight is nil" do
-      let(:sample) { build :sample, :with_required_dependencies, :with_realistic_attributes, molecular_weight: nil }
+      let(:sample) { build(:sample, :with_required_dependencies, :with_realistic_attributes, molecular_weight: nil) }
 
       it { is_expected.to eq sample.molecular_weight }
       it { is_expected.to be_nil }

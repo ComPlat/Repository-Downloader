@@ -1,5 +1,5 @@
 describe ReactionPresenter do
-  let(:reaction) { create :reaction }
+  let(:reaction) { create(:reaction) }
   let(:reaction_presenter) { described_class.new reaction }
 
   describe ".new" do
@@ -65,6 +65,7 @@ describe ReactionPresenter do
     end
 
     context "when reaction has realistic attributes" do
+      # TODO: NEVER overwrite lets.
       let(:reaction) { create :reaction, :with_realistic_attributes }
 
       it { is_expected.to be_a ZipTricks::OutputEnumerator }

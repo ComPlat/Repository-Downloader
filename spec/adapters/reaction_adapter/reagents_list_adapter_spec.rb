@@ -1,6 +1,6 @@
 describe ReactionAdapter::ReagentsListAdapter do
-  let(:sample) { build :sample, :with_realistic_attributes }
-  let(:reaction) { build :reaction, :with_realistic_attributes, samples: [sample] }
+  let(:sample) { build(:sample, :with_realistic_attributes) }
+  let(:reaction) { build(:reaction, :with_realistic_attributes, samples: [sample]) }
   let(:reagents_list_adapter) { described_class.new reaction }
 
   describe ".new" do

@@ -1,53 +1,55 @@
-describe API::V1::Publications::ChemotionId, ".sample" do
+describe API::V1::Publications, ".chemotion_ids .sample" do
   context "when one sample and no analyses and no attachments" do
     let(:sample) {
-      create :sample, :with_required_dependencies, :with_realistic_attributes,
+      create(:sample, :with_required_dependencies, :with_realistic_attributes,
         taggable_data: {"original_analysis_ids" => [],
-                        "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"}
+                        "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"})
     }
 
     let(:expected_xml) do
       <<~XML
-        <sample>
-          <context>https://schema.org/</context>
-          <type>MolecularEntity</type>
-          <dct_conformsTo>
+        <publications>
+          <sample>
+            <context>https://schema.org/</context>
+            <type>MolecularEntity</type>
             <dct_conformsTo>
-              <type>CreativeWork</type>
-              <id>https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/</id>
+              <dct_conformsTo>
+                <type>CreativeWork</type>
+                <id>https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/</id>
+              </dct_conformsTo>
             </dct_conformsTo>
-          </dct_conformsTo>
-          <id>10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1</id>
-          <name>2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine</name>
-          <url>https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1</url>
-          <identifier>CRS-#{sample.id}</identifier>
-          <iupacName>2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine</iupacName>
-          <smiles>c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1</smiles>
-          <inChI>InChI=1S/C20H14N8/c1-3-10-21-15(8-1)19-17(23-27-25-19)13-6-5-7-14(12-13)18-20(26-28-24-18)16-9-2-4-11-22-16/h1-12H,(H,23,25,27)(H,24,26,28)</inChI>
-          <inChIKey>MUAMZYSBUQADBN-UHFFFAOYSA-N</inChIKey>
-          <molecularFormula>C20H14N8</molecularFormula>
-          <meltingPoint>-Infinity...Infinity</meltingPoint>
-          <boilingPoint>-Infinity...Infinity</boilingPoint>
-          <molecularWeight><value>366.37876000000006</value></molecularWeight>
-          <analysisList>
-            <numberOfItems>0</numberOfItems>
-          </analysisList>
-        </sample>
+            <id>10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1</id>
+            <name>2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine</name>
+            <url>https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1</url>
+            <identifier>CRS-#{sample.id}</identifier>
+            <iupacName>2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine</iupacName>
+            <smiles>c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1</smiles>
+            <inChI>InChI=1S/C20H14N8/c1-3-10-21-15(8-1)19-17(23-27-25-19)13-6-5-7-14(12-13)18-20(26-28-24-18)16-9-2-4-11-22-16/h1-12H,(H,23,25,27)(H,24,26,28)</inChI>
+            <inChIKey>MUAMZYSBUQADBN-UHFFFAOYSA-N</inChIKey>
+            <molecularFormula>C20H14N8</molecularFormula>
+            <meltingPoint>-Infinity...Infinity</meltingPoint>
+            <boilingPoint>-Infinity...Infinity</boilingPoint>
+            <molecularWeight><value>366.37876000000006</value></molecularWeight>
+            <analysisList>
+              <numberOfItems>0</numberOfItems>
+            </analysisList>
+          </sample>
+        </publications>
       XML
     end
 
-    before { get "/api/v1/publications/chemotion_id/#{sample.id}.xml" }
+    before { get "/api/v1/publications?chemotion_ids=#{sample.id}&format=xml" }
 
-    it { expect(response.parsed_body).to eq_without_whitespace expected_xml }
+    it { expect(Hash.from_xml(response.parsed_body)).to eq(Hash.from_xml(expected_xml)) }
   end
 
   context "when one sample and one analysis and no attachments" do
     let(:sample) {
-      create :sample, :with_required_dependencies, :with_realistic_attributes,
+      create(:sample, :with_required_dependencies, :with_realistic_attributes,
         taggable_data: {"original_analysis_ids" => [analysis.id],
-                        "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"}
+                        "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"})
     }
-    let(:analysis) { create :analysis, :with_realistic_attributes }
+    let(:analysis) { create(:analysis, :with_realistic_attributes) }
 
     let(:expected_analysis_list_xml) {
       <<~XML
@@ -70,47 +72,49 @@ describe API::V1::Publications::ChemotionId, ".sample" do
 
     let(:expected_xml) do
       <<~XML
-        <sample>
-          <context>https://schema.org/</context>
-          <type>MolecularEntity</type>
-          <dct_conformsTo>
+        <publications>
+          <sample>
+            <context>https://schema.org/</context>
+            <type>MolecularEntity</type>
             <dct_conformsTo>
-              <type>CreativeWork</type>
-              <id>https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/</id>
+              <dct_conformsTo>
+                <type>CreativeWork</type>
+                <id>https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/</id>
+              </dct_conformsTo>
             </dct_conformsTo>
-          </dct_conformsTo>
-          <id>10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1</id>
-          <name>2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine</name>
-          <url>https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1</url>
-          <identifier>CRS-#{sample.id}</identifier>
-          <iupacName>2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine</iupacName>
-          <smiles>c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1</smiles>
-          <inChI>InChI=1S/C20H14N8/c1-3-10-21-15(8-1)19-17(23-27-25-19)13-6-5-7-14(12-13)18-20(26-28-24-18)16-9-2-4-11-22-16/h1-12H,(H,23,25,27)(H,24,26,28)</inChI>
-          <inChIKey>MUAMZYSBUQADBN-UHFFFAOYSA-N</inChIKey>
-          <molecularFormula>C20H14N8</molecularFormula>
-          <meltingPoint>-Infinity...Infinity</meltingPoint>
-          <boilingPoint>-Infinity...Infinity</boilingPoint>
-          <molecularWeight><value>366.37876000000006</value></molecularWeight>
-          <analysisList>
-            #{expected_analysis_list_xml}
-          </analysisList>
-        </sample>
+            <id>10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1</id>
+            <name>2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine</name>
+            <url>https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1</url>
+            <identifier>CRS-#{sample.id}</identifier>
+            <iupacName>2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine</iupacName>
+            <smiles>c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1</smiles>
+            <inChI>InChI=1S/C20H14N8/c1-3-10-21-15(8-1)19-17(23-27-25-19)13-6-5-7-14(12-13)18-20(26-28-24-18)16-9-2-4-11-22-16/h1-12H,(H,23,25,27)(H,24,26,28)</inChI>
+            <inChIKey>MUAMZYSBUQADBN-UHFFFAOYSA-N</inChIKey>
+            <molecularFormula>C20H14N8</molecularFormula>
+            <meltingPoint>-Infinity...Infinity</meltingPoint>
+            <boilingPoint>-Infinity...Infinity</boilingPoint>
+            <molecularWeight><value>366.37876000000006</value></molecularWeight>
+            <analysisList>
+              #{expected_analysis_list_xml}
+            </analysisList>
+          </sample>
+        </publications>
       XML
     end
 
-    before { get "/api/v1/publications/chemotion_id/#{sample.id}.xml" }
+    before { get "/api/v1/publications?chemotion_ids=#{sample.id}&format=xml" }
 
-    it { expect(response.parsed_body).to eq_without_whitespace expected_xml }
+    it { expect(Hash.from_xml(response.parsed_body)).to eq(Hash.from_xml(expected_xml)) }
   end
 
   context "when one sample and one analysis and one attachment" do
     let(:sample) {
-      create :sample, :with_required_dependencies, :with_realistic_attributes,
+      create(:sample, :with_required_dependencies, :with_realistic_attributes,
         taggable_data: {"original_analysis_ids" => [analysis.id],
-                        "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"}
+                        "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"})
     }
-    let(:analysis) { create :analysis, :with_realistic_attributes }
-    let(:attachment) { create :attachment, :with_realistic_attributes, ana_id: analysis.element_id }
+    let(:analysis) { create(:analysis, :with_realistic_attributes) }
+    let(:attachment) { create(:attachment, :with_realistic_attributes, ana_id: analysis.element_id) }
 
     let(:expected_analysis_list_xml) {
       expected_data_set_list =
@@ -154,57 +158,59 @@ describe API::V1::Publications::ChemotionId, ".sample" do
 
     let(:expected_xml) do
       <<~XML
-        <sample>
-          <context>https://schema.org/</context>
-          <type>MolecularEntity</type>
-          <dct_conformsTo>
+        <publications>
+          <sample>
+            <context>https://schema.org/</context>
+            <type>MolecularEntity</type>
             <dct_conformsTo>
-              <type>CreativeWork</type>
-              <id>https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/</id>
+              <dct_conformsTo>
+                <type>CreativeWork</type>
+                <id>https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/</id>
+              </dct_conformsTo>
             </dct_conformsTo>
-          </dct_conformsTo>
-          <id>10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1</id>
-          <name>2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine</name>
-          <url>https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1</url>
-          <identifier>CRS-#{sample.id}</identifier>
-          <iupacName>2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine</iupacName>
-          <smiles>c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1</smiles>
-          <inChI>InChI=1S/C20H14N8/c1-3-10-21-15(8-1)19-17(23-27-25-19)13-6-5-7-14(12-13)18-20(26-28-24-18)16-9-2-4-11-22-16/h1-12H,(H,23,25,27)(H,24,26,28)</inChI>
-          <inChIKey>MUAMZYSBUQADBN-UHFFFAOYSA-N</inChIKey>
-          <molecularFormula>C20H14N8</molecularFormula>
-          <meltingPoint>-Infinity...Infinity</meltingPoint>
-          <boilingPoint>-Infinity...Infinity</boilingPoint>
-          <molecularWeight><value>366.37876000000006</value></molecularWeight>
-          <analysisList>
-            #{expected_analysis_list_xml}
-          </analysisList>
-        </sample>
+            <id>10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1</id>
+            <name>2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine</name>
+            <url>https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1</url>
+            <identifier>CRS-#{sample.id}</identifier>
+            <iupacName>2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine</iupacName>
+            <smiles>c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1</smiles>
+            <inChI>InChI=1S/C20H14N8/c1-3-10-21-15(8-1)19-17(23-27-25-19)13-6-5-7-14(12-13)18-20(26-28-24-18)16-9-2-4-11-22-16/h1-12H,(H,23,25,27)(H,24,26,28)</inChI>
+            <inChIKey>MUAMZYSBUQADBN-UHFFFAOYSA-N</inChIKey>
+            <molecularFormula>C20H14N8</molecularFormula>
+            <meltingPoint>-Infinity...Infinity</meltingPoint>
+            <boilingPoint>-Infinity...Infinity</boilingPoint>
+            <molecularWeight><value>366.37876000000006</value></molecularWeight>
+            <analysisList>
+              #{expected_analysis_list_xml}
+            </analysisList>
+          </sample>
+        </publications>
       XML
     end
 
     before do
       attachment
-      get "/api/v1/publications/chemotion_id/#{sample.id}.xml"
+      get "/api/v1/publications?chemotion_ids=#{sample.id}&format=xml"
     end
 
-    it { expect(response.parsed_body).to eq_without_whitespace expected_xml }
+    it { expect(Hash.from_xml(response.parsed_body)).to eq(Hash.from_xml(expected_xml)) }
   end
 
   context "when one sample and two analyses and two attachments for each analysis" do
     let(:sample) {
-      create :sample, :with_required_dependencies, :with_realistic_attributes,
+      create(:sample, :with_required_dependencies, :with_realistic_attributes,
         taggable_data: {"original_analysis_ids" => [analyses.first.id, analyses.second.id],
-                        "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"}
+                        "doi" => "10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1"})
     }
     let(:analyses) {
-      [(create :analysis, :with_realistic_attributes, element_id: 1),
-        (create :analysis, :with_realistic_attributes, element_id: 2)]
+      [create(:analysis, :with_realistic_attributes, element_id: 1),
+        create(:analysis, :with_realistic_attributes, element_id: 2)]
     }
     let(:attachments) {
-      [(create :attachment, :with_realistic_attributes, ana_id: analyses.first.element_id),
-        (create :attachment, :with_realistic_attributes, ana_id: analyses.first.element_id),
-        (create :attachment, :with_realistic_attributes, ana_id: analyses.second.element_id),
-        (create :attachment, :with_realistic_attributes, ana_id: analyses.second.element_id)]
+      [create(:attachment, :with_realistic_attributes, ana_id: analyses.first.element_id),
+        create(:attachment, :with_realistic_attributes, ana_id: analyses.first.element_id),
+        create(:attachment, :with_realistic_attributes, ana_id: analyses.second.element_id),
+        create(:attachment, :with_realistic_attributes, ana_id: analyses.second.element_id)]
     }
 
     let(:expected_analysis_list_xml) {
@@ -295,39 +301,41 @@ describe API::V1::Publications::ChemotionId, ".sample" do
 
     let(:expected_xml) do
       <<~XML
-        <sample>
-          <context>https://schema.org/</context>
-          <type>MolecularEntity</type>
-          <dct_conformsTo>
+        <publications>
+          <sample>
+            <context>https://schema.org/</context>
+            <type>MolecularEntity</type>
             <dct_conformsTo>
-              <type>CreativeWork</type>
-              <id>https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/</id>
+              <dct_conformsTo>
+                <type>CreativeWork</type>
+                <id>https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/</id>
+              </dct_conformsTo>
             </dct_conformsTo>
-          </dct_conformsTo>
-          <id>10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1</id>
-          <name>2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine</name>
-          <url>https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1</url>
-          <identifier>CRS-#{sample.id}</identifier>
-          <iupacName>2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine</iupacName>
-          <smiles>c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1</smiles>
-          <inChI>InChI=1S/C20H14N8/c1-3-10-21-15(8-1)19-17(23-27-25-19)13-6-5-7-14(12-13)18-20(26-28-24-18)16-9-2-4-11-22-16/h1-12H,(H,23,25,27)(H,24,26,28)</inChI>
-          <inChIKey>MUAMZYSBUQADBN-UHFFFAOYSA-N</inChIKey>
-          <molecularFormula>C20H14N8</molecularFormula>
-          <meltingPoint>-Infinity...Infinity</meltingPoint>
-          <boilingPoint>-Infinity...Infinity</boilingPoint>
-          <molecularWeight><value>366.37876000000006</value></molecularWeight>
-          <analysisList>
-            #{expected_analysis_list_xml}
-          </analysisList>
-        </sample>
+            <id>10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1</id>
+            <name>2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine</name>
+            <url>https://dx.doi.org/10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1</url>
+            <identifier>CRS-#{sample.id}</identifier>
+            <iupacName>2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine</iupacName>
+            <smiles>c1ccc(nc1)c1[nH]nnc1c1cccc(c1)c1[nH]nnc1c1ccccn1</smiles>
+            <inChI>InChI=1S/C20H14N8/c1-3-10-21-15(8-1)19-17(23-27-25-19)13-6-5-7-14(12-13)18-20(26-28-24-18)16-9-2-4-11-22-16/h1-12H,(H,23,25,27)(H,24,26,28)</inChI>
+            <inChIKey>MUAMZYSBUQADBN-UHFFFAOYSA-N</inChIKey>
+            <molecularFormula>C20H14N8</molecularFormula>
+            <meltingPoint>-Infinity...Infinity</meltingPoint>
+            <boilingPoint>-Infinity...Infinity</boilingPoint>
+            <molecularWeight><value>366.37876000000006</value></molecularWeight>
+            <analysisList>
+              #{expected_analysis_list_xml}
+            </analysisList>
+          </sample>
+        </publications>
       XML
     end
 
     before do
       attachments
-      get "/api/v1/publications/chemotion_id/#{sample.id}.xml"
+      get "/api/v1/publications?chemotion_ids=#{sample.id}&format=xml"
     end
 
-    it { expect(response.parsed_body).to eq_without_whitespace expected_xml }
+    it { expect(Hash.from_xml(response.parsed_body)).to eq(Hash.from_xml(expected_xml)) }
   end
 end
