@@ -17,10 +17,14 @@ describe PublicationsByDoiPresenter do
     end
 
     context "when dois is an array with one doi in it" do
+      subject(:to_json_joined_enumerator) { JSON.parse to_json.to_a.join }
+
       let(:analysis) { create(:analysis, :with_realistic_attributes) }
       let(:dois) { [analysis.doi] }
 
-      it { expect(to_json.to_a.join).to eq "[#{analysis.present_to_api.to_json.to_a.join}]" }
+      it { expect(to_json_joined_enumerator).to eq JSON.parse("[#{analysis.present_to_api.to_json.to_a.join}]") }
+      it { expect(to_json_joined_enumerator).to be_a Array }
+      it { expect(to_json_joined_enumerator.size).to eq 1 }
     end
 
     context "when dois is an array with two doi in it" do
@@ -35,7 +39,7 @@ describe PublicationsByDoiPresenter do
         "[#{analysis1.present_to_api.to_json.to_a.join},#{analysis2.present_to_api.to_json.to_a.join}]"
       end
 
-      it { expect(to_json.to_a.join).to eq expected_json }
+      it { expect(JSON.parse(to_json.to_a.join)).to eq JSON.parse(expected_json) }
     end
   end
 
