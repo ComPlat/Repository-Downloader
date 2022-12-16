@@ -10,7 +10,8 @@ describe PublicationRepository do
     context "when an Analysis can be found" do
       let(:arg) { analysis.taggable_data["doi"] }
 
-      it { is_expected.to eq analysis }
+      # it { is_expected.to eq analysis }
+      it { expect(find_by_doi.taggable_data["doi"]).to eq arg }
     end
 
     context "when NO Analysis can be found" do
