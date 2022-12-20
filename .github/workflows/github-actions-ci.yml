@@ -7,8 +7,6 @@ jobs:
     steps:
       - run: sudo apt update -y
       - run: sudo apt install -y zsh
-      - run: zsh
-      - run: echo $SHELL
       - run: docker-compose -v
       - run: echo "Adding secrets"
         env:
@@ -22,7 +20,7 @@ jobs:
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - run: cd ${{ github.workspace }}
-      - run: ./run_docker-compose.spec.sh
+      - run: zsh ./run_docker-compose.spec.sh
       - run: echo "🍏 This job's status is ${{ job.status }}."
   Run-Lint-JS:
     runs-on: ubuntu-latest
