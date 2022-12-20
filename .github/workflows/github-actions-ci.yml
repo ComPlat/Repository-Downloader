@@ -5,7 +5,7 @@ jobs:
   Run-Specs:
     runs-on: ubuntu-latest
     steps:
-      - run:
+      - run: echo "Adding secrets"
         env:
           FRIENDLYCLEANERCODEASSISTANT_SSH_KEY: ${{ secrets.FRIENDLYCLEANERCODEASSISTANT_SSH_KEY }}
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
