@@ -7,6 +7,7 @@ jobs:
     steps:
       - run: sudo apt update -y
       - run: sudo apt install -y zsh
+      - run: chsh -s $(which zsh)
       - run: docker-compose -v
       - run: echo "Adding secrets"
         env:
