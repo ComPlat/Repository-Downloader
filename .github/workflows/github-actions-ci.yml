@@ -8,6 +8,7 @@ jobs:
       - run: sudo apt update -y
       - run: sudo apt install -y zsh
       - run: sudo chsh -s $(which zsh)
+      - run: echo $SHELL
       - run: docker-compose -v
       - run: echo "Adding secrets"
         env:
