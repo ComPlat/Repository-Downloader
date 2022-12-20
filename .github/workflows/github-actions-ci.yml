@@ -21,7 +21,7 @@ jobs:
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - run: cd ${{ github.workspace }}
-      - run: zsh ./run_docker-compose.spec.sh
+      - run: ./run_docker-compose.spec.sh
       - run: echo "🍏 This job's status is ${{ job.status }}."
   Run-Lint-JS:
     runs-on: ubuntu-latest
