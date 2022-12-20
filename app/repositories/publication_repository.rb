@@ -11,5 +11,7 @@ class PublicationRepository
 
   def self.where_chemotion_ids(chemotion_ids) = Publication.where id: chemotion_ids
 
-  def self.search(params) = PublicationSearchOperation.new params: params
+  def self.search(authors, contributor, description)
+    PublicationSearchOperation.new(authors, contributor, description).search
+  end
 end

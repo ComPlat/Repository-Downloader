@@ -19,7 +19,7 @@ class API::V1::Publications::Search < Grape::API
         desc: "Searches description for any occurrence of search term"
     end
     get do
-      stream PublicationsBySearchPresenter.new(params)
+      PublicationSearchOperation.new(params[:authors], params[:contributor], params[:description]).search
     end
   end
 
