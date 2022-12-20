@@ -5,7 +5,10 @@ jobs:
   Run-Specs:
     runs-on: ubuntu-latest
     steps:
-      - run: echo '$SHELL'
+      - run: apt update -y
+      - run: apt install -y zsh
+      - run: zsh
+      - run: echo $SHELL
       - run: docker-compose -v
       - run: echo "Adding secrets"
         env:
