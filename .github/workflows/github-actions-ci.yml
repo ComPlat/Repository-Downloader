@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is running specs
 on: [push]
 jobs:
   Run-Specs:
-    runs-on: ubuntu-20221212
+    runs-on: ubuntu-22.04
     steps:
       - run: sudo apt update -y
       - run: sudo apt install -y zsh
