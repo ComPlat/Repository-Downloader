@@ -5,8 +5,8 @@ jobs:
   Run-Specs:
     runs-on: ubuntu-latest
     steps:
-      - run: apt update -y
-      - run: apt install -y zsh
+      - run: sudo apt update -y
+      - run: sudo apt install -y zsh
       - run: zsh
       - run: echo $SHELL
       - run: docker-compose -v
