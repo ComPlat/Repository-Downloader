@@ -5,8 +5,8 @@ jobs:
   Run-Specs:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "echo '$SHELL'"
-      - run: echo "docker-compose -v"
+      - run: echo '$SHELL'
+      - run: docker-compose -v
       - run: echo "Adding secrets"
         env:
           FRIENDLYCLEANERCODEASSISTANT_SSH_KEY: ${{ secrets.FRIENDLYCLEANERCODEASSISTANT_SSH_KEY }}
