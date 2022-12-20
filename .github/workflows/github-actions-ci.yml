@@ -5,9 +5,6 @@ jobs:
   Run-Specs:
     runs-on: ubuntu-22.04
     steps:
-      - run: sudo apt update -y
-      - run: sudo apt install -y zsh
-      - run: docker-compose -v
       - run: docker compose version
       - run: echo "Adding secrets"
         env:
