@@ -8,8 +8,7 @@ class ReactionPresenter
   def to_csv = Enumerator.new { |yielder| yielder << mapper.to_csv }
 
   def to_zip
-    create_bag_it_path
-    bag_it_stream.rack_body
+    PublicationsByDoiPresenter.new([@reaction.doi]).to_zip
   end
 
   private
@@ -19,18 +18,4 @@ class ReactionPresenter
   def model_to_mapper_adapter_hash = @model_to_mapper_adapter_hash ||= model_to_mapper_adapter.to_h
 
   def model_to_mapper_adapter = @model_to_mapper_adapter ||= RootAdapters::ReactionToReactionMapperAdapter.new(@reaction)
-
-  def bag_it_stream
-    BagItStream.new({"reaction.json" => StringIO.open(mapper.to_json),
-                      "reaction.xml" => StringIO.open(mapper.to_xml),
-                      "reaction.csv" => StringIO.open(mapper.to_csv)},
-      bag_it_path, false)
-  end
-
-  def bag_it_path
-    unix_timestamp_in_ns = (Time.current.to_r * 1000).round
-    "./tmp/bagit/#{unix_timestamp_in_ns}-#{@reaction.chemotion_id}_##{SecureRandom.uuid}"
-  end
-
-  def create_bag_it_path = FileUtils.mkpath bag_it_path
 end

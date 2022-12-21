@@ -1,5 +1,7 @@
+require "dry-files"
+
 describe AnalysisPresenter do
-  let(:analysis) { create(:analysis) }
+  let(:analysis) { create(:analysis, :with_realistic_attributes) }
   let(:analysis_presenter) { described_class.new analysis }
 
   describe ".new" do
@@ -38,11 +40,10 @@ describe AnalysisPresenter do
         zip_chunks << zip_chunk
       }
 
-      FileUtils.mkpath "tmp/output/data"
-
       io = StringIO.new(zip_chunks.join)
 
       ZipTricks::FileReader.read_zip_structure(io:).each do |entry|
+        Dry::Files.new.touch "./tmp/output/#{entry.filename}"
         File.open("tmp/output/#{entry.filename}", "wb") do |extracted_file|
           inflated_reader = entry.extractor_from io
           extracted_file << inflated_reader.extract until inflated_reader.eof?
@@ -52,28 +53,10 @@ describe AnalysisPresenter do
 
     after do
       FileUtils.rm_rf "tmp/output"
-      FileUtils.rm_rf "tmp/bagit"
     end
 
-    context "when analysis has minimal attributes" do
-      it { is_expected.to be_a ZipTricks::OutputEnumerator }
-      it { expect(Dir.new("tmp/output").entries.size).to eq 9 }
-      it { expect(File.read("tmp/output/data/analysis.json")).to eq analysis_presenter.to_json.to_a.join }
-      it { expect(File.read("tmp/output/data/analysis.xml")).to eq analysis_presenter.to_xml.to_a.join }
-      it { expect(File.read("tmp/output/data/analysis.csv")).to eq analysis_presenter.to_csv.to_a.join }
-      it { expect(BagIt::Bag.new("tmp/output").valid?).to be true }
-    end
-
-    context "when analysis has realistic attributes" do
-      # TODO: NEVER overwrite already existing let blocks.
-      let(:analysis) { create :analysis, :with_realistic_attributes }
-
-      it { is_expected.to be_a ZipTricks::OutputEnumerator }
-      it { expect(Dir.new("tmp/output").entries.size).to eq 9 }
-      it { expect(File.read("tmp/output/data/analysis.json")).to eq analysis_presenter.to_json.to_a.join }
-      it { expect(File.read("tmp/output/data/analysis.xml")).to eq analysis_presenter.to_xml.to_a.join }
-      it { expect(File.read("tmp/output/data/analysis.csv")).to eq analysis_presenter.to_csv.to_a.join }
-      it { expect(BagIt::Bag.new("tmp/output").valid?).to be true }
+    it "returns an OutputEnumerator" do
+      expect(to_zip).to be_a ZipTricks::OutputEnumerator
     end
   end
 end
