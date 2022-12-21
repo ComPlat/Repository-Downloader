@@ -7,10 +7,6 @@ class AnalysisPresenter
 
   def to_csv = Enumerator.new { |yielder| yielder << mapper.to_csv }
 
-  def to_zip
-    PublicationsByDoiPresenter.new([@analysis.doi]).to_zip
-  end
-
   private
 
   def mapper = @mapper ||= RootMappers::AnalysisMapper.from_hash(model_to_mapper_adapter_hash)

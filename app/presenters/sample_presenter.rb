@@ -7,10 +7,6 @@ class SamplePresenter
 
   def to_csv = Enumerator.new { |yielder| yielder << mapper.to_csv }
 
-  def to_zip
-    PublicationsByDoiPresenter.new([@sample.doi]).to_zip
-  end
-
   private
 
   def mapper = @mapper ||= RootMappers::SampleMapper.from_hash(model_to_mapper_adapter_hash)
