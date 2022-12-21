@@ -1,5 +1,3 @@
-require "dry-files"
-
 describe SamplePresenter do
   let(:sample) { create(:sample, :with_required_dependencies, :with_realistic_attributes) }
   let(:sample_presenter) { described_class.new sample }

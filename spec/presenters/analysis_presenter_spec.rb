@@ -1,5 +1,3 @@
-require "dry-files"
-
 describe AnalysisPresenter do
   let(:analysis) { create(:analysis, :with_realistic_attributes) }
   let(:analysis_presenter) { described_class.new analysis }
