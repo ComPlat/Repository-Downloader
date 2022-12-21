@@ -68,13 +68,39 @@ describe PublicationsByDoiPresenter do
       let(:dois) { [analysis1.doi, analysis2.doi] }
 
       let(:expected_xml) do
-        ["<publications>",
-          analysis1.present_to_api.to_xml.to_a.join,
-          analysis2.present_to_api.to_xml.to_a.join,
-          "</publications>"].join
+        <<~XML
+          <publications>
+            <analysis>
+              <context>https://schema.org/</context>
+              <type>AnalysisEntity</type>
+              <id>https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1</id>
+              <ontologies>13C nuclear magnetic resonance spectroscopy (13C NMR)</ontologies>
+              <title>13C nuclear magnetic resonance spectroscopy (13C NMR)</title>
+              <descriptions>{"ops"=&gt;[{"insert"=&gt;"&#xA0;"}, {"attributes"=&gt;{"script"=&gt;"super"}, "insert"=&gt;"13"}, {"insert"=&gt;"C NMR (100 MHz, DMSO-d6, ppm), &#x3B4; = 171.0, 141.1, 135.4 (q, J = 5.2 Hz), 127.4, 124.3 (q, J = 4.2 Hz), 124.0 (q, J = 271.3 Hz), 118.9, 118.2, 111.3 (q, J = 33.3 Hz), 44.4, 25.6, 22.3 (2 C). "}]}</descriptions>
+              <url>https://dx.doi.org/10.14272/YCYKSCMNYXMYQE-UHFFFAOYSA-N/NMR/13C/DMSO/100.1</url>
+              <identifier>#{analysis1.chemotion_id}</identifier>
+              <datasetList>
+                <numberOfItems>0</numberOfItems>
+              </datasetList>
+            </analysis>
+            <analysis>
+              <context>https://schema.org/</context>
+              <type>AnalysisEntity</type>
+              <id>https://dx.doi.org/10.14272/YCYKSCMAYXMYQE-UHFFFAOYSA-A/AMR/13C/DMSO/100.1</id>
+              <ontologies>13C nuclear magnetic resonance spectroscopy (13C NMR)</ontologies>
+              <title>13C nuclear magnetic resonance spectroscopy (13C NMR)</title>
+              <descriptions>{"ops"=&gt;[{"insert"=&gt;"&#xA0;"}, {"attributes"=&gt;{"script"=&gt;"super"}, "insert"=&gt;"13"}, {"insert"=&gt;"C NMR (100 MHz, DMSO-d6, ppm), &#x3B4; = 171.0, 141.1, 135.4 (q, J = 5.2 Hz), 127.4, 124.3 (q, J = 4.2 Hz), 124.0 (q, J = 271.3 Hz), 118.9, 118.2, 111.3 (q, J = 33.3 Hz), 44.4, 25.6, 22.3 (2 C). "}]}</descriptions>
+              <url>https://dx.doi.org/10.14272/YCYKSCMAYXMYQE-UHFFFAOYSA-A/AMR/13C/DMSO/100.1</url>
+              <identifier>#{analysis2.chemotion_id}</identifier>
+              <datasetList>
+                <numberOfItems>0</numberOfItems>
+              </datasetList>
+            </analysis>
+          </publications>
+        XML
       end
 
-      it { expect(to_xml.to_a.join).to eq expected_xml }
+      it { expect(to_xml.to_a.join).to eq_without_whitespace expected_xml }
     end
   end
 
