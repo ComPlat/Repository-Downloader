@@ -8,7 +8,7 @@ describe PublicationPresenter do
       let(:doi_from_presenter_object) { present_by_doi.instance_variable_get(:@analysis).taggable_data["doi"] }
 
       it { is_expected.to be_a analysis.present_to_api.class }
-      it { expect(doi_from_presenter_object).to eq analysis.taggable_data["doi"] }
+      it { expect(present_by_doi.instance_variable_get(:@analysis)).to eq analysis }
     end
 
     context "when an NOT existing doi is given" do
