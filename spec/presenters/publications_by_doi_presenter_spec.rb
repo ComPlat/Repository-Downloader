@@ -128,7 +128,6 @@ describe PublicationsByDoiPresenter do
 
     after do
       FileUtils.rm_rf "./tmp/output"
-      FileUtils.rm_rf "./tmp/bagit"
     end
 
     context "when doi is an empty array" do
