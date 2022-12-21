@@ -8,8 +8,9 @@ module HasToZip
     args = publications.map do |publication|
       @publication = publication
       publication_type = publication.model_name.element
-      attachments = publication&.attachments || []
-      io_files = attachments.map { |attachment| {target_file_name: "", content: nil} }
+      # TODO: Implement io_files from attachments
+      # attachments = publication&.attachments || []
+      # io_files = attachments.map { |attachment| {target_file_name: "", content: nil} }
       string_io_files = [{target_file_name: "#{publication_type}.json", content: StringIO.open(to_json.to_a.join)},
         {target_file_name: "#{publication_type}.xml", content: StringIO.open(to_xml.to_a.join)}]
       # HINT: csv will be added to the array later on:
