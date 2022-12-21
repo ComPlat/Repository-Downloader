@@ -65,6 +65,9 @@ group :development, :test do
 
   # Run any kind of code in parallel processes [https://github.com/grosser/parallel]
   gem "parallel", "1.22.1"
+
+  # file utilities to avoid insanity
+  gem "dry-files", "1.0.1"
 end
 
 group :development, :test, :lint do
