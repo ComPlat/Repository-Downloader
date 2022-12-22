@@ -5,15 +5,14 @@ module HasToZip
 
   def to_zip
     BagItStream.new(bag_it_stream_args).rack_body
-
-    # HINT: [ { files: { "file_name1" => "file_path1", "file_name2" => StringIO.new("file_content2") },
-    #         bag_path: "path_to_bag_does_not_need_to_exists_yet_but_if_it_does_clean_it_up_yourself",
-    #         cache_bag: true} ]
   end
 
   private
 
   def bag_it_stream_args
+    # HINT: [ { files: { "file_name1" => "file_path1", "file_name2" => StringIO.new("file_content2") },
+    #         bag_path: "path_to_bag_does_not_need_to_exists_yet_but_if_it_does_clean_it_up_yourself",
+    #         cache_bag: true} ]
     publications.map { |publication| BagItStreamArgBuilder.new(self, publication).build }
   end
 end
