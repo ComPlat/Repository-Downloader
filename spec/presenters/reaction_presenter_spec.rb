@@ -1,5 +1,5 @@
 describe ReactionPresenter do
-  let(:reaction) { create(:reaction, :with_realistic_attributes) }
+  let(:reaction) { build(:reaction, :with_realistic_attributes) }
   let(:reaction_presenter) { described_class.new reaction }
 
   describe ".new" do
