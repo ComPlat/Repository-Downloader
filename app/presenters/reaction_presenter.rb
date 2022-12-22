@@ -1,11 +1,11 @@
 class ReactionPresenter
   def initialize(reaction) = @reaction = reaction
 
-  def to_json = Enumerator.new { |yielder| yielder << mapper.to_json }
+  def to_json = Enumerator.new { |yielder| yielder << mapper.to_json }.lazy
 
-  def to_xml = Enumerator.new { |yielder| yielder << mapper.to_xml }
+  def to_xml = Enumerator.new { |yielder| yielder << mapper.to_xml }.lazy
 
-  def to_csv = Enumerator.new { |yielder| yielder << mapper.to_csv }
+  def to_csv = Enumerator.new { |yielder| yielder << mapper.to_csv }.lazy
 
   private
 

@@ -6,6 +6,7 @@ class Analysis < Publication
   def self.sti_name = "Container"
 
   has_many :attachments, foreign_key: :ana_id, primary_key: :element_id, inverse_of: :analysis, dependent: :restrict_with_exception
+  # preload(:attachments)
 
   def chemotion_id = id ? "CRD-#{id}" : ""
 

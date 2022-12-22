@@ -10,7 +10,7 @@ module HasToJson
         }
       }
       yielder << "]"
-    end
+    end.lazy
   end
 
   private

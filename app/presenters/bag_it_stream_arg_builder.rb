@@ -21,8 +21,15 @@ class BagItStreamArgBuilder
 
   def string_io_files
     @string_io_files ||= [
-      {target_file_name: "#{publication_type}.json", content: StringIO.open(@presenter.to_json.to_a.join)},
-      {target_file_name: "#{publication_type}.xml", content: StringIO.open(@presenter.to_xml.to_a.join)}]
+      {target_file_name: "#{publication_type}.json", content: content(@presenter.to_json)},
+      {target_file_name: "#{publication_type}.xml", content: content(@presenter.to_xml)}
+    ]
+  end
+
+  def content(enumerator)
+    string_io = StringIO.new
+    enumerator.each { |chunk| string_io << chunk }
+    string_io
   end
 
   def publication_type = @publication_type ||= @publication.model_name.element
