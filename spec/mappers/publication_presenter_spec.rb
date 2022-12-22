@@ -5,8 +5,6 @@ describe PublicationPresenter do
     context "when an existing doi is given" do
       subject(:present_by_doi) { described_class.present_by_doi analysis.taggable_data["doi"] }
 
-      let(:doi_from_presenter_object) { present_by_doi.instance_variable_get(:@analysis).taggable_data["doi"] }
-
       it { is_expected.to be_a analysis.present_to_api.class }
       it { expect(present_by_doi.instance_variable_get(:@analysis)).to eq analysis }
     end
