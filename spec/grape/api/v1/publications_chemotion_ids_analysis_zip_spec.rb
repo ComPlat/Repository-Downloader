@@ -30,12 +30,12 @@ describe API::V1::Publications, ".analysis" do
 
     it do
       expect(File.read(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) } + "/data/analysis.json"))
-        .to eq PublicationsByChemotionIdPresenter.new([analysis.id]).to_json.to_a.join
+        .to eq AnalysisPresenter.new(analysis).to_json.to_a.join
     end
 
     it do
       expect(File.read(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) } + "/data/analysis.xml"))
-        .to eq PublicationsByChemotionIdPresenter.new([analysis.id]).to_xml.to_a.join
+        .to eq AnalysisPresenter.new(analysis).to_xml.to_a.join
     end
   end
 
