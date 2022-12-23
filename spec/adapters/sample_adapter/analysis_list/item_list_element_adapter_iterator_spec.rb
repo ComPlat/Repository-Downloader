@@ -4,7 +4,7 @@ describe SampleAdapter::AnalysisList::ItemListElementAdapterIterator do
       taggable_data: {"original_analysis_ids" => [attachment.analysis.id]})
   }
   let(:attachment) { create(:attachment, :with_required_dependencies, :with_realistic_attributes) }
-  let(:item_list_element_adapter_iterator) { described_class.new sample }
+  let(:item_list_element_adapter_iterator) { described_class.new sample.analyses.to_a }
 
   describe ".new" do
     subject { item_list_element_adapter_iterator }
@@ -33,7 +33,7 @@ describe SampleAdapter::AnalysisList::ItemListElementAdapterIterator do
       attachment.analysis
     end
 
-    it { is_expected.to eq expected_array }
     it { is_expected.to be_a Array }
+    it { is_expected.to eq expected_array }
   end
 end
