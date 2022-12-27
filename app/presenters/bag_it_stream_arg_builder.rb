@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class BagItStreamArgBuilder
-  def initialize(presenter, publication)
-    @presenter = presenter
+  def initialize(publication)
     @publication = publication
   end
 

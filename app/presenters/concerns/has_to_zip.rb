@@ -13,7 +13,7 @@ module HasToZip
   def bag_it_stream_args
     Parallel.map(publications, in_threads: 16) do |publication|
       Publication.connection_pool.with_connection do
-        BagItStreamArgBuilder.new(self, publication).build
+        BagItStreamArgBuilder.new(publication).build
       end
     end
 
