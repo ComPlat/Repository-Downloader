@@ -120,13 +120,13 @@ describe PublicationsByDoiPresenter do
       it do
         expect(File.read(Dir.glob("./tmp/output/*")
                             .find { |folder| File.directory?(folder) } + "/data/analysis.json"))
-          .to eq publication_by_doi_presenter.to_json.to_a.join
+          .to eq analysis.present_to_api.to_json.to_a.join
       end
 
       it do
         expect(File.read(Dir.glob("./tmp/output/*")
                             .find { |folder| File.directory?(folder) } + "/data/analysis.xml"))
-          .to eq publication_by_doi_presenter.to_xml.to_a.join
+          .to eq analysis.present_to_api.to_xml.to_a.join
       end
     end
 
@@ -148,25 +148,25 @@ describe PublicationsByDoiPresenter do
       it do
         expect(File.read(Dir.glob("./tmp/output/*")
                             .find { |folder| File.directory?(folder) } + "/data/analysis.json"))
-          .to eq publication_by_doi_presenter.to_json.to_a.join
+          .to eq analysis1.present_to_api.to_json.to_a.join
       end
 
       it do
         expect(File.read(Dir.glob("./tmp/output/*")
                             .select { |folder| File.directory?(folder) }.second + "/data/analysis.json"))
-          .to eq publication_by_doi_presenter.to_json.to_a.join
+          .to eq analysis2.present_to_api.to_json.to_a.join
       end
 
       it do
         expect(File.read(Dir.glob("./tmp/output/*")
                             .find { |folder| File.directory?(folder) } + "/data/analysis.xml"))
-          .to eq publication_by_doi_presenter.to_xml.to_a.join
+          .to eq analysis1.present_to_api.to_xml.to_a.join
       end
 
       it do
         expect(File.read(Dir.glob("./tmp/output/*")
                             .select { |folder| File.directory?(folder) }.second + "/data/analysis.xml"))
-          .to eq publication_by_doi_presenter.to_xml.to_a.join
+          .to eq analysis2.present_to_api.to_xml.to_a.join
       end
     end
   end
