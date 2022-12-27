@@ -11,12 +11,12 @@ module HasToZip
   #         bag_path: "path_to_bag_does_not_need_to_exists_yet_but_if_it_does_clean_it_up_yourself",
   #         cache_bag: true} ]
   def bag_it_stream_args
-    # Parallel.map(publications, in_threads: 50) do |publication|
-    #   Publication.connection_pool.with_connection do
-    #     BagItStreamArgBuilder.new(self, publication).build
-    #   end
-    # end
+    Parallel.map(publications, in_threads: 16) do |publication|
+      Publication.connection_pool.with_connection do
+        BagItStreamArgBuilder.new(self, publication).build
+      end
+    end
 
-    publications.map { |publication| BagItStreamArgBuilder.new(self, publication).build }
+    # publications.map { |publication| BagItStreamArgBuilder.new(self, publication).build }
   end
 end
