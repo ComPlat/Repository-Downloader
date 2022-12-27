@@ -10,7 +10,7 @@ class PublicationSearchOperation
   def search
     Publication
       .where.not(ELEMENT_TYPE_FILTER)
-      .where(authors_filter)
+      .where(*authors_filter)
       .where(contributor_filter)
       .where(description_filter)
       .pluck :id
@@ -19,9 +19,12 @@ class PublicationSearchOperation
   private
 
   def authors_filter
-    return {} unless @authors
+    return [{}] unless @authors
 
-    ["taggable_data @> any(array[?]::jsonb[])", @authors.map { |author| {creators: [{name: author}]}.to_json }]
+    query = @authors.map { |author| "taggable_data @> any(array[?]::jsonb[])" }.join(" AND ")
+    values = @authors.map { |author| {creators: [{name: author}]}.to_json }
+
+    [query, *values]
   end
 
   def contributor_filter
@@ -33,7 +36,7 @@ class PublicationSearchOperation
   def description_filter
     return {} unless @description
 
-    # TODO: Also search in extended_metadata::content for the description of the analysis
+    # TODO: Also search in extended_metadata::content for the description of the analysis?
     ["reaction_description LIKE ? OR sample_desc LIKE ?", "%#{@description}%", "%#{@description}%"]
   end
 end
