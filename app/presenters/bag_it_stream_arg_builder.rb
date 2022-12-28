@@ -16,7 +16,7 @@ class BagItStreamArgBuilder
 
   def files = @files ||= string_io_files
 
-  def bag_dir = @bag_dir ||= Dir.open(bag_it_path)
+  def bag_dir = @bag_dir ||= Dir.open(bag_it_path) { |dir| dir }
 
   def string_io_files
     @string_io_files ||= [
