@@ -20,24 +20,20 @@ class BagItStreamArgBuilder
 
   def string_io_files
     @string_io_files ||= [
-      {target_file_name: "#{publication_type}.json", content: json_string_io},
-      {target_file_name: "#{publication_type}.xml", content: xml_string_io}
+      {target_file_name: "#{publication_type}.json", content: content(json_enumerator)},
+      {target_file_name: "#{publication_type}.xml", content: content(xml_enumerator)}
     ]
   end
 
-  def json_string_io
+  def content(enumerator)
     string_io = StringIO.new
-    @publication.present_to_api.to_json.each { |json_chunk| string_io << json_chunk }
-    string_io.close_write
+    enumerator.each { |chunk| string_io << chunk }
     string_io
   end
 
-  def xml_string_io
-    string_io = StringIO.new
-    @publication.present_to_api.to_xml.each { |xml_chunk| string_io << xml_chunk }
-    string_io.close_write
-    string_io
-  end
+  def json_enumerator = @publication.present_to_api.to_json
+
+  def xml_enumerator = @publication.present_to_api.to_xml
 
   def publication_type = @publication_type ||= @publication.model_name.element
 
