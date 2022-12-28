@@ -16,7 +16,5 @@ module HasToZip
         BagItStreamArgBuilder.new(publication).build
       end
     end
-
-    # publications.map { |publication| BagItStreamArgBuilder.new(self, publication).build }
   end
 end

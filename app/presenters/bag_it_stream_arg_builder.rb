@@ -45,7 +45,5 @@ class BagItStreamArgBuilder
     @bag_it_path ||= "./tmp/output/#{@publication.chemotion_id}_#{(Time.current.to_r * 1000).round}_##{SecureRandom.uuid}"
   end
 
-  def create_folder!(path)
-    FileUtils.mkpath(path)
-  end
+  def create_folder!(path) = FileUtils.mkpath(path)
 end
