@@ -11,7 +11,7 @@ module HasToZip
   #         bag_path: "path_to_bag_does_not_need_to_exists_yet_but_if_it_does_clean_it_up_yourself",
   #         cache_bag: true} ]
   def bag_it_stream_args
-    Parallel.map(publications, in_threads: 16) do |publication|
+    Parallel.map(publications, in_threads: ENV.fetch("NUMBER_OF_BAG_IT_STREAM_THREADS").to_i) do |publication|
       Publication.connection_pool.with_connection do
         BagItStreamArgBuilder.new(publication).build
       end
