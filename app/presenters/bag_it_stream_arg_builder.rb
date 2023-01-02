@@ -25,9 +25,7 @@ class BagItStreamArgBuilder
     ]
   end
 
-  def content(enumerator)
-    StringIO.open enumerator.to_a.join
-  end
+  def content(enumerator) = StringIO.open enumerator.to_a.join
 
   def json_enumerator = @publication.present_to_api.to_json
 
