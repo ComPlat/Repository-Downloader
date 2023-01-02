@@ -1,6 +1,8 @@
 require "dry-files"
 
 describe API::V1::Publications, ".analysis" do
+  include ZipHelper
+
   context "when only one request" do
     let(:analysis) { create(:analysis, :with_realistic_attributes) }
     let(:analysis_presenter) { AnalysisPresenter.new analysis }
@@ -10,13 +12,7 @@ describe API::V1::Publications, ".analysis" do
 
       io = StringIO.new(response.body)
 
-      ZipTricks::FileReader.read_zip_structure(io:).each do |entry|
-        Dry::Files.new.write "./tmp/output/#{entry.filename}"
-        File.open("tmp/output/#{entry.filename}", "wb") do |extracted_file|
-          inflated_reader = entry.extractor_from io
-          extracted_file << inflated_reader.extract until inflated_reader.eof?
-        end
-      end
+      unzip(io:)
     end
 
     after {
