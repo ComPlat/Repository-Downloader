@@ -11,8 +11,10 @@ module HasToZip
   #         bag_path: "path_to_bag_does_not_need_to_exists_yet_but_if_it_does_clean_it_up_yourself",
   #         cache_bag: true} ]
   def bag_it_stream_args
-    Parallel.map(publications, in_threads: ENV.fetch("BAG_IT_STREAM_THREADS").to_i) do |publication| # HINT: iterate over publications with the assigned number of threads.
-      Publication.connection_pool.with_connection do # HINT: synchronizes thread access to a limited number of database connections.
+    # HINT: iterate over publications with the assigned number of threads.
+    Parallel.map(publications, in_threads: ENV.fetch("BAG_IT_STREAM_THREADS").to_i) do |publication|
+      # HINT: synchronizes thread access to a limited number of database connections.
+      Publication.connection_pool.with_connection do
         BagItStreamArgBuilder.new(publication).build
       end
     end
