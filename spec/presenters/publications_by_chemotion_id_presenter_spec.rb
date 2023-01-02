@@ -83,9 +83,7 @@ describe PublicationsByChemotionIdPresenter do
         zip_chunks << zip_chunk
       }
 
-      io = StringIO.new(zip_chunks.join)
-
-      unzip(io:)
+      unzip(io: StringIO.new(zip_chunks.join))
     end
 
     after do

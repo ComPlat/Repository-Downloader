@@ -10,9 +10,7 @@ describe API::V1::Publications, ".analysis" do
     before do
       get "/api/v1/publications?chemotion_ids=#{analysis.id}&format=zip"
 
-      io = StringIO.new(response.body)
-
-      unzip(io:)
+      unzip(io: StringIO.new(response.body))
     end
 
     after {
