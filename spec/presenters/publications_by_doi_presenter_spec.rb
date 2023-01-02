@@ -114,8 +114,24 @@ describe PublicationsByDoiPresenter do
 
       it { expect(to_zip).to be_a ZipTricks::OutputEnumerator }
       it { expect(Dir.glob("./tmp/output/*").count { |folder| File.directory?(folder) }).to eq 1 }
-      it { expect(BagIt::Bag.new(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) }).valid?).to be true }
       it { expect(Dir.new(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) }).entries.size).to eq 9 }
+
+      it { expect(BagIt::Bag.new(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) }).valid?).to be true }
+      it { expect(BagIt::Bag.new(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) } + "/data").consistent?).to be true }
+      it { expect(BagIt::Bag.new(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) }).complete?).to be true }
+
+      it {
+        expect(File.read(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) } + "/bagit.txt"))
+          .to eq "BagIt-Version: 0.97\nTag-File-Character-Encoding: UTF-8\n"
+      }
+
+      it { expect(File.exist?(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) } + "/manifest-md5.txt")).to be true }
+
+      it {
+        expect(File.read(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) } + "/manifest-md5.txt").split(" "))
+          .to eq [Digest::MD5.file(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) } + "/data/analysis.json").to_s, "data/analysis.json",
+            Digest::MD5.file(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) } + "/data/analysis.xml").to_s, "data/analysis.xml"]
+      }
 
       it do
         expect(File.read(Dir.glob("./tmp/output/*")
@@ -144,6 +160,18 @@ describe PublicationsByDoiPresenter do
       it { expect(BagIt::Bag.new(Dir.glob("./tmp/output/*").select { |folder| File.directory?(folder) }.second).valid?).to be true }
       it { expect(Dir.new(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) }).entries.size).to eq 9 }
       it { expect(Dir.new(Dir.glob("./tmp/output/*").select { |folder| File.directory?(folder) }.second).entries.size).to eq 9 }
+
+      it {
+        expect(File.read(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) } + "/manifest-md5.txt").split(" "))
+          .to eq [Digest::MD5.file(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) } + "/data/analysis.json").to_s, "data/analysis.json",
+            Digest::MD5.file(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) } + "/data/analysis.xml").to_s, "data/analysis.xml"]
+      }
+
+      it {
+        expect(File.read(Dir.glob("./tmp/output/*").select { |folder| File.directory?(folder) }.second + "/manifest-md5.txt").split(" "))
+          .to eq [Digest::MD5.file(Dir.glob("./tmp/output/*").select { |folder| File.directory?(folder) }.second + "/data/analysis.json").to_s, "data/analysis.json",
+            Digest::MD5.file(Dir.glob("./tmp/output/*").select { |folder| File.directory?(folder) }.second + "/data/analysis.xml").to_s, "data/analysis.xml"]
+      }
 
       it do
         expect(File.read(Dir.glob("./tmp/output/*")
