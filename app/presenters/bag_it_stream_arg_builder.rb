@@ -26,9 +26,7 @@ class BagItStreamArgBuilder
   end
 
   def content(enumerator)
-    string_io = StringIO.new
-    enumerator.each { |chunk| string_io << chunk }
-    string_io
+    StringIO.open enumerator.to_a.join
   end
 
   def json_enumerator = @publication.present_to_api.to_json
