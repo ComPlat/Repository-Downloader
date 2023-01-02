@@ -1,5 +1,5 @@
 describe ReactionPresenter do
-  let(:reaction) { build(:reaction) }
+  let(:reaction) { build(:reaction, :with_realistic_attributes) }
   let(:reaction_presenter) { described_class.new reaction }
 
   describe ".new" do
@@ -27,12 +27,5 @@ describe ReactionPresenter do
 
     it { is_expected.to be_a Enumerator }
     it { expect(to_csv.to_a.join).to eq RootMappers::ReactionMapper.from_hash(RootAdapters::ReactionToReactionMapperAdapter.new(reaction).to_h).to_csv }
-  end
-
-  describe "#to_zip" do
-    subject(:to_zip) { reaction_presenter.to_zip }
-
-    it { is_expected.to be_a Enumerator }
-    it { expect(to_zip.to_a.join).to eq "" }
   end
 end

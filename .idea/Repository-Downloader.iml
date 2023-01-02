@@ -52,7 +52,6 @@
     <orderEntry type="library" scope="PROVIDED" name="concurrent-ruby (v1.1.10, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="crass (v1.0.6, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="cssbundling-rails (v1.1.1, asdf: 3.1.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="date (v3.3.1, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="debug (v1.6.3, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="descendants_tracker (v0.0.4, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="diff-lcs (v1.5.0, asdf: 3.1.2) [gem]" level="application" />
@@ -74,14 +73,13 @@
     <orderEntry type="library" scope="PROVIDED" name="grape-swagger (v1.5.0, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="i18n (v1.12.0, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ice_nine (v0.11.2, asdf: 3.1.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="io-console (v0.5.11, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="irb (v1.4.2, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="jsbundling-rails (v1.0.3, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="json (v2.6.3, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="kwalify (v0.7.2, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="language_server-protocol (v3.17.0.2, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="launchy (v2.5.0, asdf: 3.1.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="loofah (v2.19.0, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="loofah (v2.19.1, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mail (v2.8.0, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="marcel (v1.0.2, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="matrix (v0.4.2, asdf: 3.1.2) [gem]" level="application" />
@@ -110,17 +108,16 @@
     <orderEntry type="library" scope="PROVIDED" name="rails (v7.0.4, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails-controller-testing (v1.0.5, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails-dom-testing (v2.0.3, asdf: 3.1.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rails-html-sanitizer (v1.4.3, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rails-html-sanitizer (v1.4.4, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="railties (v7.0.4, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rainbow (v3.1.1, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rake (v13.0.6, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="reek (v6.1.2, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="regexp_parser (v2.6.1, asdf: 3.1.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="reline (v0.3.1, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="reline (v0.3.2, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rexml (v3.2.5, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-core (v3.12.0, asdf: 3.1.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rspec-expectations (v3.12.0, asdf: 3.1.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rspec-mocks (v3.12.0, asdf: 3.1.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec-mocks (v3.12.1, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-rails (v6.0.1, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-support (v3.12.0, asdf: 3.1.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop (v1.39.0, asdf: 3.1.2) [gem]" level="application" />

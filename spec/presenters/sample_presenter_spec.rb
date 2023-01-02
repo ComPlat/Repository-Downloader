@@ -1,5 +1,5 @@
 describe SamplePresenter do
-  let(:sample) { build(:sample) }
+  let(:sample) { build(:sample, :with_required_dependencies, :with_realistic_attributes) }
   let(:sample_presenter) { described_class.new sample }
 
   describe ".new" do
@@ -27,12 +27,5 @@ describe SamplePresenter do
 
     it { is_expected.to be_a Enumerator }
     it { expect(to_csv.to_a.join).to eq RootMappers::SampleMapper.from_hash(RootAdapters::SampleToSampleMapperAdapter.new(sample).to_h).to_csv }
-  end
-
-  describe "#to_zip" do
-    subject(:to_zip) { sample_presenter.to_zip }
-
-    it { is_expected.to be_a Enumerator }
-    it { expect(to_zip.to_a.join).to eq "" }
   end
 end

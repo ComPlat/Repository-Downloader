@@ -9,7 +9,7 @@ services:
     image: postgres:12.12-alpine3.16
   spec:
     build: .
-    command: sh -c "gem update --system && bundle install && ./bin/rails db:reset && ./bin/rake"
+    command: zsh -c "mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts && eval $(ssh-agent) && ssh-add - <<< \"${FRIENDLYCLEANERCODEASSISTANT_SSH_KEY}\" && gem update --system --quiet --silent && bundle install && ./bin/rails db:reset && ./bin/rake"
     environment:
       - RAILS_ENV=test
       - RAILS_DB_HOST=db

@@ -5,7 +5,7 @@ class Sample < Publication
   def self.sti_name = "Sample"
 
   # HINT: Pseudo has_many, because ids are not in Analysis, but a Hash-nested Array on Sample.
-  def analyses = Analysis.where id: analysis_ids
+  def analyses = @analyses ||= Analysis.where(id: analysis_ids)
 
   belongs_to :reaction, foreign_key: :ancestry, inverse_of: :samples
 
@@ -17,5 +17,5 @@ class Sample < Publication
 
   private
 
-  def analysis_ids = taggable_data&.dig("original_analysis_ids") || []
+  def analysis_ids = @analysis_ids ||= (taggable_data&.dig("original_analysis_ids") || [])
 end

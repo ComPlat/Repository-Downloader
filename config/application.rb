@@ -23,6 +23,8 @@ require "shale/adapter/csv"
 Shale.xml_adapter = Shale::Adapter::Nokogiri
 Shale.csv_adapter = Shale::Adapter::CSV
 
+require "bag_it_stream"
+
 module RepositoryDownloader
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.

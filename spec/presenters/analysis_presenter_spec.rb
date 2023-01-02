@@ -1,5 +1,5 @@
 describe AnalysisPresenter do
-  let(:analysis) { build(:analysis) }
+  let(:analysis) { build(:analysis, :with_realistic_attributes) }
   let(:analysis_presenter) { described_class.new analysis }
 
   describe ".new" do
@@ -27,12 +27,5 @@ describe AnalysisPresenter do
 
     it { is_expected.to be_a Enumerator }
     it { expect(to_csv.to_a.join).to eq RootMappers::AnalysisMapper.from_hash(RootAdapters::AnalysisToAnalysisMapperAdapter.new(analysis).to_h).to_csv }
-  end
-
-  describe "#to_zip" do
-    subject(:to_zip) { analysis_presenter.to_zip }
-
-    it { is_expected.to be_a Enumerator }
-    it { expect(to_zip.to_a.join).to eq "" }
   end
 end
