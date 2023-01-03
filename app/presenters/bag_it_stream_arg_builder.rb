@@ -14,7 +14,7 @@ class BagItStreamArgBuilder
 
   private
 
-  def files = @files ||= string_io_files
+  def files = @files ||= string_io_files + attachment_files
 
   def bag_dir = @bag_dir ||= Dir.open(bag_it_path) { |dir| dir } # HINT: block is needed to automatically close Dir after returning it.
 
@@ -30,6 +30,14 @@ class BagItStreamArgBuilder
   def json_enumerator = @publication.present_to_api.to_json
 
   def xml_enumerator = @publication.present_to_api.to_xml
+
+  def attachment_files
+    attachments.map do |attachment|
+      {target_file_name: attachment.filename, content: IO.new(IO.sysopen("#{attachment.bucket}/#{attachment.identifier}"))}
+    end
+  end
+
+  def attachments = @publication.attachments || []
 
   def publication_type = @publication_type ||= @publication.model_name.element
 
