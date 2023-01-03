@@ -182,7 +182,7 @@ describe PublicationsByChemotionIdPresenter do
       before do
         attachment
 
-        FileUtils.mkpath "24"
+        FileUtils.mkpath "#{analysis.attachments.first.bucket}"
         FileUtils.cp "./spec/support/cleanercode.png", "#{analysis.attachments.first.bucket}/#{analysis.attachments.first.identifier}"
 
         zip_chunks = []
