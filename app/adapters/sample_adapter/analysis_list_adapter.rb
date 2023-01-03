@@ -4,12 +4,14 @@ module SampleAdapter
 
     def initialize(sample) = @sample = sample
 
-    def numberOfItems = @sample.analyses.size
+    def numberOfItems = analyses.size
 
     def itemListElement = @item_list_element ||= item_list_element_adapter_iterator.to_a
 
     private
 
-    def item_list_element_adapter_iterator = @item_list_element_adapter_iterator ||= SampleAdapter::AnalysisList::ItemListElementAdapterIterator.new(@sample)
+    def analyses = @analyses ||= @sample.analyses.to_a
+
+    def item_list_element_adapter_iterator = @item_list_element_adapter_iterator ||= SampleAdapter::AnalysisList::ItemListElementAdapterIterator.new(analyses)
   end
 end

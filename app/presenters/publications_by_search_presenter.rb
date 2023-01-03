@@ -1,12 +1,9 @@
 class PublicationsBySearchPresenter
-  # include HasToXml
-  # include HasToJson
-
-  def initialize(authors, contributor, description)
-    @authors = authors
-    @contributor = contributor
-    @description = description
+  def initialize(params)
+    @authors = params[:authors]
+    @contributor = params[:contributor]
+    @description = params[:description]
   end
 
-  def publications = @publications ||= PublicationRepository.search(@authors, @contributor, @description)
+  def publications = @publications ||= PublicationSearchOperation.new(@authors, @contributor, @description).search
 end

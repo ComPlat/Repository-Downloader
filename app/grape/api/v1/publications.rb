@@ -18,9 +18,9 @@ class API::V1::Publications < Grape::API
     end
     get do
       case params
-      in {chemotion_ids: Array}
+      in { chemotion_ids: Array }
         stream PublicationsByChemotionIdPresenter.new(params[:chemotion_ids]).public_send("to_#{env["api.format"]}")
-      in {dois: Array}
+      in { dois: Array }
         stream PublicationsByDoiPresenter.new(params[:dois]).public_send("to_#{env["api.format"]}")
       else
         error!("The server does not support the functionality required to fulfill the request.", 501)

@@ -36,7 +36,6 @@ class PublicationSearchOperation
   def description_filter
     return {} unless @description
 
-    # TODO: Also search in extended_metadata::content for the description of the analysis?
     ["reaction_description LIKE ? OR sample_desc LIKE ?", "%#{@description}%", "%#{@description}%"]
   end
 end

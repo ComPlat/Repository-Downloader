@@ -23,6 +23,6 @@ describe SampleAdapter::AnalysisListAdapter do
   describe "#itemListElement" do
     subject { analysis_list_adapter.itemListElement }
 
-    it { is_expected.to eq SampleAdapter::AnalysisList::ItemListElementAdapterIterator.new(sample).to_a }
+    it { is_expected.to eq SampleAdapter::AnalysisList::ItemListElementAdapterIterator.new(sample.analyses.to_a).to_a }
   end
 end

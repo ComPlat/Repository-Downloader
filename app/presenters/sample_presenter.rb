@@ -1,14 +1,11 @@
 class SamplePresenter
   def initialize(sample) = @sample = sample
 
-  def to_json = Enumerator.new { |yielder| yielder << mapper.to_json }
+  def to_json = Enumerator.new { |yielder| yielder << mapper.to_json }.lazy
 
-  def to_xml = Enumerator.new { |yielder| yielder << mapper.to_xml }
+  def to_xml = Enumerator.new { |yielder| yielder << mapper.to_xml }.lazy
 
-  def to_csv = Enumerator.new { |yielder| yielder << mapper.to_csv }
-
-  # TODO: Instead give the correct zip stream from bagitstream gem.
-  def to_zip = Enumerator.new { |yielder| yielder << "" }
+  def to_csv = Enumerator.new { |yielder| yielder << mapper.to_csv }.lazy
 
   private
 

@@ -6,6 +6,6 @@ module HasToXml
       yielder << "<publications>"
       publications.each { |publication| publication.present_to_api.to_xml.each { |xml_chunk| yielder << xml_chunk } }
       yielder << "</publications>"
-    end
+    end.lazy
   end
 end

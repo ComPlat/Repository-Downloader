@@ -22,7 +22,6 @@ describe PublicationSearchOperation do
       let(:contributor) { nil }
       let(:description) { nil }
 
-      # TODO: When we have no search params should it return everything or nothing?
       it { expect(search).to eq [] }
     end
 
