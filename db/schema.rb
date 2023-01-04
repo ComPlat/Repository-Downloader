@@ -72,5 +72,4 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_152849) do
     t.string "inchistring"
     t.float "molecular_weight"
   end
-
 end
