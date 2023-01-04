@@ -118,10 +118,10 @@ FactoryBot.define do
             "familyName" => "Huang",
             "affiliationIds" => [1537]},
            {"id" => 7,
-            "name" => "Simone Gräßle",
+            "name" => "Sylvia Vanderheiden-Schroen",
             "ORCID" => nil,
-            "givenName" => "Simone",
-            "familyName" => "Gräßle",
+            "givenName" => "Sylvia",
+            "familyName" => "Vanderheiden-Schroen",
             "affiliationIds" => [15]}
          ],
          "queued_at" => "2019-06-27T15:58:15.129+02:00",
