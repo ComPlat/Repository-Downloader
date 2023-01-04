@@ -8,16 +8,14 @@ class PublicationSearchOperation
   end
 
   def search
-    if @authors.present? || @contributor.present? || @description.present?
-      Publication
-        .where(element_type: ELEMENT_TYPES)
-        .where(*authors_filter)
-        .where(contributor_filter)
-        .where(description_filter)
-        .pluck :id
-    else
-      []
-    end
+    return [] unless @authors.present? || @contributor.present? || @description.present?
+
+    Publication
+      .where(element_type: ELEMENT_TYPES)
+      .where(*authors_filter)
+      .where(contributor_filter)
+      .where(description_filter)
+      .pluck :id
   end
 
   private
