@@ -1,5 +1,5 @@
 class PublicationSearchOperation
-  ELEMENT_TYPE_FILTER = {element_type: "Collection"}.freeze
+  ELEMENT_TYPES = %w[Container Reaction Sample].freeze
 
   def initialize(authors, contributor, description)
     @authors = authors
@@ -8,12 +8,16 @@ class PublicationSearchOperation
   end
 
   def search
-    Publication
-      .where.not(ELEMENT_TYPE_FILTER)
-      .where(*authors_filter)
-      .where(contributor_filter)
-      .where(description_filter)
-      .pluck :id
+    if @authors.present? || @contributor.present? || @description.present?
+      Publication
+        .where(element_type: ELEMENT_TYPES)
+        .where(*authors_filter)
+        .where(contributor_filter)
+        .where(description_filter)
+        .pluck :id
+    else
+      []
+    end
   end
 
   private
@@ -21,7 +25,7 @@ class PublicationSearchOperation
   def authors_filter
     return [{}] unless @authors
 
-    query = @authors.map { |author| "taggable_data @> any(array[?]::jsonb[])" }.join(" AND ")
+    query = @authors.map { |_| "taggable_data @> any(array[?]::jsonb[])" }.join(" AND ")
     values = @authors.map { |author| {creators: [{name: author}]}.to_json }
 
     [query, *values]

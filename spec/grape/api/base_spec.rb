@@ -147,7 +147,7 @@ describe API::Base do
                                           produces: %w[application/json application/xml text/csv application/zip],
                                           responses: {"200": {description: "Get publications via ChemotionID(s) or DOI(s)"}},
                                           tags: ["publications"]}},
-               "/v1/publications/search": {get: {description: "Get publications via ChemotionID(s) or DOI(s)",
+               "/v1/publications/search": {get: {description: "Search publications via authors and/or contributor and/or description",
                                                  operationId: "getV1PublicationsSearch",
                                                  parameters: [
                                                    {collectionFormat: "pipes",
@@ -168,8 +168,8 @@ describe API::Base do
                                                     required: false,
                                                     type: "string"}
                                                  ],
-                                                 produces: %w[application/json application/xml text/csv application/zip],
-                                                 responses: {"200": {description: "Get publications via ChemotionID(s) or DOI(s)"}},
+                                                 produces: %w[application/json application/xml text/csv],
+                                                 responses: {"200": {description: "Search publications via authors and/or contributor and/or description"}},
                                                  tags: ["publications"]}}},
        produces: %w[application/json text/csv application/zip application/xml]}
     end

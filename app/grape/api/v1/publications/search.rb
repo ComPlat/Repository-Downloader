@@ -2,7 +2,7 @@ class API::V1::Publications::Search < Grape::API
   version "v1", using: :path
 
   namespace "/publications/search" do
-    desc "Get publications via ChemotionID(s) or DOI(s)", produces: %w[application/json application/xml text/csv application/zip]
+    desc "Search publications via authors and/or contributor and/or description", produces: %w[application/json application/xml text/csv]
     params do
       optional :authors,
         type: Array[String],

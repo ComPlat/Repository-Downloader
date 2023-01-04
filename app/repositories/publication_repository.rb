@@ -9,7 +9,6 @@ class PublicationRepository
 
   def self.where_chemotion_ids(chemotion_ids) = Publication.where(id: chemotion_ids, element_type: ELEMENT_TYPES)
 
-  def self.search(authors, contributor, description)
-    PublicationSearchOperation.new(authors, contributor, description).search
-  end
+  def self.search(authors, contributor, description) = PublicationSearchOperation.new(authors, contributor, description)
+    .search
 end
