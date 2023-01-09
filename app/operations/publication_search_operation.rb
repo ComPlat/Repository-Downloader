@@ -1,5 +1,6 @@
 class PublicationSearchOperation
   ELEMENT_TYPES = %w[Container Reaction Sample].freeze
+  SQL_TEMPLATE_TAGGABLE_DATA = "taggable_data @> any(array[?]::jsonb[])".freeze
 
   def initialize(authors, contributor, description)
     @authors = authors
@@ -23,7 +24,7 @@ class PublicationSearchOperation
   def authors_filter
     return [{}] unless @authors
 
-    query = @authors.map { |_| "taggable_data @> any(array[?]::jsonb[])" }.join(" AND ")
+    query = (Array.new @authors.size, SQL_TEMPLATE_TAGGABLE_DATA).join(" AND ")
     values = @authors.map { |author| {creators: [{name: author}]}.to_json }
 
     [query, *values]
@@ -32,7 +33,7 @@ class PublicationSearchOperation
   def contributor_filter
     return {} unless @contributor
 
-    ["taggable_data @> any(array[?]::jsonb[])", {contributors: {name: @contributor}}.to_json]
+    [SQL_TEMPLATE_TAGGABLE_DATA, {contributors: {name: @contributor}}.to_json]
   end
 
   def description_filter
