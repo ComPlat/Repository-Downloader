@@ -213,10 +213,10 @@ describe PublicationSearchOperation do
     end
 
     context "when a not matching author and contributor is given" do
-      let(:authors) {
+      let(:authors) do
         [create(:sample, :with_required_dependencies, :with_realistic_attributes)
           .taggable_data["creators"].first["name"]]
-      }
+      end
       let(:contributor) { create(:reaction, :with_realistic_attributes).taggable_data["contributors"]["name"] }
       let(:description) { nil }
 
@@ -224,40 +224,38 @@ describe PublicationSearchOperation do
     end
 
     context "when a not matching author and description is given" do
-      let(:sample) { create(:sample, :with_required_dependencies, :with_realistic_attributes) }
-      let(:reaction) { create(:reaction, :with_realistic_attributes) }
-      let(:authors) { [sample.taggable_data["creators"].first["name"]] }
+      let(:authors) do
+        [create(:sample, :with_required_dependencies, :with_realistic_attributes)
+          .taggable_data["creators"].first["name"]]
+      end
       let(:contributor) { nil }
-      let(:description) { reaction.reaction_description }
+      let(:description) { create(:reaction, :with_realistic_attributes).reaction_description }
 
       it { expect(search).to eq [] }
     end
 
     context "when a not matching contributor and description is given" do
-      let(:sample) { create(:sample, :with_required_dependencies, :with_realistic_attributes) }
-      let(:reaction) { create(:reaction, :with_realistic_attributes) }
       let(:authors) { [] }
-      let(:contributor) { reaction.taggable_data["contributors"]["name"] }
-      let(:description) { sample.sample_desc }
+      let(:contributor) { create(:reaction, :with_realistic_attributes).taggable_data["contributors"]["name"] }
+      let(:description) { create(:sample, :with_required_dependencies, :with_realistic_attributes).sample_desc }
 
       it { expect(search).to eq [] }
     end
 
     context "when a not matching author, contributor and description is given" do
       let(:sample) { create(:sample, :with_required_dependencies, :with_realistic_attributes) }
-      let(:reaction) { create(:reaction, :with_realistic_attributes) }
       let(:authors) { [sample.taggable_data["creators"].first["name"]] }
-      let(:contributor) { reaction.taggable_data["contributors"]["name"] }
+      let(:contributor) { create(:reaction, :with_realistic_attributes).taggable_data["contributors"]["name"] }
       let(:description) { sample.sample_desc }
 
       it { expect(search).to eq [] }
     end
 
     context "when one matching and one not matching author, contributor and description is given" do
-      let(:sample) { create(:sample, :with_required_dependencies, :with_realistic_attributes_and_two_authors) }
       let(:reaction) { create(:reaction, :with_realistic_attributes_and_two_authors) }
       let(:authors) do
-        [sample.taggable_data["creators"].second["name"], reaction.taggable_data["creators"].second["name"]]
+        [create(:sample, :with_required_dependencies, :with_realistic_attributes_and_two_authors)
+          .taggable_data["creators"].second["name"], reaction.taggable_data["creators"].second["name"]]
       end
       let(:contributor) { reaction.taggable_data["contributors"]["name"] }
       let(:description) { reaction.reaction_description }
