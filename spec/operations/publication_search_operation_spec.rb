@@ -213,12 +213,11 @@ describe PublicationSearchOperation do
     end
 
     context "when a not matching author and contributor is given" do
-      let(:sample) { create(:sample, :with_required_dependencies, :with_realistic_attributes) }
-      let(:reaction) { create(:reaction, :with_realistic_attributes) }
-      let(:sample_author) { sample.taggable_data["creators"].first["name"] }
-      let(:reaction_contributor) { reaction.taggable_data["contributors"]["name"] }
-      let(:authors) { [sample_author] }
-      let(:contributor) { reaction_contributor }
+      let(:authors) {
+        [create(:sample, :with_required_dependencies, :with_realistic_attributes)
+          .taggable_data["creators"].first["name"]]
+      }
+      let(:contributor) { create(:reaction, :with_realistic_attributes).taggable_data["contributors"]["name"] }
       let(:description) { nil }
 
       it { expect(search).to eq [] }
