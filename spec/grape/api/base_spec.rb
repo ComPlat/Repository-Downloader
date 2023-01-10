@@ -24,14 +24,10 @@ describe API::Base do
     it { expect(combined_routes).to include({"swagger_doc" => []}) }
 
     describe "publications routes" do
-      let(:expected_routes) do
-        # HINT: combined_routes["publications"].map { |route|  [route.path, route.version] }
-        {"publications" => [
-          be_a(Grape::Router::Route).and(have_attributes(path: "/:version/publications(.:format)", version: "v1"))
-        ]}
-      end
-
-      it { expect(combined_routes).to include expected_routes }
+      it { expect(combined_routes).to include({"publications" => all(be_a(Grape::Router::Route))}) }
+      it { expect(combined_routes["publications"].size).to eq 2 }
+      it { expect(combined_routes).to include({"publications" => include(have_attributes(path: "/:version/publications/search(.:format)", version: "v1"))}) }
+      it { expect(combined_routes).to include({"publications" => include(have_attributes(path: "/:version/publications(.:format)", version: "v1"))}) }
     end
   end
 
@@ -150,7 +146,31 @@ describe API::Base do
                                           ],
                                           produces: %w[application/json application/xml text/csv application/zip],
                                           responses: {"200": {description: "Get publications via ChemotionID(s) or DOI(s)"}},
-                                          tags: ["publications"]}}},
+                                          tags: ["publications"]}},
+               "/v1/publications/search": {get: {description: "Search publications via authors and/or contributor and/or description",
+                                                 operationId: "getV1PublicationsSearch",
+                                                 parameters: [
+                                                   {collectionFormat: "pipes",
+                                                    description: "List of Authors, separated by |, only finds exact matches by name",
+                                                    in: "query",
+                                                    items: {type: "string"},
+                                                    name: "authors",
+                                                    required: false,
+                                                    type: "array"},
+                                                   {description: "Single Contributor, only finds exact matches by name",
+                                                    in: "query",
+                                                    name: "contributor",
+                                                    required: false,
+                                                    type: "string"},
+                                                   {description: "Searches description for any occurrence of search term",
+                                                    in: "query",
+                                                    name: "description",
+                                                    required: false,
+                                                    type: "string"}
+                                                 ],
+                                                 produces: %w[application/json application/xml text/csv],
+                                                 responses: {"200": {description: "Search publications via authors and/or contributor and/or description"}},
+                                                 tags: ["publications"]}}},
        produces: %w[application/json text/csv application/zip application/xml]}
     end
 

@@ -36,6 +36,7 @@ module API
     end
 
     mount API::V1::Publications
+    mount API::V1::Publications::Search
 
     add_swagger_documentation doc_version: "v1", info: {title: "Chemotion Repository Downloader"}
   end
