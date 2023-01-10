@@ -8,8 +8,9 @@ module API
     content_type :json, "application/json"
     formatter :json, ->(object, _env) { object.to_json }
 
-    content_type :csv, "text/csv"
-    formatter :csv, ->(object, _env) { object.to_csv }
+    # HINT: CSV is not supported yet.
+    # content_type :csv, "text/csv"
+    # formatter :csv, ->(object, _env) { object.to_csv }
 
     content_type :zip, "application/zip"
     formatter :zip, ->(object, _env) { object.to_zip }
