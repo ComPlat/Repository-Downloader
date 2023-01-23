@@ -3,7 +3,7 @@
 module HasToZip
   extend ActiveSupport::Concern
 
-  def to_zip = BagItStream.new(bag_it_stream_args).rack_body
+  def to_zip = BagItStream.new(bag_it_stream_args, true).rack_body
 
   private
 
@@ -18,5 +18,20 @@ module HasToZip
         BagItStreamArgBuilder.new(publication).build
       end
     end
+
+    # slow
+    # Enumerator.new do |yielder|
+    #   publications.find_each { |publication| yielder << BagItStreamArgBuilder.new(publication).build }
+    # end.lazy
+
+    # works only with .to_a which destroys lazyness
+    # Enumerator.new do |yielder|
+    #   Parallel.each(publications, in_threads: ENV.fetch("BAG_IT_STREAM_THREADS").to_i) do |publication|
+    #     # HINT: synchronizes thread access to a limited number of database connections.
+    #     Publication.connection_pool.with_connection do
+    #       yielder << BagItStreamArgBuilder.new(publication).build
+    #     end
+    #   end
+    # end.lazy
   end
 end
