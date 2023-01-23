@@ -16,19 +16,27 @@ describe PublicationsByDoiPresenter do
 
     context "when dois is an empty array" do
       let(:dois) { [] }
+      let(:expected_json) do
+        json = []
+        to_json.each { |chunk| json << chunk }
+        json.join
+      end
 
-      it { expect(to_json.to_a.join).to eq "[]" }
+      it { expect(expected_json).to eq "[]" }
     end
 
     context "when dois is an array with one doi in it" do
-      subject(:to_json_joined_enumerator) { JSON.parse to_json.to_a.join }
+      subject(:to_json_joined_enumerator) do
+        json = []
+        to_json.each { |chunk| json << chunk }
+        json.join
+      end
 
       let(:analysis) { create(:analysis, :with_realistic_attributes) }
       let(:dois) { [analysis.doi] }
 
-      it { expect(to_json_joined_enumerator).to eq JSON.parse("[#{analysis.present_to_api.to_json.to_a.join}]") }
-      it { expect(to_json_joined_enumerator).to be_a Array }
-      it { expect(to_json_joined_enumerator.size).to eq 1 }
+      it { expect(to_json_joined_enumerator).to eq "[#{analysis.present_to_api.to_json.to_a.first}]" }
+      it { expect(to_json_joined_enumerator).to be_a String }
     end
 
     context "when dois is an array with two doi in it" do
@@ -40,10 +48,12 @@ describe PublicationsByDoiPresenter do
       let(:dois) { [analysis1.doi, analysis2.doi] }
 
       let(:expected_json) do
-        "[#{analysis1.present_to_api.to_json.to_a.join},#{analysis2.present_to_api.to_json.to_a.join}]"
+        json = []
+        to_json.each { |chunk| json << chunk }
+        json.join
       end
 
-      it { expect(JSON.parse(to_json.to_a.join)).to eq JSON.parse(expected_json) }
+      it { expect(expected_json).to eq "[#{analysis1.present_to_api.to_json.to_a.first},#{analysis2.present_to_api.to_json.to_a.first}]" }
     end
   end
 
@@ -54,15 +64,25 @@ describe PublicationsByDoiPresenter do
 
     context "when dois is an empty array" do
       let(:dois) { [] }
+      let(:expected_xml) do
+        xml = []
+        to_xml.each { |chunk| xml << chunk }
+        xml.join
+      end
 
-      it { expect(to_xml.to_a.join).to eq "<publications></publications>" }
+      it { expect(expected_xml).to eq "<publications></publications>" }
     end
 
     context "when dois is an array with one doi in it" do
       let(:analysis) { create(:analysis, :with_realistic_attributes) }
       let(:dois) { [analysis.doi] }
+      let(:expected_xml) do
+        xml = []
+        to_xml.each { |chunk| xml << chunk }
+        xml.join
+      end
 
-      it { expect(to_xml.to_a.join).to eq "<publications>#{analysis.present_to_api.to_xml.to_a.join}</publications>" }
+      it { expect(expected_xml).to eq "<publications>#{analysis.present_to_api.to_xml.to_a.first}</publications>" }
     end
 
     context "when dois is an array with two doi in it" do
@@ -74,10 +94,20 @@ describe PublicationsByDoiPresenter do
       let(:dois) { [analysis1.doi, analysis2.doi] }
 
       let(:expected_xml) do
-        "<publications>#{analysis1.present_to_api.to_xml.to_a.join}#{analysis2.present_to_api.to_xml.to_a.join}</publications>"
+        xml = []
+        to_xml.each { |chunk| xml << chunk }
+        xml.join
       end
 
-      it { expect(Hash.from_xml(to_xml.to_a.join)).to eq(Hash.from_xml(expected_xml)) }
+      it do
+        expect(Hash.from_xml(expected_xml))
+          .to eq(Hash.from_xml(
+            "<publications>
+                           #{analysis1.present_to_api.to_xml.to_a.first}
+                           #{analysis2.present_to_api.to_xml.to_a.first}
+            </publications>"
+          ))
+      end
     end
   end
 

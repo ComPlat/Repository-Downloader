@@ -4,10 +4,16 @@ describe API::V1::Publications, ".dois" do
 
   describe "GET /api/v1/publications?dois={analysis1.doi}&format=json" do
     context "with existing doi" do
+      let(:expected_json) do
+        xml = []
+        PublicationsByDoiPresenter.new([analysis1.doi]).to_json.each { |chunk| xml << chunk }
+        xml.join
+      end
+
       before { get "/api/v1/publications?dois=#{analysis1.doi}&format=json" }
 
       it { expect(response).to have_http_status :ok }
-      it { expect(response.body).to eq PublicationsByDoiPresenter.new([analysis1.doi]).to_json.to_a.join }
+      it { expect(response.body).to eq expected_json }
       it { expect(response.content_type).to eq "application/json" }
     end
 
@@ -34,11 +40,13 @@ describe API::V1::Publications, ".dois" do
 
   describe "GET /api/v1/publications?dois={analysis1.doi},{analysis2.doi}&format=json" do
     context "with two existing dois" do
-      before { get "/api/v1/publications?dois=#{analysis1.doi},#{reaction1.doi}&format=json" }
-
       let(:expected_json) do
-        PublicationsByDoiPresenter.new([analysis1.doi, reaction1.doi]).to_json.to_a.join
+        xml = []
+        PublicationsByDoiPresenter.new([analysis1.doi, reaction1.doi]).to_json.each { |chunk| xml << chunk }
+        xml.join
       end
+
+      before { get "/api/v1/publications?dois=#{analysis1.doi},#{reaction1.doi}&format=json" }
 
       it { expect(response).to have_http_status :ok }
       it { expect(response.body).to eq expected_json }
@@ -47,11 +55,16 @@ describe API::V1::Publications, ".dois" do
 
     context "with one not existing doi" do
       let(:not_existing_doi) { "10.24790/not_existing_doi" }
+      let(:expected_json) do
+        xml = []
+        PublicationsByDoiPresenter.new([analysis1.doi]).to_json.each { |chunk| xml << chunk }
+        xml.join
+      end
 
       before { get "/api/v1/publications?dois=#{analysis1.doi},#{not_existing_doi}&format=json" }
 
       it { expect(response).to have_http_status :ok }
-      it { expect(response.body).to eq PublicationsByDoiPresenter.new([analysis1.doi]).to_json.to_a.join }
+      it { expect(response.body).to eq expected_json }
       it { expect(response.content_type).to eq "application/json" }
     end
 

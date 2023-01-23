@@ -6,8 +6,14 @@ describe API::V1::Publications, ".chemotion_ids" do
     context "with existing chemotion_id" do
       before { get "/api/v1/publications?chemotion_ids=#{analysis1.id}&format=json" }
 
+      let(:expected_json) do
+        json = []
+        PublicationsByChemotionIdPresenter.new(analysis1.id).to_json.each { |chunk| json << chunk }
+        json.join
+      end
+
       it { expect(response).to have_http_status :ok }
-      it { expect(response.body).to eq PublicationsByChemotionIdPresenter.new(analysis1.id).to_json.to_a.join }
+      it { expect(response.body).to eq expected_json }
       it { expect(response.content_type).to eq "application/json" }
     end
 
@@ -47,7 +53,9 @@ describe API::V1::Publications, ".chemotion_ids" do
       before { get "/api/v1/publications?chemotion_ids=#{analysis1.id},#{reaction1.id}&format=json" }
 
       let(:expected_json) do
-        PublicationsByChemotionIdPresenter.new([analysis1.id, reaction1.id]).to_json.to_a.join
+        json = []
+        PublicationsByChemotionIdPresenter.new([analysis1.id, reaction1.id]).to_json.each { |chunk| json << chunk }
+        json.join
       end
 
       it { expect(response).to have_http_status :ok }
@@ -57,11 +65,16 @@ describe API::V1::Publications, ".chemotion_ids" do
 
     context "with one not existing chemotion_id=1" do
       let(:not_existing_chemotion_id) { 1 }
+      let(:expected_json) do
+        json = []
+        PublicationsByChemotionIdPresenter.new(analysis1.id).to_json.each { |chunk| json << chunk }
+        json.join
+      end
 
       before { get "/api/v1/publications?chemotion_ids=#{analysis1.id},#{not_existing_chemotion_id}&format=json" }
 
       it { expect(response).to have_http_status :ok }
-      it { expect(response.body).to eq PublicationsByChemotionIdPresenter.new(analysis1.id).to_json.to_a.join }
+      it { expect(response.body).to eq expected_json }
       it { expect(response.content_type).to eq "application/json" }
     end
 
