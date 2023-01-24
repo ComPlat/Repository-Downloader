@@ -50,6 +50,7 @@ gem "shale", "0.9.0"
 gem "bag-it-stream", git: "git@github.com:Cleaner-Code/bagit_stream.git", branch: "main", tag: "v0.5.0"
 
 # Ruby Library and Command Line tools for BagIt [https://github.com/tipr/bagit], [https://www.rubydoc.info/gems/bagit/]
+# This is needed because runtime performance would otherwise be exponential
 gem "bagit", git: "git@github.com:Cleaner-Code/bagit.git", branch: "performance_improvement_for_payload_oxum"
 
 # Autoload dotenv in Rails [https://github.com/bkeepers/dotenv]
