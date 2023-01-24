@@ -47,7 +47,12 @@ gem "grape-swagger", "1.5.0" # [https://github.com/ruby-grape/grape-swagger]
 gem "shale", "0.9.0"
 
 # Streaming for zipped BagIt [https://github.com/Cleaner-Code/bagit_stream]
-gem "bag-it-stream", git: "git@github.com:Cleaner-Code/bagit_stream.git", branch: "main", tag: "v0.3.1"
+gem "bag-it-stream", git: "git@github.com:Cleaner-Code/bagit_stream.git", branch: "main", tag: "v0.5.0"
+
+# Ruby Library and Command Line tools for BagIt [https://github.com/tipr/bagit], [https://www.rubydoc.info/gems/bagit/]
+# This is needed because runtime performance would otherwise be exponential
+# We have to add it here to override the dependency from bag-it-stream
+gem "bagit", git: "git@github.com:Cleaner-Code/bagit.git", branch: "performance_improvement_for_payload_oxum"
 
 # Autoload dotenv in Rails [https://github.com/bkeepers/dotenv]
 gem "dotenv-rails", "2.8.1"
