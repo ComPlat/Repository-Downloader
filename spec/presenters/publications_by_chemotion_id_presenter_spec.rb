@@ -8,84 +8,71 @@ describe PublicationsByChemotionIdPresenter do
   end
 
   describe "#to_json" do
-    subject(:to_json) { publication_by_chemotion_ids_presenter.to_json }
+    subject(:to_json) do
+      json = []
+      publication_by_chemotion_ids_presenter.to_json.each { |chunk| json << chunk }
+      json.join
+    end
 
     let(:publication_by_chemotion_ids_presenter) { described_class.new chemotion_ids }
 
     context "when chemotion_ids is an empty array" do
       let(:chemotion_ids) { [] }
-      let(:expected_json) do
-        json = []
-        to_json.each { |chunk| json << chunk }
-        json.join
-      end
+      let(:expected_json) { "[]" }
 
-      it { expect(expected_json).to eq "[]" }
+      it { expect(to_json).to eq expected_json }
     end
 
     context "when chemotion_ids is an array with one chemotion_id in it" do
       let(:analysis) { create(:analysis, :with_realistic_attributes) }
       let(:chemotion_ids) { [analysis.id] }
-      let(:expected_json) do
-        json = []
-        to_json.each { |chunk| json << chunk }
-        json.join
-      end
 
-      it { expect(expected_json).to eq "[#{analysis.present_to_api.to_json.to_a.first}]" }
+      let(:expected_json) { "[#{analysis.present_to_api.to_json.to_a.first}]" }
+
+      it { expect(to_json).to eq expected_json }
     end
 
     context "when chemotion_ids is an array with two chemotion_id in it" do
       let(:analysises) { create_list(:analysis, 2, :with_realistic_attributes) }
       let(:chemotion_ids) { [analysises.first.id, analysises.second.id] }
-      let(:expected_json) do
-        json = []
-        to_json.each { |chunk| json << chunk }
-        json.join
-      end
 
-      it { expect(expected_json).to eq "[#{analysises.first.present_to_api.to_json.to_a.first},#{analysises.second.present_to_api.to_json.to_a.first}]" }
+      let(:expected_json) { "[#{analysises.first.present_to_api.to_json.to_a.first},#{analysises.second.present_to_api.to_json.to_a.first}]" }
+
+      it { expect(to_json).to eq expected_json }
     end
   end
 
   describe "#to_xml" do
-    subject(:to_xml) { publication_by_chemotion_ids_presenter.to_xml }
+    subject(:to_xml) do
+      xml = []
+      publication_by_chemotion_ids_presenter.to_xml.each { |chunk| xml << chunk }
+      xml.join
+    end
 
     let(:publication_by_chemotion_ids_presenter) { described_class.new chemotion_ids }
 
     context "when chemotion_ids is an empty array" do
       let(:chemotion_ids) { [] }
-      let(:expected_xml) do
-        xml = []
-        to_xml.each { |chunk| xml << chunk }
-        xml.join
-      end
 
-      it { expect(expected_xml).to eq "<publications></publications>" }
+      it { expect(to_xml).to eq "<publications></publications>" }
     end
 
     context "when chemotion_ids is an array with one chemotion_id in it" do
       let(:analysis) { create(:analysis, :with_realistic_attributes) }
       let(:chemotion_ids) { [analysis.id] }
-      let(:expected_xml) do
-        xml = []
-        to_xml.each { |chunk| xml << chunk }
-        xml.join
-      end
 
-      it { expect(expected_xml).to eq "<publications>#{analysis.present_to_api.to_xml.to_a.join}</publications>" }
+      let(:expected_xml) { "<publications>#{analysis.present_to_api.to_xml.to_a.join}</publications>" }
+
+      it { expect(to_xml).to eq expected_xml }
     end
 
     context "when chemotion_ids is an array with two chemotion_id in it" do
       let(:analyses) { create_list(:analysis, 2, :with_realistic_attributes) }
       let(:chemotion_ids) { [analyses.first.id, analyses.second.id] }
-      let(:expected_xml) do
-        xml = []
-        to_xml.each { |chunk| xml << chunk }
-        xml.join
-      end
 
-      it { expect(expected_xml).to eq "<publications>#{analyses.first.present_to_api.to_xml.to_a.first}#{analyses.second.present_to_api.to_xml.to_a.first}</publications>" }
+      let(:expected_xml) { "<publications>#{analyses.first.present_to_api.to_xml.to_a.first}#{analyses.second.present_to_api.to_xml.to_a.first}</publications>" }
+
+      it { expect(to_xml).to eq expected_xml }
     end
   end
 
