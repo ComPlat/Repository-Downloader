@@ -1,5 +1,4 @@
 class CsvMerger
-
   def initialize(csv_strings)
     @csv_strings = csv_strings
   end
@@ -17,5 +16,5 @@ class CsvMerger
 
   def merged_headers = @merged_headers ||= csvs.flat_map { |csv| csv.headers }.uniq
 
-  def csv_hashes = csvs.flat_map { |csv| csv.to_a[1..-1].map { |row| csv.headers.zip(row).to_h } }
+  def csv_hashes = csvs.flat_map { |csv| csv.to_a[1..].map { |row| csv.headers.zip(row).to_h } }
 end
