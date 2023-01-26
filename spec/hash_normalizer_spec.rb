@@ -33,11 +33,9 @@ describe HashNormalizer do
   }
 
   describe ".new" do
-    subject { described_class.new(hash_input) }
+    subject(:new) { described_class.new(hash_input) }
 
-    it do
-      expect(subject).to be_a described_class
-    end
+    it { expect(new).to be_a described_class }
   end
 
   describe "#normalized_hash" do
