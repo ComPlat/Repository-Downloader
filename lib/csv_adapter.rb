@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "csv"
-require "hash_normalizer"
+require_relative "hash_normalizer"
 
 # CSV adapter
 #

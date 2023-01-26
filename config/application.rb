@@ -19,7 +19,7 @@ require "rails/test_unit/railtie"
 Bundler.require(*Rails.groups)
 
 require "shale/adapter/nokogiri"
-require "csv_adapter"
+require_relative "../lib/csv_adapter"
 # require "shale/adapter/csv"
 Shale.xml_adapter = Shale::Adapter::Nokogiri
 # Shale.csv_adapter = Shale::Adapter::CSV
