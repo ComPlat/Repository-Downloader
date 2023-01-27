@@ -6,18 +6,14 @@ class API::V1::Publications::Search < Grape::API
     params do
       optional :authors_value,
         type: Array[String],
-        coerce_with: ->(value) { value.split("|") },
-        documentation: {collectionFormat: "pipes", param_type: "query"},
-        desc: "List of Authors, separated by |, only finds exact matches by name",
-        default: "Author Name"
-      given :authors_value do
-        requires :authors_search_operator,
-          type: Array,
-          coerce_with: ->(value) { Types::ValidListOfSearchOperators.parse(value).value },
-          documentation: {collectionFormat: "pipes", param_type: "query"},
-          desc: "Must be either EQUAL or LIKE",
-          default: "EQUAL"
-      end
+        coerce_with: ->(value) { value.split("\t") if value.present? },
+        documentation: {collectionFormat: "tsv", param_type: "query"}, # HINT: No pipes because RFC2396 reserves them for designating alternatives
+        desc: "List of Authors, only finds exact matches by name"
+      optional :authors_search_operator,
+        type: Array[String],
+        coerce_with: ->(value) { Types::ValidListOfSearchOperators.parse(value).value },
+        documentation: {collectionFormat: "tsv", param_type: "query"},
+        desc: "Must be either EQUAL or LIKE"
       optional :contributor_value,
         type: String,
         documentation: {param_type: "query"},
@@ -40,10 +36,15 @@ class API::V1::Publications::Search < Grape::API
       end
     end
     get do
-      if params[:authors_value].length != params[:authors_search_operator].length
-        Grape::Types::InvalidValue.new("Length of author values does not match the search operators")
-      else
+      if (params[:authors_value].blank? && params[:authors_search_operator].blank?) || (params[:authors_value].length == params[:authors_search_operator].length)
         PublicationsBySearchPresenter.new(params).publications
+      else
+        status :bad_request
+        if params[:format] == "csv"
+          ["authors_value and authors_search_operator must have the same length"]
+        else
+          {message: "authors_value and authors_search_operator must have the same length"}
+        end
       end
     end
   end

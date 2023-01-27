@@ -14,7 +14,7 @@ describe PublicationSearchOperation do
   describe "#search" do
     let(:search) { described_class.new(params) }
 
-    # GENERAL
+    # HINT: NO PARAMS
 
     context "when no search parameters are provided" do
       let(:params) do
@@ -26,7 +26,7 @@ describe PublicationSearchOperation do
       it { expect(search.search).to eq [] }
     end
 
-    # AUTHORS
+    # HINT: AUTHORS PARAM ONLY
 
     context "when publications with one existing author is searched for with 'EQUAL'" do
       let(:publication) { create(:reaction, :with_realistic_attributes_and_two_authors) }
@@ -209,7 +209,7 @@ describe PublicationSearchOperation do
       it { expect(search.search).to eq [] }
     end
 
-    # CONTRIBUTOR
+    # HINT: CONTRIBUTOR PARAM ONLY
 
     context "when publications with existing contributor is searched for with 'EQUAL'" do
       let(:publication) { create(:reaction, :with_realistic_attributes) }
@@ -259,7 +259,7 @@ describe PublicationSearchOperation do
       it { expect(search.search).to eq [] }
     end
 
-    # DESCRIPTION
+    # HINT: DESCRIPTION PARAM ONLY
 
     context "when publications with existing sample description is searched for with 'EQUAL'" do
       let(:publication) { create(:sample, :with_required_dependencies, :with_realistic_attributes) }
@@ -357,7 +357,7 @@ describe PublicationSearchOperation do
       it { expect(search.search).to eq [] }
     end
 
-    # COMBINED
+    # HINT: COMBINED PARAMS
 
     context "when publications with one contributor and an description are searched" do
       let(:reaction) { create(:reaction, :with_realistic_attributes) }
