@@ -1,4 +1,4 @@
-describe API::V1::Publications::Search, ".dois" do
+describe API::V1::Publications::Search do
   let!(:analysis1) { create(:analysis, :with_realistic_attributes) }
   let!(:reaction1) { create(:reaction, :with_realistic_attributes_and_two_authors) }
 

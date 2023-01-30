@@ -8,21 +8,21 @@ describe Types::ValidListOfSearchOperators do
       let(:value) { "" }
 
       it { is_expected.to be_a Grape::Types::InvalidValue }
-      it { expect(subject.instance_values["message"]).to eq "No empty input allowed." }
+      it { expect(parse.instance_values["message"]).to eq "No empty input allowed." }
     end
 
     context "when value is list of empty strings" do
       let(:value) { "\t\t\t" }
 
       it { is_expected.to be_a Grape::Types::InvalidValue }
-      it { expect(subject.instance_values["message"]).to eq "No empty input allowed." }
+      it { expect(parse.instance_values["message"]).to eq "No empty input allowed." }
     end
 
     context "when value is an invalid search operator" do
       let(:value) { "INVALID" }
 
       it { is_expected.to be_a Grape::Types::InvalidValue }
-      it { expect(subject.instance_values["message"]).to eq "Only allowed values are 'EQUAL' and 'LIKE'" }
+      it { expect(parse.instance_values["message"]).to eq "Only allowed values are 'EQUAL' and 'LIKE'" }
     end
 
     context "when value is a single valid search operator" do
@@ -42,7 +42,7 @@ describe Types::ValidListOfSearchOperators do
       let(:value) { "#{valid_search_operators.first}\t#{invalid_search_operator}" }
 
       it { is_expected.to be_a Grape::Types::InvalidValue }
-      it { expect(subject.instance_values["message"]).to eq "Only allowed values are 'EQUAL' and 'LIKE'" }
+      it { expect(parse.instance_values["message"]).to eq "Only allowed values are 'EQUAL' and 'LIKE'" }
     end
 
     context "when value is {valid_search_operator1},{valid_search_operator2}" do
