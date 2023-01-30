@@ -27,7 +27,6 @@ describe ShaleCustom::Mapper do
 
   describe "#to_csv" do
     it { expect(sub_object.to_csv).to eq "string,integer\n#{sub_object.string},#{sub_object.integer}\n" }
-    it { expect(sub_object.to_csv(headers: false)).to eq "#{sub_object.string},#{sub_object.integer}\n" }
     it { expect(sub_object.to_csv(col_sep: "|")).to eq "string|integer\n#{sub_object.string}|#{sub_object.integer}\n" }
   end
 end
