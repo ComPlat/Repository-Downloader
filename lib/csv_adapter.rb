@@ -35,18 +35,12 @@ class CustomShaleCsvAdapter
     flattened_headers = normalized_hash_array.flat_map { |row| row.keys }.uniq
 
     flattened_obj = []
-    flattened_obj[0] = Hash[*flattened_headers.collect { |header| [header, header] }.flatten]
+    flattened_obj[0] = Hash[*flattened_headers.flat_map { |header| [header, header] }]
     flattened_obj[1] = Hash[*normalized_hash_array[0].collect { |value| [value] }.flatten]
 
     ::CSV.generate(**options) do |csv|
       flattened_obj.each do |row|
-        values = []
-
-        flattened_headers.each do |header|
-          values << row[header]
-        end
-
-        csv << values
+        csv << flattened_headers.map { |header| row[header] }
       end
     end
   end
