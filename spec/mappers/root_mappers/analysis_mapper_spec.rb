@@ -220,8 +220,6 @@ describe RootMappers::AnalysisMapper do
       end
 
       it { expect(CSV.parse(analysis_mapper.to_csv, headers: true).headers).to eq CSV.parse(expected_csv, headers: true).headers }
-      # TODO: this still renders nil instead of nothing
-      #       ex: xxx,nil,yyy instead of xxx,,yyy
       it { expect(CSV.parse(analysis_mapper.to_csv, headers: true).to_a.second).to eq CSV.parse(expected_csv, headers: true).to_a.second }
     end
   end
