@@ -9,9 +9,11 @@ class HashNormalizer
     normalized_hash = {}
     hash.each do |key, value|
       normalized_key = parent_key ? "#{parent_key}.#{key}" : key
-      if value.is_a?(Hash)
+
+      case value
+      when Hash
         normalized_hash.merge!(normalize_hash(value, normalized_key))
-      elsif value.is_a?(Array)
+      when Array
         value.each.with_index(1) { |item, index|
           normalized_hash.merge!(normalize_hash(item, normalized_key + index.to_s))
         }
