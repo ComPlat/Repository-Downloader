@@ -18,6 +18,13 @@ describe Types::ValidListOfSearchOperators do
       it { expect(parse.instance_values["message"]).to eq "No empty input allowed." }
     end
 
+    context "when value is list of empty and non empty strings" do
+      let(:value) { "\t#{valid_search_operators.first}\t\t" }
+
+      it { is_expected.to be_a Grape::Types::InvalidValue }
+      it { expect(parse.instance_values["message"]).to eq "No empty values allowed." }
+    end
+
     context "when value is an invalid search operator" do
       let(:value) { "INVALID" }
 

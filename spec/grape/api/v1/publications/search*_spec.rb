@@ -11,7 +11,7 @@ describe API::V1::Publications::Search do
       end
 
       it { expect(response).to have_http_status :ok }
-      it { expect(JSON.parse(response.body)).to eq [analysis1.id] }
+      it { expect(response.parsed_body).to eq [analysis1.id] }
       it { expect(response.content_type).to eq "application/json" }
     end
 
@@ -24,7 +24,7 @@ describe API::V1::Publications::Search do
       end
 
       it { expect(response).to have_http_status :ok }
-      it { expect(JSON.parse(response.body)).to eq [reaction1.id] }
+      it { expect(response.parsed_body).to eq [reaction1.id] }
       it { expect(response.content_type).to eq "application/json" }
     end
 
@@ -37,7 +37,7 @@ describe API::V1::Publications::Search do
       end
 
       it { expect(response).to have_http_status :bad_request }
-      it { expect(JSON.parse(response.body)).to eq({"message" => "authors_value and authors_search_operator must have the same length"}) }
+      it { expect(response.parsed_body).to eq({"message" => "authors_value and authors_search_operator must have the same length"}) }
       it { expect(response.content_type).to eq "application/json" }
     end
 
@@ -50,7 +50,7 @@ describe API::V1::Publications::Search do
       end
 
       it { expect(response).to have_http_status :ok }
-      it { expect(JSON.parse(response.body)).to eq [reaction1.id] }
+      it { expect(response.parsed_body).to eq [reaction1.id] }
       it { expect(response.content_type).to eq "application/json" }
     end
 
@@ -63,7 +63,7 @@ describe API::V1::Publications::Search do
       end
 
       it { expect(response).to have_http_status :ok }
-      it { expect(JSON.parse(response.body)).to eq [reaction1.id] }
+      it { expect(response.parsed_body).to eq [reaction1.id] }
       it { expect(response.content_type).to eq "application/json" }
     end
 
@@ -77,7 +77,7 @@ describe API::V1::Publications::Search do
       end
 
       it { expect(response).to have_http_status :ok }
-      it { expect(JSON.parse(response.body)).to eq [reaction1.id] }
+      it { expect(response.parsed_body).to eq [reaction1.id] }
       it { expect(response.content_type).to eq "application/json" }
     end
   end
