@@ -2,6 +2,7 @@ class PublicationsByDoiPresenter
   include HasToXml
   include HasToJson
   include HasToZip
+  include HasToCsv
 
   def initialize(dois) = @dois = dois
 
