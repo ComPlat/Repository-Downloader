@@ -15,16 +15,18 @@ class PublicationSearchOperation
   def search
     return [] unless authors_value.present? || contributor_value.present? || description_value.present?
 
-    filtered = Publication.where(element_type: ELEMENT_TYPES)
-    filtered = filtered.where(authors_filter) if authors_value.present? && authors_search_operator.present?
-    filtered = filtered.where(contributor_filter) if contributor_value.present? && contributor_search_operator.present?
-    filtered = filtered.where(description_filter) if description_value.present? && description_search_operator.present?
-    filtered.pluck :id
+    Publication.where(element_type: ELEMENT_TYPES)
+      .where(authors_filter)
+      .where(contributor_filter)
+      .where(description_filter)
+      .pluck :id
   end
 
   private
 
   def authors_filter
+    return [] unless authors_value.present? && authors_search_operator.present?
+
     [query_to_authors.map { |h| h.keys.first }.join(SQL_SUBQUERY_JOINER), *query_to_authors.map { |h| h.values.first }]
   end
 
@@ -57,6 +59,8 @@ class PublicationSearchOperation
   end
 
   def contributor_filter
+    return [] unless contributor_value.present? && contributor_search_operator.present?
+
     case contributor_search_operator
     when SEARCH_OPERATOR_LIKE
       [SQL_TEMPLATE_CONTRIBUTOR_LIKE, "%#{contributor_value}%"]
@@ -68,6 +72,8 @@ class PublicationSearchOperation
   end
 
   def description_filter
+    return [] unless description_value.present? && description_search_operator.present?
+
     case description_search_operator
     when SEARCH_OPERATOR_LIKE
       [SQL_TEMPLATE_DESCRIPTION, "%#{description_value}%", "%#{description_value}%"]
