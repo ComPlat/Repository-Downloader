@@ -30,13 +30,10 @@ class CustomShaleCsvAdapter
   #
   # @api private
   def self.dump(obj, headers:, **options)
-    normalized_hash_array = [HashNormalizer.new(obj.second).normalized_hash]
-
-    flattened_headers = normalized_hash_array.flat_map { |row| row.keys }.uniq
-
-    flattened_obj = []
-    flattened_obj[0] = Hash[*flattened_headers.flat_map { |header| [header, header] }]
-    flattened_obj[1] = Hash[*normalized_hash_array[0].collect { |value| [value] }.flatten]
+    normalized_hash = HashNormalizer.new(obj.second).normalized_hash
+    flattened_headers = normalized_hash.keys
+    flatted_headers_hash = flattened_headers.map { |header| [header, header] }.to_h
+    flattened_obj = [flatted_headers_hash, normalized_hash]
 
     ::CSV.generate(**options) do |csv|
       flattened_obj.each do |row|
