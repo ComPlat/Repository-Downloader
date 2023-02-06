@@ -17,6 +17,7 @@ class CustomShaleCsvAdapter
   #
   # @api private
   def self.load(csv, headers:, **options)
+    # HINT: This implementation is naive and has to be improved when CustomShaleCsvAdapter is used to load csvs
     ::CSV.parse(csv, headers: headers, **options).map(&:to_h)
   end
 
