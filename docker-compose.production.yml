@@ -13,10 +13,10 @@ services:
       bundle exec rails s"
     environment:
       - RAILS_ENV=production
-      # TODO: Get information about local production db and implement as secrets
-      - RAILS_DB_HOST=db
-      - RAILS_DB_USERNAME=postgres
-      - RAILS_DB_PASSWORD=postgres
+      # TODO: Get information about local production db and implement as env variables
+      - RAILS_DB_HOST=database
+      - RAILS_DB_USERNAME=username
+      - RAILS_DB_PASSWORD=password
     restart: always
     volumes:
       # TODO: put path to local data here
