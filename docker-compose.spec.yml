@@ -21,9 +21,9 @@ services:
       ./bin/rake"
     environment:
       - RAILS_ENV=test
-      - RAILS_DB_HOST=db
-      - RAILS_DB_USERNAME=postgres
-      - RAILS_DB_PASSWORD=postgres
+      - DOWNLOADER_DB_HOST=db
+      - DOWNLOADER_DB_USERNAME=postgres
+      - DOWNLOADER_DB_PASSWORD=postgres
       - HUB_URL=http://chrome:4444/wd/hub
     links:
       - db
