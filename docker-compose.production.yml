@@ -9,15 +9,15 @@ services:
       cp ./.bundle/config /usr/local/bundle &&
       bundle config &&
       bundle install &&
-      bundle rails db:setup &&
+      bundle exec rails db:setup &&
       bundle exec rails s"
     environment:
       - RAILS_ENV=production
       # TODO: Get information about local production db and implement as env variables
-      - DOWNLOADER_DB_HOST=DOWNLOADER_DB_HOST
-      - DOWNLOADER_DB_USERNAME=DOWNLOADER_DB_USERNAME
-      - DOWNLOADER_DB_PASSWORD=DOWNLOADER_DB_PASSWORD
+      - DOWNLOADER_DB_HOST=${DOWNLOADER_DB_HOST}
+      - DOWNLOADER_DB_USERNAME=${DOWNLOADER_DB_USERNAME}
+      - DOWNLOADER_DB_PASSWORD=${DOWNLOADER_DB_PASSWORD}
     restart: always
     volumes:
-      # TODO: put path to local data here
-      - ./:/repository-downloader
+      # TODO: set path to local data to this env variable
+      - ${DOWNLOADER_DATA_PATH}
