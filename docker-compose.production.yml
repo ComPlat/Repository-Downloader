@@ -15,6 +15,7 @@ services:
       - RAILS_ENV=production
       # TODO: Get information about local production db and implement as env variables
       - DOWNLOADER_DB_HOST=${DOWNLOADER_DB_HOST}
+      - DOWNLOADER_DB_NAME=${DOWNLOADER_DB_NAME}
       - DOWNLOADER_DB_USERNAME=${DOWNLOADER_DB_USERNAME}
       - DOWNLOADER_DB_PASSWORD=${DOWNLOADER_DB_PASSWORD}
     restart: always
