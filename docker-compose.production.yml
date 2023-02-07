@@ -1,0 +1,23 @@
+services:
+  downloader:
+    build: .
+    # HINT: We have to copy the local .bundle/config to /usr/local/bundle because the behaviour in the container is different
+    command: zsh -c "mkdir -p -m 0600 ~/.ssh &&
+      ssh-keyscan github.com >> ~/.ssh/known_hosts && eval $(ssh-agent) &&
+      ssh-add - <<< \"${FRIENDLYCLEANERCODEASSISTANT_SSH_KEY}\" &&
+      gem update --system --quiet --silent &&
+      cp ./.bundle/config /usr/local/bundle &&
+      bundle config &&
+      bundle install &&
+      bundle rails db:setup &&
+      bundle exec rails s"
+    environment:
+      - RAILS_ENV=production
+      # TODO: Get information about local production db and implement as secrets
+      - RAILS_DB_HOST=db
+      - RAILS_DB_USERNAME=postgres
+      - RAILS_DB_PASSWORD=postgres
+    restart: always
+    volumes:
+      # TODO: put path to local data here
+      - ./:/repository-downloader
