@@ -71,6 +71,7 @@ production:
   database: <%= ENV["DOWNLOADER_DB_NAME"] %>
   host: <%= ENV["DOWNLOADER_DB_HOST"] %>
   password: <%= ENV["DOWNLOADER_DB_PASSWORD"] %>
+  port: <%= ENV["DOWNLOADER_DB_PORT"] %>
   username: <%= ENV["DOWNLOADER_DB_USERNAME"] %>
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

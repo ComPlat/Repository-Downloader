@@ -18,6 +18,9 @@ services:
       - DOWNLOADER_DB_NAME=${DOWNLOADER_DB_NAME}
       - DOWNLOADER_DB_USERNAME=${DOWNLOADER_DB_USERNAME}
       - DOWNLOADER_DB_PASSWORD=${DOWNLOADER_DB_PASSWORD}
+      - DOWNLOADER_DB_PORT=${DOWNLOADER_DB_PORT}
+    ports:
+      - '3000:3000'
     restart: always
     volumes:
       # TODO: set path to local data to this env variable
