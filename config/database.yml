@@ -68,7 +68,8 @@ development:
   database: Repository_Downloader_development
 production:
   <<: *default
-  database: <%= ENV["DOWNLOADER_DB_HOST"] %>
+  database: <%= ENV["DOWNLOADER_DB_NAME"] %>
+  host: <%= ENV["DOWNLOADER_DB_HOST"] %>
   password: <%= ENV["DOWNLOADER_DB_PASSWORD"] %>
   username: <%= ENV["DOWNLOADER_DB_USERNAME"] %>
 # Warning: The database defined as "test" will be erased and

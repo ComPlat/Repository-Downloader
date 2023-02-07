@@ -14,7 +14,7 @@ services:
     environment:
       - RAILS_ENV=production
       # TODO: Get information about local production db and implement as env variables
-      - RAILS_DB_HOST=database
+      - RAILS_DB_HOST=host
       - RAILS_DB_USERNAME=username
       - RAILS_DB_PASSWORD=password
     restart: always
