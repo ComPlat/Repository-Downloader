@@ -57,20 +57,22 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: <%= ENV.fetch("RAILS_DB_HOST") { "localhost" } %>
-  password: <%= ENV.fetch("RAILS_DB_PASSWORD") { "postgres" } %>
+  host: <%= ENV.fetch("DOWNLOADER_DB_HOST") { "localhost" } %>
+  password: <%= ENV.fetch("DOWNLOADER_DB_PASSWORD") { "postgres" } %>
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch("RAILS_DB_USERNAME") { "postgres" } %>
+  username: <%= ENV.fetch("DOWNLOADER_DB_USERNAME") { "postgres" } %>
 development:
   <<: *default
   database: Repository_Downloader_development
 production:
   <<: *default
-  database: Repository_Downloader_production
-  password: <%= ENV["REPOSITORY_DOWNLOADER_DATABASE_PASSWORD"] %>
-  username: Repository_Downloader
+  database: <%= ENV["DOWNLOADER_DB_NAME"] %>
+  host: <%= ENV["DOWNLOADER_DB_HOST"] %>
+  password: <%= ENV["DOWNLOADER_DB_PASSWORD"] %>
+  port: <%= ENV["DOWNLOADER_DB_PORT"] %>
+  username: <%= ENV["DOWNLOADER_DB_USERNAME"] %>
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
