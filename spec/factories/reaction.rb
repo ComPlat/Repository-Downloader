@@ -254,7 +254,7 @@ ops:
       target_amount_value { nil }
       target_amount_unit { nil }
       rs_type { nil }
-      add_attribute(:yield) { nil }
+      add_attribute(:yield) { 2 }
       iupac_name { nil }
       cano_smiles { nil }
       sum_formular { nil }

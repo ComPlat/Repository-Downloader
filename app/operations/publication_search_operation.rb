@@ -13,16 +13,30 @@ class PublicationSearchOperation
   end
 
   def search
-    return [] unless authors_value.present? || contributor_value.present? || description_value.present?
+    return [] unless any_params_present?
 
     Publication.where(element_type: ELEMENT_TYPES)
       .where(authors_filter)
       .where(contributor_filter)
       .where(description_filter)
+      .where(published_before_filter)
+      .where(published_after_filter)
+      .where(yield_over_filter)
+      .where(yield_under_filter)
       .pluck :id
   end
 
   private
+
+  def any_params_present?
+    authors_value.present? ||
+      contributor_value.present? ||
+      description_value.present? ||
+      published_before.present? ||
+      published_after.present? ||
+      yield_over.present? ||
+      yield_under.present?
+  end
 
   def authors_filter
     return [] unless authors_value.present? && authors_search_operator.present?
@@ -84,6 +98,30 @@ class PublicationSearchOperation
     end
   end
 
+  def published_before_filter
+    return [] if published_before.blank?
+
+    ["published_at < ?", published_before]
+  end
+
+  def published_after_filter
+    return [] if published_after.blank?
+
+    ["published_at > ?", published_after]
+  end
+
+  def yield_over_filter
+    return [] if yield_over.blank?
+
+    ["yield > ?", yield_over]
+  end
+
+  def yield_under_filter
+    return [] if yield_under.blank?
+
+    ["yield < ?", yield_under]
+  end
+
   def authors_value = @authors_value ||= @params[:authors_value]
 
   def authors_search_operator = @authors_search_operator ||= @params[:authors_search_operator]
@@ -95,4 +133,12 @@ class PublicationSearchOperation
   def description_value = @description_value ||= @params[:description_value]
 
   def description_search_operator = @description_search_operator ||= @params[:description_search_operator]
+
+  def published_before = @published_before ||= @params[:published_before]
+
+  def published_after = @published_after ||= @params[:published_after]
+
+  def yield_over = @yield_over ||= @params[:yield_over]
+
+  def yield_under = @yield_under ||= @params[:yield_under]
 end

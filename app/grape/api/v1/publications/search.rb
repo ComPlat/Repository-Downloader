@@ -34,6 +34,24 @@ class API::V1::Publications::Search < Grape::API
           documentation: {param_type: "query"},
           values: %w[EQUAL LIKE]
       end
+      optional :published_before,
+        type: Date,
+        documentation: {param_type: "query"},
+        desc: "Searches for items published before the given date"
+      optional :published_after,
+        type: Date,
+        documentation: {param_type: "query"},
+        desc: "Searches for items published after the given date"
+      optional :yield_over,
+        type: Float,
+        documentation: {param_type: "query"},
+        coerce_with: ->(value) { value.to_f if value.present? },
+        desc: "Searches for items with yield over the given value"
+      optional :yield_under,
+        type: Float,
+        documentation: {param_type: "query"},
+        coerce_with: ->(value) { value.to_f if value.present? },
+        desc: "Searches for items with yield under the given value"
     end
     get do
       if (params[:authors_value].blank? && params[:authors_search_operator].blank?) || (params[:authors_value].length == params[:authors_search_operator].length)
