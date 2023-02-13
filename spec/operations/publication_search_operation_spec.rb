@@ -5,7 +5,9 @@ describe PublicationSearchOperation do
     let(:params) do
       {authors_value: nil, authors_search_operator: nil,
        contributor_value: nil, contributor_search_operator: nil,
-       description_value: nil, description_search_operator: nil}
+       description_value: nil, description_search_operator: nil,
+       published_before: nil, published_after: nil,
+       yield_over: nil, yield_under: nil}
     end
 
     it { is_expected.to be_a described_class }
@@ -357,6 +359,138 @@ describe PublicationSearchOperation do
       it { expect(search.search).to eq [] }
     end
 
+    # HINT: PUBLISHED_AT PARAMS ONLY
+
+    context "when publication has no published_at date" do
+      let(:params) { {date_after: "0001-01-01", date_before: "9999-01-01"} }
+
+      before { create(:reaction, :with_realistic_attributes) }
+
+      it { expect(search.search).to eq [] }
+    end
+
+    context "when publication with: date_after -> published_at -> date_before" do
+      let(:reaction) { create(:reaction, :with_realistic_attributes_and_two_authors) }
+      let(:params) { {date_after: reaction.published_at - 1.day, date_before: reaction.published_at + 1.day} }
+
+      it { expect(search.search).to eq [] }
+    end
+
+    context "when publication with: date_before -> published_at -> date_after" do
+      let(:reaction) { create(:reaction, :with_realistic_attributes_and_two_authors) }
+      let(:params) { {date_after: reaction.published_at + 1.day, date_before: reaction.published_at - 1.day} }
+
+      it { expect(search.search).to eq [] }
+    end
+
+    context "when publication with: date_before -> published_at" do
+      let(:reaction) { create(:reaction, :with_realistic_attributes_and_two_authors) }
+      let(:params) { {date_before: reaction.published_at - 1.day} }
+
+      it { expect(search.search).to eq [] }
+    end
+
+    context "when publication with: published_at -> date_before" do
+      let(:reaction) { create(:reaction, :with_realistic_attributes_and_two_authors) }
+      let(:params) { {date_before: reaction.published_at + 1.day} }
+
+      it { expect(search.search).to eq [] }
+    end
+
+    context "when publication with: published_at -> date_after" do
+      let(:reaction) { create(:reaction, :with_realistic_attributes_and_two_authors) }
+      let(:params) { {date_after: reaction.published_at + 1.day} }
+
+      it { expect(search.search).to eq [] }
+    end
+
+    context "when publication with: date_after -> published_at" do
+      let(:reaction) { create(:reaction, :with_realistic_attributes_and_two_authors) }
+      let(:params) { {date_after: reaction.published_at - 1.day} }
+
+      it { expect(search.search).to eq [] }
+    end
+
+    context "when publication with: date_after -> date_before -> published_at" do
+      let(:reaction) { create(:reaction, :with_realistic_attributes_and_two_authors) }
+      let(:params) { {date_after: reaction.published_at - 2.days, date_before: reaction.published_at - 1.day} }
+
+      it { expect(search.search).to eq [] }
+    end
+
+    context "when publication with: published_at -> date_after -> date_before" do
+      let(:reaction) { create(:reaction, :with_realistic_attributes_and_two_authors) }
+      let(:params) { {date_after: reaction.published_at + 1.day, date_before: reaction.published_at + 2.days} }
+
+      it { expect(search.search).to eq [] }
+    end
+
+    # HINT: YIELD PARAMS ONLY
+
+    context "when publication has no yield" do
+      let(:params) { {yield_over: 0, yield_under: 999999999} }
+
+      before { create(:reaction, :with_realistic_attributes) }
+
+      it { expect(search.search).to eq [] }
+    end
+
+    context "when publication with: yield_over < yield < yield_under" do
+      let(:reaction) { create(:reaction, :with_realistic_attributes_and_two_authors) }
+      let(:params) { {yield_over: reaction.yield + 1, yield_under: reaction.yield - 1} }
+
+      it { expect(search.search).to eq [] }
+    end
+
+    context "when publication with: yield_under < yield < yield_over" do
+      let(:reaction) { create(:reaction, :with_realistic_attributes_and_two_authors) }
+      let(:params) { {yield_over: reaction.yield - 1, yield_under: reaction.yield + 1} }
+
+      it { expect(search.search).to eq [reaction.id] }
+    end
+
+    context "when publication with: yield_under < yield" do
+      let(:reaction) { create(:reaction, :with_realistic_attributes_and_two_authors) }
+      let(:params) { {yield_under: reaction.yield - 1} }
+
+      it { expect(search.search).to eq [] }
+    end
+
+    context "when publication with: yield < yield_under" do
+      let(:reaction) { create(:reaction, :with_realistic_attributes_and_two_authors) }
+      let(:params) { {yield_under: reaction.yield + 1} }
+
+      it { expect(search.search).to eq [reaction.id] }
+    end
+
+    context "when publication with: yield < yield_over" do
+      let(:reaction) { create(:reaction, :with_realistic_attributes_and_two_authors) }
+      let(:params) { {yield_over: reaction.yield + 1} }
+
+      it { expect(search.search).to eq [] }
+    end
+
+    context "when publication with: yield_over < yield" do
+      let(:reaction) { create(:reaction, :with_realistic_attributes_and_two_authors) }
+      let(:params) { {yield_over: reaction.yield - 1} }
+
+      it { expect(search.search).to eq [reaction.id] }
+    end
+
+    context "when publication with: yield_over < yield_under < yield" do
+      let(:reaction) { create(:reaction, :with_realistic_attributes_and_two_authors) }
+      let(:params) { {yield_over: reaction.yield - 2, yield_under: reaction.yield - 1} }
+
+      it { expect(search.search).to eq [] }
+    end
+
+    context "when publication with: yield < yield_over < yield_under" do
+      let(:reaction) { create(:reaction, :with_realistic_attributes_and_two_authors) }
+      let(:params) { {yield_over: reaction.yield + 1, yield_under: reaction.yield + 2} }
+
+      it { expect(search.search).to eq [] }
+    end
+
     # HINT: COMBINED PARAMS
 
     context "when publications with one contributor and an description are searched" do
@@ -551,6 +685,30 @@ describe PublicationSearchOperation do
          contributor_search_operator: described_class::SEARCH_OPERATOR_LIKE,
          description_value: reaction.reaction_description,
          description_search_operator: described_class::SEARCH_OPERATOR_EQUAL}
+      end
+
+      it { expect(search.search).to eq [] }
+    end
+
+    context "when existing publication with yield_* and date_* is searched" do
+      let(:reaction) { create(:reaction, :with_realistic_attributes_and_two_authors) }
+      let(:params) do
+        {yield_under: reaction.yield + 1,
+         yield_over: reaction.yield - 1,
+         date_before: reaction.published_at + 1.day,
+         date_after: reaction.published_at - 1.day}
+      end
+
+      it { expect(search.search).to eq [reaction.id] }
+    end
+
+    context "when not existing publication with yield_* and date_* is searched" do
+      let(:reaction) { create(:reaction, :with_realistic_attributes_and_two_authors) }
+      let(:params) do
+        {yield_under: reaction.yield + 10,
+         yield_over: reaction.yield + 9,
+         date_before: reaction.published_at + 10.days,
+         date_after: reaction.published_at + 9.days}
       end
 
       it { expect(search.search).to eq [] }
