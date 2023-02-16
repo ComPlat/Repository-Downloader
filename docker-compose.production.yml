@@ -1,7 +1,7 @@
 services:
   downloader:
     build: .
-    # HINT: We have to copy the local .bundle/config to /usr/local/bundle because the behaviour in the container is different
+    # HINT: We have to copy the local .bundle/config to /usr/local/bundle because the behaviour in the container is different # test if files added to the volume are avaiable in the container:       cd ./files && ls -la &&
     command: zsh -c "mkdir -p -m 0600 ~/.ssh &&
       ssh-keyscan github.com >> ~/.ssh/known_hosts && eval $(ssh-agent) &&
       ssh-add - <<< \"${FRIENDLYCLEANERCODEASSISTANT_SSH_KEY}\" &&
@@ -9,7 +9,7 @@ services:
       cp ./.bundle/config /usr/local/bundle &&
       bundle config &&
       bundle install &&
-      bundle exec rails db:setup &&
+      bundle exec rails db:migrate &&
       bundle exec rails s"
     environment:
       - RAILS_ENV=production
@@ -23,5 +23,7 @@ services:
       - '3000:3000'
     restart: always
     volumes:
+      - ./:/repository-downloader
       # TODO: set path to local data to this env variable
-      - ${DOWNLOADER_DATA_PATH}
+      - ${DOWNLOADER_DATA_PATH}/:/./files
+# TODO: change used folder for data in project

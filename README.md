@@ -54,3 +54,27 @@
    5. Check TODO
    6. Cleanup
    7. Run 'spec: Repository-Downloader'
+
+## Production
+
+### Setup
+1. Install current version of docker and docker-compose.
+2. Change environment variables in run_docker-compose.production.sh.
+3. Execute run_docker-compose.production.sh.
+
+#### Environment Variables
+The following environment variables have to be set for the project to run:
+
+BAG_IT_STREAM_THREADS - the number of threads BagIt runs with.
+
+Docker Container:
+
+DOWNLOADER_DB_HOST - database host address
+
+DOWNLOADER_DB_NAME - database name
+
+DOWNLOADER_DB_USERNAME - database username
+
+DOWNLOADER_DB_PASSWORD - database password
+
+DOWNLOADER_DB_PORT - database port
