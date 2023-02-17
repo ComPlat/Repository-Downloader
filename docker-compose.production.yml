@@ -25,5 +25,5 @@ services:
     volumes:
       - ./:/repository-downloader
       # TODO: set path to local data to this env variable
-      - ${DOWNLOADER_DATA_PATH}/:/./files
+      - ${DOWNLOADER_ATTACHMENTS_PATH}/:/./files
 # TODO: change used folder for data in project
