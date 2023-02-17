@@ -1,5 +1,14 @@
 # Repository Downloader
 
+## Production
+### Setup
+1. Install current version of [docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/).
+2. Change environment variables in `run_docker-compose.production.sh`.
+   HINT: Loosing or exposing these values will be insecure and dangerous!
+   `DOWNLOADER_ATTACHMENTS_PATH` needs to point to the root folder in which Active Storage attachments are available (read-only access preferred).
+3. Execute run_docker-compose.production.sh.
+   If it is your first run replace `db:migrate` with `db:setup`, but do not forget to change it back later, otherwise app will not boot, because it would destroy existing database.
+
 ## Development
 
 ### Setup
