@@ -16,7 +16,7 @@ jobs:
       - run: cd ${{ github.workspace }}
       - run: ./run_docker-compose.spec.sh
         env:
-          FRIENDLYCLEANERCODEASSISTANT_SSH_KEY: ${{ secrets.FRIENDLYCLEANERCODEASSISTANT_SSH_KEY }}
+          SSH_KEY: ${{ secrets.FRIENDLYCLEANERCODEASSISTANT_SSH_KEY }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
   Run-Lint-JS:
     runs-on: ubuntu-latest
