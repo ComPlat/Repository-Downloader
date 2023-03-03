@@ -33,11 +33,11 @@ class BagItStreamArgBuilder
 
   def attachment_files
     attachments.map do |attachment|
-      {target_file_name: attachment.filename, content: IO.new(IO.sysopen("#{attachment.bucket}/#{attachment.identifier}"))}
+      {target_file_name: attachment.filename, content: IO.new(IO.sysopen("./files/#{attachment.bucket}/#{attachment.identifier}"))}
     end
   end
 
-  def attachments = @publication.attachments || []
+  def attachments = @attachments ||= @publication.respond_to?(:attachments) ? @publication.attachments : []
 
   def publication_type = @publication_type ||= @publication.model_name.element
 

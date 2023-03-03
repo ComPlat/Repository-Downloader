@@ -57,6 +57,9 @@ gem "bagit", git: "git@github.com:Cleaner-Code/bagit.git", branch: "performance_
 # Autoload dotenv in Rails [https://github.com/bkeepers/dotenv]
 gem "dotenv-rails", "2.8.1"
 
+# Run any kind of code in parallel processes [https://github.com/grosser/parallel]
+gem "parallel", "1.22.1"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", "1.6.3", platforms: %i[mri mingw x64_mingw] # HINT: Version 1.7.0 needs irb of at least 1.5.0
@@ -67,9 +70,6 @@ group :development, :test do
   gem "rails-controller-testing", "1.0.5" # Needed for Controller tests [https://github.com/rails/rails-controller-testing]
   gem "shoulda-matchers", "5.2.0" # Simple One-Liner Tests for Rails [https://matchers.shoulda.io/]
   gem "factory_bot_rails", "6.2.0" # fixtures replacement with a straightforward definition syntax, support for multiple build strategies and support for multiple factories for the same class [https://github.com/thoughtbot/factory_bot_rails]
-
-  # Run any kind of code in parallel processes [https://github.com/grosser/parallel]
-  gem "parallel", "1.22.1"
 
   # file utilities to avoid insanity
   gem "dry-files", "1.0.1"
