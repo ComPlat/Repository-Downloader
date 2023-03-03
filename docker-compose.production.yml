@@ -1,7 +1,7 @@
 services:
   downloader:
     build: .
-    # HINT: We have to copy the local .bundle/config to /usr/local/bundle because the behaviour in the container is different # test if files added to the volume are avaiable in the container:       cd ./files && ls -la &&
+    # HINT: We have to copy the local .bundle/config to /usr/local/bundle because the behaviour in the container is different
     command: zsh -c "mkdir -p -m 0600 ~/.ssh &&
       ssh-keyscan github.com >> ~/.ssh/known_hosts && eval $(ssh-agent) &&
       ssh-add - <<< \"${SSH_KEY}\" &&
