@@ -186,8 +186,8 @@ describe PublicationsByChemotionIdPresenter do
       before do
         attachment
 
-        FileUtils.mkpath analysis.attachments.first.bucket.to_s
-        FileUtils.cp "./spec/support/cleanercode.png", "#{analysis.attachments.first.bucket}/#{analysis.attachments.first.identifier}"
+        FileUtils.mkpath "./files/#{analysis.attachments.first.bucket}"
+        FileUtils.cp "./spec/support/cleanercode.png", "./files/#{analysis.attachments.first.bucket}/#{analysis.attachments.first.identifier}"
 
         zip_chunks = []
         to_zip.each { |zip_chunk|
@@ -198,7 +198,7 @@ describe PublicationsByChemotionIdPresenter do
       end
 
       after do
-        FileUtils.rm_rf "./#{analysis.attachments.first.bucket}"
+        FileUtils.rm_rf "./files/#{analysis.attachments.first.bucket}"
       end
 
       it { expect(to_zip).to be_a ZipTricks::OutputEnumerator }
@@ -207,7 +207,7 @@ describe PublicationsByChemotionIdPresenter do
       it { expect(Dir.new(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) }).entries.size).to eq 9 }
 
       it do
-        expect(File.size("#{analysis.attachments.first.bucket}/#{analysis.attachments.first.identifier}"))
+        expect(File.size("./files/#{analysis.attachments.first.bucket}/#{analysis.attachments.first.identifier}"))
           .to eq File.size(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) } + "/data/#{attachment.filename}")
       end
 
@@ -238,8 +238,8 @@ describe PublicationsByChemotionIdPresenter do
       before do
         attachments
 
-        FileUtils.mkpath analysis.attachments.first.bucket.to_s
-        FileUtils.cp "./spec/support/cleanercode.png", "#{analysis.attachments.first.bucket}/#{analysis.attachments.first.identifier}"
+        FileUtils.mkpath "./files/#{analysis.attachments.first.bucket}"
+        FileUtils.cp "./spec/support/cleanercode.png", "./files/#{analysis.attachments.first.bucket}/#{analysis.attachments.first.identifier}"
 
         zip_chunks = []
         to_zip.each { |zip_chunk|
@@ -250,7 +250,7 @@ describe PublicationsByChemotionIdPresenter do
       end
 
       after do
-        FileUtils.rm_rf "./#{analysis.attachments.first.bucket}"
+        FileUtils.rm_rf "./files/#{analysis.attachments.first.bucket}"
       end
 
       it { expect(to_zip).to be_a ZipTricks::OutputEnumerator }
@@ -259,27 +259,27 @@ describe PublicationsByChemotionIdPresenter do
       it { expect(Dir.new(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) }).entries.size).to eq 9 }
 
       it do
-        expect(File.size("#{analysis.attachments.first.bucket}/#{analysis.attachments.first.identifier}"))
+        expect(File.size("./files/#{analysis.attachments.first.bucket}/#{analysis.attachments.first.identifier}"))
           .to eq File.size(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) } + "/data/#{attachments.first.filename}")
       end
 
       it do
-        expect(File.size("#{analysis.attachments.first.bucket}/#{analysis.attachments.first.identifier}"))
+        expect(File.size("./files/#{analysis.attachments.first.bucket}/#{analysis.attachments.first.identifier}"))
           .to eq File.size(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) } + "/data/#{attachments.second.filename}")
       end
 
       it do
-        expect(File.size("#{analysis.attachments.first.bucket}/#{analysis.attachments.first.identifier}"))
+        expect(File.size("./files/#{analysis.attachments.first.bucket}/#{analysis.attachments.first.identifier}"))
           .to eq File.size(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) } + "/data/#{attachments[2].filename}")
       end
 
       it do
-        expect(File.size("#{analysis.attachments.first.bucket}/#{analysis.attachments.first.identifier}"))
+        expect(File.size("./files/#{analysis.attachments.first.bucket}/#{analysis.attachments.first.identifier}"))
           .to eq File.size(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) } + "/data/#{attachments[3].filename}")
       end
 
       it do
-        expect(File.size("#{analysis.attachments.first.bucket}/#{analysis.attachments.first.identifier}"))
+        expect(File.size("./files/#{analysis.attachments.first.bucket}/#{analysis.attachments.first.identifier}"))
           .to eq File.size(Dir.glob("./tmp/output/*").find { |folder| File.directory?(folder) } + "/data/#{attachments[4].filename}")
       end
 
