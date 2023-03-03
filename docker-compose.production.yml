@@ -14,17 +14,16 @@ services:
     environment:
       - RAILS_ENV=production
       - RAILS_SERVE_STATIC_FILES=true
-      # TODO: Get information about local production db and implement as env variables
       - DOWNLOADER_DB_HOST=${DOWNLOADER_DB_HOST}
       - DOWNLOADER_DB_NAME=${DOWNLOADER_DB_NAME}
       - DOWNLOADER_DB_USERNAME=${DOWNLOADER_DB_USERNAME}
       - DOWNLOADER_DB_PASSWORD=${DOWNLOADER_DB_PASSWORD}
       - DOWNLOADER_DB_PORT=${DOWNLOADER_DB_PORT}
+      - SECRET_KEY_BASE=${DOWNLOADER_SECRET_KEY_BASE}
     ports:
       - '3000:3000'
     restart: always
     volumes:
       - ./:/repository-downloader
-      # TODO: set path to local data to this env variable
       - ${DOWNLOADER_ATTACHMENTS_PATH}/:/./files
 # TODO: change used folder for data in project
