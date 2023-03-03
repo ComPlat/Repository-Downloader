@@ -7,12 +7,13 @@ services:
       ssh-add - <<< \"${SSH_KEY}\" &&
       gem update --system --quiet --silent &&
       cp ./.bundle/config /usr/local/bundle &&
-      bundle config &&
+      bundle config set --local without 'development test lint' &&
       bundle install &&
-      bundle exec rails db:migrate &&
-      bundle exec rails s"
+      bin/rails assets:precompile &&
+      bin/rails s"
     environment:
       - RAILS_ENV=production
+      - RAILS_SERVE_STATIC_FILES=true
       # TODO: Get information about local production db and implement as env variables
       - DOWNLOADER_DB_HOST=${DOWNLOADER_DB_HOST}
       - DOWNLOADER_DB_NAME=${DOWNLOADER_DB_NAME}
