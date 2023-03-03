@@ -25,5 +25,4 @@ services:
     restart: always
     volumes:
       - ./:/repository-downloader
-      - ${DOWNLOADER_ATTACHMENTS_PATH}/:/./files
-# TODO: change used folder for data in project
+      - ${DOWNLOADER_ATTACHMENTS_PATH}/:/repository-downloader/files
