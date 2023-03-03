@@ -37,9 +37,7 @@ class BagItStreamArgBuilder
     end
   end
 
-  def attachments
-    @publication.respond_to?(:attachments) ? @publication.attachments : []
-  end
+  def attachments = @attachments ||= @publication.respond_to?(:attachments) ? @publication.attachments : []
 
   def publication_type = @publication_type ||= @publication.model_name.element
 
