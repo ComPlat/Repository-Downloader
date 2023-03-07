@@ -1,5 +1,5 @@
 describe ReactionAdapter::ReagentsList::ItemListElementAdapterIterator do
-  let(:sample) { build :sample, :with_realistic_attributes, :with_required_dependencies }
+  let(:sample) { build(:sample, :with_realistic_attributes, :with_required_dependencies) }
   let(:item_list_element_adapter_iterator) { described_class.new [sample] }
 
   describe ".new" do

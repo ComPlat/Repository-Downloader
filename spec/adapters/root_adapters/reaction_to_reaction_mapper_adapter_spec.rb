@@ -1,6 +1,6 @@
 describe RootAdapters::ReactionToReactionMapperAdapter do
-  let(:sample) { build :sample, :with_realistic_attributes }
-  let(:reaction) { build :reaction, :with_realistic_attributes, samples: [sample] }
+  let(:sample) { build(:sample, :with_realistic_attributes) }
+  let(:reaction) { build(:reaction, :with_realistic_attributes, samples: [sample]) }
   let(:reaction_to_reaction_mapper_adapter) { described_class.new reaction }
 
   describe ".new" do
@@ -138,7 +138,7 @@ describe RootAdapters::ReactionToReactionMapperAdapter do
 
     context "when called with two parameters" do
       let(:reaction_purification) { ["Flash-Chromatography", "HPLC"] }
-      let(:reaction) { build :reaction, :with_realistic_attributes, reaction_purification: reaction_purification }
+      let(:reaction) { build(:reaction, :with_realistic_attributes, reaction_purification: reaction_purification) }
 
       let(:expected_reaction_purification) { "Flash-Chromatography, HPLC" }
 

@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :attachment do
     trait :with_required_dependencies do
-      analysis { create :analysis }
+      analysis { create(:analysis) }
     end
 
     trait :with_realistic_attributes do

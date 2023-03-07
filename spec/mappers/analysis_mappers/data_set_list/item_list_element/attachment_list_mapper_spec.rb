@@ -1,7 +1,7 @@
 describe AnalysisMappers::DataSetList::ItemListElement::AttachmentListMapper do
   describe "factories" do
     describe "trait :with_all_args_nested_structures_as_mappers" do
-      subject(:factory) { build :attachment_list_mapper, :with_all_args_nested_structures_as_mappers }
+      subject(:factory) { build(:attachment_list_mapper, :with_all_args_nested_structures_as_mappers) }
 
       it { expect(factory.instance_variable_get(:@itemListElement).size).to eq 2 }
       it { expect(factory.instance_variable_get(:@itemListElement).size).to eq factory.instance_variable_get :@numberOfItems }
@@ -9,7 +9,7 @@ describe AnalysisMappers::DataSetList::ItemListElement::AttachmentListMapper do
     end
 
     describe "trait :with_all_args_nested_structures_as_hash" do
-      subject(:factory) { build :attachment_list_mapper, :with_all_args_nested_structures_as_hash }
+      subject(:factory) { build(:attachment_list_mapper, :with_all_args_nested_structures_as_hash) }
 
       it { expect(factory.instance_variable_get(:@itemListElement).size).to eq 2 }
       it { expect(factory.instance_variable_get(:@itemListElement).size).to eq factory.instance_variable_get :@numberOfItems }
@@ -19,7 +19,7 @@ describe AnalysisMappers::DataSetList::ItemListElement::AttachmentListMapper do
 
   describe ".new" do
     context "when called without any arguments" do
-      let(:attachment_list_mapper) { build :attachment_list_mapper }
+      let(:attachment_list_mapper) { build(:attachment_list_mapper) }
 
       it { expect(attachment_list_mapper).to be_a described_class }
       it { expect(attachment_list_mapper).to be_a ShaleCustom::Mapper }
@@ -28,7 +28,7 @@ describe AnalysisMappers::DataSetList::ItemListElement::AttachmentListMapper do
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :attachment_list_mapper, :with_all_args_nested_structures_as_mappers }
+      let(:args) { attributes_for(:attachment_list_mapper, :with_all_args_nested_structures_as_mappers) }
       let(:attachment_list_mapper) { described_class.new(**args) }
 
       it { expect(attachment_list_mapper).to be_a described_class }
@@ -37,7 +37,7 @@ describe AnalysisMappers::DataSetList::ItemListElement::AttachmentListMapper do
     end
 
     context "when called with some arguments" do
-      let(:args) { attributes_for :attachment_list_mapper, :with_all_args_nested_structures_as_mappers, itemListElement: nil }
+      let(:args) { attributes_for(:attachment_list_mapper, :with_all_args_nested_structures_as_mappers, itemListElement: nil) }
       let(:attachment_list_mapper) { described_class.new(**args) }
 
       it { expect(attachment_list_mapper).to be_a described_class }
@@ -48,7 +48,7 @@ describe AnalysisMappers::DataSetList::ItemListElement::AttachmentListMapper do
 
   describe ".from_hash" do
     context "when called without any arguments" do
-      let(:attachment_list_mapper) { build :attachment_list_mapper }
+      let(:attachment_list_mapper) { build(:attachment_list_mapper) }
 
       it { expect(attachment_list_mapper).to be_a described_class }
       it { expect(attachment_list_mapper.numberOfItems).to be_nil }
@@ -79,7 +79,7 @@ describe AnalysisMappers::DataSetList::ItemListElement::AttachmentListMapper do
     let(:expected_json_nil_render_value) { "null" }
 
     context "when called without any arguments" do
-      let(:attachment_list_mapper) { build :attachment_list_mapper }
+      let(:attachment_list_mapper) { build(:attachment_list_mapper) }
 
       let(:expected_json) do
         <<~JSON
@@ -124,7 +124,7 @@ describe AnalysisMappers::DataSetList::ItemListElement::AttachmentListMapper do
 
   describe "#to_xml" do
     context "when called without any arguments" do
-      let(:attachment_list_mapper) { build :attachment_list_mapper }
+      let(:attachment_list_mapper) { build(:attachment_list_mapper) }
 
       let(:expected_xml) do
         # HINT: It seems that render_nil does work for simple types and for HashMap like structures,
@@ -148,7 +148,7 @@ describe AnalysisMappers::DataSetList::ItemListElement::AttachmentListMapper do
         <<~XML
           <attachmentList>
             <numberOfItems>2</numberOfItems>
-            #{args[:itemListElement].map { |hash| AnalysisMappers::DataSetList::ItemListElement::AttachmentList::ItemListElementMapper.from_hash(hash).to_xml }.join("")}
+            #{args[:itemListElement].map { |hash| AnalysisMappers::DataSetList::ItemListElement::AttachmentList::ItemListElementMapper.from_hash(hash).to_xml }.join}
           </attachmentList>
         XML
       end

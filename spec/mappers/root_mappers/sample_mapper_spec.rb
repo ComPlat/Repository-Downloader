@@ -1,10 +1,10 @@
 describe RootMappers::SampleMapper do
   let(:expected_json_nil_render_value) { "null" }
-  let(:analysis_list_mapper) { build :analysis_list_mapper, :with_all_args_nested_structures_as_mappers }
+  let(:analysis_list_mapper) { build(:analysis_list_mapper, :with_all_args_nested_structures_as_mappers) }
 
   describe ".new" do
     context "when called without any arguments" do
-      let(:sample_mapper) { build :sample_mapper }
+      let(:sample_mapper) { build(:sample_mapper) }
 
       it { expect(sample_mapper).to be_a described_class }
       it { expect(sample_mapper).to be_a ShaleCustom::Mapper }
@@ -27,7 +27,7 @@ describe RootMappers::SampleMapper do
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :sample_mapper, :with_all_args_nested_structures_as_mappers }
+      let(:args) { attributes_for(:sample_mapper, :with_all_args_nested_structures_as_mappers) }
       let(:sample_mapper) { described_class.new(**args) }
 
       it { expect(sample_mapper).to be_a described_class }
@@ -50,7 +50,7 @@ describe RootMappers::SampleMapper do
     end
 
     context "when called with some arguments" do
-      let(:args) { attributes_for :sample_mapper, :with_all_args_nested_structures_as_mappers, name: nil, identifier: nil }
+      let(:args) { attributes_for(:sample_mapper, :with_all_args_nested_structures_as_mappers, name: nil, identifier: nil) }
       let(:sample_mapper) { described_class.new(**args) }
 
       it { expect(sample_mapper).to be_a described_class }
@@ -75,7 +75,7 @@ describe RootMappers::SampleMapper do
 
   describe ".from_hash" do
     context "when called without any arguments" do
-      let(:sample_mapper) { build :sample_mapper }
+      let(:sample_mapper) { build(:sample_mapper) }
 
       it { expect(sample_mapper).to be_a described_class }
       it { expect(sample_mapper.dct_conformsTo).to be_nil }
@@ -93,7 +93,7 @@ describe RootMappers::SampleMapper do
 
   describe "#to_json" do
     context "when called without any arguments" do
-      let(:sample_mapper) { build :sample_mapper }
+      let(:sample_mapper) { build(:sample_mapper) }
 
       let(:expected_json) do
         <<~JSON
@@ -122,7 +122,7 @@ describe RootMappers::SampleMapper do
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :sample_mapper, :with_all_args_nested_structures_as_mappers }
+      let(:args) { attributes_for(:sample_mapper, :with_all_args_nested_structures_as_mappers) }
       let(:sample_mapper) { described_class.new(**args) }
 
       let(:expected_json) do
@@ -154,7 +154,7 @@ describe RootMappers::SampleMapper do
     end
 
     context "when called with some arguments" do
-      let(:args) { attributes_for :sample_mapper, :with_all_args_nested_structures_as_mappers, name: nil, identifier: nil }
+      let(:args) { attributes_for(:sample_mapper, :with_all_args_nested_structures_as_mappers, name: nil, identifier: nil) }
       let(:sample_mapper) { described_class.new(**args) }
 
       let(:expected_json) do
@@ -181,6 +181,49 @@ describe RootMappers::SampleMapper do
       end
 
       it { expect(JSON.parse(sample_mapper.to_json)).to eq JSON.parse expected_json }
+    end
+  end
+
+  describe "#to_csv" do
+    context "when called without any arguments" do
+      let(:sample_mapper) { build(:sample_mapper) }
+
+      let(:expected_csv) do
+        <<~CSV
+          context,type,dct:conformsTo,id,name,url,identifier,iupacName,smiles,inChI,inChIKey,molecularFormula,meltingPoint,boilingPoint,molecularWeight,analysisList
+          ,,,,,,,,,,,,,,,
+        CSV
+      end
+
+      it { expect(sample_mapper.to_csv).to eq_without_whitespace expected_csv }
+    end
+
+    context "when called with all arguments" do
+      let(:args) { attributes_for(:sample_mapper, :with_all_args_nested_structures_as_mappers) }
+      let(:sample_mapper) { described_class.new(**args) }
+
+      let(:expected_csv) do
+        <<~CSV
+          context,type,dct:conformsTo.dct_conformsTo.type,dct:conformsTo.dct_conformsTo.id,id,name,url,identifier,iupacName,smiles,inChI,inChIKey,molecularFormula,meltingPoint,boilingPoint,molecularWeight.value,analysisList.numberOfItems,analysisList.itemListElement1.context,analysisList.itemListElement1.type,analysisList.itemListElement1.id,analysisList.itemListElement1.ontologies,analysisList.itemListElement1.title,analysisList.itemListElement1.descriptions,analysisList.itemListElement1.url,analysisList.itemListElement1.identifier,analysisList.itemListElement1.datasetList.numberOfItems,analysisList.itemListElement1.datasetList.itemListElement1.type,analysisList.itemListElement1.datasetList.itemListElement1.identifier,analysisList.itemListElement1.datasetList.itemListElement1.name,analysisList.itemListElement1.datasetList.itemListElement1.Instrument,analysisList.itemListElement1.datasetList.itemListElement1.descriptions,analysisList.itemListElement1.datasetList.itemListElement1.attachmentList.numberOfItems,analysisList.itemListElement1.datasetList.itemListElement1.attachmentList.itemListElement1.type,analysisList.itemListElement1.datasetList.itemListElement1.attachmentList.itemListElement1.identifier,analysisList.itemListElement1.datasetList.itemListElement1.attachmentList.itemListElement1.filename,analysisList.itemListElement1.datasetList.itemListElement1.attachmentList.itemListElement1.filepath,analysisList.itemListElement1.datasetList.itemListElement1.attachmentList.itemListElement2.type,analysisList.itemListElement1.datasetList.itemListElement1.attachmentList.itemListElement2.identifier,analysisList.itemListElement1.datasetList.itemListElement1.attachmentList.itemListElement2.filename,analysisList.itemListElement1.datasetList.itemListElement1.attachmentList.itemListElement2.filepath
+          https://schema.org/,MolecularEntity,CreativeWork,https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/,10.14272/MIIFHRBUBUHJMC-UHFFFAOYSA-N.1,ethyl 3-oxo-4H-quinoxaline-2-carboxylate,http://chemotion-repository.net/home/publications/molecules/6338,chemotion ID ?,ethyl 3-oxo-4H-quinoxaline-2-carboxylate,CCOC(=O)c1nc2ccccc2nc1O,"InChI=1S/C11H10N2O3/c1-2-16-11(15)9-10(14)13-8-6-4-3-5-7(8)12-9/h3-6H,2H2,1H3,(H,13,14)",MIIFHRBUBUHJMC-UHFFFAOYSA-N,C11H10N2O3,10 - 20 °C,20 °C,218.20870000000002,1,https://schema.org/,AnalysisEntity,https://dx.doi.org/10.14272/MWJHDSAAGSURCA-UHFFFAOYSA-N/CHMO0000595,13C nuclear magnetic resonance spectroscopy (13C NMR),13C nuclear magnetic resonance spectroscopy (13C NMR) (4-(2-oxo-2-phenylacetyl)benzoic acid),{'ops':[{'insert':' '};{'attributes':{'script':'super'};'insert':'13'};{'insert':'C NMR (100 MHz; DMSO-d6; ppm); δ = 171.0; 141.1; 135.4 (q; J = 5.2 Hz); 127.4; 124.3 (q; J = 4.2 Hz); 124.0 (q; J = 271.3 Hz); 118.9; 118.2; 111.3 (q; J = 33.3 Hz); 44.4; 25.6; 22.3 (2 C). '}]},https://dx.doi.org/10.14272/MWJHDSAAGSURCA-UHFFFAOYSA-N/CHMO0000595,CRD-27923,1,DatasetEntity,12345,BJ68_1H,Bruker 400 MHz,Bruker 400 MHz,2,AttachmentEntity,a63e278b-22f2-4da3-955f-e80e197bc853,BJ68_1H.zip,data/a63e278b-22f2-4da3-955f-e80e197bc853,AttachmentEntity,a63e278b-22f2-4da3-955f-e80e197bc853,HRMS.jpg,data/a63e278b-22f2-4da3-955f-e80e197bc853
+        CSV
+      end
+
+      it { expect(sample_mapper.to_csv).to eq expected_csv }
+    end
+
+    context "when called with some arguments" do
+      let(:args) { attributes_for(:sample_mapper, :with_all_args_nested_structures_as_mappers, name: nil, identifier: nil) }
+      let(:sample_mapper) { described_class.new(**args) }
+
+      let(:expected_csv) do
+        <<~CSV
+          context,type,dct:conformsTo.dct_conformsTo.type,dct:conformsTo.dct_conformsTo.id,id,name,url,identifier,iupacName,smiles,inChI,inChIKey,molecularFormula,meltingPoint,boilingPoint,molecularWeight.value,analysisList.numberOfItems,analysisList.itemListElement1.context,analysisList.itemListElement1.type,analysisList.itemListElement1.id,analysisList.itemListElement1.ontologies,analysisList.itemListElement1.title,analysisList.itemListElement1.descriptions,analysisList.itemListElement1.url,analysisList.itemListElement1.identifier,analysisList.itemListElement1.datasetList.numberOfItems,analysisList.itemListElement1.datasetList.itemListElement1.type,analysisList.itemListElement1.datasetList.itemListElement1.identifier,analysisList.itemListElement1.datasetList.itemListElement1.name,analysisList.itemListElement1.datasetList.itemListElement1.Instrument,analysisList.itemListElement1.datasetList.itemListElement1.descriptions,analysisList.itemListElement1.datasetList.itemListElement1.attachmentList.numberOfItems,analysisList.itemListElement1.datasetList.itemListElement1.attachmentList.itemListElement1.type,analysisList.itemListElement1.datasetList.itemListElement1.attachmentList.itemListElement1.identifier,analysisList.itemListElement1.datasetList.itemListElement1.attachmentList.itemListElement1.filename,analysisList.itemListElement1.datasetList.itemListElement1.attachmentList.itemListElement1.filepath,analysisList.itemListElement1.datasetList.itemListElement1.attachmentList.itemListElement2.type,analysisList.itemListElement1.datasetList.itemListElement1.attachmentList.itemListElement2.identifier,analysisList.itemListElement1.datasetList.itemListElement1.attachmentList.itemListElement2.filename,analysisList.itemListElement1.datasetList.itemListElement1.attachmentList.itemListElement2.filepath
+          https://schema.org/,MolecularEntity,CreativeWork,https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/,10.14272/MIIFHRBUBUHJMC-UHFFFAOYSA-N.1,,http://chemotion-repository.net/home/publications/molecules/6338,,ethyl 3-oxo-4H-quinoxaline-2-carboxylate,CCOC(=O)c1nc2ccccc2nc1O,"InChI=1S/C11H10N2O3/c1-2-16-11(15)9-10(14)13-8-6-4-3-5-7(8)12-9/h3-6H,2H2,1H3,(H,13,14)",MIIFHRBUBUHJMC-UHFFFAOYSA-N,C11H10N2O3,10 - 20 °C,20 °C,218.20870000000002,1,https://schema.org/,AnalysisEntity,https://dx.doi.org/10.14272/MWJHDSAAGSURCA-UHFFFAOYSA-N/CHMO0000595,13C nuclear magnetic resonance spectroscopy (13C NMR),13C nuclear magnetic resonance spectroscopy (13C NMR) (4-(2-oxo-2-phenylacetyl)benzoic acid),{'ops':[{'insert':' '};{'attributes':{'script':'super'};'insert':'13'};{'insert':'C NMR (100 MHz; DMSO-d6; ppm); δ = 171.0; 141.1; 135.4 (q; J = 5.2 Hz); 127.4; 124.3 (q; J = 4.2 Hz); 124.0 (q; J = 271.3 Hz); 118.9; 118.2; 111.3 (q; J = 33.3 Hz); 44.4; 25.6; 22.3 (2 C). '}]},https://dx.doi.org/10.14272/MWJHDSAAGSURCA-UHFFFAOYSA-N/CHMO0000595,CRD-27923,1,DatasetEntity,12345,BJ68_1H,Bruker 400 MHz,Bruker 400 MHz,2,AttachmentEntity,a63e278b-22f2-4da3-955f-e80e197bc853,BJ68_1H.zip,data/a63e278b-22f2-4da3-955f-e80e197bc853,AttachmentEntity,a63e278b-22f2-4da3-955f-e80e197bc853,HRMS.jpg,data/a63e278b-22f2-4da3-955f-e80e197bc853
+        CSV
+      end
+
+      it { expect(sample_mapper.to_csv).to eq expected_csv }
     end
   end
 end

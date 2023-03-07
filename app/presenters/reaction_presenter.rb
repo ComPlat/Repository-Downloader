@@ -1,12 +1,11 @@
-# TODO: Use me in Reaction model.
 class ReactionPresenter
   def initialize(reaction) = @reaction = reaction
 
-  delegate :to_json, :to_xml, :to_csv, to: :mapper
+  def to_json = Enumerator.new { |yielder| yielder << mapper.to_json }.lazy
 
-  # TODO: Implement me!
-  # HINT: Do not put the whole logic in here.
-  def to_zip = nil
+  def to_xml = Enumerator.new { |yielder| yielder << mapper.to_xml }.lazy
+
+  def to_csv = Enumerator.new { |yielder| yielder << mapper.to_csv }.lazy
 
   private
 

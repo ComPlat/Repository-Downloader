@@ -19,9 +19,11 @@ require "rails/test_unit/railtie"
 Bundler.require(*Rails.groups)
 
 require "shale/adapter/nokogiri"
-require "shale/adapter/csv"
+require_relative "../lib/custom_shale_csv_adapter"
 Shale.xml_adapter = Shale::Adapter::Nokogiri
-Shale.csv_adapter = Shale::Adapter::CSV
+Shale.csv_adapter = CustomShaleCsvAdapter
+
+require "bag_it_stream"
 
 module RepositoryDownloader
   class Application < Rails::Application

@@ -1,7 +1,7 @@
 services:
   lint_rb:
     build: .
-    command: sh -c "gem update --system && bundle install && bundle exec rubocop"
+    command: sh -c "gem update --system --quiet --silent && bundle config set --local without default development test && bundle config set --local with lint && bundle install && bundle exec rubocop"
     environment:
       - RAILS_ENV=test
     volumes:

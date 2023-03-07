@@ -1,5 +1,5 @@
 describe SamplePresenter do
-  let(:sample) { build :sample }
+  let(:sample) { build(:sample, :with_required_dependencies, :with_realistic_attributes) }
   let(:sample_presenter) { described_class.new sample }
 
   describe ".new" do
@@ -9,26 +9,23 @@ describe SamplePresenter do
   end
 
   describe "#to_json" do
-    subject { sample_presenter.to_json }
+    subject(:to_json) { sample_presenter.to_json }
 
-    it { is_expected.to eq RootMappers::SampleMapper.from_hash(RootAdapters::SampleToSampleMapperAdapter.new(sample).to_h).to_json }
+    it { is_expected.to be_a Enumerator }
+    it { expect(to_json.to_a.join).to eq RootMappers::SampleMapper.from_hash(RootAdapters::SampleToSampleMapperAdapter.new(sample).to_h).to_json }
   end
 
   describe "#to_xml" do
-    subject { sample_presenter.to_xml }
+    subject(:to_xml) { sample_presenter.to_xml }
 
-    it { is_expected.to eq RootMappers::SampleMapper.from_hash(RootAdapters::SampleToSampleMapperAdapter.new(sample).to_h).to_xml }
+    it { is_expected.to be_a Enumerator }
+    it { expect(to_xml.to_a.join).to eq RootMappers::SampleMapper.from_hash(RootAdapters::SampleToSampleMapperAdapter.new(sample).to_h).to_xml }
   end
 
   describe "#to_csv" do
-    subject { sample_presenter.to_csv }
+    subject(:to_csv) { sample_presenter.to_csv }
 
-    it { is_expected.to eq RootMappers::SampleMapper.from_hash(RootAdapters::SampleToSampleMapperAdapter.new(sample).to_h).to_csv }
-  end
-
-  describe "#to_zip" do
-    subject { sample_presenter.to_zip }
-
-    it { is_expected.to be_nil }
+    it { is_expected.to be_a Enumerator }
+    it { expect(to_csv.to_a.join).to eq RootMappers::SampleMapper.from_hash(RootAdapters::SampleToSampleMapperAdapter.new(sample).to_h).to_csv }
   end
 end

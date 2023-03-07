@@ -3,7 +3,7 @@ describe RootMappers::AnalysisMapper do
 
   describe ".new" do
     context "when called without any arguments" do
-      let(:analysis_mapper) { build :analysis_mapper }
+      let(:analysis_mapper) { build(:analysis_mapper) }
 
       it { expect(analysis_mapper).to be_a described_class }
       it { expect(analysis_mapper).to be_a ShaleCustom::Mapper }
@@ -18,7 +18,7 @@ describe RootMappers::AnalysisMapper do
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :analysis_mapper, :with_all_args_nested_structures_as_mappers }
+      let(:args) { attributes_for(:analysis_mapper, :with_all_args_nested_structures_as_mappers) }
       let(:analysis_mapper) { described_class.new(**args) }
 
       it { expect(analysis_mapper).to be_a described_class }
@@ -34,7 +34,7 @@ describe RootMappers::AnalysisMapper do
     end
 
     context "when called some arguments" do
-      let(:args) { attributes_for :analysis_mapper, :with_all_args_nested_structures_as_mappers, ontologies: nil, descriptions: nil }
+      let(:args) { attributes_for(:analysis_mapper, :with_all_args_nested_structures_as_mappers, ontologies: nil, descriptions: nil) }
       let(:analysis_mapper) { described_class.new(**args) }
 
       it { expect(analysis_mapper).to be_a described_class }
@@ -52,7 +52,7 @@ describe RootMappers::AnalysisMapper do
 
   describe ".from_hash" do
     context "when called without any arguments" do
-      let(:analysis_mapper) { build :analysis_mapper }
+      let(:analysis_mapper) { build(:analysis_mapper) }
 
       it { expect(analysis_mapper).to be_a described_class }
       it { expect(analysis_mapper.context).to be_nil }
@@ -86,7 +86,7 @@ describe RootMappers::AnalysisMapper do
     end
 
     context "when called some arguments" do
-      let(:args) { attributes_for :analysis_mapper, :with_all_args_nested_structures_as_hash, ontologies: nil, descriptions: nil }
+      let(:args) { attributes_for(:analysis_mapper, :with_all_args_nested_structures_as_hash, ontologies: nil, descriptions: nil) }
       let(:analysis_mapper) { described_class.from_hash args }
 
       let(:expected_data_set_list_mapper) { AnalysisMappers::DataSetListMapper.from_hash(args[:datasetList]) }
@@ -107,7 +107,7 @@ describe RootMappers::AnalysisMapper do
 
   describe "#to_json" do
     context "when called without any arguments" do
-      let(:analysis_mapper) { build :analysis_mapper }
+      let(:analysis_mapper) { build(:analysis_mapper) }
 
       let(:expected_json) do
         <<~JSON
@@ -175,9 +175,58 @@ describe RootMappers::AnalysisMapper do
     end
   end
 
+  describe "#to_csv" do
+    context "when called without any arguments" do
+      let(:analysis_mapper) { build(:analysis_mapper) }
+
+      let(:expected_csv) do
+        <<~CSV
+          context,type,id,ontologies,title,descriptions,url,identifier,datasetList
+          ,,,,,,,,
+        CSV
+      end
+
+      it { expect(CSV.parse(analysis_mapper.to_csv, headers: true).headers).to eq CSV.parse(expected_csv, headers: true).headers }
+
+      it {
+        expect(CSV.parse(analysis_mapper.to_csv, headers: true).to_a.second).to eq CSV.parse(expected_csv, headers: true).to_a.second
+      }
+    end
+
+    context "when called with all arguments" do
+      let(:args) { attributes_for(:analysis_mapper, :with_all_args_nested_structures_as_hash) }
+      let(:analysis_mapper) { described_class.from_hash args }
+
+      let(:expected_csv) do
+        <<~CSV
+          context,type,id,ontologies,title,descriptions,url,identifier,datasetList.numberOfItems,datasetList.itemListElement1.type,datasetList.itemListElement1.identifier,datasetList.itemListElement1.name,datasetList.itemListElement1.Instrument,datasetList.itemListElement1.descriptions,datasetList.itemListElement1.attachmentList.numberOfItems,datasetList.itemListElement1.attachmentList.itemListElement1.type,datasetList.itemListElement1.attachmentList.itemListElement1.identifier,datasetList.itemListElement1.attachmentList.itemListElement1.filename,datasetList.itemListElement1.attachmentList.itemListElement1.filepath,datasetList.itemListElement1.attachmentList.itemListElement2.type,datasetList.itemListElement1.attachmentList.itemListElement2.identifier,datasetList.itemListElement1.attachmentList.itemListElement2.filename,datasetList.itemListElement1.attachmentList.itemListElement2.filepath
+          #{args[:context]},#{args[:type]},#{args[:id]},#{args[:ontologies]},#{args[:title]},#{args[:descriptions].to_json.tr("\"", "'").tr(",", ";")},#{args[:url]},#{args[:identifier]},1,DatasetEntity,12345,BJ68_1H,Bruker 400 MHz,Bruker 400 MHz,2,AttachmentEntity,a63e278b-22f2-4da3-955f-e80e197bc853,BJ68_1H.zip,data/a63e278b-22f2-4da3-955f-e80e197bc853,AttachmentEntity,a63e278b-22f2-4da3-955f-e80e197bc853,HRMS.jpg,data/a63e278b-22f2-4da3-955f-e80e197bc853
+        CSV
+      end
+
+      it { expect(CSV.parse(analysis_mapper.to_csv, headers: true).headers).to eq CSV.parse(expected_csv, headers: true).headers }
+      it { expect(CSV.parse(analysis_mapper.to_csv, headers: true).to_a.second).to eq CSV.parse(expected_csv, headers: true).to_a.second }
+    end
+
+    context "when called with some arguments" do
+      let(:args) { attributes_for(:analysis_mapper, :with_all_args_nested_structures_as_hash, ontologies: nil, descriptions: nil) }
+      let(:analysis_mapper) { described_class.from_hash args }
+
+      let(:expected_csv) do
+        <<~CSV
+          context,type,id,ontologies,title,descriptions,url,identifier,datasetList.numberOfItems,datasetList.itemListElement1.type,datasetList.itemListElement1.identifier,datasetList.itemListElement1.name,datasetList.itemListElement1.Instrument,datasetList.itemListElement1.descriptions,datasetList.itemListElement1.attachmentList.numberOfItems,datasetList.itemListElement1.attachmentList.itemListElement1.type,datasetList.itemListElement1.attachmentList.itemListElement1.identifier,datasetList.itemListElement1.attachmentList.itemListElement1.filename,datasetList.itemListElement1.attachmentList.itemListElement1.filepath,datasetList.itemListElement1.attachmentList.itemListElement2.type,datasetList.itemListElement1.attachmentList.itemListElement2.identifier,datasetList.itemListElement1.attachmentList.itemListElement2.filename,datasetList.itemListElement1.attachmentList.itemListElement2.filepath
+          #{args[:context]},#{args[:type]},#{args[:id]},#{args[:ontologies]},#{args[:title]},#{args[:descriptions]},#{args[:url]},#{args[:identifier]},1,DatasetEntity,12345,BJ68_1H,Bruker 400 MHz,Bruker 400 MHz,2,AttachmentEntity,a63e278b-22f2-4da3-955f-e80e197bc853,BJ68_1H.zip,data/a63e278b-22f2-4da3-955f-e80e197bc853,AttachmentEntity,a63e278b-22f2-4da3-955f-e80e197bc853,HRMS.jpg,data/a63e278b-22f2-4da3-955f-e80e197bc853
+        CSV
+      end
+
+      it { expect(CSV.parse(analysis_mapper.to_csv, headers: true).headers).to eq CSV.parse(expected_csv, headers: true).headers }
+      it { expect(CSV.parse(analysis_mapper.to_csv, headers: true).to_a.second).to eq CSV.parse(expected_csv, headers: true).to_a.second }
+    end
+  end
+
   describe "#to_xml" do
     context "when called without any arguments" do
-      let(:analysis_mapper) { build :analysis_mapper }
+      let(:analysis_mapper) { build(:analysis_mapper) }
 
       let(:expected_xml) do
         <<~XML

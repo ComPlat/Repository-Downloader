@@ -9,12 +9,21 @@ services:
     image: postgres:12.12-alpine3.16
   spec:
     build: .
-    command: sh -c "gem update --system && bundle install && ./bin/rails db:reset && ./bin/rake"
+    # HINT: We have to copy the local .bundle/config to /usr/local/bundle because the behaviour in the container is different
+    command: zsh -c "mkdir -p -m 0600 ~/.ssh &&
+      ssh-keyscan github.com >> ~/.ssh/known_hosts && eval $(ssh-agent) &&
+      ssh-add - <<< \"${SSH_KEY}\" &&
+      gem update --system --quiet --silent &&
+      cp ./.bundle/config /usr/local/bundle &&
+      bundle config &&
+      bundle install &&
+      ./bin/rails db:reset &&
+      ./bin/rake"
     environment:
       - RAILS_ENV=test
-      - RAILS_DB_HOST=db
-      - RAILS_DB_USERNAME=postgres
-      - RAILS_DB_PASSWORD=postgres
+      - DOWNLOADER_DB_HOST=db
+      - DOWNLOADER_DB_USERNAME=postgres
+      - DOWNLOADER_DB_PASSWORD=postgres
       - HUB_URL=http://chrome:4444/wd/hub
     links:
       - db

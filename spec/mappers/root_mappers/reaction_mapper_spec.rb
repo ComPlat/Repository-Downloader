@@ -1,10 +1,10 @@
 describe RootMappers::ReactionMapper do
   let(:expected_json_nil_render_value) { "null" }
-  let(:reagents_list_mapper) { build :reagents_list_mapper, :with_all_args }
+  let(:reagents_list_mapper) { build(:reagents_list_mapper, :with_all_args) }
 
   describe ".new" do
     context "when called without any arguments" do
-      let(:reaction_mapper) { build :reaction_mapper }
+      let(:reaction_mapper) { build(:reaction_mapper) }
 
       it { expect(reaction_mapper).to be_a described_class }
       it { expect(reaction_mapper).to be_a ShaleCustom::Mapper }
@@ -23,7 +23,7 @@ describe RootMappers::ReactionMapper do
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :reaction_mapper, :with_all_args }
+      let(:args) { attributes_for(:reaction_mapper, :with_all_args) }
       let(:reaction_mapper) { described_class.new(**args) }
 
       it { expect(reaction_mapper).to be_a described_class }
@@ -43,7 +43,7 @@ describe RootMappers::ReactionMapper do
     end
 
     context "when called with some arguments" do
-      let(:args) { attributes_for :reaction_mapper, :with_all_args, name: nil, identifier: nil }
+      let(:args) { attributes_for(:reaction_mapper, :with_all_args, name: nil, identifier: nil) }
       let(:reaction_mapper) { described_class.new(**args) }
 
       it { expect(reaction_mapper).to be_a described_class }
@@ -65,7 +65,7 @@ describe RootMappers::ReactionMapper do
 
   describe "#to_json" do
     context "when called without any arguments" do
-      let(:reaction_mapper) { build :reaction_mapper }
+      let(:reaction_mapper) { build(:reaction_mapper) }
 
       let(:expected_json) do
         <<~JSON
@@ -90,7 +90,7 @@ describe RootMappers::ReactionMapper do
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :reaction_mapper, :with_all_args }
+      let(:args) { attributes_for(:reaction_mapper, :with_all_args) }
       let(:reaction_mapper) { described_class.new(**args) }
 
       let(:expected_json) do
@@ -116,7 +116,7 @@ describe RootMappers::ReactionMapper do
     end
 
     context "when called with some arguments" do
-      let(:args) { attributes_for :reaction_mapper, :with_all_args, name: nil, identifier: nil }
+      let(:args) { attributes_for(:reaction_mapper, :with_all_args, name: nil, identifier: nil) }
       let(:reaction_mapper) { described_class.new(**args) }
 
       let(:expected_json) do
@@ -139,6 +139,49 @@ describe RootMappers::ReactionMapper do
       end
 
       it { expect(reaction_mapper.to_json).to eq_without_whitespace expected_json }
+    end
+  end
+
+  describe "#to_csv" do
+    context "when called without any arguments" do
+      let(:reaction_mapper) { build(:reaction_mapper) }
+
+      let(:expected_csv) do
+        <<~CSV
+          context,id,type,name,identifier,status,description,temperature,reactionType,duration,purification,reagentsList
+          ,,,,,,,,,,,
+        CSV
+      end
+
+      it { expect(reaction_mapper.to_csv).to eq_without_whitespace expected_csv }
+    end
+
+    context "when called with all arguments" do
+      let(:args) { attributes_for(:reaction_mapper, :with_all_args) }
+      let(:reaction_mapper) { described_class.new(**args) }
+
+      let(:expected_csv) do
+        <<~CSV
+          context,id,type,name,identifier,status,description,temperature,reactionType,duration,purification,reagentsList.numberOfItems,reagentsList.itemListElement1.type,reagentsList.itemListElement1.dct_conformsTo.type,reagentsList.itemListElement1.dct_conformsTo.id,reagentsList.itemListElement1.id,reagentsList.itemListElement1.identifier,reagentsList.itemListElement1.name,reagentsList.itemListElement1.molecularFormula,reagentsList.itemListElement1.inChIKey,reagentsList.itemListElement1.smiles
+          https://schema.org/,https://www.rhea-db.org/reaction?id=51724,BioChemicalReaction,"H2O + P(1),P(6)-bis(5'-adenosyl) hexaphosphate = adenosine 5'-tetraphosphate + ADP + 2 H(+)",RHEA:51724,schema:Approved,Chemically balanced,10 °C,RXNO:0000300 | thiol-ene reaction,18 Hour(s),HPLC,1,MolecularEntity,CreativeWork,https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/,10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1,CHEBI:15377,H2O,H2O,XLYOFNOQVPJJNP-UHFFFAOYSA-N,[H]O[H]
+        CSV
+      end
+
+      it { expect(reaction_mapper.to_csv).to eq_without_whitespace expected_csv }
+    end
+
+    context "when called with some arguments" do
+      let(:args) { attributes_for(:reaction_mapper, :with_all_args, name: nil, identifier: nil) }
+      let(:reaction_mapper) { described_class.new(**args) }
+
+      let(:expected_csv) do
+        <<~CSV
+          context,id,type,name,identifier,status,description,temperature,reactionType,duration,purification,reagentsList.numberOfItems,reagentsList.itemListElement1.type,reagentsList.itemListElement1.dct_conformsTo.type,reagentsList.itemListElement1.dct_conformsTo.id,reagentsList.itemListElement1.id,reagentsList.itemListElement1.identifier,reagentsList.itemListElement1.name,reagentsList.itemListElement1.molecularFormula,reagentsList.itemListElement1.inChIKey,reagentsList.itemListElement1.smiles
+          https://schema.org/,https://www.rhea-db.org/reaction?id=51724,BioChemicalReaction,,,schema:Approved,Chemically balanced,10 °C,RXNO:0000300 | thiol-ene reaction,18 Hour(s),HPLC,1,MolecularEntity,CreativeWork,https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/,10.14272/MUAMZYSBUQADBN-UHFFFAOYSA-N.1,CHEBI:15377,H2O,H2O,XLYOFNOQVPJJNP-UHFFFAOYSA-N,[H]O[H]
+        CSV
+      end
+
+      it { expect(reaction_mapper.to_csv).to eq_without_whitespace expected_csv }
     end
   end
 end

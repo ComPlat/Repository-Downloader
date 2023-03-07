@@ -35,5 +35,24 @@ module RootMappers
       map "molecularWeight", to: :molecularWeight
       map "analysisList", to: :analysisList
     end
+
+    csv do
+      map "context", to: :context
+      map "type", to: :type
+      map "dct:conformsTo", to: :dct_conformsTo
+      map "id", to: :id
+      map "name", to: :name
+      map "url", to: :url
+      map "identifier", to: :identifier
+      map "iupacName", to: :iupacName
+      map "smiles", to: :smiles
+      map "inChI", to: :inChI
+      map "inChIKey", to: :inChIKey
+      map "molecularFormula", to: :molecularFormula
+      map "meltingPoint", to: :meltingPoint
+      map "boilingPoint", to: :boilingPoint
+      map "molecularWeight", to: :molecularWeight
+      map "analysisList", to: :analysisList
+    end
   end
 end

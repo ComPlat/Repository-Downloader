@@ -1,5 +1,14 @@
 # Repository Downloader
 
+## Production
+### Setup
+1. Install current version of [docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/).
+2. Change environment variables in `run_docker-compose.production.sh`.
+   HINT: Loosing or exposing these values will be insecure and dangerous!
+   `DOWNLOADER_ATTACHMENTS_PATH` needs to point to the root folder in which Active Storage attachments are available (read-only access preferred).
+3. Execute run_docker-compose.production.sh.
+   If it is your first run replace `db:migrate` with `db:setup`, but do not forget to change it back later, otherwise app will not boot, because it would destroy existing database.
+
 ## Development
 
 ### Setup
@@ -54,3 +63,27 @@
    5. Check TODO
    6. Cleanup
    7. Run 'spec: Repository-Downloader'
+
+## Production
+
+### Setup
+1. Install current version of docker and docker-compose.
+2. Change environment variables in run_docker-compose.production.sh.
+3. Execute run_docker-compose.production.sh.
+
+#### Environment Variables
+The following environment variables have to be set for the project to run:
+
+BAG_IT_STREAM_THREADS - the number of threads BagIt runs with.
+
+Docker Container:
+
+DOWNLOADER_DB_HOST - database host address
+
+DOWNLOADER_DB_NAME - database name
+
+DOWNLOADER_DB_USERNAME - database username
+
+DOWNLOADER_DB_PASSWORD - database password
+
+DOWNLOADER_DB_PORT - database port

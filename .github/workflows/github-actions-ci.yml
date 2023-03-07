@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is running specs
 on: [push]
 jobs:
   Run-Specs:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -15,6 +15,8 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - run: cd ${{ github.workspace }}
       - run: ./run_docker-compose.spec.sh
+        env:
+          SSH_KEY: ${{ secrets.FRIENDLYCLEANERCODEASSISTANT_SSH_KEY }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
   Run-Lint-JS:
     runs-on: ubuntu-latest

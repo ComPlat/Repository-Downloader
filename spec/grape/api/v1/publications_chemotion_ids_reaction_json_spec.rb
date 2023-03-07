@@ -1,9 +1,9 @@
-describe API::V1::Publications::ChemotionId, ".reaction" do
+describe API::V1::Publications, ".chemotion_ids .reaction" do
   context "when one reaction and no attachments" do
-    let(:reaction) { create :reaction, :with_realistic_attributes }
+    let(:reaction) { create(:reaction, :with_realistic_attributes) }
 
     let(:expected_json) do
-      {
+      [{
         "@context": "https://schema.org/",
         "@id": "10.14272/reaction/SA-FUHFF-UHFFFADPSC-WITXFYCLPD-UHFFFADPSC-NUHFF-NUHFF-NUHFF-ZZZ",
         "@type": "BioChemicalReaction",
@@ -16,17 +16,17 @@ describe API::V1::Publications::ChemotionId, ".reaction" do
         duration: "4 Hour(s)",
         purification: "Crystallisation",
         reagentsList: {"itemListElement" => [], "numberOfItems" => 0}
-      }.to_json
+      }].to_json
     end
 
-    before { get "/api/v1/publications/chemotion_id/#{reaction.id}" }
+    before { get "/api/v1/publications?chemotion_ids=#{reaction.id}&format=json" }
 
     it { expect(JSON.parse(response.body)).to eq JSON.parse(expected_json) }
   end
 
   context "when one reaction and one attachment" do
-    let(:reaction) { create :reaction, :with_realistic_attributes }
-    let(:attached_sample1) { create :sample, :with_realistic_attributes, reaction:, id: 2 }
+    let(:reaction) { create(:reaction, :with_realistic_attributes) }
+    let(:attached_sample1) { create(:sample, :with_realistic_attributes, reaction:) }
 
     let(:expected_reagents_list_json) do
       {"itemListElement" => [
@@ -37,7 +37,7 @@ describe API::V1::Publications::ChemotionId, ".reaction" do
              "@id" => "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/",
              "@type" => "CreativeWork"
            },
-           "identifier" => "CRS-2",
+           "identifier" => "CRS-#{attached_sample1.id}",
            "inChIKey" => "MUAMZYSBUQADBN-UHFFFAOYSA-N",
            "molecularFormula" => "C20H14N8",
            "name" => "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
@@ -47,7 +47,7 @@ describe API::V1::Publications::ChemotionId, ".reaction" do
        "numberOfItems" => 1}
     end
     let(:expected_json) do
-      {
+      [{
         "@context": "https://schema.org/",
         "@id": "10.14272/reaction/SA-FUHFF-UHFFFADPSC-WITXFYCLPD-UHFFFADPSC-NUHFF-NUHFF-NUHFF-ZZZ",
         "@type": "BioChemicalReaction",
@@ -60,23 +60,20 @@ describe API::V1::Publications::ChemotionId, ".reaction" do
         duration: "4 Hour(s)",
         purification: "Crystallisation",
         reagentsList: expected_reagents_list_json
-      }.to_json
+      }].to_json
     end
 
     before do
       attached_sample1
-      get "/api/v1/publications/chemotion_id/#{reaction.id}"
+      get "/api/v1/publications?chemotion_ids=#{reaction.id}&format=json"
     end
 
     it { expect(JSON.parse(response.body)).to eq JSON.parse(expected_json) }
   end
 
   context "when one reaction and two attachments" do
-    let(:reaction) { create :reaction, :with_realistic_attributes }
-    let(:attachted_samples) {
-      [(create :sample, :with_realistic_attributes, reaction:, id: 2),
-        (create :sample, :with_realistic_attributes, reaction:, id: 3)]
-    }
+    let(:reaction) { create(:reaction, :with_realistic_attributes) }
+    let(:attached_samples) { create_list(:sample, 2, :with_realistic_attributes, reaction:) }
 
     let(:expected_reagents_list_json) do
       {
@@ -88,7 +85,7 @@ describe API::V1::Publications::ChemotionId, ".reaction" do
               "@id" => "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/",
               "@type" => "CreativeWork"
             },
-            "identifier" => "CRS-2",
+            "identifier" => attached_samples.first.chemotion_id.to_s,
             "inChIKey" => "MUAMZYSBUQADBN-UHFFFAOYSA-N",
             "molecularFormula" => "C20H14N8",
             "name" => "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
@@ -101,7 +98,7 @@ describe API::V1::Publications::ChemotionId, ".reaction" do
               "@id" => "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE/",
               "@type" => "CreativeWork"
             },
-            "identifier" => "CRS-3",
+            "identifier" => attached_samples.second.chemotion_id.to_s,
             "inChIKey" => "MUAMZYSBUQADBN-UHFFFAOYSA-N",
             "molecularFormula" => "C20H14N8",
             "name" => "2-[5-[3-(5-pyridin-2-yl-2H-triazol-4-yl)phenyl]-2H-triazol-4-yl]pyridine",
@@ -112,7 +109,7 @@ describe API::V1::Publications::ChemotionId, ".reaction" do
       }
     end
     let(:expected_json) do
-      {
+      [{
         "@context": "https://schema.org/",
         "@id": "10.14272/reaction/SA-FUHFF-UHFFFADPSC-WITXFYCLPD-UHFFFADPSC-NUHFF-NUHFF-NUHFF-ZZZ",
         "@type": "BioChemicalReaction",
@@ -125,12 +122,12 @@ describe API::V1::Publications::ChemotionId, ".reaction" do
         duration: "4 Hour(s)",
         purification: "Crystallisation",
         reagentsList: expected_reagents_list_json
-      }.to_json
+      }].to_json
     end
 
     before do
-      attachted_samples
-      get "/api/v1/publications/chemotion_id/#{reaction.id}"
+      attached_samples
+      get "/api/v1/publications?chemotion_ids=#{reaction.id}&format=json"
     end
 
     it { expect(JSON.parse(response.body)).to eq JSON.parse(expected_json) }

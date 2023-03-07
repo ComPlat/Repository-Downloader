@@ -3,7 +3,7 @@ describe ReactionMappers::ReagentsListMapper do
 
   describe "factories" do
     describe "trait :with_all_args" do
-      subject(:factory) { build :reagents_list_mapper, :with_all_args }
+      subject(:factory) { build(:reagents_list_mapper, :with_all_args) }
 
       it { expect(factory.instance_variable_get(:@itemListElement).size).to eq 1 }
       it { expect(factory.instance_variable_get(:@itemListElement).size).to eq factory.instance_variable_get :@numberOfItems }
@@ -13,7 +13,7 @@ describe ReactionMappers::ReagentsListMapper do
 
   describe ".new" do
     context "when called without any arguments" do
-      let(:reagents_list_mapper) { build :reagents_list_mapper }
+      let(:reagents_list_mapper) { build(:reagents_list_mapper) }
 
       it { expect(reagents_list_mapper).to be_a described_class }
       it { expect(reagents_list_mapper).to be_a ShaleCustom::Mapper }
@@ -22,9 +22,9 @@ describe ReactionMappers::ReagentsListMapper do
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :reagents_list_mapper, :with_all_args }
+      let(:args) { attributes_for(:reagents_list_mapper, :with_all_args) }
       let(:reagents_list_mapper) { described_class.new(**args) }
-      let(:reagents_list_item_list_element_mapper) { build :reagents_list_item_list_element_mapper, :with_all_args }
+      let(:reagents_list_item_list_element_mapper) { build(:reagents_list_item_list_element_mapper, :with_all_args) }
 
       it { expect(reagents_list_mapper).to be_a described_class }
       it { expect(reagents_list_mapper.numberOfItems).to eq args[:numberOfItems] }
@@ -34,7 +34,7 @@ describe ReactionMappers::ReagentsListMapper do
 
   describe "to_json" do
     context "when called without any arguments" do
-      let(:reagents_list_mapper) { build :reagents_list_mapper }
+      let(:reagents_list_mapper) { build(:reagents_list_mapper) }
 
       let(:expected_json) do
         <<~JSON
@@ -49,9 +49,9 @@ describe ReactionMappers::ReagentsListMapper do
     end
 
     context "when called with all arguments" do
-      let(:args) { attributes_for :reagents_list_mapper, :with_all_args }
+      let(:args) { attributes_for(:reagents_list_mapper, :with_all_args) }
       let(:reagents_list_mapper) { described_class.new(**args) }
-      let(:reagents_list_item_list_element_mapper) { build :reagents_list_item_list_element_mapper, :with_all_args }
+      let(:reagents_list_item_list_element_mapper) { build(:reagents_list_item_list_element_mapper, :with_all_args) }
 
       let(:expected_json) do
         <<~JSON

@@ -1,5 +1,5 @@
 describe SampleAdapter::AnalysisListAdapter do
-  let(:sample) { build :sample, :with_required_dependencies, :with_realistic_attributes }
+  let(:sample) { build(:sample, :with_required_dependencies, :with_realistic_attributes) }
   let(:analysis_list_adapter) { described_class.new sample }
 
   describe ".new" do
@@ -23,6 +23,6 @@ describe SampleAdapter::AnalysisListAdapter do
   describe "#itemListElement" do
     subject { analysis_list_adapter.itemListElement }
 
-    it { is_expected.to eq SampleAdapter::AnalysisList::ItemListElementAdapterIterator.new(sample).to_a }
+    it { is_expected.to eq SampleAdapter::AnalysisList::ItemListElementAdapterIterator.new(sample.analyses.to_a).to_a }
   end
 end

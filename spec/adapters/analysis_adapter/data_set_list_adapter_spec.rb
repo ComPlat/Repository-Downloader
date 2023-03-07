@@ -1,7 +1,7 @@
 describe AnalysisAdapter::DataSetListAdapter do
   let(:analysis) { build(:analysis, :with_realistic_attributes, element_id: 1) }
-  let(:attachment1) { build :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 3 }
-  let(:attachment2) { build :attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 4, ds_id: 5 }
+  let(:attachment1) { build(:attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 2, ds_id: 3) }
+  let(:attachment2) { build(:attachment, :with_realistic_attributes, ana_id: analysis.element_id, att_id: 4, ds_id: 5) }
   let(:data_set_list_adapter) { described_class.new analysis }
 
   before do
