@@ -14,5 +14,5 @@ BAG_IT_STREAM_THREADS=5\
   DOWNLOADER_DB_NAME=downloader_db_prod\
   SSH_KEY=$ssh_key\
   DOWNLOADER_SECRET_KEY_BASE=secret_key_base\
-  docker compose -f docker-compose.production.yml up --remove-orphans --force-recreate --build
+  docker compose -f docker-compose.production.yml up -d --remove-orphans --force-recreate --build
 # For debugging append to first line: --force-recreate --build
