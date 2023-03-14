@@ -47,7 +47,7 @@ gem "grape-swagger", "1.5.0" # [https://github.com/ruby-grape/grape-swagger]
 gem "shale", "0.9.0"
 
 # Streaming for zipped BagIt [https://github.com/Cleaner-Code/bagit_stream]
-gem "bag-it-stream", git: "git@github.com:Cleaner-Code/bagit_stream.git", branch: "main", tag: "v0.5.0"
+gem "bag-it-stream", git: "git@github.com:Cleaner-Code/bagit_stream.git", branch: "main", tag: "v0.5.1"
 
 # Ruby Library and Command Line tools for BagIt [https://github.com/tipr/bagit], [https://www.rubydoc.info/gems/bagit/]
 # This is needed because runtime performance would otherwise be exponential
